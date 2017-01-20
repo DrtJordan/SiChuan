@@ -42,12 +42,13 @@ public class UserAnalysisController extends Controller {
             List<Object> dataList = new ArrayList<Object>();
             for (List<String> list : data) {
                 String name = list.get(0).replace("甘孜州", "甘孜藏族自治州").replace("阿坝州", "阿坝藏族羌族自治州").replace("凉山州", "凉山彝族自治州");
-                Data d = new Data(name, list.get(1));
-                dataList.add(d);
+                //获取访客数量
+                Data uvValue = new Data(name, list.get(1));
+                dataList.add(uvValue);
             }
             //生成四川省地域分布图
-            String str = ChartUtils.genMapChart("访客", dataList, maxUv);
-            result.put("chartOption", str);
+            String areaMap = ChartUtils.genMapChart("访客", dataList, maxUv);
+            result.put("chartOption", areaMap);
             result.put("data", data);
             renderJson(result);
 

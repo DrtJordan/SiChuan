@@ -321,10 +321,11 @@ public class PortraitController extends Controller {
                     new Comparator<String>() {
                         @Override
                         public int compare(String o1, String o2) {
-                            if (tagMap.get(o1).size() > tagMap.get(o2).size())
+                            if (tagMap.get(o1).size() > tagMap.get(o2).size()){
                                 return -1;
-                            else
+                            } else {
                                 return 1;
+                            }
                         }
                     });
             for (String key : tagMap.keySet()) {
@@ -353,13 +354,17 @@ public class PortraitController extends Controller {
     @RequiresPermissions("/portrait/groupTagList")
     public void groupTags() {
         if (BaseUtils.isAjax(getRequest())) {
+            List<Map<String, Object>> tagList = new ArrayList<Map<String, Object>>();
+            String[] codes = new String[]{};
             StringBuffer condition = new StringBuffer(getPara("condition"));
             String code = getPara("code");
-            String[] codes = code.substring(0, code.length() - 1).split(",");
-            List<Map<String, Object>> tagList = new ArrayList<Map<String, Object>>();
-            for (String c : codes) {
-                tagList.add(allTagMap.get(c));
+            if (!code.equals("")) {
+                codes = code.substring(0, code.length() - 1).split(",");
+                for (String c : codes) {
+                    tagList.add(allTagMap.get(c));
+                }
             }
+
             // #################是否具有标签占比######################
             List<Map<String, Object>> count = InceptorUtil.mapQuery(
                     SqlKit.propSQL(SQLConfig.label_colony_users) + getLevelCondition() + condition.toString(), true);

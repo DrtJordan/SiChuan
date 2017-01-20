@@ -172,8 +172,8 @@ public class AppBehaviorController extends Controller {
             /*Object[] nameList = new Object[]{"使用间隔", "启动次数"};
             String str = ChartUtils.genMultiLineChart(xAxisList, nameList,
             dataList1, dataList2);*/
-            String str = ChartUtils.genBar("使用间隔", "启动次数", xAxisList, dataList1);
-            result.put("chartOption", str);
+            String intervalBar = ChartUtils.genBar("使用间隔", "启动次数", xAxisList, dataList1);
+            result.put("chartOption", intervalBar);
             result.put("dataTime", dataTime);
             result.put("dataPhone", dataPhone);
             result.put("dataChannel", dataChannel);
@@ -210,12 +210,13 @@ public class AppBehaviorController extends Controller {
             List<Object> dataList = new ArrayList<Object>();
             for (List<String> list : dataArea) {
                 String name = list.get(0).replace("甘孜州", "甘孜藏族自治州").replace("阿坝州", "阿坝藏族羌族自治州").replace("凉山州", "凉山彝族自治州");
-                Data d = new Data(name, list.get(1));
-                dataList.add(d);
+                //获取新增用户数
+                Data newUserCount = new Data(name, list.get(2));
+                dataList.add(newUserCount);
             }
             //生成手机移动地域分布数据图
-            String str = ChartUtils.genMapChart("新增用户数", dataList, MaxUvValue);
-            result.put("chartOption", str);
+            String areaMap = ChartUtils.genMapChart("新增用户数", dataList, MaxUvValue);
+            result.put("chartOption", areaMap);
             result.put("data", dataArea);
             result.put("dataAreaChannel", dataAreaChannel);
             result.put("dataAreaPhone", dataAreaPhone);
