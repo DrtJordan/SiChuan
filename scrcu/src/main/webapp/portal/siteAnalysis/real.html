@@ -78,7 +78,7 @@
                 while (len--) {
                     //将时间设置为24小时制
                     res.unshift(now.toLocaleTimeString('chinese',{hour12:false}));
-                    now = new Date(now - 10000);
+                    now = new Date(now - 1000);
                 }
                 return res;
             })()
@@ -118,7 +118,7 @@
                         var len = 100;
                         while (len--) {
                             res.unshift(now.toLocaleTimeString('chinese',{hour12:false}));
-                            now = new Date(now - 10000);
+                            now = new Date(now - 1000);
                         }
                         return res;
                     })()
@@ -134,6 +134,6 @@
 			false, // 新增数据是否从队列头部插入
 			false // 是否增加队列长度，false则自定删除原有数据，队头插入删队尾，队尾插入删队头
 			] ]);
-		}, 10000);
+		}, 1000);
 	}
 </script>

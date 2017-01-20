@@ -252,6 +252,12 @@
         <sql id="sql">select city, statt_dt, new_token_cnt, sum(new_token_cnt_ratio)/count(new_token_cnt_ratio),cast(sum(startover_cnt) as int),cast(sum(user_cnt) as int),cast(sum(new_user_cnt)as int),cast(sum(aver_vist_url_num)as int) from hb_result_Regional_Distribution_Info_1 SQL_CONDITION group by city,statt_dt,new_token_cnt
         </sql>
     </sqlGroup>
+	<sqlGroup name="app_area_max_uv">
+		<sql id="name">APP用户地域分布新增用户数最大值</sql>
+		<sql id="header">新增用户数</sql>
+		<sql id="sql">select max(new_token_cnt) from (select new_token_cnt as new_token_cnt from hb_result_Regional_Distribution_Info_1 group by city,new_token_cnt)
+		</sql>
+	</sqlGroup>
 
 	<!-- 会员页面start -->
 	<sqlGroup name="app_memberPage">

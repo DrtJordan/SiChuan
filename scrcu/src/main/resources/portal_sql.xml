@@ -80,6 +80,12 @@
 		<sql id="sql">select city,cast(sum(uv) as int),sum(uv_ratio)/count(uv_ratio),cast(sum(pv) as int),cast(sum(vv) as int),cast(sum(ip_num) as int),cast(sum(New_Vis_Num) as int),cast(sum(new_vis_num_div_uv) as int),cast(sum(Aver_access_depth) as int),cast(sum(Log_Usr_Num) as int),cast(sum(log_usr_num_div_uv) as int),cast(sum(Rgst_Usr_Num) as int),cast(sum(Rgst_usr_num_Div_uv) as int) from hb_Result_visitor_area_Info SQL_CONDITION group by city
 		</sql>
 	</sqlGroup>
+	<sqlGroup name="portal_siteAnalysis_max_uv">
+		<sql id="name">地域分布访客数最大值</sql>
+		<sql id="header"></sql>
+		<sql id="sql">select max(maxUv) from (select cast(sum(uv) as int) as maxUv from hb_Result_visitor_area_Info group by city)
+		</sql>
+	</sqlGroup>
 	<!--地域分布  end -->
 	
 	<!-- 用户等级 start -->

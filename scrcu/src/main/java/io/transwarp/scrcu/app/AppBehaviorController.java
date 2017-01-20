@@ -191,15 +191,20 @@ public class AppBehaviorController extends Controller {
         if (BaseUtils.isAjax(getRequest())) {
             // 得到查询条件
             String condition = InceptorUtil.getDateCondition(getRequest());
-            // 执行查询
+            // 根据日期查询
             List<List<String>> dataArea = InceptorUtil
                     .query(SqlKit.propSQL(SQLConfig.app_area_query.toString(), condition));
+            //根据渠道查询
             List<List<String>> dataAreaChannel = InceptorUtil
                     .query(SqlKit.propSQL(SQLConfig.app_area_channel.toString(), condition));
+            //根据版本查询
             List<List<String>> dataAreaPhone = InceptorUtil
                     .query(SqlKit.propSQL(SQLConfig.app_area_phone.toString(), condition));
+            //根据手机os查询
             List<List<String>> dataAreaOs = InceptorUtil
                     .query(SqlKit.propSQL(SQLConfig.app_area_os.toString(), condition));
+            //查询新增用户数的最大值
+            List<List<String>> MaxUvValue = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_max_uv));
             // 返回结果
             JSONObject result = new JSONObject();
             List<Object> dataList = new ArrayList<Object>();
@@ -208,7 +213,8 @@ public class AppBehaviorController extends Controller {
                 Data d = new Data(name, list.get(1));
                 dataList.add(d);
             }
-            String str = ChartUtils.genMapChart("新增用户数", dataList);
+            //生成手机移动地域分布数据图
+            String str = ChartUtils.genMapChart("新增用户数", dataList, MaxUvValue);
             result.put("chartOption", str);
             result.put("data", dataArea);
             result.put("dataAreaChannel", dataAreaChannel);

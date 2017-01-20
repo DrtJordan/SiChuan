@@ -53,6 +53,7 @@ public class ChartUtils {
 
     /**
      * 获取饼状图数据
+     *
      * @param name
      * @param dataList
      * @return
@@ -76,6 +77,7 @@ public class ChartUtils {
 
     /**
      * 用户交易金额分布图形数据
+     *
      * @param name
      * @param map
      * @return
@@ -174,12 +176,20 @@ public class ChartUtils {
 
     }
 
-    public static String genMapChart(String name, List<Object> dataList) {
+    /**
+     * 四川省地域分布图
+     *
+     * @param name     名称
+     * @param dataList 数据
+     * @param maxValue 最大值
+     * @return
+     */
+    public static String genMapChart(String name, List<Object> dataList, List<List<String>> maxValue) {
         Map map = new Map("Map");
         for (int i = 0; i < dataList.size(); i++) {
             Data ts = (Data) dataList.get(i);
             Data data = new Data(ts.getName());
-            data.value(Math.round(Math.random() * 1000) + i);
+            data.value(ts.getValue());
             map.data(data);
         }
         EnhancedOption option = new EnhancedOption();
@@ -192,16 +202,18 @@ public class ChartUtils {
         Legend legend = new Legend();
         legend.x("right").data(name);
         option.legend(legend);
+        //设置地图数据值范围展示及其显示位置
         DataRange dr = new DataRange();
         dr.calculable(true);
         dr.min(0);
-        dr.max(1000);
+        //设置访客数最大值
+        dr.max(Integer.valueOf(maxValue.get(0).get(0)));
         dr.x("left");
         dr.y("bottom");
         dr.text("高, 低");
         option.dataRange(dr);
         Toolbox tb = new Toolbox();
-        tb.show(false);
+        tb.show(true);
         option.toolbox(tb);
         map.itemStyle().normal().label().show(true);
         map.itemStyle().emphasis().label().show(true);
@@ -450,7 +462,7 @@ public class ChartUtils {
     }
 
 	/*
-	 * public static void main(String[] args) { String str = genTree(); }
+     * public static void main(String[] args) { String str = genTree(); }
 	 */
 
     public static String genBar(String title, String name, List<Object> key, List<Object> values) {
