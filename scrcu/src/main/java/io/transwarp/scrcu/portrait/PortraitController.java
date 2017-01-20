@@ -358,7 +358,7 @@ public class PortraitController extends Controller {
             String[] codes = new String[]{};
             StringBuffer condition = new StringBuffer(getPara("condition"));
             String code = getPara("code");
-            if (!code.equals("")) {
+            if (StringUtils.isNotBlank(code)) {
                 codes = code.substring(0, code.length() - 1).split(",");
                 for (String c : codes) {
                     tagList.add(allTagMap.get(c));
@@ -526,7 +526,9 @@ public class PortraitController extends Controller {
             }
 
         }
-        sb.append(s.substring(0, s.lastIndexOf("、")));
+        if (StringUtils.isNotBlank(s)) {
+            sb.append(s.substring(0, s.lastIndexOf("、")));
+        }
         sb.append("标签的用户共").append(have).append("人，占所有用户数的").append(new BigDecimal((double) have / count * 100)
                 .setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue()).append("%，");
 
