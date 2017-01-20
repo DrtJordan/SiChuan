@@ -79,7 +79,7 @@
 				</div>
 				<div class="col-sm-4" id="human" style="height: 470px;"></div>
 				<div class="col-sm-4">
-					<table id="table1" class="datatables table table-striped" style="border: 1px solid #eaeef1; border-bottom: 0px">
+					<table id="table2" class="datatables table table-striped" style="border: 1px solid #eaeef1; border-bottom: 0px">
 						<thead>
 							<tr>
 								<th colspan="2">兴趣偏好</th>
@@ -116,7 +116,7 @@
 							</tr>
 						</tbody>
 					</table>
-					<table id="table1" class="datatables table table-striped" style="border: 1px solid #eaeef1; border-top: 0px">
+					<table id="table3" class="datatables table table-striped" style="border: 1px solid #eaeef1; border-top: 0px">
 						<thead>
 							<tr>
 								<th colspan="2">级别类型</th>
@@ -223,16 +223,16 @@
 								
 								var chart = echarts.init(document
 										.getElementById('consumechart'),
-										'infographic');
+										'macarons');
 								var radar1 = echarts.init(document
 										.getElementById('radar1'),
-										'infographic');
+										'macarons');
 								var cunsumediv = echarts.init(document
 										.getElementById('cunsumediv'),
-										'infographic');
+										'macarons');
 								var charelat = echarts.init(document
 										.getElementById('relationdiv'),
-										'infographic');
+										'macarons');
 								var chartOption = data.chartOption;
 								var chartOptionbq = data.chartOptionbq;
 								var relationdiv = data.relationdiv;
@@ -252,7 +252,7 @@
 								$("#relationtime").html(data.relationtime);
 
 							}
-						}
+						};
 						commonAjax(ajaxOption);
 					});
 	function human(type){
@@ -267,7 +267,7 @@
 		            }
 		        });
 		    }
-		}
+		};
 		// 自定义扩展图表类型：mapType = body
 		echarts.util.mapData.params.params.bodyFemale = {
 		    getGeoJson: function (callback) {
@@ -279,7 +279,7 @@
 		            }
 		        });
 		    }
-		}
+		};
 		option = { 
 		    dataRange: {show:false,
 		        min: 10,

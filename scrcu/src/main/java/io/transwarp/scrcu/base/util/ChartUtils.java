@@ -64,7 +64,7 @@ public class ChartUtils {
         option.title().text(name).x("center").y("bottom");
         //设置触发类型
         option.tooltip().trigger(Trigger.item).formatter("{b}<br/>{a}: {c} ({d}%)");
-        option.toolbox().show(false);
+        option.toolbox().show(true);
         option.calculable(false);
         //option.toolbox().show(true).feature(Tool.magicType);
         Pie p1 = new Pie(name);
@@ -245,6 +245,14 @@ public class ChartUtils {
 
     }
 
+    /**
+     * 生成人际关系图表
+     *
+     * @param name
+     * @param dataList
+     * @param dataList1
+     * @return
+     */
     public static String getForce(String name, List<Object> dataList, List<Object> dataList1) {
         EnhancedOption option = new EnhancedOption();
         option.tooltip().trigger(Trigger.item).formatter("{a} : {b}");

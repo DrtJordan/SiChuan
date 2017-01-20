@@ -56,7 +56,7 @@
 					+ end,
 			success : function(data) {
 				var chart = echarts.init(document.getElementById('chartDiv'),
-						'infographic');
+						'macarons');
 				var chartOption = data.chartOption;
 				chart.setOption($.parseJSON(chartOption));
 				tableQuery({
@@ -85,7 +85,7 @@
 	              }]
 				});
 			}
-		}
+		};
 		commonAjax(ajaxOption);
 	}
 </script>

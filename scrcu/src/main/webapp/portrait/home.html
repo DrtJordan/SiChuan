@@ -115,7 +115,7 @@
 	
 </section>
 </@layout>
-<script src="/static/echarts/echarts.js"></script>
+<script style="javascript" src="/static/echarts/echarts.js"></script>
 <script>
 	$(document).ready(function() {
 		var ajaxOption = {
@@ -130,7 +130,6 @@
 				setChart("tradeDiv", data.trade);
 				setChart("cardDiv", data.card);
 				setChart("eduDiv", data.edu);
-				//setChart("osDiv", data.os);
 				setChart("generationDiv", data.generation);
 				setChart("sexDiv", data.sex);
 				
@@ -152,9 +151,6 @@
 
 	function setChart(div, data) {
 		if (data != null) {
-			// 		chart = echarts.init(document.getElementById(div),
-			// 		'infographic');
-			// 		chart.setOption($.parseJSON(data));
 
 			require.config({
 				paths : {
@@ -166,8 +162,6 @@
 			//使用
 			require([ 'echarts', 'echarts/theme/shine', 'echarts/chart/bar' ],
 					function(ec, theme) {
-						// 		    var myChart = ec.init(document.getElementById('educationdiv'),theme); //设置主题
-						// 		    myChart.setOption($.parseJSON(chartOption)); 
 
 						chart = echarts.init(document.getElementById(div),
 								theme);

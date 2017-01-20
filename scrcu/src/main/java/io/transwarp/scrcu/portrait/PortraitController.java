@@ -60,7 +60,6 @@ public class PortraitController extends Controller {
             if (StringUtils.isNotBlank(query)) {
                 condition.append(" and " + query);
             }
-            condition.append(" limit 10");
             // 执行查询
             List<List<String>> data = InceptorUtil
                     .query(SqlKit.propSQL(SQLConfig.users) + getLevelCondition() + condition, 20, false);
@@ -129,8 +128,8 @@ public class PortraitController extends Controller {
                     Data data = new Data((String) m.get("label_desc"), m.get("total"));
                     tradeList.add(data);
                 }
-                result.put("trade", ChartUtils.genPie("交易类型", tradeList));
             }
+            result.put("trade", ChartUtils.genPie("交易类型", tradeList));
 
             // 职业
             List<Map<String, Object>> job = tagMap.get("job");
@@ -140,8 +139,8 @@ public class PortraitController extends Controller {
                     Data data = new Data((String) m.get("label_desc"), m.get("total"));
                     dataList.add(data);
                 }
-                result.put("job", ChartUtils.genPie("职业", dataList));
             }
+            result.put("job", ChartUtils.genPie("职业", dataList));
 
             // 群体类型
             List<Map<String, Object>> colony = tagMap.get("colony");
@@ -152,8 +151,8 @@ public class PortraitController extends Controller {
                     xAxisList.add((String) m.get("label_desc"));
                     colonyList.add(InceptorUtil.getInt("total", m));
                 }
-                result.put("colony", ChartUtils.genBar("群体类型", "群体类型", xAxisList, colonyList));
             }
+            result.put("colony", ChartUtils.genBar("群体类型", "群体类型", xAxisList, colonyList));
 
             // 注册年限
             List<Map<String, Object>> zc_year = tagMap.get("zc_year");
@@ -164,8 +163,8 @@ public class PortraitController extends Controller {
                     keyList.add((String) m.get("label_desc"));
                     zc_yearList.add(InceptorUtil.getInt("total", m));
                 }
-                result.put("zc_year", ChartUtils.genRadar("注册年限", keyList, zc_yearList));
             }
+            result.put("zc_year", ChartUtils.genRadar("注册年限", keyList, zc_yearList));
 
             // 持卡年限
             List<Map<String, Object>> year = tagMap.get("ck_year");
@@ -176,8 +175,8 @@ public class PortraitController extends Controller {
                     keyList.add((String) m.get("label_desc"));
                     yearList.add(InceptorUtil.getInt("total", m));
                 }
-                result.put("year", ChartUtils.genRadar("持卡年限", keyList, yearList));
             }
+            result.put("year", ChartUtils.genRadar("持卡年限", keyList, yearList));
 
             // 使用时段
             List<Map<String, Object>> time = tagMap.get("use_time");
@@ -188,8 +187,8 @@ public class PortraitController extends Controller {
                     xAxisList.add((String) m.get("label_desc"));
                     timeList.add(InceptorUtil.getInt("total", m));
                 }
-                result.put("time", ChartUtils.genBar("使用时段", "使用时段", xAxisList, timeList));
             }
+            result.put("time", ChartUtils.genBar("使用时段", "使用时段", xAxisList, timeList));
 
             // 搜索引擎
             List<Map<String, Object>> search = tagMap.get("searchengine");
@@ -199,8 +198,8 @@ public class PortraitController extends Controller {
                     Data data = new Data((String) m.get("label_desc"), m.get("total"));
                     searchList.add(data);
                 }
-                result.put("search", ChartUtils.genPie("搜索引擎", searchList));
             }
+            result.put("search", ChartUtils.genPie("搜索引擎", searchList));
 
             // 用户卡类别
             List<Map<String, Object>> card = tagMap.get("card_cat_cd");
@@ -210,8 +209,8 @@ public class PortraitController extends Controller {
                     Data data = new Data((String) m.get("label_desc"), m.get("total"));
                     cardList.add(data);
                 }
-                result.put("card", ChartUtils.genPie("用户卡类别", cardList));
             }
+            result.put("card", ChartUtils.genPie("用户卡类别", cardList));
 
             // 操作系统
             List<Map<String, Object>> os = tagMap.get("terminal");
@@ -221,8 +220,8 @@ public class PortraitController extends Controller {
                     Data data = new Data((String) m.get("label_desc"), m.get("total"));
                     osList.add(data);
                 }
-                result.put("os", ChartUtils.genPie("终端", osList));
             }
+            result.put("os", ChartUtils.genPie("终端", osList));
 
             // 年代
             List<Map<String, Object>> generation = tagMap.get("generation");
@@ -233,8 +232,8 @@ public class PortraitController extends Controller {
                     xAxisList.add((String) m.get("label_desc"));
                     generationList.add(InceptorUtil.getInt("total", m));
                 }
-                result.put("generation", ChartUtils.genBar("年代", "年代", xAxisList, generationList));
             }
+            result.put("generation", ChartUtils.genBar("年代", "年代", xAxisList, generationList));
 
             // 性别
             List<Map<String, Object>> sex = tagMap.get("sex");
@@ -245,6 +244,7 @@ public class PortraitController extends Controller {
                     sexList.add(data);
                 }
             }
+
             // 教育程度
             List<Map<String, Object>> edu = tagMap.get("edu_bg");
             List<Object> eduList = new ArrayList<Object>();
@@ -253,8 +253,9 @@ public class PortraitController extends Controller {
                     Data data = new Data((String) m.get("label_desc"), m.get("total"));
                     eduList.add(data);
                 }
-                result.put("edu", ChartUtils.genPie("教育程度", eduList));
             }
+            result.put("edu", ChartUtils.genPie("教育程度", eduList));
+
             // 终端
             List<Map<String, Object>> terminal = tagMap.get("terminal");
             List<Object> terminalList = new ArrayList<Object>();
@@ -749,8 +750,8 @@ public class PortraitController extends Controller {
                 }
             }
         }
-        String str1 = ChartUtils.getForce(name, pay, receive);
-        result.put("relationdiv", str1);
+        String relation = ChartUtils.getForce(name, pay, receive);
+        result.put("relationdiv", relation);
         // 类别信息
         List<Map<String, Object>> datatransfer = InceptorUtil.mapQuery(
                 SqlKit.propSQL(SQLConfig.portrait_relation_group.toString()) + " where user_id= '" + userid + "'",
