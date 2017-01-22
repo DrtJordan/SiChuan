@@ -86,7 +86,9 @@ public class ChartUtils {
         List<Object> list = new ArrayList<>();
         for (String key : map.keySet()) {
             Data data = new Data(key, map.get(key));
-            list.add(data);
+            if (!data.getValue().equals(0)) {
+                list.add(data);
+            }
         }
         EnhancedOption option = new EnhancedOption();
         option.title().text(name).x("left").y("top");
@@ -100,6 +102,13 @@ public class ChartUtils {
 
     }
 
+    /**
+     * 生成性别和终端饼图数据
+     *
+     * @param name     图名称
+     * @param dataList 数据
+     * @return
+     */
     public static String genMutilPie(String name, List<Object>... dataList) {
         EnhancedOption option = new EnhancedOption();
         option.title().text(name).x("center").y("bottom");
@@ -115,6 +124,14 @@ public class ChartUtils {
 
     }
 
+    /**
+     * 生成多条折线图型数据
+     *
+     * @param xAxisList
+     * @param nameList
+     * @param dataList
+     * @return
+     */
     public static String genMultiLineChart(List<Object> xAxisList, Object[] nameList, List<Object>... dataList) {
         EnhancedOption option = new EnhancedOption();
         option.tooltip().trigger(Trigger.axis);
@@ -248,7 +265,7 @@ public class ChartUtils {
     /**
      * 生成人际关系图表
      *
-     * @param name
+     * @param name      图名称
      * @param dataList
      * @param dataList1
      * @return
@@ -257,53 +274,62 @@ public class ChartUtils {
         EnhancedOption option = new EnhancedOption();
         option.tooltip().trigger(Trigger.item).formatter("{a} : {b}");
         option.legend("收入", "支出").legend().x(X.left);
+
         // 数据
         Force force = new Force("交易关系");
         force.categories("类型", "收入", "支出");
-        force.itemStyle().normal().label(new Label().show(true).textStyle(new TextStyle().color("#333"))).nodeStyle()
-                .brushType(BrushType.both).borderWidth(1);
+        if (!name.equals("")) {
+            force.itemStyle().normal().label(new Label().show(true).textStyle(new TextStyle().color("#333"))).nodeStyle()
+                    .brushType(BrushType.both).borderWidth(1);
 
-        force.itemStyle().emphasis().linkStyle(new LinkStyle()).nodeStyle(new NodeStyle()).label().show(true);
-        force.useWorker(false).minRadius(15).maxRadius(25).gravity(1.1).scaling(1.1).linkSymbol(Symbol.arrow);
-        // 主要人物
-        force.nodes(new Node(0, name, 12));
-        // 分之人物
-        for (Object object : dataList) {
-            Node node = new Node();
-            node.setCategory(1);
-            node.setName(object.toString());
-            node.setValue(13);
-            force.nodes(node);
+            force.itemStyle().emphasis().linkStyle(new LinkStyle()).nodeStyle(new NodeStyle()).label().show(true);
+            force.useWorker(false).minRadius(15).maxRadius(25).gravity(1.1).scaling(1.1).linkSymbol(Symbol.arrow);
+            // 主要人物
+            force.nodes(new Node(0, name, 12));
+            // 分之人物
+            for (Object object : dataList) {
+                Node node = new Node();
+                node.setCategory(1);
+                node.setName(object.toString());
+                node.setValue(13);
+                force.nodes(node);
+            }
+
+            for (Object object : dataList1) {
+                Node node = new Node();
+                node.setCategory(2);
+                node.setName(object.toString());
+                node.setValue(14);
+                force.nodes(node);
+            }
+
+            for (Object object : dataList1) {
+                Link link = new Link();
+                link.setSource(name);
+                link.setTarget(object);
+                link.setWeight(3);
+                force.links(link);
+            }
+
+            for (Object object : dataList) {
+                Link link = new Link();
+                link.setSource(object);
+                link.setTarget(name);
+                link.setWeight(1);
+                force.links(link);
+            }
         }
-
-        for (Object object : dataList1) {
-            Node node = new Node();
-            node.setCategory(2);
-            node.setName(object.toString());
-            node.setValue(14);
-            force.nodes(node);
-        }
-
-        for (Object object : dataList1) {
-            Link link = new Link();
-            link.setSource(name);
-            link.setTarget(object);
-            link.setWeight(3);
-            force.links(link);
-        }
-
-        for (Object object : dataList) {
-            Link link = new Link();
-            link.setSource(object);
-            link.setTarget(name);
-            link.setWeight(1);
-            force.links(link);
-        }
-
         option.series(force);
         return GsonUtil.format(option);
     }
 
+    /**
+     * 生成用户关注度雷达图
+     *
+     * @param name 名称
+     * @param data 数据
+     * @return
+     */
     public static String genRadar(String name, java.util.Map<String, Integer> data) {
         EnhancedOption option = new EnhancedOption();
         option.title().text(name);
@@ -312,24 +338,28 @@ public class ChartUtils {
         option.calculable(true);
         Polar polar = new Polar();
         int count = 0;
-        for (int i : data.values()) {
-            count = count / 4 * 3;
-            if (i > count) {
-                count = i;
-            }
-            count = count * 4 / 3;
-        }
 
         if (data != null) {
+
+            for (int i : data.values()) {
+                count = count / 4 * 3;
+                if (i > count) {
+                    count = i;
+                }
+                count = count * 4 / 3;
+            }
+
             for (String s : data.keySet()) {
                 polar.indicator(new Data().text(s).max(count));
             }
             option.polar(polar.radius(60));
+
+            Radar radar = new Radar();
+            radar.itemStyle().normal().areaStyle().typeDefault();
+            radar.data(new Data().name(name).setValue(data.values()));
+            option.series(radar);
         }
-        Radar radar = new Radar();
-        radar.itemStyle().normal().areaStyle().typeDefault();
-        radar.data(new Data().name(name).setValue(data.values()));
-        option.series(radar);
+
         return GsonUtil.format(option);
     }
 

@@ -87,6 +87,7 @@ public class PortraitController extends Controller {
     /**
      * 用户画像标签首页
      */
+    @SuppressWarnings("unchecked")
     public void home() {
 
         if (BaseUtils.isAjax(getRequest())) {
@@ -322,7 +323,7 @@ public class PortraitController extends Controller {
                     new Comparator<String>() {
                         @Override
                         public int compare(String o1, String o2) {
-                            if (tagMap.get(o1).size() > tagMap.get(o2).size()){
+                            if (tagMap.get(o1).size() > tagMap.get(o2).size()) {
                                 return -1;
                             } else {
                                 return 1;
@@ -481,6 +482,15 @@ public class PortraitController extends Controller {
         }
     }
 
+    /**
+     * 返回检索标签结果的简单描述
+     *
+     * @param tags
+     * @param codes
+     * @param have
+     * @param count
+     * @return
+     */
     public String genString(List<Map<String, Object>> tags, String[] codes, int have, int count) {
 
         Map<String, Map<String, Object>> tagMap = new HashMap<String, Map<String, Object>>();
