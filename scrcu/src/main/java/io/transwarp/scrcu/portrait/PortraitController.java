@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.jfinal.i18n.I18n;
+import com.jfinal.i18n.Res;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
@@ -31,6 +33,7 @@ import io.transwarp.scrcu.sqlinxml.SqlKit;
 public class PortraitController extends Controller {
 
     Logger log = Logger.getLogger(getClass());
+    Res res = I18n.use("i18n", "zh_CN");
     public static Map<String, Map<String, Object>> allTagMap = new HashMap<String, Map<String, Object>>();
 
     /**
@@ -130,7 +133,7 @@ public class PortraitController extends Controller {
                     tradeList.add(data);
                 }
             }
-            result.put("trade", ChartUtils.genPie("交易类型", tradeList));
+            result.put("trade", ChartUtils.genPie(res.get("portrait.transactionType"), tradeList));
 
             // 职业
             List<Map<String, Object>> job = tagMap.get("job");
@@ -141,7 +144,7 @@ public class PortraitController extends Controller {
                     dataList.add(data);
                 }
             }
-            result.put("job", ChartUtils.genPie("职业", dataList));
+            result.put("job", ChartUtils.genPie(res.get("portrait.career"), dataList));
 
             // 群体类型
             List<Map<String, Object>> colony = tagMap.get("colony");
@@ -153,7 +156,7 @@ public class PortraitController extends Controller {
                     colonyList.add(InceptorUtil.getInt("total", m));
                 }
             }
-            result.put("colony", ChartUtils.genBar("群体类型", "群体类型", xAxisList, colonyList));
+            result.put("colony", ChartUtils.genBar(res.get("portrait.groupType"), res.get("portrait.groupType"), xAxisList, colonyList));
 
             // 注册年限
             List<Map<String, Object>> zc_year = tagMap.get("zc_year");
@@ -165,7 +168,7 @@ public class PortraitController extends Controller {
                     zc_yearList.add(InceptorUtil.getInt("total", m));
                 }
             }
-            result.put("zc_year", ChartUtils.genRadar("注册年限", keyList, zc_yearList));
+            result.put("zc_year", ChartUtils.genRadar(res.get("portrait.registrationPeriod"), keyList, zc_yearList));
 
             // 持卡年限
             List<Map<String, Object>> year = tagMap.get("ck_year");
@@ -177,7 +180,7 @@ public class PortraitController extends Controller {
                     yearList.add(InceptorUtil.getInt("total", m));
                 }
             }
-            result.put("year", ChartUtils.genRadar("持卡年限", keyList, yearList));
+            result.put("year", ChartUtils.genRadar(res.get("portrait.cardAge"), keyList, yearList));
 
             // 使用时段
             List<Map<String, Object>> time = tagMap.get("use_time");
@@ -189,7 +192,7 @@ public class PortraitController extends Controller {
                     timeList.add(InceptorUtil.getInt("total", m));
                 }
             }
-            result.put("time", ChartUtils.genBar("使用时段", "使用时段", xAxisList, timeList));
+            result.put("time", ChartUtils.genBar(res.get("portrait.usePeriod"), res.get("portrait.usePeriod"), xAxisList, timeList));
 
             // 搜索引擎
             List<Map<String, Object>> search = tagMap.get("searchengine");
@@ -200,7 +203,7 @@ public class PortraitController extends Controller {
                     searchList.add(data);
                 }
             }
-            result.put("search", ChartUtils.genPie("搜索引擎", searchList));
+            result.put("search", ChartUtils.genPie(res.get("portrait.searchEngine"), searchList));
 
             // 用户卡类别
             List<Map<String, Object>> card = tagMap.get("card_cat_cd");
@@ -211,7 +214,7 @@ public class PortraitController extends Controller {
                     cardList.add(data);
                 }
             }
-            result.put("card", ChartUtils.genPie("用户卡类别", cardList));
+            result.put("card", ChartUtils.genPie(res.get("portrait.userCardCategory"), cardList));
 
             // 操作系统
             List<Map<String, Object>> os = tagMap.get("terminal");
@@ -222,7 +225,7 @@ public class PortraitController extends Controller {
                     osList.add(data);
                 }
             }
-            result.put("os", ChartUtils.genPie("终端", osList));
+            result.put("os", ChartUtils.genPie(res.get("portrait.terminal"), osList));
 
             // 年代
             List<Map<String, Object>> generation = tagMap.get("generation");
@@ -234,7 +237,7 @@ public class PortraitController extends Controller {
                     generationList.add(InceptorUtil.getInt("total", m));
                 }
             }
-            result.put("generation", ChartUtils.genBar("年代", "年代", xAxisList, generationList));
+            result.put("generation", ChartUtils.genBar(res.get("portrait.decade"), res.get("portrait.decade"), xAxisList, generationList));
 
             // 性别
             List<Map<String, Object>> sex = tagMap.get("sex");
@@ -255,7 +258,7 @@ public class PortraitController extends Controller {
                     eduList.add(data);
                 }
             }
-            result.put("edu", ChartUtils.genPie("教育程度", eduList));
+            result.put("edu", ChartUtils.genPie(res.get("portrait.educationLevel"), eduList));
 
             // 终端
             List<Map<String, Object>> terminal = tagMap.get("terminal");
@@ -266,7 +269,7 @@ public class PortraitController extends Controller {
                     terminalList.add(data);
                 }
             }
-            result.put("sex", ChartUtils.genMutilPie("性别和终端", sexList, terminalList));
+            result.put("sex", ChartUtils.genMutilPie(res.get("portrait.genderTerminal"), sexList, terminalList));
 
             Map<String, List<Map<String, Object>>> rateMap = new HashMap<String, List<Map<String, Object>>>();
             List<String> types = new ArrayList<String>();
@@ -394,7 +397,7 @@ public class PortraitController extends Controller {
                 double v = (Double.valueOf(map.get("total").toString()) / allcount);
                 values.add((int) (v * 100));
             }
-            result.put("tagsRankOption", ChartUtils.genPercentBar("群体标签占比", "群体标签占比", keys, values));
+            result.put("tagsRankOption", ChartUtils.genPercentBar(res.get("portrait.groupLabelAccounting"), res.get("portrait.groupLabelAccounting"), keys, values));
 
             // #################标签占比######################
 
@@ -664,23 +667,23 @@ public class PortraitController extends Controller {
         // 雷达图计算各类型次数占比
         // 获取总次数与各个类型次数
         Map<String, String> focusmap = new HashMap<String, String>();
-        focusmap.put("trans_dept", "存款");
-        focusmap.put("trans_fin", "理财");
-        focusmap.put("trans_loan", "贷款");
-        focusmap.put("trans_addedservice", "增值服务");
-        focusmap.put("trans_transfer", "转账");
+        focusmap.put("trans_dept", res.get("portrait.deposit"));
+        focusmap.put("trans_fin", res.get("portrait.financialManagement"));
+        focusmap.put("trans_loan", res.get("portrait.loan"));
+        focusmap.put("trans_addedservice", res.get("portrait.valueAddService"));
+        focusmap.put("trans_transfer", res.get("portrait.transfer"));
         Map<String, Integer> radarMap = new HashMap<String, Integer>();
-        radarMap.put("存款", 0);
-        radarMap.put("理财", 0);
-        radarMap.put("贷款", 0);
-        radarMap.put("增值服务", 0);
-        radarMap.put("转账", 0);
+        radarMap.put(res.get("portrait.deposit"), 0);
+        radarMap.put(res.get("portrait.financialManagement"), 0);
+        radarMap.put(res.get("portrait.loan"), 0);
+        radarMap.put(res.get("portrait.valueAddService"), 0);
+        radarMap.put(res.get("portrait.transfer"), 0);
         Map<String, Integer> moneyMap = new HashMap<String, Integer>();
-        moneyMap.put("存款", 0);
-        moneyMap.put("理财", 0);
-        moneyMap.put("贷款", 0);
-        moneyMap.put("增值服务", 0);
-        moneyMap.put("转账", 0);
+        moneyMap.put(res.get("portrait.deposit"), 0);
+        moneyMap.put(res.get("portrait.financialManagement"), 0);
+        moneyMap.put(res.get("portrait.loan"), 0);
+        moneyMap.put(res.get("portrait.valueAddService"), 0);
+        moneyMap.put(res.get("portrait.transfer"), 0);
         int tradeCount = 0;
         int tradeMoney = 0;
         int maxCountType = 0;
@@ -724,11 +727,11 @@ public class PortraitController extends Controller {
             }
         }
         // 进行图表展示
-        String str = ChartUtils.genLineChart("月交易次数", xAxisList, xAxisListCount);
+        String str = ChartUtils.genLineChart(res.get("portrait.monthlyTransactions"), xAxisList, xAxisListCount);
         result.put("chartOption", str);
         // 雷达图
-        result.put("radar1", ChartUtils.genRadar("用户关注度", radarMap));
-        result.put("moneyData", ChartUtils.genPortraitPie("用户交易金额分布", radarMap));
+        result.put("radar1", ChartUtils.genRadar(res.get("portrait.userAttention"), radarMap));
+        result.put("moneyData", ChartUtils.genPortraitPie(res.get("portrait.userTransactionAmountDistribution"), radarMap));
         // 交易总额
         result.put("tradeMoney", tradeMoney);
         result.put("tradeCount", tradeCount);
