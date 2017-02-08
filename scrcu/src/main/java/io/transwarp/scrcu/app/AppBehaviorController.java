@@ -3,6 +3,8 @@ package io.transwarp.scrcu.app;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jfinal.i18n.I18n;
+import com.jfinal.i18n.Res;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 
@@ -18,6 +20,8 @@ import io.transwarp.scrcu.sqlinxml.SqlKit;
 
 @RequiresAuthentication
 public class AppBehaviorController extends Controller {
+
+    Res res = I18n.use("i18n", "zh_CN");
 
     /**
      * 获取使用时长
@@ -47,10 +51,10 @@ public class AppBehaviorController extends Controller {
                 // dataList2.add(list.get(2));
             }
 
-//			Object[] nameList = new Object[] { "使用时长", "启动次数" };
+//			Object[] nameList = new Object[] { res.get("portal.useTime"), res.get("portal.startTimes") };
             //String str = ChartUtils.genMultiLineChart(xAxisList, nameList,
             //dataList1, dataList2);
-            String genBar = ChartUtils.genBar("使用时长", "启动次数", xAxisList, dataList1);
+            String genBar = ChartUtils.genBar(res.get("portal.useTime"), res.get("portal.startTimes"), xAxisList, dataList1);
             result.put("chartOption", genBar);
             result.put("dataTime", dataTime);
             result.put("dataPhone", dataPhone);
@@ -88,11 +92,11 @@ public class AppBehaviorController extends Controller {
                 dataList1.add(list.get(1));
 //                dataList2.add(list.get(2));
             }
-//            Object[] nameList = new Object[]{"启动次数", "用户数"};
+//            Object[] nameList = new Object[]{res.get("portal.startTimes"), res.get("portal.userCount")};
 //            String str = ChartUtils.genMultiLineChart(xAxisList, nameList,
 //                    dataList1, dataList2);
             //生成柱状图数据
-            String str = ChartUtils.genBar("启动次数", "用户数", xAxisList, dataList1);
+            String str = ChartUtils.genBar(res.get("portal.startTimes"), res.get("portal.userCount"), xAxisList, dataList1);
             result.put("chartOption", str);
             result.put("dataTime", dataTime);
             result.put("dataPhone", dataPhone);
@@ -128,9 +132,9 @@ public class AppBehaviorController extends Controller {
                 xAxisList.add(list.get(0));
                 dataList.add(list.get(1));
             }
-            // String str = ChartUtils.genLineChart("启动次数", xAxisList,
+            // String str = ChartUtils.genLineChart(res.get("portal.startTimes"), xAxisList,
             // dataList);
-            String genBar = ChartUtils.genBar("访问深度", "启动次数", xAxisList, dataList);
+            String genBar = ChartUtils.genBar(res.get("portal.accessDepth"), res.get("portal.startTimes"), xAxisList, dataList);
             result.put("chartOption", genBar);
             result.put("dataTime", dataTime);
             result.put("dataPhone", dataPhone);
@@ -169,10 +173,10 @@ public class AppBehaviorController extends Controller {
                 dataList1.add(list.get(1));
 //                dataList2.add(list.get(2));
             }
-            /*Object[] nameList = new Object[]{"使用间隔", "启动次数"};
+            /*Object[] nameList = new Object[]{res.get("portal.useInterval"), res.get("portal.startTimes")};
             String str = ChartUtils.genMultiLineChart(xAxisList, nameList,
             dataList1, dataList2);*/
-            String intervalBar = ChartUtils.genBar("使用间隔", "启动次数", xAxisList, dataList1);
+            String intervalBar = ChartUtils.genBar(res.get("portal.useInterval"), res.get("portal.startTimes"), xAxisList, dataList1);
             result.put("chartOption", intervalBar);
             result.put("dataTime", dataTime);
             result.put("dataPhone", dataPhone);
@@ -215,7 +219,7 @@ public class AppBehaviorController extends Controller {
                 dataList.add(newUserCount);
             }
             //生成手机移动地域分布数据图
-            String areaMap = ChartUtils.genMapChart("新增用户数", dataList, MaxUvValue);
+            String areaMap = ChartUtils.genMapChart(res.get("portal.newAddUser"), dataList, MaxUvValue);
             result.put("chartOption", areaMap);
             result.put("data", dataArea);
             result.put("dataAreaChannel", dataAreaChannel);

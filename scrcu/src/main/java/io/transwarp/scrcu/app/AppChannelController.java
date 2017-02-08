@@ -3,6 +3,8 @@ package io.transwarp.scrcu.app;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jfinal.i18n.I18n;
+import com.jfinal.i18n.Res;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 
@@ -18,6 +20,8 @@ import io.transwarp.scrcu.sqlinxml.SqlKit;
 
 @RequiresAuthentication
 public class AppChannelController extends Controller {
+
+	Res res = I18n.use("i18n", "zh_CN");
 
 	/**
 	 * 获取app渠道列表
@@ -52,13 +56,13 @@ public class AppChannelController extends Controller {
 			// 返回结果
 			List<Object> dataList = new ArrayList<Object>();
 			for (List<String> list : data) {
-				list.set(0, "官网");
+				list.set(0, res.get("portal.officialWebSite"));
 				Data d = new Data(list.get(0), Integer.valueOf(list.get(2)));
 				dataList.add(d);
 			}
 
 			//生成渠道详情的饼图数据
-			String genPie = ChartUtils.genPie("启动用户数", dataList);
+			String genPie = ChartUtils.genPie(res.get("portal.startUser"), dataList);
 			result.put("chartOption", genPie);
 			result.put("data", data);
 			renderJson(result);

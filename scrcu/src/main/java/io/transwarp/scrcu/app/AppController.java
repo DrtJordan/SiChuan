@@ -1,5 +1,7 @@
 package io.transwarp.scrcu.app;
 
+import com.jfinal.i18n.I18n;
+import com.jfinal.i18n.Res;
 import io.transwarp.scrcu.base.inceptor.InceptorUtil;
 import io.transwarp.scrcu.base.util.BaseUtils;
 import io.transwarp.scrcu.base.util.ChartUtils;
@@ -17,6 +19,8 @@ import com.jfinal.core.Controller;
 
 @RequiresAuthentication
 public class AppController extends Controller {
+
+    Res res = I18n.use("i18n", "zh_CN");
 
     /**
      * 获取启动次数
@@ -42,7 +46,7 @@ public class AppController extends Controller {
             }
 
             // 生成启动次数折线图数据
-            String genLineChart = ChartUtils.genLineChart("启动次数", xAxisList, dataList);
+            String genLineChart = ChartUtils.genLineChart(res.get("portal.startTimes"), xAxisList, dataList);
             result.put("chartOption", genLineChart);
             result.put("dataPhone", dataPhone);
             result.put("dataChannel", dataChannel);

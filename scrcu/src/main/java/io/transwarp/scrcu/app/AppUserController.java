@@ -1,6 +1,8 @@
 package io.transwarp.scrcu.app;
 
 import com.alibaba.fastjson.JSONObject;
+import com.jfinal.i18n.I18n;
+import com.jfinal.i18n.Res;
 import io.transwarp.scrcu.base.controller.BaseController;
 import io.transwarp.scrcu.base.inceptor.InceptorUtil;
 import io.transwarp.scrcu.base.util.BaseUtils;
@@ -16,7 +18,8 @@ import java.util.List;
 @RequiresAuthentication
 public class AppUserController extends BaseController {
 
-
+    Res res = I18n.use("i18n", "zh_CN");
+    
     /**
      * app活跃用户数据
      */
@@ -41,9 +44,9 @@ public class AppUserController extends BaseController {
                 xAxisList.add(list.get(0));
                 dataList.add(Integer.valueOf(list.get(1)));
             }
-//            Object[] nameList = new Object[]{"启动用户数", "7日启动用户数", "30日启动用户数"};
+//            Object[] nameList = new Object[]{res.get("portal.startUser"), "7日启动用户数", "30日启动用户数"};
 //            String str = ChartUtils.genMultiLineChart(xAxisList, nameList, dataList, data7List, data30List);
-            String str = ChartUtils.genLineChart("启动用户数", xAxisList, dataList);
+            String str = ChartUtils.genLineChart(res.get("portal.startUser"), xAxisList, dataList);
             result.put("chartOption", str);
             result.put("dataTime", dataTime);
             result.put("dataPhone", dataPhone);
@@ -81,7 +84,7 @@ public class AppUserController extends BaseController {
                 dataList2.add(InceptorUtil.getDouble(list.get(3)));
                 dataList3.add(InceptorUtil.getDouble(list.get(4)));
             }
-            Object[] nameList = new Object[]{"次日留存", "7日留存", "30日留存"};
+            Object[] nameList = new Object[]{res.get("portal.retentionNextDay"), res.get("portal.retentionWeek"), res.get("portal.retentionMonth")};
             String str = ChartUtils.genMultiLineChart(xAxisList, nameList, dataList1, dataList2, dataList3);
             result.put("chartOption", str);
             result.put("dataTime", dataTime);
@@ -116,7 +119,7 @@ public class AppUserController extends BaseController {
                 dataList1.add(Integer.valueOf(list.get(1)));
                 dataList2.add(Integer.valueOf(list.get(2)));
             }
-            Object[] nameList = new Object[]{"新增用户数", "注册用户数"};
+            Object[] nameList = new Object[]{res.get("portal.newAddUser"), res.get("portal.registerUser")};
             String str = ChartUtils.genMultiLineChart(xAxisList, nameList, dataList1, dataList2);
             result.put("chartOption", str);
             result.put("dataTime", dataTime);
@@ -152,7 +155,7 @@ public class AppUserController extends BaseController {
                 dataList1.add(list.get(1));
                 dataList2.add(list.get(2));
             }
-            Object[] nameList = new Object[]{"登录用户数", "启动用户数"};
+            Object[] nameList = new Object[]{res.get("portal.loginUser"), res.get("portal.startUser")};
             String str = ChartUtils.genMultiLineChart(xAxisList, nameList, dataList1, dataList2);
             result.put("chartOption", str);
             result.put("dataTime", dataTime);
@@ -183,7 +186,7 @@ public class AppUserController extends BaseController {
                 xAxisList.add(list.get(0));
                 dataList.add(list.get(1));
             }
-            String str = ChartUtils.genLineChart("新增用户数", xAxisList, dataList);
+            String str = ChartUtils.genLineChart(res.get("portal.newAddUser"), xAxisList, dataList);
             result.put("chartOption", str);
             result.put("dataTime", dataTime);
             result.put("dataPhone", dataPhone);
