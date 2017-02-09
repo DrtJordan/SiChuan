@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.jfinal.i18n.I18n;
+import com.jfinal.i18n.Res;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -24,6 +26,8 @@ import io.transwarp.scrcu.system.users.UserRoles;
 import io.transwarp.scrcu.system.users.Users;
 
 public class IndexController extends BaseController {
+
+	Res res = I18n.use("i18n", "zh_CN");
 
 	public void login() {
 		setAttr("message", "hello word");render("signin.html");
@@ -125,13 +129,13 @@ public class IndexController extends BaseController {
 			// dataList_yesterday_4.add(Integer.valueOf(map.get("nuv").toString()));
 			// }
 			// }
-			Object[] nameList1 = new Object[] { "今日PV", "昨日PV" };
+			Object[] nameList1 = new Object[] { res.get("index.todayPV"), res.get("index.yesterdayPV") };
 			String chart1 = ChartUtils.genMultiLineChart(xAxisList, nameList1, dataList_today_1, dataList_yesterday_1);
-			Object[] nameList2 = new Object[] { "今日VV", "昨日VV" };
+			Object[] nameList2 = new Object[] { res.get("index.todayVV"), res.get("index.yesterdayVV") };
 			String chart2 = ChartUtils.genMultiLineChart(xAxisList, nameList2, dataList_today_2, dataList_yesterday_2);
-			Object[] nameList3 = new Object[] { "今日登录用户数", "昨日登录用户数" };
+			Object[] nameList3 = new Object[] { res.get("index.todayLoginUser"), res.get("index.yesterdayLoginUser") };
 			String chart3 = ChartUtils.genMultiLineChart(xAxisList, nameList3, dataList_today_3, dataList_yesterday_3);
-			Object[] nameList4 = new Object[] { "今日新访客", "昨日新访客" };
+			Object[] nameList4 = new Object[] { res.get("index.todayNewVisitor"), res.get("index.yesterdayNewVisitor") };
 			String chart4 = ChartUtils.genMultiLineChart(xAxisList, nameList4, dataList_today_4, dataList_yesterday_4);
 
 			result.put("chart1", chart1);
@@ -192,7 +196,7 @@ public class IndexController extends BaseController {
 				xAxisList.add(list.get(0));
 				dataList.add(Integer.valueOf(list.get(3)));
 			}
-			String str = ChartUtils.genLineChart("交易户数", xAxisList, dataList);
+			String str = ChartUtils.genLineChart(res.get("index.transactionCount"), xAxisList, dataList);
 			// 返回结果
 			JSONObject result = new JSONObject();
 			result.put("data", data);
