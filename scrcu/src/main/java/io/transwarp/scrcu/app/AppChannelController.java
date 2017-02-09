@@ -56,13 +56,13 @@ public class AppChannelController extends Controller {
 			// 返回结果
 			List<Object> dataList = new ArrayList<Object>();
 			for (List<String> list : data) {
-				list.set(0, res.get("portal.officialWebSite"));
+				list.set(0, res.get("app.officialWebSite"));
 				Data d = new Data(list.get(0), Integer.valueOf(list.get(2)));
 				dataList.add(d);
 			}
 
 			//生成渠道详情的饼图数据
-			String genPie = ChartUtils.genPie(res.get("portal.startUser"), dataList);
+			String genPie = ChartUtils.genPie(res.get("app..startUser"), dataList);
 			result.put("chartOption", genPie);
 			result.put("data", data);
 			renderJson(result);

@@ -46,7 +46,7 @@ public class AppController extends Controller {
             }
 
             // 生成启动次数折线图数据
-            String genLineChart = ChartUtils.genLineChart(res.get("portal.startTimes"), xAxisList, dataList);
+            String genLineChart = ChartUtils.genLineChart(res.get("app.startTimes"), xAxisList, dataList);
             result.put("chartOption", genLineChart);
             result.put("dataPhone", dataPhone);
             result.put("dataChannel", dataChannel);

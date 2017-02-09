@@ -44,9 +44,9 @@ public class AppUserController extends BaseController {
                 xAxisList.add(list.get(0));
                 dataList.add(Integer.valueOf(list.get(1)));
             }
-//            Object[] nameList = new Object[]{res.get("portal.startUser"), "7日启动用户数", "30日启动用户数"};
+//            Object[] nameList = new Object[]{res.get("app.startUser"), "7日启动用户数", "30日启动用户数"};
 //            String str = ChartUtils.genMultiLineChart(xAxisList, nameList, dataList, data7List, data30List);
-            String str = ChartUtils.genLineChart(res.get("portal.startUser"), xAxisList, dataList);
+            String str = ChartUtils.genLineChart(res.get("app.startUser"), xAxisList, dataList);
             result.put("chartOption", str);
             result.put("dataTime", dataTime);
             result.put("dataPhone", dataPhone);
@@ -84,7 +84,7 @@ public class AppUserController extends BaseController {
                 dataList2.add(InceptorUtil.getDouble(list.get(3)));
                 dataList3.add(InceptorUtil.getDouble(list.get(4)));
             }
-            Object[] nameList = new Object[]{res.get("portal.retentionNextDay"), res.get("portal.retentionWeek"), res.get("portal.retentionMonth")};
+            Object[] nameList = new Object[]{res.get("app.retentionNextDay"), res.get("app.retentionWeek"), res.get("app.retentionMonth")};
             String str = ChartUtils.genMultiLineChart(xAxisList, nameList, dataList1, dataList2, dataList3);
             result.put("chartOption", str);
             result.put("dataTime", dataTime);
@@ -119,7 +119,7 @@ public class AppUserController extends BaseController {
                 dataList1.add(Integer.valueOf(list.get(1)));
                 dataList2.add(Integer.valueOf(list.get(2)));
             }
-            Object[] nameList = new Object[]{res.get("portal.newAddUser"), res.get("portal.registerUser")};
+            Object[] nameList = new Object[]{res.get("app.newAddUser"), res.get("app.registerUser")};
             String str = ChartUtils.genMultiLineChart(xAxisList, nameList, dataList1, dataList2);
             result.put("chartOption", str);
             result.put("dataTime", dataTime);
@@ -155,7 +155,7 @@ public class AppUserController extends BaseController {
                 dataList1.add(list.get(1));
                 dataList2.add(list.get(2));
             }
-            Object[] nameList = new Object[]{res.get("portal.loginUser"), res.get("portal.startUser")};
+            Object[] nameList = new Object[]{res.get("app.loginUser"), res.get("app.startUser")};
             String str = ChartUtils.genMultiLineChart(xAxisList, nameList, dataList1, dataList2);
             result.put("chartOption", str);
             result.put("dataTime", dataTime);
@@ -186,7 +186,7 @@ public class AppUserController extends BaseController {
                 xAxisList.add(list.get(0));
                 dataList.add(list.get(1));
             }
-            String str = ChartUtils.genLineChart(res.get("portal.newAddUser"), xAxisList, dataList);
+            String str = ChartUtils.genLineChart(res.get("app.newAddUser"), xAxisList, dataList);
             result.put("chartOption", str);
             result.put("dataTime", dataTime);
             result.put("dataPhone", dataPhone);

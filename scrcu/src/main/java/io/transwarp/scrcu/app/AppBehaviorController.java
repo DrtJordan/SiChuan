@@ -51,10 +51,10 @@ public class AppBehaviorController extends Controller {
                 // dataList2.add(list.get(2));
             }
 
-//			Object[] nameList = new Object[] { res.get("portal.useTime"), res.get("portal.startTimes") };
+//			Object[] nameList = new Object[] { res.get("app.useTime"), res.get("app.startTimes") };
             //String str = ChartUtils.genMultiLineChart(xAxisList, nameList,
             //dataList1, dataList2);
-            String genBar = ChartUtils.genBar(res.get("portal.useTime"), res.get("portal.startTimes"), xAxisList, dataList1);
+            String genBar = ChartUtils.genBar(res.get("app.useTime"), res.get("app.startTimes"), xAxisList, dataList1);
             result.put("chartOption", genBar);
             result.put("dataTime", dataTime);
             result.put("dataPhone", dataPhone);
@@ -92,11 +92,11 @@ public class AppBehaviorController extends Controller {
                 dataList1.add(list.get(1));
 //                dataList2.add(list.get(2));
             }
-//            Object[] nameList = new Object[]{res.get("portal.startTimes"), res.get("portal.userCount")};
+//            Object[] nameList = new Object[]{res.get("app.startTimes"), res.get("app.userCount")};
 //            String str = ChartUtils.genMultiLineChart(xAxisList, nameList,
 //                    dataList1, dataList2);
             //生成柱状图数据
-            String str = ChartUtils.genBar(res.get("portal.startTimes"), res.get("portal.userCount"), xAxisList, dataList1);
+            String str = ChartUtils.genBar(res.get("app.startTimes"), res.get("app.userCount"), xAxisList, dataList1);
             result.put("chartOption", str);
             result.put("dataTime", dataTime);
             result.put("dataPhone", dataPhone);
@@ -132,9 +132,9 @@ public class AppBehaviorController extends Controller {
                 xAxisList.add(list.get(0));
                 dataList.add(list.get(1));
             }
-            // String str = ChartUtils.genLineChart(res.get("portal.startTimes"), xAxisList,
+            // String str = ChartUtils.genLineChart(res.get("app.startTimes"), xAxisList,
             // dataList);
-            String genBar = ChartUtils.genBar(res.get("portal.accessDepth"), res.get("portal.startTimes"), xAxisList, dataList);
+            String genBar = ChartUtils.genBar(res.get("app.accessDepth"), res.get("app.startTimes"), xAxisList, dataList);
             result.put("chartOption", genBar);
             result.put("dataTime", dataTime);
             result.put("dataPhone", dataPhone);
@@ -173,10 +173,10 @@ public class AppBehaviorController extends Controller {
                 dataList1.add(list.get(1));
 //                dataList2.add(list.get(2));
             }
-            /*Object[] nameList = new Object[]{res.get("portal.useInterval"), res.get("portal.startTimes")};
+            /*Object[] nameList = new Object[]{res.get("app.useInterval"), res.get("app.startTimes")};
             String str = ChartUtils.genMultiLineChart(xAxisList, nameList,
             dataList1, dataList2);*/
-            String intervalBar = ChartUtils.genBar(res.get("portal.useInterval"), res.get("portal.startTimes"), xAxisList, dataList1);
+            String intervalBar = ChartUtils.genBar(res.get("app.useInterval"), res.get("app.startTimes"), xAxisList, dataList1);
             result.put("chartOption", intervalBar);
             result.put("dataTime", dataTime);
             result.put("dataPhone", dataPhone);
@@ -219,7 +219,7 @@ public class AppBehaviorController extends Controller {
                 dataList.add(newUserCount);
             }
             //生成手机移动地域分布数据图
-            String areaMap = ChartUtils.genMapChart(res.get("portal.newAddUser"), dataList, MaxUvValue);
+            String areaMap = ChartUtils.genMapChart(res.get("app.newAddUser"), dataList, MaxUvValue);
             result.put("chartOption", areaMap);
             result.put("data", dataArea);
             result.put("dataAreaChannel", dataAreaChannel);

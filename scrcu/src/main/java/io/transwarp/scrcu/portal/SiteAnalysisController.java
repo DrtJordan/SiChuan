@@ -1,5 +1,7 @@
 package io.transwarp.scrcu.portal;
 
+import com.jfinal.i18n.I18n;
+import com.jfinal.i18n.Res;
 import io.transwarp.scrcu.base.inceptor.InceptorUtil;
 import io.transwarp.scrcu.base.util.BaseUtils;
 import io.transwarp.scrcu.base.util.ChartUtils;
@@ -17,6 +19,8 @@ import com.jfinal.core.Controller;
 
 @RequiresAuthentication
 public class SiteAnalysisController extends Controller {
+
+	Res res = I18n.use("i18n", "zh_CN");
 
 	/**
 	 * 访问分析
@@ -109,7 +113,7 @@ public class SiteAnalysisController extends Controller {
 				ipList.add(list.get(3));
 				loginCntList.add(list.get(4));
 			}
-			Object[] nameList = new Object[]{"浏览量(PV)", "访客数(UV)", "IP数", "登录用户数"};
+			Object[] nameList = new Object[]{res.get("portal.pageViewPV"), res.get("portal.visitorUV"), res.get("portal.IPCount"), res.get("portal.loginUser")};
 			//获取折线图数据
 			String flowTrendChart = ChartUtils.genMultiLineChart(xAxisList, nameList, pvList, uvList, ipList, loginCntList);
 			result.put("chartOption", flowTrendChart);

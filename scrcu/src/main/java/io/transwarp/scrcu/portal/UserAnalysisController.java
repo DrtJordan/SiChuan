@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jfinal.core.ActionKey;
+import com.jfinal.i18n.I18n;
+import com.jfinal.i18n.Res;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 
@@ -19,6 +21,8 @@ import io.transwarp.scrcu.sqlinxml.SqlKit;
 
 @RequiresAuthentication
 public class UserAnalysisController extends Controller {
+
+    Res res = I18n.use("i18n", "zh_CN");
 
     @ActionKey("/portal/userAnalysis")
     public void index() {
@@ -47,7 +51,7 @@ public class UserAnalysisController extends Controller {
                 dataList.add(uvValue);
             }
             //生成四川省地域分布图
-            String areaMap = ChartUtils.genMapChart("访客", dataList, maxUv);
+            String areaMap = ChartUtils.genMapChart(res.get("portal.visitor"), dataList, maxUv);
             result.put("chartOption", areaMap);
             result.put("data", data);
             renderJson(result);
@@ -83,8 +87,8 @@ public class UserAnalysisController extends Controller {
             }
             // 返回结果
             JSONObject result = new JSONObject();
-            String str2 = ChartUtils.genPie("访问次数", dataList2);
-            String str3 = ChartUtils.genPie("访问次数", dataList3);
+            String str2 = ChartUtils.genPie(res.get("portal.visitorCount"), dataList2);
+            String str3 = ChartUtils.genPie(res.get("portal.visitorCount"), dataList3);
             // 生成图
             result.put("chartOption2", str2);
             result.put("chartOption3", str3);
@@ -113,7 +117,7 @@ public class UserAnalysisController extends Controller {
             // 返回结果
             JSONObject result = new JSONObject();
             result.put("data", data);
-            String str = ChartUtils.genPie("会员数", dataList);
+            String str = ChartUtils.genPie(res.get("portal.memberCount"), dataList);
             // 生成图
             result.put("chartOption", str);
             renderJson(result);

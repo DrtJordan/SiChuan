@@ -3,6 +3,8 @@ package io.transwarp.scrcu.portal;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jfinal.i18n.I18n;
+import com.jfinal.i18n.Res;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 
@@ -18,6 +20,9 @@ import io.transwarp.scrcu.sqlinxml.SqlKit;
 
 @RequiresAuthentication
 public class VisitSourceController extends Controller {
+
+	Res res = I18n.use("i18n", "zh_CN");
+
 	@RequiresPermissions("/portal/visitsource/searchEngine")
 	public void searchEngine() {
 		if (BaseUtils.isAjax(getRequest())) {
@@ -36,7 +41,7 @@ public class VisitSourceController extends Controller {
 			JSONObject result = new JSONObject();
 			result.put("data", data);
 			// setAttr("data", data);
-			String str = ChartUtils.genPie("访问次数", dataList);
+			String str = ChartUtils.genPie(res.get("portal.visitorCount"), dataList);
 			// 生成图
 			result.put("chartOption", str);
 			// setAttr("chartOption", str);
@@ -65,7 +70,7 @@ public class VisitSourceController extends Controller {
 			JSONObject result = new JSONObject();
 			result.put("dataSource", dataSource);
 			result.put("dataPage", dataPage);
-			String str = ChartUtils.genPie("访客数（UV）", dataList);
+			String str = ChartUtils.genPie(res.get("portal.visitorUV"), dataList);
 			// 生成图
 			result.put("chartOption", str);
 			renderJson(result);
