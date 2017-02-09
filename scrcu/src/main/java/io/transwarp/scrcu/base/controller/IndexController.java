@@ -11,6 +11,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.subject.Subject;
 
 import com.alibaba.fastjson.JSONObject;
@@ -260,6 +261,7 @@ public class IndexController extends BaseController {
 	// }
 
 	@ActionKey("csv")
+	@RequiresPermissions("/csv")
 	public void exportCsv() {
 		String type = getPara();
 		List<String> headerList = SqlKit.propHeader(type);
