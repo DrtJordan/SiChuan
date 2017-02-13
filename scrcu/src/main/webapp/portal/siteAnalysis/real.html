@@ -39,6 +39,20 @@
 </@layout>
 
 <script>
+
+	var datas = new Array();
+	var size ;
+	$.ajax({
+		url: window.location.href,
+		type: "get",
+		dataType: "json",
+		async: false,
+		success: function (data) {
+			datas = data;
+			size = datas.data.length;
+		}
+	})
+
 	function query(flag) {
 		var ajaxOption = {
 			url : window.location.href + "?start_dt=" + getDateStr(0),
@@ -78,7 +92,7 @@
                 while (len--) {
                     //将时间设置为24小时制
                     res.unshift(now.toLocaleTimeString('chinese',{hour12:false}));
-                    now = new Date(now - 1000);
+                    now = new Date(now - 6000);
                 }
                 return res;
             })()
@@ -95,8 +109,16 @@
 			data : (function() {
 				var res = [];
 				var len = 100;
-				while (len--) {
-					res.push(Math.random() * 100 + 400);
+				var i = 0;
+				var d = 0;
+				while (len--){
+					if (i >= size){
+						res.push(50);
+						continue;
+					}
+					d = datas.data[i][0];
+					res.push(d);
+					i++;
 				}
 				return res;
 			})()
@@ -118,7 +140,7 @@
                         var len = 100;
                         while (len--) {
                             res.unshift(now.toLocaleTimeString('chinese',{hour12:false}));
-                            now = new Date(now - 1000);
+                            now = new Date(now - 6000);
                         }
                         return res;
                     })()
@@ -127,10 +149,19 @@
         },1000);
 
 		timeTicket = setInterval(function() {
-
+			$.ajax({
+				url: window.location.href,
+				type: "get",
+				dataType: "json",
+				async: false,
+				success:function(data){
+					datas = data;
+					size = datas.data.length;
+				}
+			});
 			// 动态数据接口 addData
 			realtimeChart.addData([ [ 0, // 系列索引
-			Math.round(Math.random() * 100 + 400), // 新增数据
+			Math.round(datas.data[size-1][0]), // 新增数据
 			false, // 新增数据是否从队列头部插入
 			false // 是否增加队列长度，false则自定删除原有数据，队头插入删队尾，队尾插入删队头
 			] ]);

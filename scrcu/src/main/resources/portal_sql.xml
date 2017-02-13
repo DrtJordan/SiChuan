@@ -55,7 +55,8 @@
 	<sqlGroup name="portal_siteAnalysis_real">
 		<sql id="name">实时趋势</sql>
 		<sql id="header"></sql>
-		<sql id="sql">select Statt_Dt,Statt_Hr,Statt_Minu,PV,UV,IP_Cnt,VV,Logon_User_Cnt,Logon_User_Vs from hb_T88_SITES_INDX_MINU SQL_CONDITION order by Statt_Dt,Statt_Hr,Statt_Minu desc
+		<!--<sql id="sql">select Statt_Dt,Statt_Hr,Statt_Minu,PV,UV,IP_Cnt,VV,Logon_User_Cnt,Logon_User_Vs from hb_T88_SITES_INDX_MINU SQL_CONDITION order by Statt_Dt,Statt_Hr,Statt_Minu desc-->
+		<sql id="sql">select * from test.result_kafka_test6
 		</sql>
 	</sqlGroup>
 	<!-- 实时趋势  end -->
@@ -95,7 +96,8 @@
 		<sql id="sql">select User_authentication_class,cast(sum(num) as int),sum(ratio)/count(ratio) from hb_Result_User_authentication_class_definition_Info SQL_CONDITION group by User_authentication_class</sql>
 	</sqlGroup>
 	<!--用户等级   end -->
-	
+
+	<!--终端类型    start -->
 	<sqlGroup name="portal_terminal_os">
 		<sql id="name">操作系统占比</sql>
 		<sql id="header">操作系统,访问次数VV,浏览量,浏览量占比,访客数UV,UV占比,IP数</sql>
@@ -128,7 +130,7 @@
 	<sqlGroup name="portal_userAnalysis_userOnly">
 		<sql id="name">唯一用户分析</sql>
 		<sql id="header">日期,访客数,登录用户数,IP数</sql>
-		<sql id="sql">select * from result_user_analysis_user_only_info</sql>
+		<sql id="sql">select statt_dt,uv,login_cnt,ip_cnt from result_user_analysis_user_only_info</sql>
 	</sqlGroup>
 	
 	<!--来源分析 start -->
@@ -157,7 +159,8 @@
 	<!--搜索引擎分析  start -->
 	<sqlGroup name="business_analysis">
 		<sql id="name">业务分析</sql>
-		<sql id="header">日期	,UV,登录用户数,交易户数,交易笔数,动账交易户数,动账交易笔数,交易转化率,交易金额,户均交易额,笔均交易额</sql><sql id="sql">select 1,2,3,4,5,6,7,8,9,10,11 from hb_result_biz_data_analy</sql>
+		<sql id="header">日期	,UV,登录用户数,交易户数,交易笔数,动账交易户数,动账交易笔数,交易转化率,交易金额,户均交易额,笔均交易额</sql>
+		<sql id="sql">select 1,2,3,4,5,6,7,8,9,10,11 from hb_result_biz_data_analy</sql>
 	</sqlGroup>
 	<!--搜索引擎分析   end -->
 

@@ -208,7 +208,7 @@
 	<sqlGroup name="app_channel_list">
 		<sql id="name">渠道列表</sql>
 		<sql id="header">日期,渠道名称,新增用户数,启动用户数,累计用户数 ,占比（该渠道新增用户数/所有新增用户数）,启动次数,平均单次使用时长</sql>
-		<sql id="sql">select * from Result_Channel_List_Info</sql>
+			<sql id="sql">select statt_dt,channel_name,new_token_cnt,startover_user_cnt,user_cnt,new_token_cnt_div_new_token_cnt_sum,startover_cnt,aver_vist_durat from Result_Channel_List_Info</sql>
 	</sqlGroup>
 	
 	<!-- 用户等级 -->
