@@ -9,13 +9,15 @@ import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import com.jfinal.kit.JsonKit;
 
 import io.transwarp.scrcu.base.controller.BaseController;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 
 @RequiresAuthentication
 public class RoleController extends BaseController {
+	@RequiresPermissions("/system/role")
 	public void index() {
 		setAttr("page", SysRole.dao.paginate(getParaToInt(0, 1), 10));
 	}
-
+	@RequiresPermissions("/system/role/create")
 	public void create() {
 		SysRole sysRole = SysRole.dao.findFirst("select max(id)+1 as id from sys_role").set("cname","");
 		if (isPost()) {
@@ -27,6 +29,7 @@ public class RoleController extends BaseController {
 		render("form.html");
 	}
 
+	@RequiresPermissions("/system/role/update")
 	public void update() {
 		if (isPost()) {
 			if (getModel(SysRole.class, "sysgroup").set("id", getParaToInt(0)).update())
@@ -39,6 +42,7 @@ public class RoleController extends BaseController {
 		render("form.html");
 	}
 
+	@RequiresPermissions("/system/role/delete")
 	public void delete() {
 		if (SysRole.dao.findById(getParaToInt(0)).delete())
 			redirect(getControllerKey());

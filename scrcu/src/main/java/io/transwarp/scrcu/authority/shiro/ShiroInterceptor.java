@@ -14,6 +14,8 @@
  */
 package io.transwarp.scrcu.authority.shiro;
 
+import com.jfinal.i18n.I18n;
+import com.jfinal.i18n.Res;
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.UnauthenticatedException;
 
@@ -24,6 +26,8 @@ import com.jfinal.kit.StringKit;
 public class ShiroInterceptor implements Interceptor {
 
 	public void intercept(Invocation ai) {
+
+		Res res = I18n.use("i18n", "zh_CN");
 		AuthzHandler ah = ShiroKit.getAuthzHandler(ai.getActionKey());
 		// 存在访问控制处理器。
 		if (ah != null) {
@@ -50,7 +54,7 @@ public class ShiroInterceptor implements Interceptor {
 				// 如果没有权限访问对应的资源，返回HTTP状态码403，或者调转到为授权页面
 				if (StringKit.notBlank(ShiroKit.getUnauthorizedUrl())) {
 					// 设定flash信息，需要启用flash插件才行
-					ai.getController().setAttr("message", "对不起，您无权访问本页：" + ai.getActionKey() + ",系统自动返回到当前页面。");
+					ai.getController().setAttr("message", res.get("authority.visitPage") + ai.getActionKey() + res.get("authority.returnPage"));
 					// 重定向到未授权页面，比如登录页面
 					ai.getController().redirect(ShiroKit.getUnauthorizedUrl());
 				} else {

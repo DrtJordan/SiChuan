@@ -12,16 +12,17 @@ import com.jfinal.core.JFinal;
 import com.jfinal.kit.JsonKit;
 
 import io.transwarp.scrcu.base.controller.BaseController;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 
 @RequiresAuthentication
 public class ResourceController extends BaseController {
 
-//	@RequiresPermissions("/system/resource")
+	@RequiresPermissions("/system/resource")
 	public void index() {
 		render("index.html");
 	}
 
-//	@RequiresPermissions("/system/resource/create")
+	@RequiresPermissions("/system/resource/create")
 	public void create() {
 		Integer pid = getParaToInt(0, 0);
 		if (isPost()) {
@@ -39,7 +40,7 @@ public class ResourceController extends BaseController {
 		render("form.html");
 	}
 	
-//	@RequiresPermissions("/system/resource/update")
+	@RequiresPermissions("/system/resource/update")
 	public void update() {
 		if (isPost()) {
 			Integer id = getParaToInt("sysres.id");
@@ -58,7 +59,7 @@ public class ResourceController extends BaseController {
 			render("form.html");
 		}
 	}
-//	@RequiresPermissions("/system/resource/delete")
+	@RequiresPermissions("/system/resource/delete")
 	public void delete() {
 		int id = getParaToInt();
 		if (SysRes.dao.findById(id).delete()) {
@@ -75,7 +76,7 @@ public class ResourceController extends BaseController {
 			return;
 		}
 	}
-//	@RequiresPermissions("/system/resource/getlist")
+	@RequiresPermissions("/system/resource/getlist")
 	public void getlist() {
 		Integer pid = getParaToInt("id", 0);
 		List<SysRes> models = SysRes.dao.where("pid=? order by seq", pid);

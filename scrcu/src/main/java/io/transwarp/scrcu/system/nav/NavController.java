@@ -11,6 +11,7 @@ import com.jfinal.kit.JsonKit;
 import io.transwarp.scrcu.base.controller.BaseController;
 import io.transwarp.scrcu.system.resource.SysRes;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 
 @RequiresAuthentication
 public class NavController extends BaseController {
@@ -30,10 +31,15 @@ public class NavController extends BaseController {
 		renderJson(nodes);
 	}
 
+	@RequiresPermissions("/system/nav/create")
 	public void create() {
 		Integer pid = getParaToInt(0, 0);
+		int def = 0;
 		if (isPost()) {
 			SysNav model = getModel(SysNav.class, "sysnav");
+			if (model.get("res_id") == null){
+				model.set("res_id", def);
+			}
 			if (model.save()) {
 				Map<String, Object> r = new HashMap<String, Object>();
 				r.put("success", true);
@@ -46,6 +52,7 @@ public class NavController extends BaseController {
 		render("form.html");
 	}
 
+	@RequiresPermissions("/system/nav/update")
 	public void update() {
 		if (isPost()) {
 			Integer id = getParaToInt("sysnav.id");
@@ -62,6 +69,7 @@ public class NavController extends BaseController {
 		}
 	}
 
+	@RequiresPermissions("/system/nav/delete")
 	public void delete() {
 		int id = getParaToInt();
 		if (SysNav.dao.findById(id).delete()) {
