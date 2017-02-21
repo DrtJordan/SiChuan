@@ -92,14 +92,23 @@
 </@layout>
 <script>
 	var tagMap;
+	var str;
 	$(document).ready(function() {
 		var ajaxOption = {
 			url : window.location.href,
 			success : function(data) {
 				tagMap=data.tagMap;
-				$.each(tagMap, function(key, val) { 
-					var str='<div class="tagtype col-sm-4"><div>'+key+'</div><ul class="userTags clear" style="margin-top:0px">';
-			　　		var tags=tagMap[key]; 
+				$.each(tagMap, function(key, val) {
+					if (key == "使用时段"){
+						str='<div class="tagtype col-sm-4"><div style="background-color:#545CA6;color: white;height:36px;padding-top:7px;margin-bottom:2px;margin-left: 8px;margin-right: 12px"><div class="col-sm-9">'+key+'</div><div class="col-sm-3"><a href="${root}/portrait/config/useTime" style="color: white">配置</a></div></div><ul class="userTags clear" style="margin-top:0px">';
+					}else if (key == "信用评级" ){
+						str='<div class="tagtype col-sm-4"><div style="background-color:#545CA6;color: white;height:36px;padding-top:7px;margin-bottom:2px;margin-left: 8px;margin-right: 12px"><div class="col-sm-9">'+key+'</div><div class="col-sm-3"><a href="${root}/portrait/config/creditRating" style="color: white">配置</a></div></div><ul class="userTags clear" style="margin-top:0px">';
+					}else if ( key == "用户群体类型"){
+						str='<div class="tagtype col-sm-4"><div style="background-color:#545CA6;color: white;height:36px;padding-top:7px;margin-bottom:2px;margin-left: 8px;margin-right: 12px"><div class="col-sm-9">'+key+'</div><div class="col-sm-3"><a href="${root}/portrait/config/UserGroupTypes" style="color: white">配置</a></div></div><ul class="userTags clear" style="margin-top:0px">';
+					}else {
+						str='<div class="tagtype col-sm-4"><div style="background-color:#545CA6;color: white;height:36px;padding-top:7px;margin-bottom:2px;margin-left: 8px;margin-right: 12px"><div class="col-sm-9">'+key+'</div></div><ul class="userTags clear" style="margin-top:0px">';
+					}
+			　　		var tags=tagMap[key];
 			　　		$.each(tags,function(i,tag){
 			　　			str = str + '<li class="text-success" name="'+tag["label_only"]+'">'+tag["label_desc"]+'</li>';
 			　　		});

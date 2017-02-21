@@ -76,7 +76,13 @@
 		<sql id="header"></sql>
 		<sql id="sql">select max(topic_desc) as topic_desc ,topic,max(label_desc) as label_desc,label_code as label_code,max(label_only) as label_only,sum(total) as total from hb_label_labelwall_result</sql>
 	</sqlGroup>
-	
+
+	<sqlGroup name="label_config">
+		<sql id="name">标签配置</sql>
+		<sql id="header"></sql>
+		<sql id="sql">update test.use_time_table set </sql>
+	</sqlGroup>
+
 	<sqlGroup name="label_colony_users">
 		<sql id="name">具有标签用户</sql>
 		<sql id="header"></sql>

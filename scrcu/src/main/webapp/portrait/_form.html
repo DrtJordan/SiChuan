@@ -1,0 +1,115 @@
+<#list tagMap?keys as m>
+    <#if m == "useTime">
+        <div class="form-group">
+            <label class="col-sm-4 text-success text-md">使用时段</label>
+        </div>
+        <#list tagMap.get(m) as s>
+
+            <div class="form-group">
+                <label class="col-lg-3 control-label">${tagMap.get(m)[s_index].get('label_desc')}</label>
+
+                <div class="col-lg-4">
+                    <div class="input-group">
+                        <input type="text" name="debt_from" class="form-control" name="start"
+                               value="${tagMap.get(m)[s_index].get('label_only')}">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button"
+                                    style="border-left: 0px;box-shadow:none;border-right: 0px; border-color: #cbd5dd;">到
+                            </button>
+                        </span>
+                        <input type="text" name="debt_to" class="form-control" name="end"
+                               value="${tagMap.get(m)[s_index].get('label_only')}">
+                    </div>
+                </div>
+            </div>
+
+            <!--<div class="form-group">-->
+                <!--<label class="col-lg-3 control-label">${tagMap.get(m)[s_index].get('label_desc')}</label>-->
+
+                <!--<div class="col-lg-2">-->
+                    <!--<input class="form-control" placeholder="00:00 ~ 23:59" type="text" name="start"-->
+                           <!--value="${tagMap.get(m)[s_index].get('label_only')}">-->
+                <!--</div>-->
+                <!--<div class="col-lg-1">-->
+                    <!--<span class="input-group-btn">-->
+                        <!--<button class="btn btn-default" type="button">到</button>-->
+                    <!--</span>-->
+                <!--</div>-->
+                <!--<div class="col-lg-2">-->
+                    <!--<input class="form-control" placeholder="00:00 ~ 23:59" type="text" name="end"-->
+                           <!--value="${tagMap.get(m)[s_index].get('label_only')}">-->
+                <!--</div>-->
+            <!--</div>-->
+        </#list>
+    </#if>
+    <#if m == "creditRating">
+        <div class="form-group">
+            <label class="col-sm-4 text-success text-md">信用评级</label>
+        </div>
+        <#list tagMap.get(m) as s>
+            <!--<div class="form-group">-->
+                <!--<label class="col-lg-3 control-label">${tagMap.get(m)[s_index].get('label_desc')}</label>-->
+
+                <!--<div class="col-lg-4">-->
+                    <!--<div class="input-group">-->
+                        <!--<input type="text" name="debt_from" class="form-control" name="start"-->
+                               <!--value="${tagMap.get(m)[s_index].get('label_only')}">-->
+                        <!--<span class="input-group-btn">-->
+                            <!--<button class="btn btn-default" type="button"-->
+                                    <!--style="border-left: 0px;box-shadow:none;border-right: 0px; border-color: #cbd5dd;">到-->
+                            <!--</button>-->
+                        <!--</span>-->
+                        <!--<input type="text" name="debt_to" class="form-control" name="end"-->
+                               <!--value="${tagMap.get(m)[s_index].get('label_only')}">-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <div class="form-group">
+                <label class="col-lg-4 control-label">${tagMap.get(m)[s_index].get('label_desc')}</label>
+
+                <div class="col-lg-4">
+                    <input class="form-control" placeholder="00:00 ~ 23:59" type="text"
+                           value="${tagMap.get(m)[s_index].get('label_only')}">
+                </div>
+            </div>
+        </#list>
+    </#if>
+    <#if m == "UserGroupTypes">
+        <div class="form-group">
+            <label class="col-sm-4 text-success text-md">用户群体类型</label>
+        </div>
+        <#list tagMap.get(m) as s>
+            <!--<div class="form-group">-->
+                <!--<label class="col-lg-3 control-label">${tagMap.get(m)[s_index].get('label_desc')}</label>-->
+
+                <!--<div class="col-lg-4">-->
+                    <!--<div class="input-group">-->
+                        <!--<input type="text" name="debt_from" class="form-control" name="start"-->
+                               <!--value="${tagMap.get(m)[s_index].get('label_only')}">-->
+                        <!--<span class="input-group-btn">-->
+                            <!--<button class="btn btn-default" type="button"-->
+                                    <!--style="border-left: 0px;box-shadow:none;border-right: 0px; border-color: #cbd5dd;">到-->
+                            <!--</button>-->
+                        <!--</span>-->
+                        <!--<input type="text" name="debt_to" class="form-control" name="end"-->
+                               <!--value="${tagMap.get(m)[s_index].get('label_only')}">-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <div class="form-group">
+                <label class="col-lg-4 control-label">${tagMap.get(m)[s_index].get('label_desc')}</label>
+
+                <div class="col-lg-4">
+                    <input class="form-control" placeholder="00:00 ~ 23:59" type="text"
+                           value="${tagMap.get(m)[s_index].get('label_only')}">
+                </div>
+            </div>
+        </#list>
+    </#if>
+</#list>
+<div class="form-group">
+    <div class="col-lg-offset-4 col-lg-10">
+        <button type="submit" class="btn btn-sm btn-default">保存</button>
+        <button type="button" onclick="window.history.back()" class="btn btn-sm btn-default">返回</button>
+    </div>
+</div>

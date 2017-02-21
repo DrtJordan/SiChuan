@@ -309,7 +309,6 @@ public class PortraitController extends Controller {
     @RequiresPermissions("/portrait/tags")
     public void tags() throws Exception {
         if (BaseUtils.isAjax(getRequest())) {
-
             List<Map<String, Object>> tagList = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.label_label_grouping)
                     + getLevelCondition() + " group by topic,label_code order by total desc", true);
             final Map<String, List<Map<String, Object>>> tagMap = new TreeMap<String, List<Map<String, Object>>>();
@@ -338,6 +337,53 @@ public class PortraitController extends Controller {
             }
             renderJson("tagMap", m);
         }
+    }
+
+    public void config() throws Exception {
+        List<Map<String, Object>> tagList = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.label_label_grouping)
+                + getLevelCondition() + " group by topic,label_code order by total desc", true);
+        final Map<String, List<Map<String, Object>>> tagMap = new TreeMap<String, List<Map<String, Object>>>();
+        for (Map<String, Object> map : tagList) {
+            String key = (String) map.get("topic_desc");
+            allTagMap.put((String) map.get("label_only"), map);
+            if (tagMap.get(key) == null) {
+                List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+                tagMap.put(key, list);
+            }
+            tagMap.get(key).add(map);
+        }
+        Map<String, Object> map = new HashMap<>();
+        if (getPara().equals("useTime")){
+
+            map.put("useTime", tagMap.get("使用时段"));
+        }else if(getPara().equals("creditRating")){
+            map.put("creditRating", tagMap.get("信用评级"));
+        }else if (getPara().equals("UserGroupTypes")) {
+            map.put("UserGroupTypes", tagMap.get("用户群体类型"));
+        }
+//        List<Map<String, Object>> tagList = InceptorUtil.mapQuery(SqlKit.propSQL("select * from test.use_time_table"), true);
+//        final Map<String, List<Map<String, Object>>> tagMap = new TreeMap<String, List<Map<String, Object>>>();
+//        Map<String, Object> maps = new HashMap<>();
+//        for (Map<String, Object> map : tagList) {
+//            maps.put("begin_use_time",map.get("begin_use_time"));
+//            maps.put("end_use_time",map.get("end_use_time"));
+//        }
+
+        setAttr("tagMap", map);
+    }
+
+    public void update() throws Exception {
+        String[] keys = {"use_time_03","use_time_05","use_time_04","use_time_06","use_time_07","use_time_02","use_time_01"};
+        String[] strings = getParaValues("val");
+        StringBuffer val = new StringBuffer(" ");
+        int i = 0;
+        for (String s :strings) {
+            val = val.append("begin_use_time = '").append(s).append("' where use_time = '").append(keys[i++]).append("'").append(";");
+            InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.label_config) + val, true);
+            int l = val.length();
+            val = val.delete(1, l);
+        }
+        redirect("/portrait/tags");
     }
 
     /**
