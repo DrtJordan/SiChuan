@@ -76,7 +76,7 @@
 											    <li class="hidden-nav-xs padder  text-xs text-muted" style="margin:8px auto;">${nav.title}</li>
 											    <#if nav.childNav??>
 											    <#list nav.childNav as child>
-											    	<li><a href="${root}${child.ak}"><i class="${child.icon}"></i><span>${child.title}</span></a></li>
+													<#if child.ak??><li><a href="${root}${child.ak}"><i class="${child.icon}"></i><span>${child.title}</span></a></li></#if>
 											    </#list>
 											    </#if>
 											</#list>
@@ -108,7 +108,7 @@
 	<script src="/static/js/bootstrap.js"></script>
 	<!-- App -->
 	<script src="/static/js/app.js"></script>
-	<script src="/static/js/datatables/jquery.dataTables.min.js"></script>
+	<script src="/static/js/jquery.dataTables.js"></script>
 	<script src="/static/js/datatables/jquery.csv-0.71.min.js"></script>
 	<script src="/static/js/slimscroll/jquery.slimscroll.min.js"></script>
 	<script src="/static/js/app.plugin.js"></script>

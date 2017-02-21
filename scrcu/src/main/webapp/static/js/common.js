@@ -35,7 +35,7 @@ function thirtydayQuery() {
  * 计算一年的日期间隔
  */
 function yearQuery() {
-    $("#start_dt").val(getYear(-1));
+    $("#start_dt").val(getYear(-365));
     $("#end_dt").val(getYear(0));
     $("#dateQuery").click();
 }
@@ -82,7 +82,8 @@ function getDateStr(AddDayCount) {
 
 function getYear(addYearCount) {
 	var year = new Date();
-	var y = year.getFullYear() + addYearCount;
+    year.setDate(year.getDate() + addYearCount);
+	var y = year.getFullYear();
     var m = year.getMonth() + 1;// 获取当前月份的日期
     var d = year.getDate();
 	return y + "-" + (m < 10 ? "0" + m : m) + "-" + (d < 10 ? "0" + d : d);
@@ -137,7 +138,7 @@ function tableQuery(option, callback) {
 	//设置排序列不能sort
 	var sortset={"bSortable": false,"aTargets": [0]};
 	result.aoColumnDefs.push(sortset);
-	console.log(result.aoColumnDefs);
+	// console.log(result.aoColumnDefs);
 	// 序号
 	if (result.fixedOrder && $(result.id).find("thead tr").length > 0) {
 		result["columnDefs"] = [ {
@@ -180,7 +181,7 @@ function tableQuery(option, callback) {
 			e.preventDefault();
 			var column = table.column($(this).attr('data-column'));
 			if ($(this).prop("checked")) {
-				console.log($(this).attr('data-column'));
+				// console.log($(this).attr('data-column'));
 				column.visible(true);
 			} else {
 				column.visible(false);

@@ -4,9 +4,36 @@
 			<div class="col-sm-4">
 				<div class="btn-group" id="dayChange">
 					<button type="button" id="yesterdayButton" class="btn btn-default" onclick="yesterdayQuery()">昨天</button>
-					<button type="button" id="sevendayButton" class="btn btn-default" onclick="sevendayQuery()">近7天</button>
-					<button type="button" id="thirtydayButton" class="btn btn-default" onclick="thirtydayQuery()">近30天</button>
-					<button type="button" id="yearButton" class="btn btn-default" onclick="yearQuery()">近1年</button>
+					<button type="button" id="sevendayButton" class="btn btn-default" onclick="sevendayQuery()">周</button>
+					<div id="filterMenu" class="btn-group">
+						<button type="button" id="thirtydayButton" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+								aria-expanded="false">月</button>
+						<ul class="dropdown-menu animation-expand" role="menu">
+							<li id= "jan" name="jan"><a onclick="thirtydayQuery()">一月</a></li>
+							<li id= "feb" name="jan"><a onclick="thirtydayQuery()">二月</a></li>
+							<li id= "mar" name="jan"><a onclick="thirtydayQuery()">三月</a></li>
+							<li id= "apr" name="jan"><a onclick="thirtydayQuery()">四月</a></li>
+							<li id= "may" name="jan"><a onclick="thirtydayQuery()">五月</a></li>
+							<li id= "jun" name="jan"><a onclick="thirtydayQuery()">六月</a></li>
+							<li id= "jul" name="jan"><a onclick="thirtydayQuery()">七月</a></li>
+							<li id= "aug" name="jan"><a onclick="thirtydayQuery()">八月</a></li>
+							<li id= "sep" name="jan"><a onclick="thirtydayQuery()">九月</a></li>
+							<li id= "oct" name="jan"><a onclick="thirtydayQuery()">十月</a></li>
+							<li id= "nov" name="jan"><a onclick="thirtydayQuery()">十一月</a></li>
+							<li id= "dec" name="jan"><a onclick="thirtydayQuery()">十二月</a></li>
+						</ul>
+					</div>
+					<div id="filterMenu2" class="btn-group">
+						<button type="button" id="threeMonthButton" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+								aria-expanded="false">季</button>
+						<ul class="dropdown-menu animation-expand" role="menu">
+							<li id= "one" name="jan"><a onclick="threeMonthQuery()">第一季度</a></li>
+							<li id= "two" name="jan"><a onclick="threeMonthQuery()">第二季度</a></li>
+							<li id= "three" name="jan"><a onclick="threeMonthQuery()">第三季度</a></li>
+							<li id= "four" name="jan"><a onclick="threeMonthQuery()">第四季度</a></li>
+						</ul>
+					</div>
+					<button type="button" id="yearButton" class="btn btn-default" onclick="yearQuery()">年</button>
 				</div>
 			</div>
 			<div class="col-sm-3" id="start_dt_div">
@@ -69,7 +96,7 @@
 				};
 				tableQuery(option);
 			}
-		}
+		};
 		commonAjax(ajaxOption);
 	}
 
