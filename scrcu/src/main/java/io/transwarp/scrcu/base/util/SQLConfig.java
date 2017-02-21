@@ -185,7 +185,8 @@ public enum SQLConfig {
     // 静态标签
     label_label_grouping,
     //标签配置
-    label_config,
+    use_time_label,
+    use_time_label_config,
     // 画像 家庭关系
     portrait_family,
     // 画像 转账关系

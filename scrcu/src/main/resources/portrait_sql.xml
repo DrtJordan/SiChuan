@@ -77,10 +77,15 @@
 		<sql id="sql">select max(topic_desc) as topic_desc ,topic,max(label_desc) as label_desc,label_code as label_code,max(label_only) as label_only,sum(total) as total from hb_label_labelwall_result</sql>
 	</sqlGroup>
 
-	<sqlGroup name="label_config">
-		<sql id="name">标签配置</sql>
+	<sqlGroup name="use_time_label">
+		<sql id="name">使用时段标签表</sql>
 		<sql id="header"></sql>
-		<sql id="sql">update test.use_time_table set </sql>
+		<sql id="sql">select use_time, begin_use_time, end_use_time, use_time_name from test.use_time_table order by use_time asc</sql>
+	</sqlGroup>
+	<sqlGroup name="use_time_label_config">
+		<sql id="name">配置使用时段标签表</sql>
+		<sql id="header"></sql>
+		<sql id="sql">update test.use_time_table set SQL_CONDITION</sql>
 	</sqlGroup>
 
 	<sqlGroup name="label_colony_users">

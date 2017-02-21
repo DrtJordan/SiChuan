@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.alibaba.fastjson.serializer.ObjectArrayCodec;
 import com.jfinal.i18n.I18n;
 import com.jfinal.i18n.Res;
 import org.apache.commons.lang.StringUtils;
@@ -339,49 +340,22 @@ public class PortraitController extends Controller {
         }
     }
 
+    @RequiresPermissions("/portrait/config")
     public void config() throws Exception {
-        List<Map<String, Object>> tagList = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.label_label_grouping)
-                + getLevelCondition() + " group by topic,label_code order by total desc", true);
-        final Map<String, List<Map<String, Object>>> tagMap = new TreeMap<String, List<Map<String, Object>>>();
-        for (Map<String, Object> map : tagList) {
-            String key = (String) map.get("topic_desc");
-            allTagMap.put((String) map.get("label_only"), map);
-            if (tagMap.get(key) == null) {
-                List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-                tagMap.put(key, list);
-            }
-            tagMap.get(key).add(map);
-        }
+        List<Map<String, Object>> useTime = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.use_time_label), false);
         Map<String, Object> map = new HashMap<>();
-        if (getPara().equals("useTime")){
-
-            map.put("useTime", tagMap.get("使用时段"));
-        }else if(getPara().equals("creditRating")){
-            map.put("creditRating", tagMap.get("信用评级"));
-        }else if (getPara().equals("UserGroupTypes")) {
-            map.put("UserGroupTypes", tagMap.get("用户群体类型"));
-        }
-//        List<Map<String, Object>> tagList = InceptorUtil.mapQuery(SqlKit.propSQL("select * from test.use_time_table"), true);
-//        final Map<String, List<Map<String, Object>>> tagMap = new TreeMap<String, List<Map<String, Object>>>();
-//        Map<String, Object> maps = new HashMap<>();
-//        for (Map<String, Object> map : tagList) {
-//            maps.put("begin_use_time",map.get("begin_use_time"));
-//            maps.put("end_use_time",map.get("end_use_time"));
-//        }
-
-        setAttr("tagMap", map);
+        setAttr("tagMap", useTime);
     }
 
+    @RequiresPermissions("/portrait/update")
     public void update() throws Exception {
-        String[] keys = {"use_time_03","use_time_05","use_time_04","use_time_06","use_time_07","use_time_02","use_time_01"};
-        String[] strings = getParaValues("val");
+        String[] keys = getParaValues("key");
+        String[][] strings = {getParaValues("start"),getParaValues("end")};
         StringBuffer val = new StringBuffer(" ");
-        int i = 0;
-        for (String s :strings) {
-            val = val.append("begin_use_time = '").append(s).append("' where use_time = '").append(keys[i++]).append("'").append(";");
-            InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.label_config) + val, true);
-            int l = val.length();
-            val = val.delete(1, l);
+        for(int i = 0; i < keys.length; i++){
+            val = val.append("begin_use_time = '").append(strings[0][i]).append("', end_use_time = '").append(strings[1][i]).append("' where use_time = '").append(keys[i]).append("'").append(";");
+            InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.use_time_label_config, val.toString()), false);
+            val = val.delete(1, val.length());
         }
         redirect("/portrait/tags");
     }
