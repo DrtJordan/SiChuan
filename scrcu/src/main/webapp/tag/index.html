@@ -1,0 +1,45 @@
+<#include "/common/_layout.html" /> <@layout>
+<div class="top">
+    <ul class="breadcrumb">
+        <li><a><i class="fa fa-home"></i> 用户画像</a></li>
+        <li>可配置标签</li>
+    </ul>
+
+</div>
+
+<section id="content">
+    <section class="vbox">
+        <section class="scrollable">
+            <div class="row">
+                <div class="col-sm-12">
+                    <section class="panel panel-default">
+                        <header class="panel-heading"> 标签列表 </header>
+                        <table id="tagTable" class="table table-striped m-b-none" style="text-align: center;">
+                            <thead>
+                            <tr>
+                                <th class="col-sm-2" style="text-align: center;">编号</th>
+                                <th style="text-align: center;">标签名</th>
+                                <th class="col-sm-2" style="text-align: center;">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <#list tagLists as tag>
+                                <tr>
+                                    <td>${tag_index+1}</td>
+                                    <td>${tag[0]}</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a href="${root}/tag/${tag[1]}"><label class="btn btn-sm btn-info">配置</label></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </#list>
+                            </tbody>
+                        </table>
+                    </section>
+                </div>
+            </div>
+        </section>
+    </section>
+</section>
+</@layout>

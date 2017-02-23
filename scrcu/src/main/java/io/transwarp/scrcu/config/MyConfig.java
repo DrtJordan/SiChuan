@@ -49,6 +49,7 @@ import io.transwarp.scrcu.system.role.SysRoleRes;
 import io.transwarp.scrcu.system.users.UserRoles;
 import io.transwarp.scrcu.system.users.Users;
 import io.transwarp.scrcu.system.users.UsersController;
+import io.transwarp.scrcu.tag.TagController;
 
 public class MyConfig extends JFinalConfig {
 
@@ -88,7 +89,10 @@ public class MyConfig extends JFinalConfig {
 
 		this.routes = me;
 		me.add("/", IndexController.class, "index");
+		//用户画像
 		me.add("/portrait", PortraitController.class);
+		me.add("/tag", TagController.class);
+		//系统设置
 		me.add("/system/users", UsersController.class, "system/users");
 		me.add("/system/role", RoleController.class, "system/role");
 		me.add("/system/Resource", ResourceController.class, "system/Resource");
