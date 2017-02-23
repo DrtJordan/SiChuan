@@ -9,9 +9,11 @@ import io.transwarp.scrcu.base.util.BaseUtils;
 import io.transwarp.scrcu.base.util.ChartUtils;
 import io.transwarp.scrcu.base.util.SQLConfig;
 import io.transwarp.scrcu.sqlinxml.SqlKit;
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +21,7 @@ import java.util.List;
 public class AppUserController extends BaseController {
 
     Res res = I18n.use("i18n", "zh_CN");
-    
+
     /**
      * app活跃用户数据
      */
@@ -173,10 +175,33 @@ public class AppUserController extends BaseController {
         if (BaseUtils.isAjax(getRequest())) {
             // 得到查询条件
             String condition = InceptorUtil.getDateCondition(getRequest());
-            // 执行查询
-            List<List<String>> dataTime = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser) + condition, 35);
-            List<List<String>> dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_phone) + condition, 35);
-            List<List<String>> dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_channel) + condition, 35);
+            List<List<String>> dataTime = new ArrayList<>();
+            List<List<String>> dataPhone = new ArrayList<>();
+            List<List<String>> dataChannel = new ArrayList<>();
+            String type = getPara("type");
+            if (type != null){
+                if (type.equals("month")) {
+                    dataTime = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_month));
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_phone_month));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_channel_month));
+                }
+                if (type.equals("quarter")) {
+                    dataTime = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_quarter));
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_phone_quarter));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_channel_quarter));
+                }
+                if (type.equals("year")){
+                    dataTime = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_year));
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_phone_year));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_channel_year));
+                }
+            } else {
+                // 执行查询
+                dataTime = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser) + condition, 35);
+                dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_phone) + condition, 35);
+                dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_channel) + condition, 35);
+            }
+
             // 定义json类型结果
             JSONObject result = new JSONObject();
             //返回结果
@@ -194,4 +219,5 @@ public class AppUserController extends BaseController {
             renderJson(result);
         }
     }
+
 }

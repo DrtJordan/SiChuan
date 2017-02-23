@@ -3,44 +3,16 @@
 		<div class="form-group">
 			<div class="col-sm-4">
 				<div class="btn-group" id="dayChange">
-					<button type="button" id="yesterdayButton" class="btn btn-default" onclick="yesterdayQuery()">昨天</button>
-					<button type="button" id="sevendayButton" class="btn btn-default" onclick="sevendayQuery()">周</button>
-					<div id="filterMenu" class="btn-group">
-						<button type="button" id="thirtydayButton" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-								aria-expanded="false">月</button>
-						<ul class="dropdown-menu animation-expand" role="menu">
-							<li id= "jan" name="jan"><a onclick="thirtydayQuery()">一月</a></li>
-							<li id= "feb" name="jan"><a onclick="thirtydayQuery()">二月</a></li>
-							<li id= "mar" name="jan"><a onclick="thirtydayQuery()">三月</a></li>
-							<li id= "apr" name="jan"><a onclick="thirtydayQuery()">四月</a></li>
-							<li id= "may" name="jan"><a onclick="thirtydayQuery()">五月</a></li>
-							<li id= "jun" name="jan"><a onclick="thirtydayQuery()">六月</a></li>
-							<li id= "jul" name="jan"><a onclick="thirtydayQuery()">七月</a></li>
-							<li id= "aug" name="jan"><a onclick="thirtydayQuery()">八月</a></li>
-							<li id= "sep" name="jan"><a onclick="thirtydayQuery()">九月</a></li>
-							<li id= "oct" name="jan"><a onclick="thirtydayQuery()">十月</a></li>
-							<li id= "nov" name="jan"><a onclick="thirtydayQuery()">十一月</a></li>
-							<li id= "dec" name="jan"><a onclick="thirtydayQuery()">十二月</a></li>
-						</ul>
-					</div>
-					<div id="filterMenu2" class="btn-group">
-						<button type="button" id="threeMonthButton" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-								aria-expanded="false">季</button>
-						<ul class="dropdown-menu animation-expand" role="menu">
-							<li id= "one" name="jan"><a onclick="threeMonthQuery()">第一季度</a></li>
-							<li id= "two" name="jan"><a onclick="threeMonthQuery()">第二季度</a></li>
-							<li id= "three" name="jan"><a onclick="threeMonthQuery()">第三季度</a></li>
-							<li id= "four" name="jan"><a onclick="threeMonthQuery()">第四季度</a></li>
-						</ul>
-					</div>
-					<button type="button" id="yearButton" class="btn btn-default" onclick="yearQuery()">年</button>
+					<button type="button" id="weekButton" class="btn btn-default">周</button>
+					<button type="button" id="monthButton" class="btn btn-default">月</button>
+					<button type="button" id="quarterButton" class="btn btn-default">季</button>
+					<button type="button" id="yearButton" class="btn btn-default">年</button>
 				</div>
 			</div>
 			<div class="col-sm-3" id="start_dt_div">
 				<div class="input-group m-b date" data-date="yyyy-mm-dd">
 					<input class="input-sm form-control" id="start_dt" value="${start_dt!}" name="start_dt"
-						type="text" data-date-format="yyyy-mm-dd"
-					>
+						type="text" data-date-format="yyyy-mm-dd">
 					<i class="add-on input-group-addon icon-calendar"></i>
 				</div>
 			</div>
@@ -62,7 +34,11 @@
 <div class="clear">
 	<hr />
 </div>
+
 <script>
+    /**
+	 * 设置日期插件的格式
+     */
     $(document).ready(function () {
         $('#start_dt_div .input-group.m-b.date').datepicker({
 			format:'yyyy-mm-dd',
@@ -77,42 +53,29 @@
     });
 
 </script>
-<script>
-	var url = window.location.href;
-	var table;
-	function query(flag) {
-		if (flag) {
-			$("#yesterdayButton").click();
-			return;
-		}
-		var start = $("#start_dt").val();
-		var end = $("#end_dt").val();
-		var ajaxOption = {
-			url : window.location.href + "?start_dt=" + start + "&end_dt="
-					+ end,
-			success : function(data) {
-				var option = {
-					"aaData" : data.data
-				};
-				tableQuery(option);
-			}
-		};
-		commonAjax(ajaxOption);
-	}
 
+<script>
 	$(document).ready(function() {
+	    //设置按钮的样式
 		$("#dayChange .btn").click(function() {
 			$("#dayChange .btn").removeClass("active");
 			$(this).addClass("active");
 		});
+
+		//设置日期查询的默认值
 		if ($("#start_dt").val() == "") {
 			$("#start_dt").val(getDateStr(-1));
 		}
+		if ($("#end_dt").val() == "") {
+            $("#end_dt").val(getDateStr(0));
+		}
+		//导出按钮导出数据
 		csvExport();
-		commonQuery(true);
+		//根据时间查找数据
+		query();
 	});
-	//设置tab csv导出action
 
+	//设置tab csv导出action
 	//设置csv导出action
 	function csvExport() {
 		var start = $("#start_dt").val();
@@ -137,4 +100,48 @@
 							action + "?start_dt=" + start + "&end_dt=" + end);
 				});
 	}
+</script>
+
+<script>
+
+    function query() {
+        var start = $("#start_dt").val();
+        var end = $("#end_dt").val();
+        var ajaxOption = {
+            url : window.location.href + "?start_dt=" + start + "&end_dt="
+            + end,
+            success : function(data) {
+                dataTableExchange(data);
+            }
+        };
+        commonAjax(ajaxOption);
+    }
+
+    $("#monthButton").click(function () {
+        var ajaxOption = {
+            url : window.location.href + "?type=month",
+            success : function(data) {
+                dataTableExchange(data);
+            }
+        };
+        commonAjax(ajaxOption);
+    });
+    $("#quarterButton").click(function () {
+        var ajaxOption = {
+            url : window.location.href + "?type=quarter",
+            success : function(data) {
+                dataTableExchange(data);
+            }
+        };
+        commonAjax(ajaxOption);
+    });
+    $("#yearButton").click(function () {
+        var ajaxOption = {
+            url : window.location.href + "?type=year",
+            success : function(data) {
+                dataTableExchange(data);
+            }
+        };
+        commonAjax(ajaxOption);
+    });
 </script>

@@ -78,36 +78,75 @@
 </section>
 </@layout>
 
-<script>
-    function query(flag) {
-        if (flag) {
-            $("#sevendayButton").click();
-            return;
-        }
-        var start = $("#start_dt").val();
-        var end = $("#end_dt").val();
-        var ajaxOption = {
-            url : window.location.href + "?start_dt=" + start + "&end_dt="
-            + end,
-            success : function(data) {
-                var chart = echarts.init(document.getElementById('chartDiv'),
-                    'infographic');
-                var chartOption = data.chartOption;
-                chart.setOption($.parseJSON(chartOption));
-                tableQuery({
-                    "aaData" : data.dataTime,
-                    "id" : "#table1"
-                });
-                tableQuery({
-                    "aaData" : data.dataPhone,
-                    "id" : "#table2"
-                });
-                tableQuery({
-                    "aaData" : data.dataChannel,
-                    "id" : "#table3"
+<script type="text/javascript">
+    /**
+     * 定义数据查询方法，用来转换后台传输数据
+     * @param data
+     */
+    function dataTableExchange (data) {
+        var chart = echarts.init(document.getElementById('chartDiv'),
+            'infographic');
+        var chartOption = data.chartOption;
+        chart.setOption($.parseJSON(chartOption));
+        tableQuery({
+            "aaData": data.dataTime,
+            "id": "#table1",
+            "aoColumnDefs": [{
+                "targets": [0, 2, 3],
+                "searchable": false
+            }]
+        });
+        tableQuery({
+            "aaData": data.dataPhone,
+            "id": "#table2",
+            "aoColumnDefs": [{
+                "targets": [0, 3, 4, 5],
+                "searchable": false
+            }],
+            "sDom": "<'row'<'col-sm-3'l><'col-sm-5'f>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
+            initComplete: function () {
+                var api = this.api();
+                var column = api.column(2);
+                var select = $('<div id="select" class="col-sm-4"><div class="dataTables_filter"><label><i class="icon-screen-smartphone">手机OS&nbsp;</i><select style="width: 120px"><option value="">--请选择--</option></select></label></div></div>')
+                    .appendTo($("#table2_wrapper div:first"))
+                    .on('change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(" #table2_wrapper div:first div#select select").val()
+                        );
+                        column
+                            .search(val ? '^' + val + '$' : '', true, false)
+                            .draw();
+                    });
+                column.data().unique().sort().each(function (d, j) {
+                    $(" #table2_wrapper div#select select").append('<option value="' + d + '">' + d + '</option>')
                 });
             }
-        }
-        commonAjax(ajaxOption);
+        });
+        tableQuery({
+            "aaData": data.dataChannel,
+            "id": "#table3",
+            "aoColumnDefs": [{
+                "targets": [0, 3, 4],
+                "searchable": false
+            }],
+            "sDom": "<'row'<'col-sm-3'l><'col-sm-5'f>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
+            initComplete: function () {
+                var api = this.api();
+                var column = api.column(2);
+                var select = $('<div id="select" class="col-sm-4"><div class="dataTables_filter"><label><i class="icon-screen-smartphone">渠道名&nbsp;</i><select style="width: 120px"><option value="">--请选择--</option></select></label></div></div>')
+                    .appendTo($("#table3_wrapper div:first"))
+                    .on('change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(" #table3_wrapper div:first div#select select").val()
+                        );
+                        column
+                            .search(val ? '^' + val + '$' : '', true, false)
+                            .draw();
+                    });
+                column.data().unique().sort().each(function (d, j) {
+                    $(" #table3_wrapper div#select select").append('<option value="' + d + '">' + d + '</option>')
+                });
+            }
+        });
     }
 </script>

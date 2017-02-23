@@ -2,14 +2,6 @@
  * 默认日期查询
  */
 function todayQuery() {
-	$("#start_dt").val(getDateStr(0));
-	$("#end_dt").val("");
-	$("#dateQuery").click();
-}
-/**
- * 计算昨天日期
- */
-function yesterdayQuery() {
 	$("#start_dt").val(getDateStr(-1));
 	$("#end_dt").val(getDateStr(0));
 	$("#dateQuery").click();
@@ -52,6 +44,12 @@ function dateDiff(day1,day2){
 	return (d1.getTime()-d2.getTime())/(24*60*60*1000);
 }
 
+/**
+ * 比例转换
+ *
+ * @param num
+ * @returns {*}
+ */
 function getPercent(num){
 	try{
 		var result=(fixed(num*100))+"%";
@@ -89,14 +87,8 @@ function getYear(addYearCount) {
 	return y + "-" + (m < 10 ? "0" + m : m) + "-" + (d < 10 ? "0" + d : d);
 }
 
-function commonQuery(flag) {
-	// 设置csv导出action
-	query(flag);
-	csvExport();
-}
-
 function tableQuery(option, callback) {
-	var filterWord = "模糊查询";
+	var filterWord = "按日期查询";
 	if (option.filterWord != null) {
 		filterWord = option.filterWord;
 	}
@@ -114,14 +106,14 @@ function tableQuery(option, callback) {
 		"dataType" : "json",
 		"oLanguage" : {
 			"sProcessing" : "正在加载数据...",
-			"sLengthMenu" : "显示 &nbsp;&nbsp;&nbsp;_MENU_&nbsp;&nbsp;&nbsp;条 ",
+			"sLengthMenu" : "显示 &nbsp;_MENU_&nbsp条 ",
 			"sZeroRecords" : "没有记录",
-			"sInfo" : "第 _START_ 到 _END_ 条&nbsp;&nbsp;&nbsp;&nbsp;总数 _TOTAL_ 条",
-			"sInfoEmpty" : "记录数为&nbsp;&nbsp;0",
+			"sInfo" : "第 _START_ 到 _END_ 条&nbsp;&nbsp;总数 _TOTAL_ 条",
+			"sInfoEmpty" : "记录数为&nbsp;0",
 			"sInfoFiltered" : "(全部记录数 _MAX_条)",
 			"sInfoPostFix" : "",
-			"sSearch" : "<i class='fa-filter fa'></i>&nbsp;&nbsp;" + filterWord
-					+ "&nbsp;&nbsp;&nbsp;",
+			"sSearch" : "<i class='fa-filter fa'></i>" + filterWord
+					+ "&nbsp;",
 			"sUrl" : "",
 			"oPaginate" : {
 				"sFirst" : "首页",
@@ -138,7 +130,7 @@ function tableQuery(option, callback) {
 	//设置排序列不能sort
 	var sortset={"bSortable": false,"aTargets": [0]};
 	result.aoColumnDefs.push(sortset);
-	// console.log(result.aoColumnDefs);
+
 	// 序号
 	if (result.fixedOrder && $(result.id).find("thead tr").length > 0) {
 		result["columnDefs"] = [ {
@@ -181,7 +173,6 @@ function tableQuery(option, callback) {
 			e.preventDefault();
 			var column = table.column($(this).attr('data-column'));
 			if ($(this).prop("checked")) {
-				// console.log($(this).attr('data-column'));
 				column.visible(true);
 			} else {
 				column.visible(false);
@@ -194,17 +185,15 @@ function tableQuery(option, callback) {
 		callback(table);
 	}
 	return table;
-	// var lastIdx = null;
-	// $('#table tbody').on( 'mouseover', 'td', function () {
-	// var colIdx = table.cell(this).index().column;
-	// if ( colIdx !== lastIdx ) {
-	// $( table.cells().nodes() ).removeClass( 'highlight' );
-	// $( table.column( colIdx ).nodes() ).addClass( 'highlight' );
-	// }
-	// } ).on( 'mouseleave', function () {
-	// $( table.cells().nodes() ).removeClass( 'highlight' );
-	// } );
+}
 
+/**
+ * 定义公共查询方法
+ */
+function commonQuery() {
+    query();
+    // 设置csv导出action
+    csvExport();
 }
 
 function commonAjax(option) {

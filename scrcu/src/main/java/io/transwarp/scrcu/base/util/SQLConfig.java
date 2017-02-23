@@ -81,10 +81,24 @@ public enum SQLConfig {
 
     // 移动 新增用户分析
     app_newUser,
+
     // 移动 渠道新增用户分析
     app_newUser_channel,
+
     // 移动 手机新增用户分析
     app_newUser_phone,
+
+    app_newUser_month,
+    app_newUser_channel_month,
+    app_newUser_phone_month,
+
+    app_newUser_quarter,
+    app_newUser_channel_quarter,
+    app_newUser_phone_quarter,
+
+    app_newUser_year,
+    app_newUser_channel_year,
+    app_newUser_phone_year,
 
     // APP 用户统计 用户等级
     app_userAnalysis_userLevel,
