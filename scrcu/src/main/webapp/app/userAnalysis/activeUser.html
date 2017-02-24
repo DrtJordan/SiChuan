@@ -82,7 +82,13 @@
 </@layout>
 
 <script>
-	function dataTableExchange(data) {
+	function dataTableExchange(data, type) {
+
+	    if(type == "month") {
+	        $("#start_dt").val("");
+	        $("#end_dt").val("");
+		}
+
         var chart = echarts.init(document.getElementById('chartDiv'),
             'infographic');
         var chartOption = data.chartOption;

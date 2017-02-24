@@ -117,11 +117,20 @@
         commonAjax(ajaxOption);
     }
 
+    $("#weekButton").click(function () {
+        var ajaxOption = {
+            url : window.location.href + "?type=week",
+            success : function(data) {
+                dataTableExchange(data,"month");
+            }
+        };
+        commonAjax(ajaxOption);
+    });
     $("#monthButton").click(function () {
         var ajaxOption = {
             url : window.location.href + "?type=month",
             success : function(data) {
-                dataTableExchange(data);
+                dataTableExchange(data,"month");
             }
         };
         commonAjax(ajaxOption);
@@ -130,7 +139,7 @@
         var ajaxOption = {
             url : window.location.href + "?type=quarter",
             success : function(data) {
-                dataTableExchange(data);
+                dataTableExchange(data,"month");
             }
         };
         commonAjax(ajaxOption);
@@ -139,7 +148,7 @@
         var ajaxOption = {
             url : window.location.href + "?type=year",
             success : function(data) {
-                dataTableExchange(data);
+                dataTableExchange(data,"month");
             }
         };
         commonAjax(ajaxOption);
