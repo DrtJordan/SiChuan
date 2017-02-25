@@ -12,38 +12,38 @@
         <div class="panel-body">
             <form id="inputForm" class="bs-example form-horizontal" action="/tag/useTimeConfig">
                 <#list useTimes as useTime>
-                    <#if useTime.use_time_name??>
-                        <#if useTime_index == 0>
-                            <div class="form-group">
-                                <label class="col-sm-4 text-success text-md" name="title" value="使用时段">使用时段</label>
-                            </div>
-                        </#if>
+                    <#if useTime_index == 0>
                         <div class="form-group">
-                            <input type="hidden" value="${useTime.use_time}" name="key">
-                            <label class="col-lg-3 control-label" value="${useTime.use_time_name}" name="name">${useTime.use_time_name}</label>
+                            <label class="col-sm-4 text-success text-md" name="title" value="使用时段">使用时段</label>
+                        </div>
+                    </#if>
+                    <div class="form-group">
+                        <input type="hidden" value="${useTime.use_time}" name="key">
+                        <label class="col-lg-3 control-label" value="${useTime.use_time_name}" name="name">${useTime.use_time_name}</label>
 
-                            <div class="col-lg-8">
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="start${useTime_index}" value="${useTime.begin_use_time}">
-                                </div>
-                                <div class="col-sm-1" style="margin-left: -5.3%; margin-right: -1.6%">
+                        <div class="col-lg-8">
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" name="start${useTime_index}"
+                                       value="${useTime.begin_use_time}">
+                            </div>
+                            <div class="col-sm-1" style="margin-left: -5.3%; margin-right: -1.6%">
                     <span class="input-group-btn">
                         <button class="btn btn-default" type="button"
                                 style="border-left: 0px;box-shadow:none;border-right: 0px; border-color: #cbd5dd;">到
                         </button>
                     </span>
-                                </div>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="end${useTime_index}" value="${useTime.end_use_time}">
-                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" name="end${useTime_index}"
+                                       value="${useTime.end_use_time}">
                             </div>
                         </div>
-                    </#if>
+                    </div>
                 </#list>
                 <div class="form-group">
                     <div class="col-lg-offset-10 col-lg-10">
                         <button type="submit" class="btn btn-sm btn-success">保存</button>
-                        <button type="button" onclick="window.history.back()" class="btn btn-sm btn-danger">返回</button>
+                        <button type="reset" class="btn btn-sm btn-danger">重置</button>
                     </div>
                 </div>
             </form>
@@ -52,38 +52,73 @@
 </div>
 
 <script type="text/javascript">
-    $().ready(function(){
+    $().ready(function () {
         $("#inputForm").validate({
             errorPlacement: function (error, element) {
                 error.appendTo(element.parent());
             },
-            errorClass:"text-danger",
-            errorElement:"span",
+            errorClass: "text-danger",
+            errorElement: "span",
             rules: {
-            <#list useTimes as useTime>
-        start${useTime_index}: {
+            <#list
+        useTimes as useTime >
+        start$
+        {
+            useTime_index
+        }
+        :
+        {
             required: true,
-                    pattern: /^((0[0-9])|(1[0-9])|(2[0-3]))\:([0-5][0-9])$/
-        },
-        end${useTime_index}: {
+                    pattern
+        :
+            /^((0[0-9])|(1[0-9])|(2[0-3]))\:([0-5][0-9])$/
+        }
+        ,
+        end$
+        {
+            useTime_index
+        }
+        :
+        {
             required: true,
-                    pattern: /^((0[0-9])|(1[0-9])|(2[0-3]))\:([0-5][0-9])$/
-        },
-        </#list>
+                    pattern
+        :
+            /^((0[0-9])|(1[0-9])|(2[0-3]))\:([0-5][0-9])$/
+        }
+        ,
+        </#list >
     },
         messages: {
-        <#list useTimes as useTime>
-            start${useTime_index}: {
+        <#list
+            useTimes as useTime >
+            start$
+            {
+                useTime_index
+            }
+        :
+            {
                 required: "必填",
-                        pattern: "格式错误！(00:00~23:59)"
-            },
-            end${useTime_index}: {
+                        pattern
+            :
+                "格式错误！(00:00~23:59)"
+            }
+        ,
+            end$
+            {
+                useTime_index
+            }
+        :
+            {
                 required: "必填",
-                        pattern: "格式错误！(00:00~23:59)"
-            },
-        </#list>
+                        pattern
+            :
+                "格式错误！(00:00~23:59)"
+            }
+        ,
+        </#list >
         }
-    });
+    })
+        ;
     })
 </script>
 
