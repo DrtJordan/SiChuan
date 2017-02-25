@@ -83,7 +83,13 @@
      * 定义数据查询方法，用来转换后台传输数据
      * @param data
      */
-    function dataTableExchange (data) {
+    function dataTableExchange (data, type) {
+
+        if(type == "month") {
+            $("#start_dt").val("");
+            $("#end_dt").val("");
+        }
+
         var chart = echarts.init(document.getElementById('chartDiv'),
             'infographic');
         var chartOption = data.chartOption;
@@ -120,6 +126,8 @@
                 column.data().unique().sort().each(function (d, j) {
                     $(" #table2_wrapper div#select select").append('<option value="' + d + '">' + d + '</option>')
                 });
+
+                csvExport();
             }
         });
         tableQuery({
@@ -146,6 +154,8 @@
                 column.data().unique().sort().each(function (d, j) {
                     $(" #table3_wrapper div#select select").append('<option value="' + d + '">' + d + '</option>')
                 });
+
+                csvExport();
             }
         });
     }

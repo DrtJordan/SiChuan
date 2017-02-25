@@ -178,22 +178,27 @@ public class AppUserController extends BaseController {
             List<List<String>> dataTime = new ArrayList<>();
             List<List<String>> dataPhone = new ArrayList<>();
             List<List<String>> dataChannel = new ArrayList<>();
+            // 定义json类型结果
+            JSONObject result = new JSONObject();
             String type = getPara("type");
             if (type != null){
                 if (type.equals("month")) {
                     dataTime = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_month));
                     dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_phone_month));
                     dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_channel_month));
+                    result.put("minMonth", InceptorUtil.query("select min(stat_month) as stat_month from bdapp.tp_log_app_usr_added_orc_day"));
                 }
                 if (type.equals("quarter")) {
                     dataTime = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_quarter));
                     dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_phone_quarter));
                     dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_channel_quarter));
+                    result.put("minQuarter", InceptorUtil.query("select min(stat_quarter) as stat_month from bdapp.tp_log_app_usr_added_orc_day"));
                 }
                 if (type.equals("year")){
                     dataTime = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_year));
                     dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_phone_year));
                     dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_channel_year));
+                    result.put("minYear", InceptorUtil.query("select min(stat_year) as stat_month from bdapp.tp_log_app_usr_added_orc_day"));
                 }
             } else {
                 // 执行查询
@@ -202,8 +207,6 @@ public class AppUserController extends BaseController {
                 dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_channel) + condition, 35);
             }
 
-            // 定义json类型结果
-            JSONObject result = new JSONObject();
             //返回结果
             List<Object> xAxisList = new ArrayList<Object>();
             List<Object> dataList = new ArrayList<Object>();

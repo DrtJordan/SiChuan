@@ -383,8 +383,10 @@ public class InceptorUtil {
         return 0;
     }
 
-    // 开始时间不空，结束时间不空，则是>，否则等于
-    // 开始时间为空，结束时间不空，则是<
+    /**
+     * 开始时间不空，结束时间不空，则是>，否则等于
+     * 开始时间为空，结束时间不空，则是<
+     */
     public static String getDateCondition(HttpServletRequest request) {
         String start_dt = request.getParameter("start_dt");
         String end_dt = request.getParameter("end_dt");

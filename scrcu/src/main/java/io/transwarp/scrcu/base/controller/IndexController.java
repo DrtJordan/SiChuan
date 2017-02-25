@@ -34,6 +34,9 @@ public class IndexController extends BaseController {
 		setAttr("message", "hello word");render("signin.html");
 	}
 
+	/**
+	 * 用户注销
+	 */
 	public void logout() {
 		Subject currentUser = SecurityUtils.getSubject();
 		if (currentUser.isAuthenticated()) {
@@ -41,7 +44,11 @@ public class IndexController extends BaseController {
 		}
 	}
 
+	/**
+	 * 用户登陆
+	 */
 	public void signin() {
+		//获取前台输入的用户名和密码
 		String username = getPara("username");
 		String password = getPara("password");
 		Subject currentUser = SecurityUtils.getSubject();
@@ -72,6 +79,9 @@ public class IndexController extends BaseController {
 		render("unauthorized.html");
 	}
 
+	/**
+	 * 首页
+	 */
 	@RequiresAuthentication
 	public void index() {
 
@@ -260,6 +270,9 @@ public class IndexController extends BaseController {
 	// render("/message.html");
 	// }
 
+	/**
+	 * 导出数据
+	 */
 	@ActionKey("csv")
 	@RequiresPermissions("/csv")
 	public void exportCsv() {
