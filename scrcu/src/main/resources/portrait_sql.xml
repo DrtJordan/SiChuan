@@ -88,17 +88,6 @@
 		<sql id="sql">update test.use_time_table set SQL_CONDITION</sql>
 	</sqlGroup>
 
-	<sqlGroup name="job_label">
-		<sql id="name">职业标签表</sql>
-		<sql id="header"></sql>
-		<sql id="sql">select job_key, job_name, job_content_name from test.t_job order by job_key asc</sql>
-	</sqlGroup>
-	<sqlGroup name="job_label_config">
-		<sql id="name">配置职业标签表</sql>
-		<sql id="header"></sql>
-		<sql id="sql">update test.t_job set SQL_CONDITION</sql>
-	</sqlGroup>
-
 	<sqlGroup name="label_colony_users">
 		<sql id="name">具有标签用户</sql>
 		<sql id="header"></sql>
