@@ -12,31 +12,61 @@
         <section class="scrollable">
             <div class="row">
                 <div class="col-sm-12">
-                    <section class="panel panel-default">
-                        <header class="panel-heading"> 标签列表 </header>
-                        <table id="tagTable" class="table table-striped m-b-none" style="text-align: center;">
-                            <thead>
-                            <tr>
-                                <th class="col-sm-2" style="text-align: center;">编号</th>
-                                <th style="text-align: center;">标签名</th>
-                                <th class="col-sm-2" style="text-align: center;">操作</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <#list tagLists as tag>
-                                <tr>
-                                    <td>${tag_index+1}</td>
-                                    <td>${tag[0]}</td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <a href="${root}/tag/${tag[1]}"><label class="btn btn-sm btn-info">配置</label></a>
-                                        </div>
-                                    </td>
-                                </tr>
+                    <div class="tagtype col-sm-6" style="height: 200px">
+                        <div style="background-color:#545CA6;color: white;height:36px;padding-top:7px;margin-bottom:2px;margin-left: 8px;margin-right: 12px">
+                            <div class="col-sm-9">交易特征</div>
+                            <div class="col-sm-3"></div>
+                        </div>
+                        <ul class="userTags clear" style="margin-top:0px">
+                            <#list tradFeas as tradFea>
+                                <li class="text-success">
+                                    <a href="${root}/tag/${tradFea[1]}">${tradFea[0]}</a>
+                                </li>
                             </#list>
-                            </tbody>
-                        </table>
-                    </section>
+                        </ul>
+                    </div>
+
+                    <div class="tagtype col-sm-6" style="height: 200px">
+                        <div style="background-color:#545CA6;color: white;height:36px;padding-top:7px;margin-bottom:2px;margin-left: 8px;margin-right: 12px">
+                            <div class="col-sm-9">人口属性</div>
+                            <div class="col-sm-3"></div>
+                        </div>
+                        <ul class="userTags clear" style="margin-top:0px">
+                            <#list peoAttrs as tradFea>
+                                <li class="text-success">
+                                    <a href="${root}/tag/${tradFea[1]}">${tradFea[0]}</a>
+                                </li>
+                            </#list>
+                        </ul>
+                    </div>
+
+                    <div class="tagtype col-sm-6" style="height: 200px">
+                        <div style="background-color:#545CA6;color: white;height:36px;padding-top:7px;margin-bottom:2px;margin-left: 8px;margin-right: 12px">
+                            <div class="col-sm-9">信用属性</div>
+                            <div class="col-sm-3"></div>
+                        </div>
+                        <ul class="userTags clear" style="margin-top:0px">
+                            <#list creAttrs as tradFea>
+                                <li class="text-success">
+                                    <a href="${root}/tag/${tradFea[1]}">${tradFea[0]}</a>
+                                </li>
+                            </#list>
+                        </ul>
+                    </div>
+
+                    <div class="tagtype col-sm-6" style="height: 200px">
+                        <div style="background-color:#545CA6;color: white;height:36px;padding-top:7px;margin-bottom:2px;margin-left: 8px;margin-right: 12px">
+                            <div class="col-sm-9">功能操作属性</div>
+                            <div class="col-sm-3"></div>
+                        </div>
+                        <ul class="userTags clear" style="margin-top:0px">
+                            <#list opeAttrs as tradFea>
+                                <li class="text-success">
+                                    <a href="${root}/tag/${tradFea[1]}">${tradFea[0]}</a>
+                                </li>
+                            </#list>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
