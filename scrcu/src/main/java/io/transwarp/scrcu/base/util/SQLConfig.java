@@ -78,28 +78,12 @@ public enum SQLConfig {
     app_loginUser_channel,
     // 移动 手机登录分布
     app_loginUser_phone,
-
     // 移动 新增用户分析
     app_newUser,
-
     // 移动 渠道新增用户分析
     app_newUser_channel,
-
     // 移动 手机新增用户分析
     app_newUser_phone,
-
-    app_newUser_month,
-    app_newUser_channel_month,
-    app_newUser_phone_month,
-
-    app_newUser_quarter,
-    app_newUser_channel_quarter,
-    app_newUser_phone_quarter,
-
-    app_newUser_year,
-    app_newUser_channel_year,
-    app_newUser_phone_year,
-
     // APP 用户统计 用户等级
     app_userAnalysis_userLevel,
     // 移动 使用时长
@@ -166,6 +150,56 @@ public enum SQLConfig {
     app_event_tendency,
     // 事件详情
     app_event_detail,
+
+    /**
+     * App移动统计按天、周、月、季、年汇总统计
+     */
+    //新增用户按天汇总
+    app_newUser_day,
+    app_newUser_channel_day,
+    app_newUser_phone_day,
+    //新增用户按周汇总
+    app_newUser_week,
+    app_newUser_channel_week,
+    app_newUser_phone_week,
+    //新增用户按月汇总
+    app_newUser_month,
+    app_newUser_channel_month,
+    app_newUser_phone_month,
+    //新增用户按季汇总
+    app_newUser_quarter,
+    app_newUser_channel_quarter,
+    app_newUser_phone_quarter,
+    //新增用户按年汇总
+    app_newUser_year,
+    app_newUser_channel_year,
+    app_newUser_phone_year,
+
+    //使用时长按天汇总
+    app_useTime_day,
+    app_useTime_channel_day,
+    app_useTime_phone_day,
+    app_useTime_os_day,
+    //使用时长按周汇总
+    app_useTime_week,
+    app_useTime_channel_week,
+    app_useTime_phone_week,
+    app_useTime_os_week,
+    //使用时长按月汇总
+    app_useTime_month,
+    app_useTime_channel_month,
+    app_useTime_phone_month,
+    app_useTime_os_month,
+    //使用时长按季汇总
+    app_useTime_quarter,
+    app_useTime_channel_quarter,
+    app_useTime_phone_quarter,
+    app_useTime_os_quarter,
+    //使用时长按年汇总
+    app_useTime_year,
+    app_useTime_channel_year,
+    app_useTime_phone_year,
+    app_useTime_os_year,
 
     // 画像 交易曲线
     portrait_trading,

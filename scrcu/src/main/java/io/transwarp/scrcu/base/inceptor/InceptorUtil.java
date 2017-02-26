@@ -402,6 +402,21 @@ public class InceptorUtil {
         return sb.toString();
     }
 
+    public static String getQueryCondition(HttpServletRequest request) {
+        String start_dt = request.getParameter("start_dt");
+        String end_dt = request.getParameter("end_dt");
+        StringBuffer sb = new StringBuffer();
+        if (StringUtils.isNotBlank(end_dt) && StringUtils.isNotBlank(start_dt)) {
+            sb.append(" where stat_date >= '" + start_dt + "' and stat_date <= '" + end_dt + "'");
+        } else if (StringUtils.isNotBlank(end_dt) && StringUtils.isBlank(start_dt)) {
+            sb.append(" where stat_date <= '" + end_dt + "'");
+        } else if (StringUtils.isNotBlank(start_dt)) {
+            sb.append(" where stat_date = '" + start_dt + "'");
+        }
+
+        return sb.toString();
+    }
+
     public static Statement getOriginalStatement() {
         Statement stmt = null;
         try {

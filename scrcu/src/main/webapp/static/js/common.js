@@ -88,7 +88,7 @@ function getYear(addYearCount) {
 }
 
 function tableQuery(option, callback) {
-	var filterWord = "按日期查询";
+	var filterWord = "日期";
 	if (option.filterWord != null) {
 		filterWord = option.filterWord;
 	}

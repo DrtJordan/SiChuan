@@ -3,6 +3,7 @@ package io.transwarp.scrcu.base.util;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import io.transwarp.echarts.DataRange;
 import io.transwarp.echarts.Grid;
@@ -157,6 +158,40 @@ public class ChartUtils {
             line.setData(list);
             option.series(line);
         }
+
+        return GsonUtil.format(option);
+
+    }
+
+    /**
+     * 使用时长
+     */
+    public static String genUseTimeLineChart(Set<Object> xAxisList, Object[] nameList, List<Object> dataList) {
+        EnhancedOption option = new EnhancedOption();
+        option.tooltip().trigger(Trigger.axis);
+        Legend legend = new Legend();
+        //将名称设置为底部显示
+        legend.y("bottom").data(nameList);
+        option.legend(legend);
+        option.toolbox().show(true);
+        option.calculable(false);
+        //设置类目起始和结束两端空白策略，true：留空，false：顶头
+        CategoryAxis axis = new CategoryAxis().boundaryGap(false);
+        //给x轴添加数据
+        axis.setData(new ArrayList(xAxisList));
+        option.xAxis(axis);
+        option.yAxis(new ValueAxis());
+        for (int i = 0; i < dataList.size(); i++) {
+            List<Object> list = new ArrayList<>();
+            Line line = new Line().smooth(true).name(String.valueOf(nameList[i]));
+            list.add(dataList.get(i));
+            line.setData(list);
+            option.series(line);
+        }
+        Grid grid = new Grid();
+        //设置x，y轴的位置
+        grid.x("60").x2("30").y("10").y2("60");
+        option.grid(grid);
 
         return GsonUtil.format(option);
 

@@ -182,6 +182,12 @@ public class AppUserController extends BaseController {
             JSONObject result = new JSONObject();
             String type = getPara("type");
             if (type != null){
+                if (type.equals("day")) {
+                    dataTime = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_day));
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_phone_day));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_channel_day));
+//                    result.put("minMonth", InceptorUtil.query("select min(stat_month) as stat_month from bdapp.tp_log_app_usr_added_orc_day"));
+                }
                 if (type.equals("month")) {
                     dataTime = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_month));
                     dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_phone_month));

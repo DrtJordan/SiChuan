@@ -3,6 +3,7 @@
 		<div class="form-group">
 			<div class="col-sm-4">
 				<div class="btn-group" id="dayChange">
+					<button type="button" id="dayButton" class="btn btn-default">天</button>
 					<button type="button" id="weekButton" class="btn btn-default">周</button>
 					<button type="button" id="monthButton" class="btn btn-default">月</button>
 					<button type="button" id="quarterButton" class="btn btn-default">季</button>
@@ -16,7 +17,7 @@
 					<i class="add-on input-group-addon icon-calendar"></i>
 				</div>
 			</div>
-			<label class="col-sm-1 control-label" style="margin-top: 8px; margin-right: -50px; margin-left: -20px">至 </label>
+			<label id="dateTo" class="col-sm-1 control-label" style="margin-top: 8px; margin-right: -50px; margin-left: -20px">至 </label>
 			<div class="col-sm-3" id="end_dt_div">
 				<div class="input-group m-b date" data-date="yyyy-mm-dd">
 					<input class="input-sm form-control" id="end_dt" value="${end_dt!}" name="end_dt" type="text"
@@ -51,17 +52,23 @@
             todayHighlight: true
         });
     });
+</script>
 
+<script>
+    /**
+	 * 设置按钮切换的样式
+     */
+	$().ready(function () {
+        //设置按钮的样式
+        $("#dayChange .btn").click(function() {
+            $("#dayChange .btn").removeClass("active");
+            $(this).addClass("active");
+        });
+    })
 </script>
 
 <script>
 	$(document).ready(function() {
-	    //设置按钮的样式
-		$("#dayChange .btn").click(function() {
-			$("#dayChange .btn").removeClass("active");
-			$(this).addClass("active");
-		});
-
 		//设置日期查询的默认值
 		if ($("#start_dt").val() == "") {
 			$("#start_dt").val(getDateStr(-1));
@@ -117,11 +124,20 @@
         commonAjax(ajaxOption);
     }
 
+    $("#dayButton").click(function () {
+        var ajaxOption = {
+            url : window.location.href + "?type=day",
+            success : function(data) {
+                dataTableExchange(data);
+            }
+        };
+        commonAjax(ajaxOption);
+    });
     $("#weekButton").click(function () {
         var ajaxOption = {
             url : window.location.href + "?type=week",
             success : function(data) {
-                dataTableExchange(data,"month");
+                dataTableExchange(data);
             }
         };
         commonAjax(ajaxOption);
@@ -130,7 +146,7 @@
         var ajaxOption = {
             url : window.location.href + "?type=month",
             success : function(data) {
-                dataTableExchange(data,"month");
+                dataTableExchange(data);
             }
         };
         commonAjax(ajaxOption);
@@ -148,7 +164,7 @@
         var ajaxOption = {
             url : window.location.href + "?type=year",
             success : function(data) {
-                dataTableExchange(data,"month");
+                dataTableExchange(data);
             }
         };
         commonAjax(ajaxOption);
