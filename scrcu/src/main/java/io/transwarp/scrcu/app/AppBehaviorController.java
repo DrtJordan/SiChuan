@@ -40,31 +40,31 @@ public class AppBehaviorController extends Controller {
             String dateType = getPara("type");
             if (dateType != null) {
                 if (dateType.equals("day")) {
-                    dataTime = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_day));
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_useTime_day),false);
                     dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_phone_day));
                     dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_channel_day));
                     dataOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_os_day));
                 }
                 if (dateType.equals("week")) {
-                    dataTime = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_week));
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_useTime_week),false);
                     dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_phone_week));
                     dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_channel_week));
                     dataOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_os_week));
                 }
                 if (dateType.equals("month")) {
-                    dataTime = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_month));
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_useTime_month),false);
                     dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_phone_month));
                     dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_channel_month));
                     dataOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_os_month));
                 }
                 if (dateType.equals("quarter")) {
-                    dataTime = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_quarter));
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_useTime_quarter),false);
                     dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_phone_quarter));
                     dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_channel_quarter));
                     dataOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_os_quarter));
                 }
                 if (dateType.equals("year")) {
-                    dataTime = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_year));
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_useTime_year),false);
                     dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_phone_year));
                     dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_channel_year));
                     dataOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_os_year));
@@ -98,15 +98,19 @@ public class AppBehaviorController extends Controller {
                 if (!xAxisList.contains(list.get(0))) {
                     xAxisList.add(list.get(0));
                 }
+
                 if (list.get(1).equals("4-10秒")) {
                     fourToTenList.add(list.get(2));
                 }
+
                 if (list.get(1).equals("3-10分")) {
                     threeToTenMin.add(list.get(2));
                 }
+
                 if (list.get(1).equals("30分以上")) {
                     thirtenMin.add(list.get(2));
                 }
+
                 if (list.get(1).equals("11-30秒")) {
                     second11.add(list.get(2));
                 }

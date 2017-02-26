@@ -262,7 +262,7 @@
 	<sqlGroup name="app_useTime_channel_year">
 		<sql id="name">app使用时长_渠道维度按年汇总</sql>
 		<sql id="header">日期,渠道名,时长,启动次数,启动次数占比</sql>
-		<sql id="sql">select stat_date, chl_id, online_time, startup_cnt, startup_ratio from bdhbs.tp_log_app_usr_online_time_chl_orc_sum_day where cnt_type = 4 and online_time != '999' order by stat_date asc</sql>
+		<sql id="sql">select stat_date, chl_id, online_time, startup_cnt, startup_ratio from bdhbs.th_log_app_usr_online_time_chl_orc_sum_day where cnt_type = 4 and online_time != '999' order by stat_date asc</sql>
 	</sqlGroup>
 	<sqlGroup name="app_useTime_os_year">
 		<sql id="name">手机os使用时长按年汇总</sql>

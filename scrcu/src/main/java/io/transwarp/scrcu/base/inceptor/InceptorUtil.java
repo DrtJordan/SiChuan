@@ -105,6 +105,10 @@ public class InceptorUtil {
         return query(sql, true, 0, useTest);
     }
 
+    public static List<List<String>> queryCache(String sql, boolean useCache) {
+        return query(sql, useCache, 0, true);
+    }
+
     public static List<List<String>> query(String sql, int testCount) {
         return query(sql, true, testCount, true);
     }
