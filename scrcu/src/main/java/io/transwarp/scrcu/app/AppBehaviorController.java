@@ -1,9 +1,6 @@
 package io.transwarp.scrcu.app;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import com.jfinal.i18n.I18n;
 import com.jfinal.i18n.Res;
@@ -41,7 +38,7 @@ public class AppBehaviorController extends Controller {
             // 得到查询条件
             String condition = InceptorUtil.getQueryCondition(getRequest());
             String dateType = getPara("type");
-            if (dateType != null){
+            if (dateType != null) {
                 if (dateType.equals("day")) {
                     dataTime = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_day));
                     dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_phone_day));
@@ -66,7 +63,7 @@ public class AppBehaviorController extends Controller {
                     dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_channel_quarter));
                     dataOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_os_quarter));
                 }
-                if (dateType.equals("year")){
+                if (dateType.equals("year")) {
                     dataTime = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_year));
                     dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_phone_year));
                     dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_channel_year));
@@ -83,20 +80,50 @@ public class AppBehaviorController extends Controller {
                         .query(SqlKit.propSQL(SQLConfig.app_useTime_os, condition), 35);
             }
             // 返回结果
-            Set<Object> xAxisList = new HashSet<>();
-            List<Object> dataList = new ArrayList<Object>();
-//            Object[] nameList = new Object[]{"4-10秒","3-10分","30分以上","other","11-30秒","10-30分","1-3分","31-60秒","1-3秒"};
-            Object[] nameList = new Object[9];
-            Set<Object> names = new HashSet<>();
-            int i = 0;
+            List<Object> xAxisList = new ArrayList<>();
+
+            List<Object> fourToTenList = new ArrayList<Object>();
+            List<Object> threeToTenMin = new ArrayList<Object>();
+            List<Object> thirtenMin = new ArrayList<Object>();
+            List<Object> other = new ArrayList<Object>();
+            List<Object> second11 = new ArrayList<Object>();
+            List<Object> tenTothir = new ArrayList<Object>();
+            List<Object> minOneToThr = new ArrayList<Object>();
+            List<Object> sec31 = new ArrayList<Object>();
+            List<Object> sec1 = new ArrayList<Object>();
+            Object[] nameList = new Object[]{"4-10秒", "3-10分", "30分以上", "11-30秒", "10-30分", "1-3分", "31-60秒", "1-3秒"};
+
             for (List<String> list : dataTime) {
-                xAxisList.add(list.get(0));
-                nameList[i] = list.get(1);
-//                names.add(list.get(1));
-                dataList.add(list.get(2));
-                i++;
+
+                if (!xAxisList.contains(list.get(0))) {
+                    xAxisList.add(list.get(0));
+                }
+                if (list.get(1).equals("4-10秒")) {
+                    fourToTenList.add(list.get(2));
+                }
+                if (list.get(1).equals("3-10分")) {
+                    threeToTenMin.add(list.get(2));
+                }
+                if (list.get(1).equals("30分以上")) {
+                    thirtenMin.add(list.get(2));
+                }
+                if (list.get(1).equals("11-30秒")) {
+                    second11.add(list.get(2));
+                }
+                if (list.get(1).equals("10-30分")) {
+                    tenTothir.add(list.get(2));
+                }
+                if (list.get(1).equals("1-3分")) {
+                    minOneToThr.add(list.get(2));
+                }
+                if (list.get(1).equals("31-60秒")) {
+                    sec31.add(list.get(2));
+                }
+                if (list.get(1).equals("1-3秒")) {
+                    sec1.add(list.get(2));
+                }
             }
-            String genBar = ChartUtils.genUseTimeLineChart(xAxisList, nameList, dataList);
+            String genBar = ChartUtils.genUseTimeLineChart(xAxisList, nameList, fourToTenList, threeToTenMin, thirtenMin, second11, tenTothir, minOneToThr, sec31, sec1);
             result.put("chartOption", genBar);
             result.put("dataTime", dataTime);
             result.put("dataPhone", dataPhone);

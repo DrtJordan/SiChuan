@@ -164,9 +164,9 @@ public class ChartUtils {
     }
 
     /**
-     * 使用时长
+     * 生成使用时长的折线图
      */
-    public static String genUseTimeLineChart(Set<Object> xAxisList, Object[] nameList, List<Object> dataList) {
+    public static String genUseTimeLineChart(List<Object> xAxisList, Object[] nameList, List<Object>... dataList) {
         EnhancedOption option = new EnhancedOption();
         option.tooltip().trigger(Trigger.axis);
         Legend legend = new Legend();
@@ -178,13 +178,13 @@ public class ChartUtils {
         //设置类目起始和结束两端空白策略，true：留空，false：顶头
         CategoryAxis axis = new CategoryAxis().boundaryGap(false);
         //给x轴添加数据
-        axis.setData(new ArrayList(xAxisList));
+        axis.setData(xAxisList);
         option.xAxis(axis);
         option.yAxis(new ValueAxis());
-        for (int i = 0; i < dataList.size(); i++) {
-            List<Object> list = new ArrayList<>();
+        for (int i = 0; i < dataList.length; i++) {
+            List<Object> list = dataList[i];
             Line line = new Line().smooth(true).name(String.valueOf(nameList[i]));
-            list.add(dataList.get(i));
+            line.itemStyle().normal().setLineStyle(new LineStyle().width(1));
             line.setData(list);
             option.series(line);
         }
