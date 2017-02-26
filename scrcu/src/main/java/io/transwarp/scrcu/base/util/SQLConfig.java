@@ -239,6 +239,9 @@ public enum SQLConfig {
     //标签配置-职业
     job_label,
     job_label_config,
+    //标签配置-产品功能消费偏好
+    custom_hobby_label,
+    custom_hobby_label_config,
     // 画像 家庭关系
     portrait_family,
     // 画像 转账关系

@@ -78,25 +78,36 @@
 	</sqlGroup>
 
 	<sqlGroup name="use_time_label">
-		<sql id="name">使用时段标签表</sql>
+		<sql id="name">使用时段标签</sql>
 		<sql id="header"></sql>
 		<sql id="sql">select use_time, begin_use_time, end_use_time, use_time_name from test.use_time_table order by use_time asc</sql>
 	</sqlGroup>
 	<sqlGroup name="use_time_label_config">
-		<sql id="name">配置使用时段标签表</sql>
+		<sql id="name">配置使用时段标签</sql>
 		<sql id="header"></sql>
 		<sql id="sql">update test.use_time_table set SQL_CONDITION</sql>
 	</sqlGroup>
 
 	<sqlGroup name="job_label">
-		<sql id="name">职业标签表</sql>
+		<sql id="name">职业标签</sql>
 		<sql id="header"></sql>
 		<sql id="sql">select job_key, job_name, job_content_name from test.t_job order by job_key asc</sql>
 	</sqlGroup>
 	<sqlGroup name="job_label_config">
-		<sql id="name">配置职业标签表</sql>
+		<sql id="name">配置职业标签</sql>
 		<sql id="header"></sql>
 		<sql id="sql">update test.t_job set SQL_CONDITION</sql>
+	</sqlGroup>
+
+	<sqlGroup name="custom_hobby_label">
+		<sql id="name">产品功能消费偏好标签</sql>
+		<sql id="header"></sql>
+		<sql id="sql">select pfcp_key, pfcp_order, pfcp_contente from test.t_prod_func_consu_prefer</sql>
+	</sqlGroup>
+	<sqlGroup name="custom_hobby_label_config">
+		<sql id="name">配置产品功能消费偏好标签</sql>
+		<sql id="header"></sql>
+		<sql id="sql">update test.t_prod_func_consu_prefer set SQL_CONDITION</sql>
 	</sqlGroup>
 
 	<sqlGroup name="label_colony_users">
