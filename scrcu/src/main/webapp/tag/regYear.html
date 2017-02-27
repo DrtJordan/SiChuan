@@ -10,23 +10,23 @@
     <section class="panel panel-default">
         <header class="panel-heading">标签配置</header>
         <div class="panel-body">
-            <form id="inputForm" class="bs-example form-horizontal" action="/tag/useTimeConfig">
-                <#list useTimes as useTime>
-                    <#if useTime_index == 0>
+            <form id="inputForm" class="bs-example form-horizontal" action="/tag/regYearConfig">
+                <#list regYears as regYear>
+                    <#if regYear_index == 0>
                         <div class="form-group">
-                            <label class="col-sm-4 text-success text-md" name="title" value="使用时段">使用时段</label>
+                            <label class="col-sm-4 text-success text-md" name="title" value="蜀信e注册年限">蜀信e注册年限</label>
                         </div>
                     </#if>
                     <div class="form-group">
-                        <input type="hidden" value="${useTime.use_time}" name="key">
+                        <input type="hidden" value="${regYear.regyear_key}" name="key">
                         <input type="hidden" value="${session['username']}" name="oper_user">
-                        <input type="hidden" value="${useTime.use_time_name}" name="name${useTime_index}">
-                        <label class="col-lg-3 control-label" value="${useTime.use_time_name}" name="use_time_name${useTime_index}">${useTime.use_time_name}</label>
+                        <input type="hidden" value="${regYear.regyear_name}" name="name${regYear_index}">
+                        <label class="col-lg-3 control-label" value="${regYear.regyear_name}" name="regyear_name{regYear_index}">${regYear.regyear_name}</label>
 
                         <div class="col-lg-8">
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" name="start${useTime_index}"
-                                       value="${useTime.begin_use_time}">
+                                <input type="text" class="form-control" name="start${regYear_index}"
+                                       value="${regYear.begin_year}">
                             </div>
                             <div class="col-sm-1" style="margin-left: -5.3%; margin-right: -1.6%">
                                 <span class="input-group-btn">
@@ -36,8 +36,8 @@
                                 </span>
                             </div>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" name="end${useTime_index}"
-                                       value="${useTime.end_use_time}">
+                                <input type="text" class="form-control" name="end${regYear_index}"
+                                       value="${regYear.end_year}">
                             </div>
                         </div>
                     </div>
@@ -62,21 +62,21 @@
             errorClass: "text-danger",
             errorElement: "span",
             rules: {
-            <#list useTimes as useTime >
-        start${useTime_index}:{
+            <#list regYears as regYear >
+        start${regYear_index}:{
             required: true,
-                    pattern:/^((0[0-9])|(1[0-9])|(2[0-3]))\:([0-5][0-9])$/},
-        end${useTime_index}:{
+                    pattern:/^(?:[0-9][0-9]?|1[01][0-9]|120)$/},
+        end${regYear_index}:{
             required: true,
-                    pattern:/^((0[0-9])|(1[0-9])|(2[0-3]))\:([0-5][0-9])$/},
+                    pattern:/^(?:[0-9][0-9]?|1[01][0-9]|120)$/},
         </#list >
     },
-        messages: {
-        <#list useTimes as useTime >
-            start${useTime_index}:{
+        messregYears: {
+        <#list regYears as regYear >
+            start${regYear_index}:{
                 required: "必填",
                         pattern:"格式错误！(00:00~23:59)"},
-            end${useTime_index}:{
+            end${regYear_index}:{
                 required: "必填",
                         pattern:"格式错误！(00:00~23:59)"},
         </#list >

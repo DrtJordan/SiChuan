@@ -242,6 +242,12 @@ public enum SQLConfig {
     //标签配置-产品功能消费偏好
     custom_hobby_label,
     custom_hobby_label_config,
+    //标签配置-年龄
+    age_label,
+    age_label_config,
+    //标签配置-蜀信e注册年限
+    reg_year_label,
+    reg_year_label_config,
     // 画像 家庭关系
     portrait_family,
     // 画像 转账关系

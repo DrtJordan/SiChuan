@@ -80,12 +80,12 @@
 	<sqlGroup name="use_time_label">
 		<sql id="name">使用时段标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">select use_time, begin_use_time, end_use_time, use_time_name from test.use_time_table order by use_time asc</sql>
+		<sql id="sql">select use_time, use_time_name, begin_use_time, end_use_time, oper_time, oper_user from test.use_time_table order by oper_time desc limit 7</sql>
 	</sqlGroup>
 	<sqlGroup name="use_time_label_config">
 		<sql id="name">配置使用时段标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">update test.use_time_table set SQL_CONDITION</sql>
+		<sql id="sql">insert into test.use_time_table (use_time, use_time_name, begin_use_time, end_use_time, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
 	<sqlGroup name="job_label">
@@ -108,6 +108,28 @@
 		<sql id="name">配置产品功能消费偏好标签</sql>
 		<sql id="header"></sql>
 		<sql id="sql">update test.t_prod_func_consu_prefer set SQL_CONDITION</sql>
+	</sqlGroup>
+
+	<sqlGroup name="age_label">
+		<sql id="name">年龄标签</sql>
+		<sql id="header"></sql>
+		<sql id="sql">select age_key, age_name, begin_age, end_age, oper_time, oper_user from test.t_age order by oper_time desc limit 5</sql>
+	</sqlGroup>
+	<sqlGroup name="age_label_config">
+		<sql id="name">配置年龄标签</sql>
+		<sql id="header"></sql>
+		<sql id="sql">insert into test.t_age (age_key,age_name,begin_age,end_age,oper_time,oper_user) values SQL_CONDITION</sql>
+	</sqlGroup>
+
+	<sqlGroup name="reg_year_label">
+		<sql id="name">蜀信e注册年限标签</sql>
+		<sql id="header"></sql>
+		<sql id="sql">select regYear_key, regYear_name, begin_year, end_year, oper_time, oper_user from test.t_reg_year order by oper_time desc limit 3</sql>
+	</sqlGroup>
+	<sqlGroup name="reg_year_label_config">
+		<sql id="name">配置蜀信e注册年限标签</sql>
+		<sql id="header"></sql>
+		<sql id="sql">insert into test.t_reg_year (regYear_key, regYear_name, begin_year, end_year, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
 	<sqlGroup name="label_colony_users">

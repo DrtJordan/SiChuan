@@ -10,24 +10,24 @@
     <section class="panel panel-default">
         <header class="panel-heading">标签配置</header>
         <div class="panel-body">
-            <form id="inputForm" class="bs-example form-horizontal" action="/tag/useTimeConfig">
-                <#list useTimes as useTime>
-                    <#if useTime_index == 0>
+            <form id="inputForm" class="bs-example form-horizontal" action="/tag/ageConfig">
+                <#list ages as age>
+                    <#if age_index == 0>
                         <div class="form-group">
-                            <label class="col-sm-4 text-success text-md" name="title" value="使用时段">使用时段</label>
+                            <label class="col-sm-4 text-success text-md" name="title" value="年龄">年龄</label>
                         </div>
                     </#if>
                     <div class="form-group">
-                        <input type="hidden" value="${useTime.use_time}" name="key">
+                        <input type="hidden" value="${age.age_key}" name="key">
                         <input type="hidden" value="${session['username']}" name="oper_user">
-                        <input type="hidden" value="${useTime.use_time_name}" name="name${useTime_index}">
-                        <label class="col-lg-3 control-label" value="${useTime.use_time_name}" name="use_time_name${useTime_index}">${useTime.use_time_name}</label>
+                        <input type="hidden" value="${age.age_name}" name="name${age_index}">
+                        <label class="col-lg-3 control-label" value="${age.age_name}" name="age_name${age_index}">${age.age_name}</label>
 
                         <div class="col-lg-8">
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" name="start${useTime_index}"
-                                       value="${useTime.begin_use_time}">
-                            </div>
+                                <input type="text" class="form-control" name="start${age_index}"
+                                       value="${age.begin_age}">
+                        </div>
                             <div class="col-sm-1" style="margin-left: -5.3%; margin-right: -1.6%">
                                 <span class="input-group-btn">
                                     <button class="btn btn-default" type="button"
@@ -36,8 +36,8 @@
                                 </span>
                             </div>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" name="end${useTime_index}"
-                                       value="${useTime.end_use_time}">
+                                <input type="text" class="form-control" name="end${age_index}"
+                                       value="${age.end_age}">
                             </div>
                         </div>
                     </div>
@@ -62,23 +62,23 @@
             errorClass: "text-danger",
             errorElement: "span",
             rules: {
-            <#list useTimes as useTime >
-        start${useTime_index}:{
+            <#list ages as age >
+        start${age_index}:{
             required: true,
-                    pattern:/^((0[0-9])|(1[0-9])|(2[0-3]))\:([0-5][0-9])$/},
-        end${useTime_index}:{
+                    pattern: /^(?:[1-9][0-9]?|1[01][0-9]|120)$/},
+        end${age_index}:{
             required: true,
-                    pattern:/^((0[0-9])|(1[0-9])|(2[0-3]))\:([0-5][0-9])$/},
+                    pattern: /^(?:[1-9][0-9]?|1[01][0-9]|120)$/},
         </#list >
     },
         messages: {
-        <#list useTimes as useTime >
-            start${useTime_index}:{
+        <#list ages as age >
+            start${age_index}:{
                 required: "必填",
-                        pattern:"格式错误！(00:00~23:59)"},
-            end${useTime_index}:{
+                        pattern:"格式错误！(1~120)"},
+            end${age_index}:{
                 required: "必填",
-                        pattern:"格式错误！(00:00~23:59)"},
+                        pattern:"格式错误！(1~120)"},
         </#list >
         }
     })

@@ -9,10 +9,8 @@ import io.transwarp.scrcu.sqlinxml.SqlKit;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by TANG_0722 on 2017-02-23.
@@ -22,6 +20,16 @@ public class TagController extends Controller {
 
     StringBuffer value = new StringBuffer(" ");
 
+    public void common(Object config){
+        String oper_time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.ms").format(new Date());
+        String oper_user = getPara("oper_user");
+        String[] keys = getParaValues("key");
+        for (int i = 0; i < keys.length; i++) {
+            InceptorUtil.mapQuery(SqlKit.propSQL(config, ConditionUtil.rangToRang(keys[i],getPara("name"+i),getPara("start"+i),getPara("end"+i),oper_time,oper_user).toString()), false);
+        }
+    }
+
+    //可配置标签列表页----start
     public void index() {
         List<String[][]> tradFeas = new ArrayList<>();
         List<String[][]> peoAttrs = new ArrayList<>();
@@ -40,10 +48,19 @@ public class TagController extends Controller {
         setAttr("creAttrs", creAttrs.get(0));
         setAttr("opeAttrs", opeAttrs.get(0));
     }
+    //可配置标签列表页----end
 
+    //年龄----start
     public void age() {
-
+        List<Map<String, Object>> ages = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.age_label), false);
+        setAttr("ages", ages);
     }
+
+    public void ageConfig(){
+        common(SQLConfig.age_label_config);
+        redirect("/tag");
+    }
+    //年龄----end
 
     //职业----start
     public void career() {
@@ -80,9 +97,17 @@ public class TagController extends Controller {
     }
     //职业----end
 
+    //注册年限----start
     public void regYear() {
-
+        List<Map<String, Object>> regYears = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.reg_year_label), false);
+        setAttr("regYears", regYears);
     }
+
+    public void regYearConfig(){
+        common(SQLConfig.reg_year_label_config);
+        redirect("/tag");
+    }
+    //注册年限----end
 
     public void proDebt() {
 
@@ -177,18 +202,13 @@ public class TagController extends Controller {
     //使用时段----start
     @RequiresPermissions("/tag/useTime")
     public void useTime() {
-        List<Map<String, Object>> useTime = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.use_time_label), false);
-        setAttr("useTimes", useTime);
+        List<Map<String, Object>> useTimes = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.use_time_label), false);
+        setAttr("useTimes", useTimes);
     }
 
     @RequiresPermissions("/tag/useTimeConfig")
     public void useTimeConfig() {
-        String[] keys = getParaValues("key");
-        for (int i = 0; i < keys.length; i++) {
-            value = value.append("begin_use_time = '").append(getPara("start" + i)).append("', end_use_time = '").append(getPara("end" + i)).append("' where use_time = '").append(keys[i]).append("';");
-            InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.use_time_label_config, value.toString()), false);
-            value = value.delete(1, value.length());
-        }
+        common(SQLConfig.use_time_label_config);
         redirect("/tag");
     }
     //使用时段----end
