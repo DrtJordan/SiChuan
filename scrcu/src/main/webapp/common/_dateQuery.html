@@ -76,35 +76,46 @@
 		if ($("#end_dt").val() == "") {
             $("#end_dt").val(getDateStr(0));
 		}
-		//导出按钮导出数据
-		csvExport();
 		//根据时间查找数据
 		query();
+        //导出按钮导出数据
+        csvExport("","");
 	});
 
 	//设置tab csv导出action
 	//设置csv导出action
-	function csvExport() {
-		var start = $("#start_dt").val();
-		var end = $("#end_dt").val();
+	function csvExport(queryVal, dateType) {
+	    //定义查询条件的起始日期和结束日期
+        var queryCondition = "?start_dt=" + $("#start_dt").val() + "&end_dt=" + $("#end_dt").val();
+
+		//设置表格中选择的查询条件
+        if (queryVal != "") {
+            queryCondition = queryCondition + "&queryVal=" + queryVal;
+		    console.log(queryCondition);
+		}
+		//设置查询的类型，是否按天，月，周，季，年汇总  --传""表示不进行汇总查询
+        if (dateType != "") {
+            queryCondition = queryCondition + "&dayType=" + dateType;
+            console.log(queryCondition);
+        }
 		//tab excel导出
 		$("header .nav-tabs .csvExportTab").click(
 				function() {
 					var action = $(this).attr("csvAction");
 					action = "/csv/" + action;
 					$("#csvExport").attr("href",
-							action + "?start_dt=" + start + "&end_dt=" + end);
+							action + queryCondition);
 				});
 		var action = "/csv/"
 				+ $("header .nav-tabs .active.csvExportTab").attr("csvAction");
 		$("#csvExport").attr("href",
-				action + "?start_dt=" + start + "&end_dt=" + end);
+				action + queryCondition);
 		//excel导出
 		$(".csvExport").each(
 				function() {
 					var action = $(this).attr("csvAction");
 					$(this).attr("href",
-							action + "?start_dt=" + start + "&end_dt=" + end);
+							action + queryCondition);
 				});
 	}
 </script>
@@ -118,53 +129,63 @@
             url : window.location.href + "?start_dt=" + start + "&end_dt="
             + end,
             success : function(data) {
-                dataTableExchange(data);
+                dataTableExchange(data,"");
             }
         };
         commonAjax(ajaxOption);
     }
 
     $("#dayButton").click(function () {
+        $("#start_dt").val("");
+        $("#end_dt").val("");
         var ajaxOption = {
-            url : window.location.href + "?type=day",
+            url : window.location.href + "?dateType=day",
             success : function(data) {
-                dataTableExchange(data);
+                dataTableExchange(data, "day");
             }
         };
         commonAjax(ajaxOption);
     });
     $("#weekButton").click(function () {
+        $("#start_dt").val("");
+        $("#end_dt").val("");
         var ajaxOption = {
-            url : window.location.href + "?type=week",
+            url : window.location.href + "?dateType=week",
             success : function(data) {
-                dataTableExchange(data);
+                dataTableExchange(data, "week");
             }
         };
         commonAjax(ajaxOption);
     });
     $("#monthButton").click(function () {
+        $("#start_dt").val("");
+        $("#end_dt").val("");
         var ajaxOption = {
-            url : window.location.href + "?type=month",
+            url : window.location.href + "?dateType=month",
             success : function(data) {
-                dataTableExchange(data);
+                dataTableExchange(data, "month");
             }
         };
         commonAjax(ajaxOption);
     });
     $("#quarterButton").click(function () {
+        $("#start_dt").val("");
+        $("#end_dt").val("");
         var ajaxOption = {
-            url : window.location.href + "?type=quarter",
+            url : window.location.href + "?dateType=quarter",
             success : function(data) {
-                dataTableExchange(data,"month");
+                dataTableExchange(data,"quarter");
             }
         };
         commonAjax(ajaxOption);
     });
     $("#yearButton").click(function () {
+        $("#start_dt").val("");
+        $("#end_dt").val("");
         var ajaxOption = {
-            url : window.location.href + "?type=year",
+            url : window.location.href + "?dateType=year",
             success : function(data) {
-                dataTableExchange(data);
+                dataTableExchange(data, "year");
             }
         };
         commonAjax(ajaxOption);

@@ -184,6 +184,7 @@ public class ChartUtils {
         for (int i = 0; i < dataList.length; i++) {
             List<Object> list = dataList[i];
             Line line = new Line().smooth(true).name(String.valueOf(nameList[i]));
+            //设置折线的样式(width表示线条粗细)
             line.itemStyle().normal().setLineStyle(new LineStyle().width(1));
             line.setData(list);
             option.series(line);

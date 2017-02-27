@@ -392,6 +392,7 @@ public class InceptorUtil {
      * 开始时间为空，结束时间不空，则是<
      */
     public static String getDateCondition(HttpServletRequest request) {
+
         String start_dt = request.getParameter("start_dt");
         String end_dt = request.getParameter("end_dt");
         StringBuffer sb = new StringBuffer();
@@ -406,19 +407,44 @@ public class InceptorUtil {
         return sb.toString();
     }
 
+    /**
+     * 获取查询条件
+     * @param request
+     * @return
+     */
     public static String getQueryCondition(HttpServletRequest request) {
         String start_dt = request.getParameter("start_dt");
         String end_dt = request.getParameter("end_dt");
         StringBuffer sb = new StringBuffer();
         if (StringUtils.isNotBlank(end_dt) && StringUtils.isNotBlank(start_dt)) {
-            sb.append(" where stat_date >= '" + start_dt + "' and stat_date <= '" + end_dt + "'");
+            sb.append(" stat_date >= '" + start_dt + "' and stat_date <= '" + end_dt + "' and ");
         } else if (StringUtils.isNotBlank(end_dt) && StringUtils.isBlank(start_dt)) {
-            sb.append(" where stat_date <= '" + end_dt + "'");
+            sb.append(" stat_date <= '" + end_dt + "' and ");
         } else if (StringUtils.isNotBlank(start_dt)) {
-            sb.append(" where stat_date = '" + start_dt + "'");
+            sb.append(" stat_date = '" + start_dt + "' and ");
         }
-
         return sb.toString();
+    }
+
+    public static String getCsvCondition(String queryType) {
+
+        StringBuffer stringBuffer = new StringBuffer();
+        if (StringUtils.isNotBlank(queryType)){
+
+            if (queryType.contains("时长")) {
+                stringBuffer.append("online_time ='" + queryType.split(":")[1] + "' and ");
+            }
+            if (queryType.contains("版本")) {
+                stringBuffer.append("app_version ='" + queryType.split(":")[1] + "' and ");
+            }
+            if (queryType.contains("os")) {
+                stringBuffer.append("term_os ='" + queryType.split(":")[1] + "' and ");
+            }
+            if (queryType.contains("渠道")) {
+                stringBuffer.append("chl_id ='" + queryType.split(":")[1] + "' and ");
+            }
+        }
+        return stringBuffer.toString();
     }
 
     public static Statement getOriginalStatement() {

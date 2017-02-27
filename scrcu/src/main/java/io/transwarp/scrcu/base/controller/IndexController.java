@@ -28,262 +28,282 @@ import io.transwarp.scrcu.system.users.Users;
 
 public class IndexController extends BaseController {
 
-	Res res = I18n.use("i18n", "zh_CN");
+    Res res = I18n.use("i18n", "zh_CN");
 
-	public void login() {
-		setAttr("message", "hello word");render("signin.html");
-	}
+    public void login() {
+        setAttr("message", "hello word");
+        render("signin.html");
+    }
 
-	/**
-	 * 用户注销
-	 */
-	public void logout() {
-		Subject currentUser = SecurityUtils.getSubject();
-		if (currentUser.isAuthenticated()) {
-			currentUser.logout();
-		}
-	}
+    /**
+     * 用户注销
+     */
+    public void logout() {
+        Subject currentUser = SecurityUtils.getSubject();
+        if (currentUser.isAuthenticated()) {
+            currentUser.logout();
+        }
+    }
 
-	/**
-	 * 用户登陆
-	 */
-	public void signin() {
-		//获取前台输入的用户名和密码
-		String username = getPara("username");
-		String password = getPara("password");
-		Subject currentUser = SecurityUtils.getSubject();
-		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-		try {
-			currentUser.login(token);
-			UserRoles ur = UserRoles.dao.findByUserId(username);
-			// 增加的银行级别，做个人画像权限判断
-			Users user = Users.dao.findByUserName(username);
-			int banklevel = user.getInt("banklevel");
-			setSessionAttr("banklevel", banklevel);
-			setSessionAttr("roleId", ur.getInt("role_id"));
-			setSessionAttr("username", username);
-			String action = getPara("from");
-			if (StringUtils.isNotBlank(action)) {
-				redirect(action);
-			} else {
-				redirect("/");
-			}
-		} catch (Exception e) {
-			// 登录失败
-			forwardAction("/");
-			e.printStackTrace();
-		}
-	}
+    /**
+     * 用户登陆
+     */
+    public void signin() {
+        //获取前台输入的用户名和密码
+        String username = getPara("username");
+        String password = getPara("password");
+        Subject currentUser = SecurityUtils.getSubject();
+        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+        try {
+            currentUser.login(token);
+            UserRoles ur = UserRoles.dao.findByUserId(username);
+            // 增加的银行级别，做个人画像权限判断
+            Users user = Users.dao.findByUserName(username);
+            int banklevel = user.getInt("banklevel");
+            setSessionAttr("banklevel", banklevel);
+            setSessionAttr("roleId", ur.getInt("role_id"));
+            setSessionAttr("username", username);
+            String action = getPara("from");
+            if (StringUtils.isNotBlank(action)) {
+                redirect(action);
+            } else {
+                redirect("/");
+            }
+        } catch (Exception e) {
+            // 登录失败
+            forwardAction("/");
+            e.printStackTrace();
+        }
+    }
 
-	public void unauthorized() {
-		render("unauthorized.html");
-	}
+    public void unauthorized() {
+        render("unauthorized.html");
+    }
 
-	/**
-	 * 首页
-	 */
-	@RequiresAuthentication
-	public void index() {
+    /**
+     * 首页
+     */
+    @RequiresAuthentication
+    public void index() {
 
-		if (BaseUtils.isAjax(getRequest())) {
-			JSONObject result = new JSONObject();
+        if (BaseUtils.isAjax(getRequest())) {
+            JSONObject result = new JSONObject();
 
-			// 得到查询条件
-			String condition = InceptorUtil.getDateCondition(getRequest());
-			// 概览
-			List<Map<String, Object>> mapData = InceptorUtil
-					.mapQuery(SqlKit.propSQL(SQLConfig.portal_chart.toString()) + condition, 48);
-			Date date = new Date();
-			int today = date.getYear() + date.getMonth() + date.getDay();
+            // 得到查询条件
+            String condition = InceptorUtil.getDateCondition(getRequest());
+            // 概览
+            List<Map<String, Object>> mapData = InceptorUtil
+                    .mapQuery(SqlKit.propSQL(SQLConfig.portal_chart.toString()) + condition, 48);
+            Date date = new Date();
+            int today = date.getYear() + date.getMonth() + date.getDay();
 
-			// 返回结果
-			List<Object> xAxisList = new ArrayList<Object>();
-			//存放之前的数据
-			List<Object> dataList_yesterday_1 = new ArrayList<Object>();
-			List<Object> dataList_yesterday_2 = new ArrayList<Object>();
-			List<Object> dataList_yesterday_3 = new ArrayList<Object>();
-			List<Object> dataList_yesterday_4 = new ArrayList<Object>();
-			//存放今天的数据
-			List<Object> dataList_today_1 = new ArrayList<Object>();
-			List<Object> dataList_today_2 = new ArrayList<Object>();
-			List<Object> dataList_today_3 = new ArrayList<Object>();
-			List<Object> dataList_today_4 = new ArrayList<Object>();
-			for (int i = 0; i < mapData.size(); i++) {
-				Map<String, Object> map = mapData.get(i);
-				if (i < 24) {
-					xAxisList.add(i);
-					int pv = InceptorUtil.getInt("pv", map);
-					dataList_today_1.add(pv);
-					dataList_today_2.add(InceptorUtil.getInt("uv", map));
-					dataList_today_3.add(InceptorUtil.getInt("logon_user_cnt", map));
-					dataList_today_4.add(InceptorUtil.getInt("nuv", map));
-				} else {
-					dataList_yesterday_1.add(InceptorUtil.getInt("pv", map));
-					dataList_yesterday_2.add(InceptorUtil.getInt("uv", map));
-					dataList_yesterday_3.add(InceptorUtil.getInt("logon_user_cnt", map));
-					dataList_yesterday_4.add(InceptorUtil.getInt("nuv", map));
-				}
-			}
+            // 返回结果
+            List<Object> xAxisList = new ArrayList<Object>();
+            //存放之前的数据
+            List<Object> dataList_yesterday_1 = new ArrayList<Object>();
+            List<Object> dataList_yesterday_2 = new ArrayList<Object>();
+            List<Object> dataList_yesterday_3 = new ArrayList<Object>();
+            List<Object> dataList_yesterday_4 = new ArrayList<Object>();
+            //存放今天的数据
+            List<Object> dataList_today_1 = new ArrayList<Object>();
+            List<Object> dataList_today_2 = new ArrayList<Object>();
+            List<Object> dataList_today_3 = new ArrayList<Object>();
+            List<Object> dataList_today_4 = new ArrayList<Object>();
+            for (int i = 0; i < mapData.size(); i++) {
+                Map<String, Object> map = mapData.get(i);
+                if (i < 24) {
+                    xAxisList.add(i);
+                    int pv = InceptorUtil.getInt("pv", map);
+                    dataList_today_1.add(pv);
+                    dataList_today_2.add(InceptorUtil.getInt("uv", map));
+                    dataList_today_3.add(InceptorUtil.getInt("logon_user_cnt", map));
+                    dataList_today_4.add(InceptorUtil.getInt("nuv", map));
+                } else {
+                    dataList_yesterday_1.add(InceptorUtil.getInt("pv", map));
+                    dataList_yesterday_2.add(InceptorUtil.getInt("uv", map));
+                    dataList_yesterday_3.add(InceptorUtil.getInt("logon_user_cnt", map));
+                    dataList_yesterday_4.add(InceptorUtil.getInt("nuv", map));
+                }
+            }
 
-			// for (Map<String, Object> map : mapData) {
-			// String day = String.valueOf(map.get("statt_dt"));
-			// xAxisList.add(String.valueOf(map.get("statt_hr")));
-			// if (day.equals(today)) {
-			// dataList_today_1.add(Integer.valueOf(map.get("pv").toString()));
-			// dataList_today_2.add(Integer.valueOf(map.get("uv").toString()));
-			// dataList_today_3.add(Integer.valueOf(map.get("logon_user_cnt").toString()));
-			// dataList_today_4.add(Integer.valueOf(map.get("nuv").toString()));
-			// } else {
-			// dataList_yesterday_1.add(Integer.valueOf(map.get("pv").toString()));
-			// dataList_yesterday_2.add(Integer.valueOf(map.get("uv").toString()));
-			// dataList_yesterday_3.add(Integer.valueOf(map.get("logon_user_cnt").toString()));
-			// dataList_yesterday_4.add(Integer.valueOf(map.get("nuv").toString()));
-			// }
-			// }
-			Object[] nameList1 = new Object[] { res.get("index.todayPV"), res.get("index.yesterdayPV") };
-			String chart1 = ChartUtils.genMultiLineChart(xAxisList, nameList1, dataList_today_1, dataList_yesterday_1);
-			Object[] nameList2 = new Object[] { res.get("index.todayVV"), res.get("index.yesterdayVV") };
-			String chart2 = ChartUtils.genMultiLineChart(xAxisList, nameList2, dataList_today_2, dataList_yesterday_2);
-			Object[] nameList3 = new Object[] { res.get("index.todayLoginUser"), res.get("index.yesterdayLoginUser") };
-			String chart3 = ChartUtils.genMultiLineChart(xAxisList, nameList3, dataList_today_3, dataList_yesterday_3);
-			Object[] nameList4 = new Object[] { res.get("index.todayNewVisitor"), res.get("index.yesterdayNewVisitor") };
-			String chart4 = ChartUtils.genMultiLineChart(xAxisList, nameList4, dataList_today_4, dataList_yesterday_4);
+            // for (Map<String, Object> map : mapData) {
+            // String day = String.valueOf(map.get("statt_dt"));
+            // xAxisList.add(String.valueOf(map.get("statt_hr")));
+            // if (day.equals(today)) {
+            // dataList_today_1.add(Integer.valueOf(map.get("pv").toString()));
+            // dataList_today_2.add(Integer.valueOf(map.get("uv").toString()));
+            // dataList_today_3.add(Integer.valueOf(map.get("logon_user_cnt").toString()));
+            // dataList_today_4.add(Integer.valueOf(map.get("nuv").toString()));
+            // } else {
+            // dataList_yesterday_1.add(Integer.valueOf(map.get("pv").toString()));
+            // dataList_yesterday_2.add(Integer.valueOf(map.get("uv").toString()));
+            // dataList_yesterday_3.add(Integer.valueOf(map.get("logon_user_cnt").toString()));
+            // dataList_yesterday_4.add(Integer.valueOf(map.get("nuv").toString()));
+            // }
+            // }
+            Object[] nameList1 = new Object[]{res.get("index.todayPV"), res.get("index.yesterdayPV")};
+            String chart1 = ChartUtils.genMultiLineChart(xAxisList, nameList1, dataList_today_1, dataList_yesterday_1);
+            Object[] nameList2 = new Object[]{res.get("index.todayVV"), res.get("index.yesterdayVV")};
+            String chart2 = ChartUtils.genMultiLineChart(xAxisList, nameList2, dataList_today_2, dataList_yesterday_2);
+            Object[] nameList3 = new Object[]{res.get("index.todayLoginUser"), res.get("index.yesterdayLoginUser")};
+            String chart3 = ChartUtils.genMultiLineChart(xAxisList, nameList3, dataList_today_3, dataList_yesterday_3);
+            Object[] nameList4 = new Object[]{res.get("index.todayNewVisitor"), res.get("index.yesterdayNewVisitor")};
+            String chart4 = ChartUtils.genMultiLineChart(xAxisList, nameList4, dataList_today_4, dataList_yesterday_4);
 
-			result.put("chart1", chart1);
-			result.put("chart2", chart2);
-			result.put("chart3", chart3);
-			result.put("chart4", chart4);
+            result.put("chart1", chart1);
+            result.put("chart2", chart2);
+            result.put("chart3", chart3);
+            result.put("chart4", chart4);
 
-			// 得到查询条件
-			// 概览
-			// statt_Dt,PV,UV,IP_Cnt,VV,NUV,User_Cnt,New_User_Cnt,Sleep_Mem_Cnt,Logon_User_Cnt,Run_Off_User_Cnt,
-			List<List<String>> data = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_index.toString(), condition),
-					7);
-			result.put("data", data);
+            // 得到查询条件
+            // 概览
+            // statt_Dt,PV,UV,IP_Cnt,VV,NUV,User_Cnt,New_User_Cnt,Sleep_Mem_Cnt,Logon_User_Cnt,Run_Off_User_Cnt,
+            List<List<String>> data = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_index.toString(), condition),
+                    7);
+            result.put("data", data);
 
-			if (data != null && data.size() > 0) {
-				int sum_1 = Integer.valueOf(data.get(0).get(1));// pv
-				int sum_2 = Integer.valueOf(data.get(0).get(2));// uv
-				int sum_3 = Integer.valueOf(data.get(0).get(8));// Logon_User_Cnt
-				int sum_4 = Integer.valueOf(data.get(0).get(5));// nuv
+            if (data != null && data.size() > 0) {
+                int sum_1 = Integer.valueOf(data.get(0).get(1));// pv
+                int sum_2 = Integer.valueOf(data.get(0).get(2));// uv
+                int sum_3 = Integer.valueOf(data.get(0).get(8));// Logon_User_Cnt
+                int sum_4 = Integer.valueOf(data.get(0).get(5));// nuv
 
-				result.put("sum_1", sum_1);
-				result.put("sum_2", sum_2);
-				result.put("sum_3", sum_3);
-				result.put("sum_4", sum_4);
-			} else {
-				result.put("sum_1", 0);
-				result.put("sum_2", 0);
-				result.put("sum_3", 0);
-				result.put("sum_4", 0);
-			}
+                result.put("sum_1", sum_1);
+                result.put("sum_2", sum_2);
+                result.put("sum_3", sum_3);
+                result.put("sum_4", sum_4);
+            } else {
+                result.put("sum_1", 0);
+                result.put("sum_2", 0);
+                result.put("sum_3", 0);
+                result.put("sum_4", 0);
+            }
 
-			// 入口页面
-			List<List<String>> landingPage = InceptorUtil.query(
-					SqlKit.propSQL(SQLConfig.portal_siteAnalysis_entryPage_query.toString(), condition) + " limit 5",
-					5);
-			// 返回结果
-			result.put("landingPage", landingPage);
-			// 页面
-			List<List<String>> visitPage = InceptorUtil
-					.query(SqlKit.propSQL(SQLConfig.portal_pageRank.toString(), condition) + " limit 5", 5);
-			// 返回结果
-			result.put("visitPage", visitPage);
-			renderJson(result);
-		} else {
-			setNav();
-		}
-	}
+            // 入口页面
+            List<List<String>> landingPage = InceptorUtil.query(
+                    SqlKit.propSQL(SQLConfig.portal_siteAnalysis_entryPage_query.toString(), condition) + " limit 5",
+                    5);
+            // 返回结果
+            result.put("landingPage", landingPage);
+            // 页面
+            List<List<String>> visitPage = InceptorUtil
+                    .query(SqlKit.propSQL(SQLConfig.portal_pageRank.toString(), condition) + " limit 5", 5);
+            // 返回结果
+            result.put("visitPage", visitPage);
+            renderJson(result);
+        } else {
+            setNav();
+        }
+    }
 
-	public void businessAnalysis() {
-		if (BaseUtils.isAjax(getRequest())) {
-			// 得到查询条件
-			String condition = InceptorUtil.getDateCondition(getRequest());
-			// 执行查询
-			List<List<String>> data = InceptorUtil.query(SqlKit.propSQL(SQLConfig.business_analysis) + condition, 5);
-			List<Object> xAxisList = new ArrayList<Object>();
-			List<Object> dataList = new ArrayList<Object>();
-			for (List<String> list : data) {
-				xAxisList.add(list.get(0));
-				dataList.add(Integer.valueOf(list.get(3)));
-			}
-			String str = ChartUtils.genLineChart(res.get("index.transactionCount"), xAxisList, dataList);
-			// 返回结果
-			JSONObject result = new JSONObject();
-			result.put("data", data);
-			result.put("chartOption", str);
-			renderJson(result);
-		}
+    public void businessAnalysis() {
+        if (BaseUtils.isAjax(getRequest())) {
+            // 得到查询条件
+            String condition = InceptorUtil.getDateCondition(getRequest());
+            // 执行查询
+            List<List<String>> data = InceptorUtil.query(SqlKit.propSQL(SQLConfig.business_analysis) + condition, 5);
+            List<Object> xAxisList = new ArrayList<Object>();
+            List<Object> dataList = new ArrayList<Object>();
+            for (List<String> list : data) {
+                xAxisList.add(list.get(0));
+                dataList.add(Integer.valueOf(list.get(3)));
+            }
+            String str = ChartUtils.genLineChart(res.get("index.transactionCount"), xAxisList, dataList);
+            // 返回结果
+            JSONObject result = new JSONObject();
+            result.put("data", data);
+            result.put("chartOption", str);
+            renderJson(result);
+        }
 
-	}
+    }
 
-	@RequiresAuthentication
-	public void app() {
-		setNav();
-		redirect("/app/userAnalysis/activeUser");
-	}
+    @RequiresAuthentication
+    public void app() {
+        setNav();
+        redirect("/app/userAnalysis/activeUser");
+    }
 
-	@RequiresAuthentication
-	public void system() {
-		setNav();
-		redirect("/system/users");
-	}
+    @RequiresAuthentication
+    public void system() {
+        setNav();
+        redirect("/system/users");
+    }
 
-	@RequiresAuthentication
-	public void portrait() {
-		setNav();
-		redirect("/portrait/home");
-	}
+    @RequiresAuthentication
+    public void portrait() {
+        setNav();
+        redirect("/portrait/home");
+    }
 
-	// @RequiresRoles({ "user", "admin" })
-	// public void userAdmin() {
-	// setAttr("message", "role:user,admin");
-	// render("/message.html");
-	//
-	// }
-	//
-	// @RequiresRoles(value = { "user", "admin" }, logical = Logical.OR)
-	// public void userOradmin() {
-	// setAttr("message", "role:user or admin");
-	// render("/message.html");
-	// }
+    // @RequiresRoles({ "user", "admin" })
+    // public void userAdmin() {
+    // setAttr("message", "role:user,admin");
+    // render("/message.html");
+    //
+    // }
+    //
+    // @RequiresRoles(value = { "user", "admin" }, logical = Logical.OR)
+    // public void userOradmin() {
+    // setAttr("message", "role:user or admin");
+    // render("/message.html");
+    // }
 
-	// @RequiresRoles("admin")
-	// public void admin(){
-	// setAttr("message", "role:admin");
-	// render("/message.html");
-	// }
+    // @RequiresRoles("admin")
+    // public void admin(){
+    // setAttr("message", "role:admin");
+    // render("/message.html");
+    // }
 
-	// @RequiresRoles("user")
-	// public void user(){
-	// setAttr("message", "role:user");
-	// render("/message.html");
-	// }
+    // @RequiresRoles("user")
+    // public void user(){
+    // setAttr("message", "role:user");
+    // render("/message.html");
+    // }
 
-	// public void showUser() {
-	//
-	// }
-	//
-	// @RequiresPermissions("addUser")
-	// public void addUser() {
-	// setAttr("message", "permission:addUser");
-	// render("/message.html");
-	// }
+    // public void showUser() {
+    //
+    // }
+    //
+    // @RequiresPermissions("addUser")
+    // public void addUser() {
+    // setAttr("message", "permission:addUser");
+    // render("/message.html");
+    // }
 
-	/**
-	 * 导出数据
-	 */
-	@ActionKey("csv")
-	@RequiresPermissions("/csv")
-	public void exportCsv() {
-		String type = getPara();
-		List<String> headerList = SqlKit.propHeader(type);
-		// 得到查询条件
-		String condition = InceptorUtil.getDateCondition(getRequest());
-		String sql = SqlKit.propSQL(type, condition);
-		// 执行查询
-		List<List<String>> data_time = InceptorUtil.query(sql);
-		// 导出CSV
-		render(CsvRender.me(headerList, data_time).fileName(getCsvFileName(SqlKit.propName(type))));
-	}
+    /**
+     * 导出数据
+     */
+    @ActionKey("csv")
+    @RequiresPermissions("/csv")
+    public void exportCsv() {
+        //获取导出数据的类型
+        String type = getPara();
+
+        String dateType = getPara("dayType");
+        String queryVal = getPara("queryVal");
+
+        // 得到日期查询条件
+        String condition = InceptorUtil.getQueryCondition(getRequest());
+
+        if (dateType != null) {
+            type = type + "_" + dateType;
+        }
+        if (queryVal != null && StringUtils.isNotBlank(queryVal)) {
+
+            for (int i = 0; i<queryVal.split(",").length; i++){
+                String val = queryVal.split(",")[i];
+                String csvCondition = InceptorUtil.getCsvCondition(val.replace("\\", ""));
+                condition = condition + csvCondition;
+            }
+        }
+        //拼接SQL语句
+        String sql = SqlKit.propSQL(type, condition);
+        //根据类型生成表格的头部信息
+        List<String> headerList = SqlKit.propHeader(type);
+        // 执行查询
+        List<List<String>> data_time = InceptorUtil.query(sql);
+        // 导出CSV
+        render(CsvRender.me(headerList, data_time).fileName(getCsvFileName(SqlKit.propName(type))));
+    }
 }

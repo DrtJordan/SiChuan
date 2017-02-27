@@ -36,38 +36,39 @@ public class AppBehaviorController extends Controller {
             JSONObject result = new JSONObject();
 
             // 得到查询条件
+            String dateType = getPara("dateType");
             String condition = InceptorUtil.getQueryCondition(getRequest());
-            String dateType = getPara("type");
+
             if (dateType != null) {
                 if (dateType.equals("day")) {
-                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_useTime_day),false);
-                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_phone_day));
-                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_channel_day));
-                    dataOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_os_day));
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_useTime_day, condition),false);
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_phone_day, condition));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_channel_day, condition));
+                    dataOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_os_day, condition));
                 }
                 if (dateType.equals("week")) {
-                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_useTime_week),false);
-                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_phone_week));
-                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_channel_week));
-                    dataOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_os_week));
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_useTime_week, condition),false);
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_phone_week, condition));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_channel_week, condition));
+                    dataOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_os_week, condition));
                 }
                 if (dateType.equals("month")) {
-                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_useTime_month),false);
-                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_phone_month));
-                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_channel_month));
-                    dataOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_os_month));
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_useTime_month, condition),false);
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_phone_month, condition));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_channel_month, condition));
+                    dataOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_os_month, condition));
                 }
                 if (dateType.equals("quarter")) {
-                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_useTime_quarter),false);
-                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_phone_quarter));
-                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_channel_quarter));
-                    dataOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_os_quarter));
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_useTime_quarter, condition),false);
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_phone_quarter, condition));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_channel_quarter, condition));
+                    dataOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_os_quarter, condition));
                 }
                 if (dateType.equals("year")) {
-                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_useTime_year),false);
-                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_phone_year));
-                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_channel_year));
-                    dataOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_os_year));
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_useTime_year, condition),false);
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_phone_year, condition));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_channel_year, condition));
+                    dataOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_os_year, condition));
                 }
             } else {
                 // 执行查询
@@ -81,16 +82,15 @@ public class AppBehaviorController extends Controller {
             }
             // 返回结果
             List<Object> xAxisList = new ArrayList<>();
-
-            List<Object> fourToTenList = new ArrayList<Object>();
-            List<Object> threeToTenMin = new ArrayList<Object>();
-            List<Object> thirtenMin = new ArrayList<Object>();
-            List<Object> other = new ArrayList<Object>();
-            List<Object> second11 = new ArrayList<Object>();
-            List<Object> tenTothir = new ArrayList<Object>();
-            List<Object> minOneToThr = new ArrayList<Object>();
-            List<Object> sec31 = new ArrayList<Object>();
-            List<Object> sec1 = new ArrayList<Object>();
+            //定义时长对应的集合用来接收对应的数据
+            List<Object> fourToTenSecondsList = new ArrayList<Object>();
+            List<Object> threeToTenMinList = new ArrayList<Object>();
+            List<Object> thirtyMinList = new ArrayList<Object>();
+            List<Object> elevenToThirtySecondsList = new ArrayList<Object>();
+            List<Object> tenToThirtyMinList = new ArrayList<Object>();
+            List<Object> oneToThreeMinList = new ArrayList<Object>();
+            List<Object> thirtyFirstToSixtySecList = new ArrayList<Object>();
+            List<Object> oneToThreeSecList = new ArrayList<Object>();
             Object[] nameList = new Object[]{"4-10秒", "3-10分", "30分以上", "11-30秒", "10-30分", "1-3分", "31-60秒", "1-3秒"};
 
             for (List<String> list : dataTime) {
@@ -98,36 +98,33 @@ public class AppBehaviorController extends Controller {
                 if (!xAxisList.contains(list.get(0))) {
                     xAxisList.add(list.get(0));
                 }
-
                 if (list.get(1).equals("4-10秒")) {
-                    fourToTenList.add(list.get(2));
+                    fourToTenSecondsList.add(list.get(2));
                 }
-
                 if (list.get(1).equals("3-10分")) {
-                    threeToTenMin.add(list.get(2));
+                    threeToTenMinList.add(list.get(2));
                 }
-
                 if (list.get(1).equals("30分以上")) {
-                    thirtenMin.add(list.get(2));
+                    thirtyMinList.add(list.get(2));
                 }
-
                 if (list.get(1).equals("11-30秒")) {
-                    second11.add(list.get(2));
+                    elevenToThirtySecondsList.add(list.get(2));
                 }
                 if (list.get(1).equals("10-30分")) {
-                    tenTothir.add(list.get(2));
+                    tenToThirtyMinList.add(list.get(2));
                 }
                 if (list.get(1).equals("1-3分")) {
-                    minOneToThr.add(list.get(2));
+                    oneToThreeMinList.add(list.get(2));
                 }
                 if (list.get(1).equals("31-60秒")) {
-                    sec31.add(list.get(2));
+                    thirtyFirstToSixtySecList.add(list.get(2));
                 }
                 if (list.get(1).equals("1-3秒")) {
-                    sec1.add(list.get(2));
+                    oneToThreeSecList.add(list.get(2));
                 }
             }
-            String genBar = ChartUtils.genUseTimeLineChart(xAxisList, nameList, fourToTenList, threeToTenMin, thirtenMin, second11, tenTothir, minOneToThr, sec31, sec1);
+            String genBar = ChartUtils.genUseTimeLineChart(xAxisList, nameList, fourToTenSecondsList, threeToTenMinList,
+                    thirtyMinList, elevenToThirtySecondsList, tenToThirtyMinList, oneToThreeMinList, thirtyFirstToSixtySecList, oneToThreeSecList);
             result.put("chartOption", genBar);
             result.put("dataTime", dataTime);
             result.put("dataPhone", dataPhone);

@@ -91,8 +91,9 @@
 </@layout>
 
 <script>
-	function dataTableExchange(data) {
-        var chart = echarts.init(document.getElementById('chartDiv'),
+	function dataTableExchange(data, dateType) {
+
+	    var chart = echarts.init(document.getElementById('chartDiv'),
             'infographic');
         var chartOption = data.chartOption;
         chart.setOption($.parseJSON(chartOption));
@@ -101,15 +102,15 @@
             "aaData" : data.dataTime,
             "id" : "#table1",
             "aoColumnDefs": [{
-                "targets": [2,3], // 目标列位置，下标从0开始
+                "targets": [3,4], // 目标列位置，下标从0开始
                 "searchable": false
             }],
-            "sDom": "<'row'<'col-sm-3'l><'col-sm-5'f>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
+            "sDom": "<'row'<'col-sm-3'l><'#dateVal.col-sm-5'f>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
             initComplete: function () {
                 var api = this.api();
-
-                    var column = api.column(2);
-                    var select = $('<div id="select" class="col-sm-4"><div class="dataTables_filter"><label><i class="icon-calendar">时长&nbsp;</i><select style="width: 120px"><option value="">--请选择--</option></select></label></div></div>')
+				var column = api.column(2);
+                var myArray=new Array();
+				var select = $('<div id="select" class="col-sm-4"><div class="dataTables_filter"><label><i class="icon-calendar">时长&nbsp;</i><select name="optValue" style="width: 120px"><option value="">--请选择--</option></select></label></div></div>')
                         .appendTo($("#table1_wrapper div:first"))
                         .on('change', function () {
                             var val = $.fn.dataTable.util.escapeRegex(
@@ -118,97 +119,130 @@
                             column
                                 .search(val ? '^' + val + '$' : '', true, false)
                                 .draw();
+                            var content = "时长:"+ val;
+                            myArray.push('"' + content +'"');
+                            csvExport(myArray,dateType);
                         });
-                    column.data().unique().sort().each(function (d, j) {
-                        $(" #table1_wrapper div#select select").append('<option value="' + d + '">' + d + '</option>')
-                    });
-
-                csvExport();
+				column.data().unique().sort().each(function (d, j) {
+					$(" #table1_wrapper div#select select").append('<option value="' + d + '">' + d + '</option>')
+				});
             }
         });
         tableQuery({
             "aaData" : data.dataPhone,
             "id" : "#table2",
             "aoColumnDefs": [{
-                "targets": [3,4], // 目标列位置，下标从0开始
+                "targets": [4,5], // 目标列位置，下标从0开始
                 "searchable": false
             }],
-            "sDom": "<'row'<'col-sm-3'l><'col-sm-5'f>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
+            "sDom": "<'row'<'col-sm-3'l><'#search.col-sm-4'f>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
             initComplete: function () {
                 var api = this.api();
-                var column = api.column(3);
-                var select = $('<div id="select" class="col-sm-4"><div class="dataTables_filter"><label><i class="icon-calendar">时长&nbsp;</i><select style="width: 120px"><option value="">--请选择--</option></select></label></div></div>')
-                    .appendTo($("#table2_wrapper div:first"))
-                    .on('change', function () {
-                        var val = $.fn.dataTable.util.escapeRegex(
-                            $(" #table2_wrapper div:first div#select select").val()
-                        );
-                        column
-                            .search(val ? '^' + val + '$' : '', true, false)
-                            .draw();
-                    });
-                column.data().unique().sort().each(function (d, j) {
-                    $(" #table2_wrapper div#select select").append('<option value="' + d + '">' + d + '</option>')
+                var myArray=new Array();
+                api.columns().indexes().flatten().each( function ( i ) {
+                    var name = "时长";
+                    if (i == 2 || i == 3) {
+                        if (i == 2) {
+                            name = "版本";
+						}
+                        var column = api.column(i);
+                        var value = "#table2_wrapper div:first div#select" + i +" select";
+                        var selectValue = "#table2_wrapper div#select" + i + " select";
+                        var select = $('<div id="select'+ i +'" class="col-sm-3" style="width: 20%"><div class="dataTables_filter"><label><i class="icon-calendar">'+name+'&nbsp;</i><select style="width: 80px"><option value="">-请选择-</option></select></label></div></div>')
+                            .appendTo($("#table2_wrapper div:first"))
+                            .on('change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(value).val()
+                                );
+                                myArray.push(name+':'+val);
+                                column
+                                    .search(val ? '^' + val + '$' : '', true, false)
+                                    .draw();
+                                csvExport(myArray,dateType);
+                            });
+                        column.data().unique().sort().each(function (d, j) {
+                            $(selectValue).append('<option value="' + d + '">' + d + '</option>')
+                        });
+                    }
                 });
-
-                csvExport();
             }
         });
         tableQuery({
             "aaData" : data.dataChannel,
             "id" : "#table3",
             "aoColumnDefs": [{
-                "targets": [3,4], // 目标列位置，下标从0开始
+                "targets": [4,5], // 目标列位置，下标从0开始
                 "searchable": false
             }],
-            "sDom": "<'row'<'col-sm-3'l><'col-sm-5'f>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
+            "sDom": "<'row'<'col-sm-3'l><'col-sm-4'f>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
             initComplete: function () {
                 var api = this.api();
-                var column = api.column(2);
-                var select = $('<div id="select" class="col-sm-4"><div class="dataTables_filter"><label><i class="icon-calendar">时长&nbsp;</i><select style="width: 120px"><option value="">--请选择--</option></select></label></div></div>')
-                    .appendTo($("#table3_wrapper div:first"))
-                    .on('change', function () {
-                        var val = $.fn.dataTable.util.escapeRegex(
-                            $(" #table3_wrapper div:first div#select select").val()
-                        );
-                        column
-                            .search(val ? '^' + val + '$' : '', true, false)
-                            .draw();
-                    });
-                column.data().unique().sort().each(function (d, j) {
-                    $(" #table3_wrapper div#select select").append('<option value="' + d + '">' + d + '</option>')
-                });
+                api.columns().indexes().flatten().each( function ( i ) {
+                    var name = "时长";
+                    if (i == 2 || i == 3) {
+                        if (i == 2) {
+                            name = "渠道";
+						}
+                        var column = api.column(i);
+                        var value = "#table3_wrapper div:first div#select" + i +" select";
+                        var selectValue = "#table3_wrapper div#select" + i + " select";
 
-                csvExport();
+                        var select = $('<div id="select'+ i +'" class="col-sm-3" style="width: 20%"><div class="dataTables_filter"><label><i class="icon-calendar">'+name+'&nbsp;</i><select style="width: 80px"><option value="">-请选择-</option></select></label></div></div>')
+                            .appendTo($("#table3_wrapper div:first"))
+                            .on('change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(value).val()
+                                );
+                                column
+                                    .search(val ? '^' + val + '$' : '', true, false)
+                                    .draw();
+                                csvExport(val,dateType);
+                            });
+                        column.data().unique().sort().each(function (d, j) {
+                            $(selectValue).append('<option value="' + d + '">' + d + '</option>')
+                        });
+                    }
+                });
             }
         });
         tableQuery({
             "aaData" : data.dataOs,
             "id" : "#table4",
             "aoColumnDefs": [{
-                "targets": [3,4], // 目标列位置，下标从0开始
+                "targets": [4,5], // 目标列位置，下标从0开始
                 "searchable": false
             }],
-            "sDom": "<'row'<'col-sm-3'l><'col-sm-5'f>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
+            "sDom": "<'row'<'col-sm-3'l><'col-sm-4'f>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
             initComplete: function () {
                 var api = this.api();
-                var column = api.column(2);
-                var select = $('<div id="select" class="col-sm-4"><div class="dataTables_filter"><label><i class="icon-calendar">时长&nbsp;</i><select style="width: 120px"><option value="">--请选择--</option></select></label></div></div>')
-                    .appendTo($("#table4_wrapper div:first"))
-                    .on('change', function () {
-                        var val = $.fn.dataTable.util.escapeRegex(
-                            $(" #table4_wrapper div:first div#select select").val()
-                        );
-                        column
-                            .search(val ? '^' + val + '$' : '', true, false)
-                            .draw();
-                    });
-                column.data().unique().sort().each(function (d, j) {
-                    $(" #table4_wrapper div#select select").append('<option value="' + d + '">' + d + '</option>')
-                });
+                api.columns().indexes().flatten().each( function ( i ) {
+                    var name = "时长";
+                    if (i == 2 || i == 3) {
+                        if (i == 2) {
+                            name = "os";
+						}
+                        var column = api.column(i);
+                        var value = "#table4_wrapper div:first div#select" + i +" select";
+                        var selectValue = "#table4_wrapper div#select" + i + " select";
 
-                csvExport();
+                        var select = $('<div id="select'+ i +'" class="col-sm-3" style="width: 20%"><div class="dataTables_filter"><label><i class="icon-calendar">' + name + '&nbsp;</i><select style="width: 80px"><option value="">-请选择-</option></select></label></div></div>')
+                            .appendTo($("#table4_wrapper div:first"))
+                            .on('change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(value).val()
+                                );
+                                column
+                                    .search(val ? '^' + val + '$' : '', true, false)
+                                    .draw();
+                                csvExport(val,dateType);
+                            });
+                        column.data().unique().sort().each(function (d, j) {
+                            $(selectValue).append('<option value="' + d + '">' + d + '</option>')
+                        });
+                    }
+                });
             }
         });
+        csvExport("",dateType);
 	}
 </script>
