@@ -220,9 +220,24 @@ public class TagController extends Controller {
     }
     //汇路时效----start
 
+    //行内外转账----start
     public void bankTran() {
-
+        List<Map<String, Object>> bankTrans = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.bank_tran_label), false);
+        String[] select = {"行内转账", "跨行转账"};
+        List<String> contents = new ArrayList<>();
+        for (int i = 0; i < select.length; i++) {
+            contents.add(select[i]);
+        }
+        setAttr("contents", contents);
+        setAttr("bankTrans", bankTrans);
     }
+
+    public void bankTranConfig(){
+        selectCommon(SQLConfig.bank_tran_label_config);
+        redirect("/tag");
+    }
+    //行内外转账----end
+
 
     public void tranHobby() {
 

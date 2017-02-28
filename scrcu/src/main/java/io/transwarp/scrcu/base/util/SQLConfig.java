@@ -258,6 +258,9 @@ public enum SQLConfig {
     //标签配置-汇路时效
     send_eff_label,
     send_eff_label_config,
+    //标签配置-行内外转账
+    bank_tran_label,
+    bank_tran_label_config,
 
 
     // 画像 家庭关系

@@ -165,6 +165,17 @@
 		<sql id="sql">insert into test.t_send_eff (sendeff_key, sendeff_order, content_name, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
+	<sqlGroup name="bank_tran_label">
+		<sql id="name">行内外转账标签</sql>
+		<sql id="header"></sql>
+		<sql id="sql">select banktran_key, banktran_order, content_name, oper_time, oper_user from test.t_bank_tran order by oper_time desc limit 1</sql>
+	</sqlGroup>
+	<sqlGroup name="bank_tran_label_config">
+		<sql id="name">配置行内外转账标签</sql>
+		<sql id="header"></sql>
+		<sql id="sql">insert into test.t_bank_tran (banktran_key, banktran_order, content_name, oper_time, oper_user) values SQL_CONDITION</sql>
+	</sqlGroup>
+
 	<sqlGroup name="label_colony_users">
 		<sql id="name">具有标签用户</sql>
 		<sql id="header"></sql>
