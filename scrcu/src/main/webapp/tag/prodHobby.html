@@ -10,15 +10,15 @@
     <section class="panel panel-default">
         <header class="panel-heading">标签配置</header>
         <div class="panel-body">
-            <form id="inputForm" class="bs-example form-horizontal" action="/tag/tranTypeConfig">
-                <#list tranTypes as tranType>
-                    <input type="hidden" value="${tranType.trantype_key}" name="key">
+            <form id="inputForm" class="bs-example form-horizontal" action="/tag/prodHobbyConfig">
+                <#list prodHobbys as prodHobby>
+                    <input type="hidden" value="${prodHobby.prodhobby_key}" name="key">
                     <input type="hidden" value="${session['username']}" name="oper_user">
                     <div class="form-group">
-                        <label class="col-sm-4 text-success text-md" name="title" value="转账类型偏好">转账类型偏好</label>
+                        <label class="col-sm-4 text-success text-md" name="title" value="存款产品偏好">存款产品偏好</label>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-offset-4 col-sm-5">
+                        <div class="col-sm-offset-3 col-sm-7">
                             <ul class="userTags clear" style="margin-top:0px">
                                 <#list contents as content>
                                     <input type="hidden" value="${content}" name="content_name">
@@ -30,13 +30,13 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-offset-5 col-sm-1">
+                        <div class="col-sm-offset-4 col-sm-1">
                             <label><h5>TOP:</h5></label>
                         </div>
                         <div class=" col-sm-6"  style="margin-left: -30px; margin-top: 8px">
                             <select class="col-sm-2" name="rank">
                                 <#list contents as content>
-                                    <option <#if tranType.trantype_order == (content_index+1)?c>selected="selected"</#if> value="${content_index+1}">${content_index+1}</option>
+                                    <option <#if prodHobby.prodhobby_order == (content_index+1)?c>selected="selected"</#if> value="${content_index+1}">${content_index+1}</option>
                                 </#list>
                             </select>
                         </div>

@@ -275,11 +275,25 @@ public class TagController extends Controller {
         selectCommon(SQLConfig.tran_type_label_config);
         redirect("/tag");
     }
-    //转账类型偏好----start
+    //转账类型偏好----end
 
+    //存款产品偏好----start
     public void prodHobby() {
-
+        List<Map<String, Object>> prodHobbys = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.prod_hobby_label), false);
+        String[] select = {"双整", "零整", "定活两便", "整零", "通知存款", "智能通知存款", "约期定期", "定活宝", "定存宝"};
+        List<String> contents = new ArrayList<>();
+        for (int i = 0; i < select.length; i++) {
+            contents.add(select[i]);
+        }
+        setAttr("contents", contents);
+        setAttr("prodHobbys", prodHobbys);
     }
+
+    public void prodHobbyConfig(){
+        selectCommon(SQLConfig.prod_hobby_label_config);
+        redirect("/tag");
+    }
+    //存款产品偏好----end
 
     public void groupType() {
 
