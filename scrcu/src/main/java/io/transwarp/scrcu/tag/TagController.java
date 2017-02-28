@@ -66,10 +66,10 @@ public class TagController extends Controller {
         List<String[][]> peoAttrs = new ArrayList<>();
         List<String[][]> creAttrs = new ArrayList<>();
         List<String[][]> opeAttrs = new ArrayList<>();
-        String[][] tradFea = {{"差旅人群", "peoTravel"}, {"客户参与活动", "partActive"}, {"月交易次数", "tranNum"}, {"时间偏好", "timeHobby"}, {"支付偏好", "payHobby"}, {"行内外转账", "bankTran"}, {"转账类型偏好", "tranType"}, {"用户群体类型", "groupType"}, {"持有产品服务", "prodServer"}, {"产品功能消费偏好", "customHobby"}, {"月交易金额", "tranMoney"}, {"安全认证方式", "secAuth"}, {"汇路时效", "sendEff"}, {"交易偏好", "tranHobby"}, {"存款产品偏好", "prodHobby"}};
+        String[][] tradFea = {{"客户参与活动", "partActive"}, {"月交易次数", "tranNum"}, {"时间偏好", "timeHobby"}, {"支付偏好", "payHobby"}, {"行内外转账", "bankTran"}, {"转账类型偏好", "tranType"}, {"用户群体类型", "groupType"}, {"持有产品服务", "prodServer"}, {"产品功能消费偏好", "customHobby"}, {"月交易金额", "tranMoney"}, {"安全认证方式", "secAuth"}, {"汇路时效", "sendEff"}, {"交易偏好", "tranHobby"}, {"存款产品偏好", "prodHobby"}};
         String[][] peoAttr = {{"年龄", "age"}, {"职业", "career"}, {"社交关系", "socRelation"}};
         String[][] creAttr = {{"蜀信e注册年限", "regYear"}, {"资产负债", "proDebt"}};
-        String[][] opeAttr = {{"网页操作行为", "opeBehavior"}, {"搜索引擎", "searchEng"}, {"活跃变化特征", "chaFeature"}, {"网银搜索关键字", "searchKey"}, {"使用时段", "useTime"}, {"终端", "terminal"}, {"活跃功能特征", "funcFeature"}};
+        String[][] opeAttr = {{"网页搜索操作行为", "searBehaviour"}, {"搜索引擎", "searchEng"}, {"活跃变化特征", "chaFeature"}, {"网银搜索关键字", "searchKey"}, {"网页投诉操作行为", "compBehaviour"}, {"网页留言操作行为", "noteBehaviour"}, {"网页浏览操作行为", "eventBehaviour"}, {"使用时段", "useTime"}, {"终端", "terminal"}, {"活跃功能特征", "funcFeature"}};
         tradFeas.add(tradFea);
         peoAttrs.add(peoAttr);
         creAttrs.add(creAttr);
@@ -134,12 +134,6 @@ public class TagController extends Controller {
         redirect("/tag");
     }
     //资产负债----end
-
-    //差旅人群----start----未完成
-    public void peoTravel() {
-
-    }
-    //差旅人群----end
 
     //持有产品服务----start
     public void prodServer() {
@@ -369,11 +363,35 @@ public class TagController extends Controller {
     }
     //社交关系----end
 
-    //网页操作行为----start----未完成
-    public void opeBehavior() {
+    //网页搜索操作行为----start
+    public void searBehaviour(){
+        List<Map<String, Object>> searBehaviours = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.sear_behaviour_label), false);
+        setAttr("searBehaviours", searBehaviours);
+    }
+
+    public void searBehaviourConfig(){
+        rangToRangCommon(SQLConfig.sear_behaviour_label_config);
+        redirect("/tag");
+    }
+    //网页搜索操作行为----end
+
+    //网页投诉操作行为----start
+    public void compBehaviour(){
 
     }
-    //网页操作行为----end
+    //网页投诉操作行为----end
+
+    //网页留言操作行为----start
+    public void noteBehaviour(){
+
+    }
+    //网页留言操作行为----end
+
+    //网页浏览操作行为----start
+    public void eventBehaviour(){
+
+    }
+    //网页浏览操作行为----end
 
     //使用时段----start
     @RequiresPermissions("/tag/useTime")

@@ -12,6 +12,7 @@
         <section class="scrollable">
             <div class="row">
                 <div class="col-sm-12">
+
                     <div class="tagtype col-sm-6" style="height: 200px">
                         <div style="background-color:#545CA6;color: white;height:36px;padding-top:7px;margin-bottom:2px;margin-left: 8px;margin-right: 12px">
                             <div class="col-sm-9">交易特征</div>
@@ -19,6 +20,20 @@
                         </div>
                         <ul class="userTags clear" style="margin-top:0px">
                             <#list tradFeas as tradFea>
+                                <li class="text-success">
+                                    <a href="${root}/tag/${tradFea[1]}">${tradFea[0]}</a>
+                                </li>
+                            </#list>
+                        </ul>
+                    </div>
+
+                    <div class="tagtype col-sm-6" style="height: 200px">
+                        <div style="background-color:#545CA6;color: white;height:36px;padding-top:7px;margin-bottom:2px;margin-left: 8px;margin-right: 12px">
+                            <div class="col-sm-9">功能操作属性</div>
+                            <div class="col-sm-3"></div>
+                        </div>
+                        <ul class="userTags clear" style="margin-top:0px">
+                            <#list opeAttrs as tradFea>
                                 <li class="text-success">
                                     <a href="${root}/tag/${tradFea[1]}">${tradFea[0]}</a>
                                 </li>
@@ -54,19 +69,6 @@
                         </ul>
                     </div>
 
-                    <div class="tagtype col-sm-6" style="height: 200px">
-                        <div style="background-color:#545CA6;color: white;height:36px;padding-top:7px;margin-bottom:2px;margin-left: 8px;margin-right: 12px">
-                            <div class="col-sm-9">功能操作属性</div>
-                            <div class="col-sm-3"></div>
-                        </div>
-                        <ul class="userTags clear" style="margin-top:0px">
-                            <#list opeAttrs as tradFea>
-                                <li class="text-success">
-                                    <a href="${root}/tag/${tradFea[1]}">${tradFea[0]}</a>
-                                </li>
-                            </#list>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </section>
