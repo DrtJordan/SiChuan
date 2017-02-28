@@ -302,6 +302,8 @@ public enum SQLConfig {
     soc_relation_label_config,
     //标签配置—网页操作行为
     //标签配置—活跃变化特征
+    cha_feature_label,
+    cha_feature_label_config,
 
     // 画像 家庭关系
     portrait_family,

@@ -220,6 +220,17 @@
 		<sql id="sql">insert into test.t_soc_relation (socrelation_key, socrelation_name, begin_num, end_num, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
+	<sqlGroup name="cha_feature_label">
+		<sql id="name">活跃变化特征标签</sql>
+		<sql id="header"></sql>
+		<sql id="sql">select chafeature_key, chafeature_name, begin_per, end_per, oper_time, oper_user from test.t_cha_feature order by oper_time desc limit 2</sql>
+	</sqlGroup>
+	<sqlGroup name="cha_feature_label_config">
+		<sql id="name">配置活跃变化特征标签</sql>
+		<sql id="header"></sql>
+		<sql id="sql">insert into test.t_cha_feature (chafeature_key, chafeature_name, begin_per, end_per, oper_time, oper_user) values SQL_CONDITION</sql>
+	</sqlGroup>
+
 	<sqlGroup name="sec_auth_label">
 		<sql id="name">安全认证方式标签</sql>
 		<sql id="header"></sql>

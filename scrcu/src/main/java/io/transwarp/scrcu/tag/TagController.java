@@ -143,12 +143,12 @@ public class TagController extends Controller {
 
     //持有产品服务----start
     public void prodServer() {
-        List<Map<String, Object>> prodServers = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.part_active_label), false);
+        List<Map<String, Object>> prodServers = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.prod_server_label), false);
         setAttr("prodServers", prodServers);
     }
 
     public void prodServerConfig() {
-        rangToRangCommon(SQLConfig.part_active_label_config);
+        rangToRangCommon(SQLConfig.prod_server_label_config);
         redirect("/tag");
     }
     //持有产品服务----end
@@ -369,12 +369,8 @@ public class TagController extends Controller {
     }
     //社交关系----end
 
-    //网页操作行为----start
+    //网页操作行为----start----未完成
     public void opeBehavior() {
-
-    }
-
-    public void opeBehaviorConfig() {
 
     }
     //网页操作行为----end
@@ -432,11 +428,13 @@ public class TagController extends Controller {
 
     //活跃变化特征----start
     public void chaFeature() {
-
+        List<Map<String, Object>> chaFeatures = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.cha_feature_label), false);
+        setAttr("chaFeatures", chaFeatures);
     }
 
-    public void chaFeatureCoonfig() {
-
+    public void chaFeatureConfig() {
+        rangToRangCommon(SQLConfig.cha_feature_label_config);
+        redirect("/tag");
     }
     //活跃变化特征----end
 

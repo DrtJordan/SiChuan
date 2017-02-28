@@ -1,0 +1,88 @@
+<#include "/common/_layout.html" /> <@layout>
+<div class="top">
+    <ul class="breadcrumb">
+        <li><a><i class="fa fa-home"></i> 用户画像</a></li>
+        <li>标签配置</li>
+    </ul>
+
+</div>
+<div class="col-sm-12 wrapper">
+    <section class="panel panel-default">
+        <header class="panel-heading">标签配置</header>
+        <div class="panel-body">
+            <form id="inputForm" class="bs-example form-horizontal" action="/tag/chaFeatureConfig">
+                <#list chaFeatures as chaFeature>
+                    <#if chaFeature_index == 0>
+                        <div class="form-group">
+                            <label class="col-sm-4 text-success text-md" name="title" value="活跃变化特征">活跃变化特征</label>
+                        </div>
+                    </#if>
+                    <div class="form-group">
+                        <input type="hidden" value="${chaFeature.chafeature_key}" name="key">
+                        <input type="hidden" value="${session['username']}" name="oper_user">
+                        <input type="hidden" value="${chaFeature.chafeature_name}" name="name${chaFeature_index}">
+                        <label class="col-lg-3 control-label" value="${chaFeature.chafeature_name}" name="chafeature_name${chaFeature_index}">${chaFeature.chafeature_name}</label>
+
+                        <div class="col-lg-8">
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" name="start${chaFeature_index}"
+                                       value="${chaFeature.begin_per}">
+                            </div>
+                            <div class="col-sm-1" style="margin-left: -5.3%; margin-right: -1.6%">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button"
+                                            style="border-left: 0px;box-shadow:none;border-right: 0px; border-color: #cbd5dd;">到
+                                    </button>
+                                </span>
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" name="end${chaFeature_index}"
+                                       value="${chaFeature.end_per}">
+                            </div>
+                        </div>
+                    </div>
+                </#list>
+                <div class="form-group">
+                    <div class="col-lg-offset-10 col-lg-10">
+                        <button type="submit" class="btn btn-sm btn-success">保存</button>
+                        <button type="reset" class="btn btn-sm btn-danger">重置</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+
+<script type="text/javascript">
+    $().ready(function () {
+        $("#inputForm").validate({
+            errorPlacement: function (error, element) {
+                error.appendTo(element.parent());
+            },
+            errorClass: "text-danger",
+            errorElement: "span",
+            rules: {
+            <#list chaFeatures as chaFeature >
+        start${chaFeature_index}:{
+            required: true,
+                    pattern: /^([1-9]\d{0,}|0)$/},
+        end${chaFeature_index}:{
+            required: true,
+                    pattern: /^([1-9]\d{0,}|0)$/},
+        </#list >
+    },
+        messages: {
+        <#list chaFeatures as chaFeature >
+            start${chaFeature_index}:{
+                required: "必填",
+                        pattern:"必须大于0"},
+            end${chaFeature_index}:{
+                required: "必填",
+                        pattern:"必须大于0"},
+        </#list >
+        }
+    })
+        ;
+    })
+</script>
+</@layout>
