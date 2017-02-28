@@ -10,23 +10,23 @@
     <section class="panel panel-default">
         <header class="panel-heading">标签配置</header>
         <div class="panel-body">
-            <form id="inputForm" class="bs-example form-horizontal" action="/tag/regYearConfig">
-                <#list regYears as regYear>
-                    <#if regYear_index == 0>
+            <form id="inputForm" class="bs-example form-horizontal" action="/tag/proDebtConfig">
+                <#list proDebts as proDebt>
+                    <#if proDebt_index == 0>
                         <div class="form-group">
-                            <label class="col-sm-4 text-success text-md" name="title" value="蜀信e注册年限">蜀信e注册年限</label>
+                            <label class="col-sm-4 text-success text-md" name="title" value="资产负债">资产负债</label>
                         </div>
                     </#if>
                     <div class="form-group">
-                        <input type="hidden" value="${regYear.regyear_key}" name="key">
+                        <input type="hidden" value="${proDebt.prodebt_key}" name="key">
                         <input type="hidden" value="${session['username']}" name="oper_user">
-                        <input type="hidden" value="${regYear.regyear_name}" name="name${regYear_index}">
-                        <label class="col-lg-3 control-label" value="${regYear.regyear_name}" name="regyear_name{regYear_index}">${regYear.regyear_name}</label>
+                        <input type="hidden" value="${proDebt.prodebt_name}" name="name${proDebt_index}">
+                        <label class="col-lg-3 control-label" value="${proDebt.prodebt_name}" name="prodebt_name${proDebt_index}">${proDebt.prodebt_name}</label>
 
                         <div class="col-lg-8">
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" name="start${regYear_index}"
-                                       value="${regYear.begin_year}">
+                                <input type="text" class="form-control" name="start${proDebt_index}"
+                                       value="${proDebt.begin_pro}">
                             </div>
                             <div class="col-sm-1" style="margin-left: -5.3%; margin-right: -1.6%">
                                 <span class="input-group-btn">
@@ -36,8 +36,8 @@
                                 </span>
                             </div>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" name="end${regYear_index}"
-                                       value="${regYear.end_year}">
+                                <input type="text" class="form-control" name="end${proDebt_index}"
+                                       value="${proDebt.end_pro}">
                             </div>
                         </div>
                     </div>
@@ -62,21 +62,21 @@
             errorClass: "text-danger",
             errorElement: "span",
             rules: {
-            <#list regYears as regYear >
-        start${regYear_index}:{
+            <#list proDebts as proDebt >
+        start${proDebt_index}:{
             required: true,
                     pattern: /^([1-9]\d{0,}|0)$/},
-        end${regYear_index}:{
+        end${proDebt_index}:{
             required: true,
                     pattern: /^([1-9]\d{0,}|0)$/},
         </#list >
     },
         messages: {
-        <#list regYears as regYear >
-            start${regYear_index}:{
+        <#list proDebts as proDebt >
+            start${proDebt_index}:{
                 required: "必填",
                         pattern:"必须大于0"},
-            end${regYear_index}:{
+            end${proDebt_index}:{
                 required: "必填",
                         pattern:"必须大于0"},
         </#list >
@@ -84,7 +84,6 @@
     })
         ;
     })
-</script>
 </script>
 
 </@layout>

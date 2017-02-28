@@ -111,7 +111,7 @@ public class TagController extends Controller {
     }
     //职业----end
 
-    //注册年限----start
+    //蜀信e注册年限----start
     public void regYear() {
         List<Map<String, Object>> regYears = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.reg_year_label), false);
         setAttr("regYears", regYears);
@@ -121,11 +121,19 @@ public class TagController extends Controller {
         rangToRangCommon(SQLConfig.reg_year_label_config);
         redirect("/tag");
     }
-    //注册年限----end
+    //蜀信e注册年限----end
 
+    //资产负债----start
     public void proDebt() {
-
+        List<Map<String, Object>> proDebts = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.pro_debt_label), false);
+        setAttr("proDebts", proDebts);
     }
+
+    public void proDebtConfig(){
+        rangToRangCommon(SQLConfig.pro_debt_label_config);
+        redirect("/tag");
+    }
+    //资产负债----end
 
     public void peoTravel() {
 

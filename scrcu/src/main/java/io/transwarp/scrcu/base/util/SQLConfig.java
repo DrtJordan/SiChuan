@@ -276,6 +276,10 @@ public enum SQLConfig {
     //标签配置—终端
     terminal_label,
     terminal_label_config,
+    //标签配置—资产负债
+    pro_debt_label,
+    pro_debt_label_config,
+
 
 
     // 画像 家庭关系

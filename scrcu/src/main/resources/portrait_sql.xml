@@ -132,6 +132,17 @@
 		<sql id="sql">insert into test.t_reg_year (regYear_key, regYear_name, begin_year, end_year, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
+	<sqlGroup name="pro_debt_label">
+		<sql id="name">资产负债标签</sql>
+		<sql id="header"></sql>
+		<sql id="sql">select prodebt_key, prodebt_name, begin_pro, end_pro, oper_time, oper_user from test.t_pro_debt order by oper_time desc limit 3</sql>
+	</sqlGroup>
+	<sqlGroup name="pro_debt_label_config">
+		<sql id="name">配置资产负债标签</sql>
+		<sql id="header"></sql>
+		<sql id="sql">insert into test.t_pro_debt (prodebt_key, prodebt_name, begin_pro, end_pro, oper_time, oper_user) values SQL_CONDITION</sql>
+	</sqlGroup>
+
 	<sqlGroup name="sec_auth_label">
 		<sql id="name">安全认证方式标签</sql>
 		<sql id="header"></sql>
