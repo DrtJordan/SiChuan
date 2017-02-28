@@ -298,6 +298,8 @@ public enum SQLConfig {
     group_type_label,
     group_type_label_config,
     //标签配置—社交关系
+    soc_relation_label,
+    soc_relation_label_config,
     //标签配置—网页操作行为
     //标签配置—活跃变化特征
 

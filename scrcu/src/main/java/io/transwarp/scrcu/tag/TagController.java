@@ -359,11 +359,13 @@ public class TagController extends Controller {
 
     //社交关系----start
     public void socRelation() {
-
+        List<Map<String, Object>> socRelations = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.soc_relation_label), false);
+        setAttr("socRelations", socRelations);
     }
 
     public void socRelationConfig() {
-
+        rangToRangCommon(SQLConfig.soc_relation_label_config);
+        redirect("/tag");
     }
     //社交关系----end
 

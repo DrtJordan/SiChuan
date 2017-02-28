@@ -209,6 +209,17 @@
 		<sql id="sql">insert into test.t_group_type (grouptype_key, grouptype_name, begin_cont, end_cont, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
+	<sqlGroup name="soc_relation_label">
+		<sql id="name">社交关系标签</sql>
+		<sql id="header"></sql>
+		<sql id="sql">select socrelation_key, socrelation_name, begin_num, end_num, oper_time, oper_user from test.t_soc_relation order by oper_time desc limit 1</sql>
+	</sqlGroup>
+	<sqlGroup name="soc_relation_label_config">
+		<sql id="name">配置社交关系标签</sql>
+		<sql id="header"></sql>
+		<sql id="sql">insert into test.t_soc_relation (socrelation_key, socrelation_name, begin_num, end_num, oper_time, oper_user) values SQL_CONDITION</sql>
+	</sqlGroup>
+
 	<sqlGroup name="sec_auth_label">
 		<sql id="name">安全认证方式标签</sql>
 		<sql id="header"></sql>
