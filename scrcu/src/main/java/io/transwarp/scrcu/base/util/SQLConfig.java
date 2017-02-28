@@ -248,6 +248,9 @@ public enum SQLConfig {
     //标签配置-蜀信e注册年限
     reg_year_label,
     reg_year_label_config,
+    //标签配置-安全认证方式
+    sec_auth_label,
+    sec_auth_label_config,
     // 画像 家庭关系
     portrait_family,
     // 画像 转账关系

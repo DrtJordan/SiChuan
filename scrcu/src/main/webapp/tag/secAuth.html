@@ -25,7 +25,7 @@
     }
 
     .card-body {
-        height: 220px;
+        height: 260px;
         padding: 24px;
         position: relative;
         background-color: #ffffff;
@@ -44,25 +44,25 @@
     <section class="panel panel-default">
         <header class="panel-heading">标签配置</header>
         <div class="panel-body">
-            <form id="inputForm" class="bs-example form-horizontal" action="/tag/careerConfig">
+            <form id="inputForm" class="bs-example form-horizontal" action="/tag/secAuthConfig">
                 <div class="form-group">
-                    <label class="col-sm-4 text-success text-md" name="title" value="职业">职业</label>
+                    <label class="col-sm-4 text-success text-md" name="title" value="安全认证方式">安全认证方式</label>
                 </div>
                 <div class="form-group">
-                    <#list jobs as job>
-                        <input type="hidden" value="${job.job_key}" name="key${job_index}">
+                    <#list secAuths as secAuth>
+                        <input type="hidden" value="${secAuth.secauth_key}" name="key${secAuth_index}">
                         <input type="hidden" value="${session['username']}" name="oper_user">
-                        <input type="hidden" value="${job.job_name}" name="names">
+                        <input type="hidden" value="${secAuth.secauth_name}" name="names">
                         <div class="col-sm-6">
                             <div class="card card-bordered style-primary">
                                 <div class="card-head">
-                                    <header style="margin-left: 15px"><i class="fa fa-fw fa-tag"></i>&nbsp;&nbsp;${job.job_name}</header>
+                                    <header style="margin-left: 15px"><i class="fa fa-fw fa-tag"></i>&nbsp;&nbsp;${secAuth.secauth_name}</header>
                                 </div>
                                 <div class="card-body style-default-bright" style="display: block;">
                                     <#list contents as content>
                                         <div class="col-sm-6">
                                             <label>
-                                                <input onclick="check()" type="checkbox" id="${content}" value="${content}" name="${job.job_name}" <#if job.content_name?? && job.content_name?contains(content)>checked="checked"</#if>/>
+                                                <input onclick="check()" type="checkbox" id="${content}" value="${content}" name="${secAuth.secauth_name}" <#if secAuth.content_name?? && secAuth.content_name?contains(content)>checked="checked"</#if>/>
                                                 <span>${content}</span>
                                             </label>
                                         </div>

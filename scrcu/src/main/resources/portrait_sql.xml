@@ -91,12 +91,12 @@
 	<sqlGroup name="job_label">
 		<sql id="name">职业标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">select job_key, job_name, job_content_name from test.t_job order by job_key asc</sql>
+		<sql id="sql">select job_key, job_name, content_name, oper_time, oper_user from test.t_job order by oper_time desc limit 7</sql>
 	</sqlGroup>
 	<sqlGroup name="job_label_config">
 		<sql id="name">配置职业标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">update test.t_job set SQL_CONDITION</sql>
+		<sql id="sql">insert into test.t_job (job_key, job_name, content_name, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
 	<sqlGroup name="custom_hobby_label">
@@ -130,6 +130,17 @@
 		<sql id="name">配置蜀信e注册年限标签</sql>
 		<sql id="header"></sql>
 		<sql id="sql">insert into test.t_reg_year (regYear_key, regYear_name, begin_year, end_year, oper_time, oper_user) values SQL_CONDITION</sql>
+	</sqlGroup>
+
+	<sqlGroup name="sec_auth_label">
+		<sql id="name">安全认证方式标签</sql>
+		<sql id="header"></sql>
+		<sql id="sql">select secAuth_key, secAuth_name, content_name, oper_time, oper_user from test.t_sec_auth order by oper_time desc limit 3</sql>
+	</sqlGroup>
+	<sqlGroup name="sec_auth_label_config">
+		<sql id="name">配置安全认证方式标签</sql>
+		<sql id="header"></sql>
+		<sql id="sql">insert into test.t_sec_auth (secAuth_key, secAuth_name, content_name, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
 	<sqlGroup name="label_colony_users">

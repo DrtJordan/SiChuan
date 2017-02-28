@@ -19,13 +19,30 @@ import java.util.*;
 public class TagController extends Controller {
 
     StringBuffer value = new StringBuffer(" ");
-
-    public void common(Object config){
+    //调用SQL，循环执行插入语句。
+    public void rangToRangCommon(Object config){
         String oper_time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.ms").format(new Date());
         String oper_user = getPara("oper_user");
         String[] keys = getParaValues("key");
         for (int i = 0; i < keys.length; i++) {
             InceptorUtil.mapQuery(SqlKit.propSQL(config, ConditionUtil.rangToRang(keys[i],getPara("name"+i),getPara("start"+i),getPara("end"+i),oper_time,oper_user).toString()), false);
+        }
+    }
+    public void checkCommon(Object config){
+        String oper_time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.ms").format(new Date());
+        String oper_user = getPara("oper_user");
+        String[] names = getParaValues("names");
+        StringBuffer content_name = new StringBuffer("");
+        for (int i = 0; i < names.length; i++) {
+            String[] checked = getParaValues(names[i]);
+            if (checked != null) {
+                for (int j = 0; j < checked.length; j++) {
+                    content_name.append(checked[j]).append("、");
+                }
+                content_name.delete(content_name.length()-1, content_name.length());
+            }
+            InceptorUtil.mapQuery(SqlKit.propSQL(config, ConditionUtil.check(getPara("key"+i), names[i], content_name.toString(), oper_time, oper_user).toString()), false);
+            content_name.delete(0, content_name.length());
         }
     }
 
@@ -57,7 +74,7 @@ public class TagController extends Controller {
     }
 
     public void ageConfig(){
-        common(SQLConfig.age_label_config);
+        rangToRangCommon(SQLConfig.age_label_config);
         redirect("/tag");
     }
     //年龄----end
@@ -75,24 +92,7 @@ public class TagController extends Controller {
     }
 
     public void careerConfig() {
-        String[] keys = getParaValues("key");
-        for (int i = 0; i < keys.length; i++) {
-            String[] checked = getParaValues(keys[i]);
-            if (checked != null) {
-                for (int j = 0; j < checked.length; j++) {
-                    value.append(checked[j]).append("、");
-                }
-                //执行sql语句。
-                value.deleteCharAt(value.length() - 1);
-                value.insert(1, "job_content_name = '");
-                value.append("' where job_name = '").append(keys[i]).append("';");
-                ;
-            } else {
-                value.append("job_content_name = NULL").append(" where job_name = '").append(keys[i]).append("';");
-            }
-            InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.job_label_config, value.toString()), false);
-            value = value.delete(1, value.length());
-        }
+        checkCommon(SQLConfig.job_label_config);
         redirect("/tag");
     }
     //职业----end
@@ -104,7 +104,7 @@ public class TagController extends Controller {
     }
 
     public void regYearConfig(){
-        common(SQLConfig.reg_year_label_config);
+        rangToRangCommon(SQLConfig.reg_year_label_config);
         redirect("/tag");
     }
     //注册年限----end
@@ -159,9 +159,24 @@ public class TagController extends Controller {
 
     }
 
+    //安全认证方式----start
     public void secAuth() {
-
+        List<Map<String, Object>> secAuths = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.sec_auth_label), false);
+        List<String> contents = new ArrayList<>();
+        String[] checked = {"UK一代认证", "UK二代认证", "UK三代认证", "SE证书认证", "刮刮卡认证", "邮箱认证","合作平台认证", "安全问题认证", "手势密码认证", "二维码认证", "登录密码认证", "预留信息认证", "手机短信认证", "支付密码认证", "文件证书认证", "设备绑定认证", "软令牌认证", "硬令牌认证"};
+        for (int i = 0; i < checked.length; i++) {
+            contents.add(checked[i]);
+        }
+        setAttr("contents", contents);
+        setAttr("secAuths", secAuths);
     }
+
+    public void secAuthConfig() {
+        checkCommon(SQLConfig.sec_auth_label_config);
+        redirect("/tag");
+    }
+    //安全认证方式----end
+
 
     public void payHobby() {
 
@@ -208,7 +223,7 @@ public class TagController extends Controller {
 
     @RequiresPermissions("/tag/useTimeConfig")
     public void useTimeConfig() {
-        common(SQLConfig.use_time_label_config);
+        rangToRangCommon(SQLConfig.use_time_label_config);
         redirect("/tag");
     }
     //使用时段----end
