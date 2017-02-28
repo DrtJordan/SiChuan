@@ -409,6 +409,7 @@ public class InceptorUtil {
 
     /**
      * 获取查询条件
+     *
      * @param request
      * @return
      */
@@ -426,11 +427,16 @@ public class InceptorUtil {
         return sb.toString();
     }
 
+    /**
+     * 获取导出表格的查询条件
+     *
+     * @param queryType
+     * @return
+     */
     public static String getCsvCondition(String queryType) {
 
         StringBuffer stringBuffer = new StringBuffer();
-        if (StringUtils.isNotBlank(queryType)){
-
+        if (StringUtils.isNotBlank(queryType) && queryType.split(":").length == 2) {
             if (queryType.contains("时长")) {
                 stringBuffer.append("online_time ='" + queryType.split(":")[1] + "' and ");
             }

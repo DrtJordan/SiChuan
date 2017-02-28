@@ -1,17 +1,12 @@
 package io.transwarp.scrcu.base.util;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import io.transwarp.echarts.DataRange;
-import io.transwarp.echarts.Grid;
-import io.transwarp.echarts.Label;
-import io.transwarp.echarts.LabelLine;
-import io.transwarp.echarts.Legend;
-import io.transwarp.echarts.Polar;
-import io.transwarp.echarts.Toolbox;
+import io.transwarp.echarts.*;
 import io.transwarp.echarts.axis.Axis;
 import io.transwarp.echarts.axis.AxisLabel;
 import io.transwarp.echarts.axis.CategoryAxis;
@@ -48,6 +43,7 @@ import io.transwarp.echarts.style.LinkStyle;
 import io.transwarp.echarts.style.NodeStyle;
 import io.transwarp.echarts.style.TextStyle;
 import io.transwarp.echarts.style.itemstyle.Normal;
+import org.apache.commons.lang.StringUtils;
 import test.io.transwarp.echarts.util.EnhancedOption;
 
 public class ChartUtils {
@@ -166,9 +162,25 @@ public class ChartUtils {
     /**
      * 生成使用时长的折线图
      */
-    public static String genUseTimeLineChart(List<Object> xAxisList, Object[] nameList, List<Object>... dataList) {
+    public static String genUseTimeLineChart(String dateType, List<Object> xAxisList, Object[] nameList, List<Object>... dataList) {
         EnhancedOption option = new EnhancedOption();
         option.tooltip().trigger(Trigger.axis);
+        if (StringUtils.equals(dateType, "day")) {
+            option.title().subtext("按天汇总").x("right");
+        }
+        if (StringUtils.equals(dateType, "week")) {
+            option.title().subtext("按周汇总").x("right");
+        }
+        if (StringUtils.equals(dateType, "month")) {
+            option.title().subtext("按月汇总").x("right");
+        }
+        if (StringUtils.equals(dateType, "quarter")) {
+            option.title().subtext("按季汇总").x("right");
+        }
+        if (StringUtils.equals(dateType, "year")) {
+            option.title().subtext("按年汇总").x("right");
+        }
+
         Legend legend = new Legend();
         //将名称设置为底部显示
         legend.y("bottom").data(nameList);

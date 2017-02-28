@@ -1,164 +1,171 @@
 <#include "/common/_layout.html"/> <@layout>
 <div class="top">
-	<ul class="breadcrumb">
-		<li><a href="#"><i class="fa fa-home"></i>移动分析</a></li>
-		<li>使用时长</li>
-	</ul>
+    <ul class="breadcrumb">
+        <li><a href="#"><i class="fa fa-home"></i>移动分析</a></li>
+        <li>使用时长</li>
+    </ul>
 </div>
 <section id="content">
-	<#include "/common/_dateQuery.html"/>
-	<div id="chartDiv" style="height: 320px;"></div>
-	<div class="clear"><hr/></div>
-	
-	<div class="panel panel-default table-responsive clear">
-		<header class="noborder panel-heading text-right bg-light clear">
-			<ul class="nav nav-tabs pull-left clear">
-				<li class="active csvExportTab" csvAction="app_useTime"><a
-					href="#date" data-toggle="tab"><i class="icon-calendar"></i>&nbsp;使用时长分布</a>
-				</li>
-				<li class="csvExportTab" csvAction="app_useTime_phone"><a
-					href="#phone" data-toggle="tab"><i
-						class="icon-screen-smartphone"></i>&nbsp;按版本时长分布</a></li>
-				<li class="csvExportTab" csvAction="app_useTime_channel"><a
-					href="#channel" data-toggle="tab"><i
-						class="icon-equalizer text-muted"></i>&nbsp;按渠道时长分布</a></li>
-				<li class="csvExportTab" csvAction="app_useTime_os"><a
-						href="#os" data-toggle="tab"><i
-						class="icon-screen-smartphone"></i>&nbsp;按手机OS时长分布</a></li>
-			</ul>
-			<span class="hidden-sm"><a href="/csv/app_useTime"
-				id="csvExport" class="btn btn-dark btn-sm" style="display: inline"><i
-					class="fa fa-cloud-download"></i>&nbsp;导出</a></span>
-		</header>
-		<div class="panel-body" style="padding: 0px">
-			<div class="tab-content">
-				<div class="tab-pane fade active in" id="date">
-					<table id="table1" class="table table-striped b-light">
-						<thead>
-							<tr>
-								<th>日期</th>
-								<th>时长</th>
-								<th>启动次数</th>
-								<th>启动次数占比</th>
-							</tr>
-						</thead>
-					</table>
-				</div>
+    <#include "/common/_dateQuery.html"/>
+    <div id="chartDiv" style="height: 320px;"></div>
+    <div class="clear">
+        <hr/>
+    </div>
 
-				<div class="tab-pane fade" id="phone">
-					<table id="table2" class="table table-striped b-light">
-						<thead>
-							<tr>
-								<th>日期</th>
-								<th>版本号</th>
-								<th>时长</th>
-								<th>启动次数</th>
-								<th>启动次数占比</th>
-							</tr>
-						</thead>
-					</table>
-				</div>
-				<div class="tab-pane fade" id="channel">
-					<table id="table3" class="table table-striped b-light">
-						<thead>
-							<tr>
-								<th>日期</th>
-								<th>渠道名</th>
-								<th>时长</th>
-								<th>启动次数</th>
-								<th>启动次数占比</th>
-							</tr>
-						</thead>
-					</table>
-				</div>
-				<div class="tab-pane fade" id="os">
-					<table id="table4" class="table table-striped b-light">
-						<thead>
-						<tr>
-							<th>日期</th>
-							<th>手机OS</th>
-							<th>时长</th>
-							<th>启动次数</th>
-							<th>启动次数占比</th>
-						</tr>
-						</thead>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="panel panel-default table-responsive clear">
+        <header class="noborder panel-heading text-right bg-light clear">
+            <ul class="nav nav-tabs pull-left clear">
+                <li class="active csvExportTab" csvAction="app_useTime"><a
+                        href="#date" data-toggle="tab"><i class="icon-calendar"></i>&nbsp;使用时长分布</a>
+                </li>
+                <li class="csvExportTab" csvAction="app_useTime_phone"><a
+                        href="#phone" data-toggle="tab"><i
+                        class="icon-screen-smartphone"></i>&nbsp;按版本时长分布</a></li>
+                <li class="csvExportTab" csvAction="app_useTime_channel"><a
+                        href="#channel" data-toggle="tab"><i
+                        class="icon-equalizer text-muted"></i>&nbsp;按渠道时长分布</a></li>
+                <li class="csvExportTab" csvAction="app_useTime_os"><a
+                        href="#os" data-toggle="tab"><i
+                        class="icon-screen-smartphone"></i>&nbsp;按手机OS时长分布</a></li>
+            </ul>
+            <span class="hidden-sm"><a href="/csv/app_useTime"
+                                       id="csvExport" class="btn btn-dark btn-sm" style="display: inline"><i
+                    class="fa fa-cloud-download"></i>&nbsp;导出</a></span>
+        </header>
+        <div class="panel-body" style="padding: 0px">
+            <div class="tab-content">
+                <div class="tab-pane fade active in" id="date">
+                    <table id="table1" class="table table-striped b-light">
+                        <thead>
+                        <tr>
+                            <th>日期</th>
+                            <th>时长</th>
+                            <th>启动次数</th>
+                            <th>启动次数占比</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+
+                <div class="tab-pane fade" id="phone">
+                    <table id="table2" class="table table-striped b-light">
+                        <thead>
+                        <tr>
+                            <th>日期</th>
+                            <th>版本号</th>
+                            <th>时长</th>
+                            <th>启动次数</th>
+                            <th>启动次数占比</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="channel">
+                    <table id="table3" class="table table-striped b-light">
+                        <thead>
+                        <tr>
+                            <th>日期</th>
+                            <th>渠道名</th>
+                            <th>时长</th>
+                            <th>启动次数</th>
+                            <th>启动次数占比</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="os">
+                    <table id="table4" class="table table-striped b-light">
+                        <thead>
+                        <tr>
+                            <th>日期</th>
+                            <th>手机OS</th>
+                            <th>时长</th>
+                            <th>启动次数</th>
+                            <th>启动次数占比</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 </@layout>
 
 <script>
-	function dataTableExchange(data, dateType) {
+    function dataTableExchange(data, dateType) {
 
-	    var chart = echarts.init(document.getElementById('chartDiv'),
+        var chart = echarts.init(document.getElementById('chartDiv'),
             'infographic');
         var chartOption = data.chartOption;
         chart.setOption($.parseJSON(chartOption));
 
         tableQuery({
-            "aaData" : data.dataTime,
-            "id" : "#table1",
+            "aaData": data.dataTime,
+            "id": "#table1",
             "aoColumnDefs": [{
-                "targets": [3,4], // 目标列位置，下标从0开始
+                "targets": [3, 4], // 目标列位置，下标从0开始
                 "searchable": false
             }],
-            "sDom": "<'row'<'col-sm-3'l><'#dateVal.col-sm-5'f>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
+            "sDom": "<'row'<'col-sm-6'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
             initComplete: function () {
                 var api = this.api();
-				var column = api.column(2);
-                var myArray=new Array();
-				var select = $('<div id="select" class="col-sm-4"><div class="dataTables_filter"><label><i class="icon-calendar">时长&nbsp;</i><select name="optValue" style="width: 120px"><option value="">--请选择--</option></select></label></div></div>')
-                        .appendTo($("#table1_wrapper div:first"))
-                        .on('change', function () {
-                            var val = $.fn.dataTable.util.escapeRegex(
-                                $("#table1_wrapper div:first div#select select").val()
-                            );
-                            column
-                                .search(val ? '^' + val + '$' : '', true, false)
-                                .draw();
-                            var content = "时长:"+ val;
-                            myArray.push('"' + content +'"');
-                            csvExport(myArray,dateType);
-                        });
-				column.data().unique().sort().each(function (d, j) {
-					$(" #table1_wrapper div#select select").append('<option value="' + d + '">' + d + '</option>')
-				});
+                var column = api.column(2);
+                var select = $('<div id="select" class="col-sm-6"><div class="dataTables_filter"><label><i class="icon-calendar">时长&nbsp;</i><select name="optValue" style="width: 120px"><option value="">--请选择--</option></select></label></div></div>')
+                    .appendTo($("#table1_wrapper div:first"))
+                    .on('change', function () {
+                        var selectValues = new Array();
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $("#table1_wrapper div:first div#select select").val()
+                        );
+                        column
+                            .search(val ? '^' + val + '$' : '', true, false)
+                            .draw();
+                        selectValues.push("时长:" + val);
+                        csvExport(selectValues, dateType);
+                    });
+                column.data().unique().sort().each(function (d, j) {
+                    $(" #table1_wrapper div#select select").append('<option value="' + d + '">' + d + '</option>')
+                });
             }
         });
         tableQuery({
-            "aaData" : data.dataPhone,
-            "id" : "#table2",
+            "aaData": data.dataPhone,
+            "id": "#table2",
             "aoColumnDefs": [{
-                "targets": [4,5], // 目标列位置，下标从0开始
+                "targets": [4, 5], // 目标列位置，下标从0开始
                 "searchable": false
             }],
-            "sDom": "<'row'<'col-sm-3'l><'#search.col-sm-4'f>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
+            "sDom": "<'row'<'col-sm-4'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
             initComplete: function () {
                 var api = this.api();
-                var myArray=new Array();
-                api.columns().indexes().flatten().each( function ( i ) {
+                var selectValues = new Array();
+                api.columns().indexes().flatten().each(function (i) {
                     var name = "时长";
                     if (i == 2 || i == 3) {
                         if (i == 2) {
                             name = "版本";
-						}
+                        }
                         var column = api.column(i);
-                        var value = "#table2_wrapper div:first div#select" + i +" select";
+                        var value = "#table2_wrapper div:first div#select" + i + " select";
                         var selectValue = "#table2_wrapper div#select" + i + " select";
-                        var select = $('<div id="select'+ i +'" class="col-sm-3" style="width: 20%"><div class="dataTables_filter"><label><i class="icon-calendar">'+name+'&nbsp;</i><select style="width: 80px"><option value="">-请选择-</option></select></label></div></div>')
+                        var select = $('<div id="select' + i + '" class="col-sm-4"><div class="dataTables_filter"><label><i class="icon-calendar">' + name + '&nbsp;</i><select style="width: 100px"><option value="">-请选择-</option></select></label></div></div>')
                             .appendTo($("#table2_wrapper div:first"))
                             .on('change', function () {
                                 var val = $.fn.dataTable.util.escapeRegex(
                                     $(value).val()
                                 );
-                                myArray.push(name+':'+val);
+                                for (var n = 0; n < selectValues.length; n++) {
+                                    if (selectValues[n].includes(name)) {
+                                        selectValues.splice(n, 1);
+                                    }
+                                }
+                                selectValues.push(name + ':' + val);
                                 column
                                     .search(val ? '^' + val + '$' : '', true, false)
                                     .draw();
-                                csvExport(myArray,dateType);
+                                csvExport(selectValues, dateType);
+
                             });
                         column.data().unique().sort().each(function (d, j) {
                             $(selectValue).append('<option value="' + d + '">' + d + '</option>')
@@ -168,26 +175,27 @@
             }
         });
         tableQuery({
-            "aaData" : data.dataChannel,
-            "id" : "#table3",
+            "aaData": data.dataChannel,
+            "id": "#table3",
             "aoColumnDefs": [{
-                "targets": [4,5], // 目标列位置，下标从0开始
+                "targets": [4, 5], // 目标列位置，下标从0开始
                 "searchable": false
             }],
-            "sDom": "<'row'<'col-sm-3'l><'col-sm-4'f>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
+            "sDom": "<'row'<'col-sm-4'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
             initComplete: function () {
                 var api = this.api();
-                api.columns().indexes().flatten().each( function ( i ) {
+                var selectValues = new Array();
+                api.columns().indexes().flatten().each(function (i) {
                     var name = "时长";
                     if (i == 2 || i == 3) {
                         if (i == 2) {
                             name = "渠道";
-						}
+                        }
                         var column = api.column(i);
-                        var value = "#table3_wrapper div:first div#select" + i +" select";
+                        var value = "#table3_wrapper div:first div#select" + i + " select";
                         var selectValue = "#table3_wrapper div#select" + i + " select";
 
-                        var select = $('<div id="select'+ i +'" class="col-sm-3" style="width: 20%"><div class="dataTables_filter"><label><i class="icon-calendar">'+name+'&nbsp;</i><select style="width: 80px"><option value="">-请选择-</option></select></label></div></div>')
+                        var select = $('<div id="select' + i + '" class="col-sm-4"><div class="dataTables_filter"><label><i class="icon-calendar">' + name + '&nbsp;</i><select style="width: 100px"><option value="">-请选择-</option></select></label></div></div>')
                             .appendTo($("#table3_wrapper div:first"))
                             .on('change', function () {
                                 var val = $.fn.dataTable.util.escapeRegex(
@@ -196,7 +204,13 @@
                                 column
                                     .search(val ? '^' + val + '$' : '', true, false)
                                     .draw();
-                                csvExport(val,dateType);
+                                for (var n = 0; n < selectValues.length; n++) {
+                                    if (selectValues[n].includes(name)) {
+                                        selectValues.splice(n, 1);
+                                    }
+                                }
+                                selectValues.push(name + ':' + val);
+                                csvExport(selectValues, dateType);
                             });
                         column.data().unique().sort().each(function (d, j) {
                             $(selectValue).append('<option value="' + d + '">' + d + '</option>')
@@ -206,26 +220,28 @@
             }
         });
         tableQuery({
-            "aaData" : data.dataOs,
-            "id" : "#table4",
+            "aaData": data.dataOs,
+            "id": "#table4",
             "aoColumnDefs": [{
-                "targets": [4,5], // 目标列位置，下标从0开始
+                "targets": [4, 5], // 目标列位置，下标从0开始
                 "searchable": false
             }],
-            "sDom": "<'row'<'col-sm-3'l><'col-sm-4'f>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
+            "sDom": "<'row'<'col-sm-4'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
             initComplete: function () {
                 var api = this.api();
-                api.columns().indexes().flatten().each( function ( i ) {
+                //定义数组，用来接收选择的查询条件
+                var selectValues = new Array();
+                api.columns().indexes().flatten().each(function (i) {
                     var name = "时长";
                     if (i == 2 || i == 3) {
                         if (i == 2) {
                             name = "os";
-						}
+                        }
                         var column = api.column(i);
-                        var value = "#table4_wrapper div:first div#select" + i +" select";
+                        var value = "#table4_wrapper div:first div#select" + i + " select";
                         var selectValue = "#table4_wrapper div#select" + i + " select";
 
-                        var select = $('<div id="select'+ i +'" class="col-sm-3" style="width: 20%"><div class="dataTables_filter"><label><i class="icon-calendar">' + name + '&nbsp;</i><select style="width: 80px"><option value="">-请选择-</option></select></label></div></div>')
+                        var select = $('<div id="select' + i + '" class="col-sm-4"><div class="dataTables_filter"><label><i class="icon-calendar">' + name + '&nbsp;</i><select style="width: 100px"><option value="">-请选择-</option></select></label></div></div>')
                             .appendTo($("#table4_wrapper div:first"))
                             .on('change', function () {
                                 var val = $.fn.dataTable.util.escapeRegex(
@@ -234,7 +250,13 @@
                                 column
                                     .search(val ? '^' + val + '$' : '', true, false)
                                     .draw();
-                                csvExport(val,dateType);
+                                for (var n = 0; n < selectValues.length; n++) {
+                                    if (selectValues[n].includes(name)) {
+                                        selectValues.splice(n, 1);
+                                    }
+                                }
+                                selectValues.push(name + ':' + val);
+                                csvExport(selectValues, dateType);
                             });
                         column.data().unique().sort().each(function (d, j) {
                             $(selectValue).append('<option value="' + d + '">' + d + '</option>')
@@ -243,6 +265,6 @@
                 });
             }
         });
-        csvExport("",dateType);
-	}
+        csvExport("", dateType);
+    }
 </script>

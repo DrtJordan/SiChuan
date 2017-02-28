@@ -277,6 +277,7 @@ public class IndexController extends BaseController {
     @ActionKey("csv")
     @RequiresPermissions("/csv")
     public void exportCsv() {
+
         //获取导出数据的类型
         String type = getPara();
 
@@ -290,12 +291,17 @@ public class IndexController extends BaseController {
             type = type + "_" + dateType;
         }
         if (queryVal != null && StringUtils.isNotBlank(queryVal)) {
-
-            for (int i = 0; i<queryVal.split(",").length; i++){
-                String val = queryVal.split(",")[i];
-                String csvCondition = InceptorUtil.getCsvCondition(val.replace("\\", ""));
+            if (queryVal.contains(",")) {
+                for (int i = 0; i < queryVal.split(",").length; i++) {
+                    String val = queryVal.split(",")[i];
+                    String csvCondition = InceptorUtil.getCsvCondition(val.replace("\\", ""));
+                    condition = condition + csvCondition;
+                }
+            } else {
+                String csvCondition = InceptorUtil.getCsvCondition(queryVal.replace("\\", ""));
                 condition = condition + csvCondition;
             }
+
         }
         //拼接SQL语句
         String sql = SqlKit.propSQL(type, condition);

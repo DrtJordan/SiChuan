@@ -123,7 +123,7 @@ public class AppBehaviorController extends Controller {
                     oneToThreeSecList.add(list.get(2));
                 }
             }
-            String genBar = ChartUtils.genUseTimeLineChart(xAxisList, nameList, fourToTenSecondsList, threeToTenMinList,
+            String genBar = ChartUtils.genUseTimeLineChart(dateType, xAxisList, nameList, fourToTenSecondsList, threeToTenMinList,
                     thirtyMinList, elevenToThirtySecondsList, tenToThirtyMinList, oneToThreeMinList, thirtyFirstToSixtySecList, oneToThreeSecList);
             result.put("chartOption", genBar);
             result.put("dataTime", dataTime);
