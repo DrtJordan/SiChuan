@@ -13,6 +13,7 @@
             <form id="inputForm" class="bs-example form-horizontal" action="/tag/customHobbyConfig">
                 <#list customHobbys as customHobby>
                     <input type="hidden" value="${customHobby.pfcp_key}" name="key">
+                    <input type="hidden" value="${session['username']}" name="oper_user">
                     <div class="form-group">
                         <label class="col-sm-4 text-success text-md" name="title" value="产品功能消费偏好">产品功能消费偏好</label>
                     </div>
@@ -20,6 +21,7 @@
                         <div class="col-sm-offset-2 col-sm-8">
                             <ul class="userTags clear" style="margin-top:0px">
                                 <#list contents as content>
+                                    <input type="hidden" value="${content}" name="content_name">
                                     <li class="text-success">
                                         ${content}
                                     </li>

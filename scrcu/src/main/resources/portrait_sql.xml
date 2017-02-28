@@ -102,12 +102,12 @@
 	<sqlGroup name="custom_hobby_label">
 		<sql id="name">产品功能消费偏好标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">select pfcp_key, pfcp_order, pfcp_contente from test.t_prod_func_consu_prefer</sql>
+		<sql id="sql">select pfcp_key, pfcp_order, content_name, oper_time, oper_user from test.t_prod_func_consu_prefer order by oper_time desc limit 1</sql>
 	</sqlGroup>
 	<sqlGroup name="custom_hobby_label_config">
 		<sql id="name">配置产品功能消费偏好标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">update test.t_prod_func_consu_prefer set SQL_CONDITION</sql>
+		<sql id="sql">insert into test.t_prod_func_consu_prefer (pfcp_key, pfcp_order, content_name, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
 	<sqlGroup name="age_label">

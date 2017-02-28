@@ -232,6 +232,7 @@ public enum SQLConfig {
     app_version,
     // 静态标签
     label_label_grouping,
+
     //标签配置
     //标签配置-使用时段
     use_time_label,
@@ -251,6 +252,8 @@ public enum SQLConfig {
     //标签配置-安全认证方式
     sec_auth_label,
     sec_auth_label_config,
+
+
     // 画像 家庭关系
     portrait_family,
     // 画像 转账关系

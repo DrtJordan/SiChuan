@@ -18,4 +18,10 @@ public class ConditionUtil {
         value = value.append("('").append(str1).append("','").append(str2).append("','").append(str3).append("','").append(str4).append("','").append(str5).append("');");
         return value;
     }
+
+    public static StringBuffer select(String str1, String str2, String str3, String  str4, String str5){
+        value = value.delete(0, value.length());
+        value = value.append("('").append(str1).append("','").append(str2).append("','").append(str3).append("','").append(str4).append("','").append(str5).append("');");
+        return value;
+    }
 }

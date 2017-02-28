@@ -45,6 +45,17 @@ public class TagController extends Controller {
             content_name.delete(0, content_name.length());
         }
     }
+    public void selectCommon(Object config){
+        String oper_time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.ms").format(new Date());
+        String oper_user = getPara("oper_user");
+        String[] contents = getParaValues("content_name");
+        StringBuffer content_name = new StringBuffer("");
+        for (int i = 0; i < contents.length; i++){
+            content_name.append(contents[i]).append("、");
+        }
+        content_name.delete(content_name.length()-1,content_name.length());
+        InceptorUtil.mapQuery(SqlKit.propSQL(config, ConditionUtil.select(getPara("key"), getPara("rank"), content_name.toString(), oper_time, oper_user).toString()), false);
+    }
 
     //可配置标签列表页----start
     public void index() {
@@ -128,21 +139,17 @@ public class TagController extends Controller {
     //产品功能消费偏好----start
     public void customHobby() {
         List<Map<String, Object>> customHobbys = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.custom_hobby_label), false);
-        String s = new String();
+        String[] select = {"红包", "AA", "游戏爱好者", "彩票达人", "车票达人", "机票达人", "电信缴费", "电力缴费", "水费缴费", "燃气缴费", "签到达人", "收藏达人"};
         List<String> contents = new ArrayList<>();
-        for (int i = 0; i < customHobbys.size(); i++) {
-            s = customHobbys.get(i).get("pfcp_contente").toString();
-            for (int j = 0; j < s.split("、").length; j++) {
-                contents.add(s.split("、")[j]);
-            }
+        for (int i = 0; i < select.length; i++) {
+            contents.add(select[i]);
         }
         setAttr("contents", contents);
         setAttr("customHobbys", customHobbys);
     }
 
     public void customHobbyConfig() {
-        value = value.append("pfcp_order = '").append(getPara("rank")).append("' where pfcp_key = '").append(getPara("key")).append("';");
-        InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.custom_hobby_label_config, value.toString()), false);
+        selectCommon(SQLConfig.custom_hobby_label_config);
         redirect("/tag");
     }
     //产品功能消费偏好----end
