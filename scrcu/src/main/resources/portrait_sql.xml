@@ -187,6 +187,17 @@
 		<sql id="sql">insert into test.t_tran_hobby (tranhobby_key, tranhobby_order, content_name, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
+	<sqlGroup name="tran_type_label">
+		<sql id="name">转账类型偏好标签</sql>
+		<sql id="header"></sql>
+		<sql id="sql">select trantype_key, trantype_order, content_name, oper_time, oper_user from test.t_tran_type order by oper_time desc limit 1</sql>
+	</sqlGroup>
+	<sqlGroup name="tran_type_label_config">
+		<sql id="name">配置转账类型偏好标签</sql>
+		<sql id="header"></sql>
+		<sql id="sql">insert into test.t_tran_type (trantype_key, trantype_order, content_name, oper_time, oper_user) values SQL_CONDITION</sql>
+	</sqlGroup>
+
 	<sqlGroup name="label_colony_users">
 		<sql id="name">具有标签用户</sql>
 		<sql id="header"></sql>

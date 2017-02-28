@@ -259,9 +259,23 @@ public class TagController extends Controller {
     }
     //交易偏好----end
 
+    //转账类型偏好----start
     public void tranType() {
-
+        List<Map<String, Object>> tranTypes = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.tran_type_label), false);
+        String[] select = {"随E转", "好友转账", "普通转账", "电子回单", "转帐通讯录", "资金归集"};
+        List<String> contents = new ArrayList<>();
+        for (int i = 0; i < select.length; i++) {
+            contents.add(select[i]);
+        }
+        setAttr("contents", contents);
+        setAttr("tranTypes", tranTypes);
     }
+
+    public void tranTypeConfig(){
+        selectCommon(SQLConfig.tran_type_label_config);
+        redirect("/tag");
+    }
+    //转账类型偏好----start
 
     public void prodHobby() {
 

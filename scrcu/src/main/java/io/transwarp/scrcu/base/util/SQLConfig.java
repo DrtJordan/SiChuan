@@ -264,6 +264,9 @@ public enum SQLConfig {
     //标签配置-交易偏好
     tran_hobby_label,
     tran_hobby_label_config,
+    //标签配置-转账类型偏好
+    tran_type_label,
+    tran_type_label_config,
 
 
     // 画像 家庭关系
