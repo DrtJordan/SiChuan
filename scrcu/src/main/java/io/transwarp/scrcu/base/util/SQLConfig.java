@@ -286,6 +286,8 @@ public enum SQLConfig {
     part_active_label,
     part_active_label_config,
     //标签配置—月交易次数
+    tran_num_label,
+    tran_num_label_config,
     //标签配置—月交易金额
     //标签配置—时间偏好
     //标签配置—用户群体类型

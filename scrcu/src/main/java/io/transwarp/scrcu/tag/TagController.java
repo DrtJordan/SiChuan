@@ -185,11 +185,13 @@ public class TagController extends Controller {
 
     //月交易次数----start
     public void tranNum() {
-
+        List<Map<String, Object>> tranNums = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.tran_num_label), false);
+        setAttr("tranNums", tranNums);
     }
 
     public void tranNumConfig() {
-
+        rangToRangCommon(SQLConfig.tran_num_label_config);
+        redirect("/tag");
     }
     //月交易次数----end
 
