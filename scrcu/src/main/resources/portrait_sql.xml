@@ -187,6 +187,17 @@
 		<sql id="sql">insert into test.t_tran_money (tranmoney_key, tranmoney_name, begin_cont, end_cont, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
+	<sqlGroup name="time_hobby_label">
+		<sql id="name">时间偏好标签</sql>
+		<sql id="header"></sql>
+		<sql id="sql">select timehobby_key, timehobby_name, begin_time, end_time, oper_time, oper_user from test.t_time_hobby order by oper_time desc limit 5</sql>
+	</sqlGroup>
+	<sqlGroup name="time_hobby_label_config">
+		<sql id="name">配置时间偏好标签</sql>
+		<sql id="header"></sql>
+		<sql id="sql">insert into test.t_time_hobby (timehobby_key, timehobby_name, begin_time, end_time, oper_time, oper_user) values SQL_CONDITION</sql>
+	</sqlGroup>
+
 	<sqlGroup name="sec_auth_label">
 		<sql id="name">安全认证方式标签</sql>
 		<sql id="header"></sql>

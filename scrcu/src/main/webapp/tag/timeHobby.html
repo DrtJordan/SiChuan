@@ -10,23 +10,23 @@
     <section class="panel panel-default">
         <header class="panel-heading">标签配置</header>
         <div class="panel-body">
-            <form id="inputForm" class="bs-example form-horizontal" action="/tag/tranMoneyConfig">
-                <#list tranMoneys as tranMoney>
-                    <#if tranMoney_index == 0>
+            <form id="inputForm" class="bs-example form-horizontal" action="/tag/timeHobbyConfig">
+                <#list timeHobbys as timeHobby>
+                    <#if timeHobby_index == 0>
                         <div class="form-group">
-                            <label class="col-sm-4 text-success text-md" name="title" value="月交易金额">月交易金额</label>
+                            <label class="col-sm-4 text-success text-md" name="title" value="时间偏好">时间偏好</label>
                         </div>
                     </#if>
                     <div class="form-group">
-                        <input type="hidden" value="${tranMoney.tranmoney_key}" name="key">
+                        <input type="hidden" value="${timeHobby.timehobby_key}" name="key">
                         <input type="hidden" value="${session['username']}" name="oper_user">
-                        <input type="hidden" value="${tranMoney.tranmoney_name}" name="name${tranMoney_index}">
-                        <label class="col-lg-3 control-label" value="${tranMoney.tranmoney_name}" name="tranmoney_name${tranMoney_index}">${tranMoney.tranmoney_name}</label>
+                        <input type="hidden" value="${timeHobby.timehobby_name}" name="name${timeHobby_index}">
+                        <label class="col-lg-3 control-label" value="${timeHobby.timehobby_name}" name="timehobby_name${timeHobby_index}">${timeHobby.timehobby_name}</label>
 
                         <div class="col-lg-8">
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" name="start${tranMoney_index}"
-                                       value="${tranMoney.begin_cont}">
+                                <input type="text" class="form-control" name="start${timeHobby_index}"
+                                       value="${timeHobby.begin_time}">
                             </div>
                             <div class="col-sm-1" style="margin-left: -5.3%; margin-right: -1.6%">
                                 <span class="input-group-btn">
@@ -36,8 +36,8 @@
                                 </span>
                             </div>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" name="end${tranMoney_index}"
-                                       value="${tranMoney.end_cont}">
+                                <input type="text" class="form-control" name="end${timeHobby_index}"
+                                       value="${timeHobby.end_time}">
                             </div>
                         </div>
                     </div>
@@ -62,23 +62,23 @@
             errorClass: "text-danger",
             errorElement: "span",
             rules: {
-            <#list tranMoneys as tranMoney >
-        start${tranMoney_index}:{
+            <#list timeHobbys as timeHobby >
+        start${timeHobby_index}:{
             required: true,
-                    pattern: /^([1-9]\d{0,}|0)$/},
-        end${tranMoney_index}:{
+                    pattern:/^((0[0-9])|(1[0-9])|(2[0-3]))\:([0-5][0-9])$/},
+        end${timeHobby_index}:{
             required: true,
-                    pattern: /^([1-9]\d{0,}|0)$/},
+                    pattern:/^((0[0-9])|(1[0-9])|(2[0-3]))\:([0-5][0-9])$/},
         </#list >
     },
         messages: {
-        <#list tranMoneys as tranMoney >
-            start${tranMoney_index}:{
+        <#list timeHobbys as timeHobby >
+            start${timeHobby_index}:{
                 required: "必填",
-                        pattern:"必须大于0"},
-            end${tranMoney_index}:{
+                        pattern:"格式错误！(00:00~23:59)"},
+            end${timeHobby_index}:{
                 required: "必填",
-                        pattern:"必须大于0"},
+                        pattern:"格式错误！(00:00~23:59)"},
         </#list >
         }
     })

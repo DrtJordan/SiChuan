@@ -209,11 +209,13 @@ public class TagController extends Controller {
 
     //时间偏好----start
     public void timeHobby() {
-
+        List<Map<String, Object>> timeHobbys = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.time_hobby_label), false);
+        setAttr("timeHobbys", timeHobbys);
     }
 
     public void timeHobbyConfig() {
-
+        rangToRangCommon(SQLConfig.time_hobby_label_config);
+        redirect("/tag");
     }
     //时间偏好----end
 
