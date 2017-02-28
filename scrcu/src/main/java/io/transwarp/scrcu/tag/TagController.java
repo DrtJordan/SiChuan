@@ -19,16 +19,18 @@ import java.util.*;
 public class TagController extends Controller {
 
     StringBuffer value = new StringBuffer(" ");
+
     //调用SQL，循环执行插入语句。
-    public void rangToRangCommon(Object config){
+    public void rangToRangCommon(Object config) {
         String oper_time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.ms").format(new Date());
         String oper_user = getPara("oper_user");
         String[] keys = getParaValues("key");
         for (int i = 0; i < keys.length; i++) {
-            InceptorUtil.mapQuery(SqlKit.propSQL(config, ConditionUtil.rangToRang(keys[i],getPara("name"+i),getPara("start"+i),getPara("end"+i),oper_time,oper_user).toString()), false);
+            InceptorUtil.mapQuery(SqlKit.propSQL(config, ConditionUtil.rangToRang(keys[i], getPara("name" + i), getPara("start" + i), getPara("end" + i), oper_time, oper_user).toString()), false);
         }
     }
-    public void checkCommon(Object config){
+
+    public void checkCommon(Object config) {
         String oper_time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.ms").format(new Date());
         String oper_user = getPara("oper_user");
         String[] names = getParaValues("names");
@@ -39,21 +41,22 @@ public class TagController extends Controller {
                 for (int j = 0; j < checked.length; j++) {
                     content_name.append(checked[j]).append("、");
                 }
-                content_name.delete(content_name.length()-1, content_name.length());
+                content_name.delete(content_name.length() - 1, content_name.length());
             }
-            InceptorUtil.mapQuery(SqlKit.propSQL(config, ConditionUtil.check(getPara("key"+i), names[i], content_name.toString(), oper_time, oper_user).toString()), false);
+            InceptorUtil.mapQuery(SqlKit.propSQL(config, ConditionUtil.check(getPara("key" + i), names[i], content_name.toString(), oper_time, oper_user).toString()), false);
             content_name.delete(0, content_name.length());
         }
     }
-    public void selectCommon(Object config){
+
+    public void selectCommon(Object config) {
         String oper_time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.ms").format(new Date());
         String oper_user = getPara("oper_user");
         String[] contents = getParaValues("content_name");
         StringBuffer content_name = new StringBuffer("");
-        for (int i = 0; i < contents.length; i++){
+        for (int i = 0; i < contents.length; i++) {
             content_name.append(contents[i]).append("、");
         }
-        content_name.delete(content_name.length()-1,content_name.length());
+        content_name.delete(content_name.length() - 1, content_name.length());
         InceptorUtil.mapQuery(SqlKit.propSQL(config, ConditionUtil.select(getPara("key"), getPara("rank"), content_name.toString(), oper_time, oper_user).toString()), false);
     }
 
@@ -84,7 +87,7 @@ public class TagController extends Controller {
         setAttr("ages", ages);
     }
 
-    public void ageConfig(){
+    public void ageConfig() {
         rangToRangCommon(SQLConfig.age_label_config);
         redirect("/tag");
     }
@@ -114,7 +117,7 @@ public class TagController extends Controller {
         setAttr("regYears", regYears);
     }
 
-    public void regYearConfig(){
+    public void regYearConfig() {
         rangToRangCommon(SQLConfig.reg_year_label_config);
         redirect("/tag");
     }
@@ -170,7 +173,7 @@ public class TagController extends Controller {
     public void secAuth() {
         List<Map<String, Object>> secAuths = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.sec_auth_label), false);
         List<String> contents = new ArrayList<>();
-        String[] checked = {"UK一代认证", "UK二代认证", "UK三代认证", "SE证书认证", "刮刮卡认证", "邮箱认证","合作平台认证", "安全问题认证", "手势密码认证", "二维码认证", "登录密码认证", "预留信息认证", "手机短信认证", "支付密码认证", "文件证书认证", "设备绑定认证", "软令牌认证", "硬令牌认证"};
+        String[] checked = {"UK一代认证", "UK二代认证", "UK三代认证", "SE证书认证", "刮刮卡认证", "邮箱认证", "合作平台认证", "安全问题认证", "手势密码认证", "二维码认证", "登录密码认证", "预留信息认证", "手机短信认证", "支付密码认证", "文件证书认证", "设备绑定认证", "软令牌认证", "硬令牌认证"};
         for (int i = 0; i < checked.length; i++) {
             contents.add(checked[i]);
         }
@@ -196,7 +199,7 @@ public class TagController extends Controller {
         setAttr("payHobbys", payHobbys);
     }
 
-    public void payHobbyConfig(){
+    public void payHobbyConfig() {
         selectCommon(SQLConfig.pay_hobby_label_config);
         redirect("/tag");
     }
@@ -232,16 +235,29 @@ public class TagController extends Controller {
         setAttr("bankTrans", bankTrans);
     }
 
-    public void bankTranConfig(){
+    public void bankTranConfig() {
         selectCommon(SQLConfig.bank_tran_label_config);
         redirect("/tag");
     }
     //行内外转账----end
 
-
+    //交易偏好----start
     public void tranHobby() {
-
+        List<Map<String, Object>> tranHobbys = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.tran_hobby_label), false);
+        String[] select = {"存款", "取款", "转账", "消费", "贷款", "费用套餐", "理财", "支付"};
+        List<String> contents = new ArrayList<>();
+        for (int i = 0; i < select.length; i++) {
+            contents.add(select[i]);
+        }
+        setAttr("contents", contents);
+        setAttr("tranHobbys", tranHobbys);
     }
+
+    public void tranHobbyConfig() {
+        selectCommon(SQLConfig.tran_hobby_label_config);
+        redirect("/tag");
+    }
+    //交易偏好----end
 
     public void tranType() {
 

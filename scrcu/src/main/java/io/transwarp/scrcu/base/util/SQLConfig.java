@@ -261,6 +261,9 @@ public enum SQLConfig {
     //标签配置-行内外转账
     bank_tran_label,
     bank_tran_label_config,
+    //标签配置-交易偏好
+    tran_hobby_label,
+    tran_hobby_label_config,
 
 
     // 画像 家庭关系
