@@ -252,6 +252,9 @@ public enum SQLConfig {
     //标签配置-安全认证方式
     sec_auth_label,
     sec_auth_label_config,
+    //标签配置-支付偏好
+    pay_hobby_label,
+    pay_hobby_label_config,
 
 
     // 画像 家庭关系

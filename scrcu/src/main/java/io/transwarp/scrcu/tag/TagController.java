@@ -184,10 +184,24 @@ public class TagController extends Controller {
     }
     //安全认证方式----end
 
-
+    //支付偏好----start
     public void payHobby() {
-
+        List<Map<String, Object>> payHobbys = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.pay_hobby_label), false);
+        String[] select = {"财付通", "京东支付", "银联在线支付", "支付宝快捷支付", "蜀信e转账支付"};
+        List<String> contents = new ArrayList<>();
+        for (int i = 0; i < select.length; i++) {
+            contents.add(select[i]);
+        }
+        setAttr("contents", contents);
+        setAttr("payHobbys", payHobbys);
     }
+
+    public void payHobbyConfig(){
+        selectCommon(SQLConfig.pay_hobby_label_config);
+        redirect("/tag");
+    }
+    //支付偏好----start
+
 
     public void sendEff() {
 
