@@ -154,6 +154,17 @@
 		<sql id="sql">insert into test.t_pay_hobby (payhobby_key, payhobby_order, content_name, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
+	<sqlGroup name="send_eff_label">
+		<sql id="name">汇路时效标签</sql>
+		<sql id="header"></sql>
+		<sql id="sql">select sendeff_key, sendeff_order, content_name, oper_time, oper_user from test.t_send_eff order by oper_time desc limit 1</sql>
+	</sqlGroup>
+	<sqlGroup name="send_eff_label_config">
+		<sql id="name">配置汇路时效标签</sql>
+		<sql id="header"></sql>
+		<sql id="sql">insert into test.t_send_eff (sendeff_key, sendeff_order, content_name, oper_time, oper_user) values SQL_CONDITION</sql>
+	</sqlGroup>
+
 	<sqlGroup name="label_colony_users">
 		<sql id="name">具有标签用户</sql>
 		<sql id="header"></sql>

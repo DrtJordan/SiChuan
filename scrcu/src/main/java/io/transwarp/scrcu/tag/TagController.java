@@ -202,10 +202,23 @@ public class TagController extends Controller {
     }
     //支付偏好----start
 
-
+    //汇路时效----start
     public void sendEff() {
-
+        List<Map<String, Object>> sendEffs = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.send_eff_label), false);
+        String[] select = {"普通汇款", "快速汇款", "实时汇款"};
+        List<String> contents = new ArrayList<>();
+        for (int i = 0; i < select.length; i++) {
+            contents.add(select[i]);
+        }
+        setAttr("contents", contents);
+        setAttr("sendEffs", sendEffs);
     }
+
+    public void sendEffConfig() {
+        selectCommon(SQLConfig.send_eff_label_config);
+        redirect("/tag");
+    }
+    //汇路时效----start
 
     public void bankTran() {
 

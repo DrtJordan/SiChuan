@@ -255,6 +255,9 @@ public enum SQLConfig {
     //标签配置-支付偏好
     pay_hobby_label,
     pay_hobby_label_config,
+    //标签配置-汇路时效
+    send_eff_label,
+    send_eff_label_config,
 
 
     // 画像 家庭关系
