@@ -197,11 +197,13 @@ public class TagController extends Controller {
 
     //月交易金额----start
     public void tranMoney() {
-
+        List<Map<String, Object>> tranMoneys = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.tran_money_label), false);
+        setAttr("tranMoneys", tranMoneys);
     }
 
     public void tranMoneyConfig() {
-
+        rangToRangCommon(SQLConfig.tran_money_label_config);
+        redirect("/tag");
     }
     //月交易金额----end
 

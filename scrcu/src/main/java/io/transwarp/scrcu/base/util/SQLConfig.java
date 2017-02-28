@@ -289,6 +289,8 @@ public enum SQLConfig {
     tran_num_label,
     tran_num_label_config,
     //标签配置—月交易金额
+    tran_money_label,
+    tran_money_label_config,
     //标签配置—时间偏好
     //标签配置—用户群体类型
     //标签配置—社交关系
