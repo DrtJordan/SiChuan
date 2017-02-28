@@ -143,6 +143,17 @@
 		<sql id="sql">insert into test.t_pro_debt (prodebt_key, prodebt_name, begin_pro, end_pro, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
+	<sqlGroup name="prod_server_label">
+		<sql id="name">持有产品服务标签</sql>
+		<sql id="header"></sql>
+		<sql id="sql">select prodserver_key, prodserver_name, begin_cont, end_cont, oper_time, oper_user from test.t_prod_server order by oper_time desc limit 3</sql>
+	</sqlGroup>
+	<sqlGroup name="prod_server_label_config">
+		<sql id="name">配置持有产品服务标签</sql>
+		<sql id="header"></sql>
+		<sql id="sql">insert into test.t_prod_server (prodserver_key, prodserver_name, begin_cont, end_cont, oper_time, oper_user) values SQL_CONDITION</sql>
+	</sqlGroup>
+
 	<sqlGroup name="sec_auth_label">
 		<sql id="name">安全认证方式标签</sql>
 		<sql id="header"></sql>

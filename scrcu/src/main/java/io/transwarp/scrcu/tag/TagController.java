@@ -129,23 +129,39 @@ public class TagController extends Controller {
         setAttr("proDebts", proDebts);
     }
 
-    public void proDebtConfig(){
+    public void proDebtConfig() {
         rangToRangCommon(SQLConfig.pro_debt_label_config);
         redirect("/tag");
     }
     //资产负债----end
 
+    //差旅人群----start----未完成
     public void peoTravel() {
 
     }
+    //差旅人群----end
 
+    //持有产品服务----start
     public void prodServer() {
-
+        List<Map<String, Object>> prodServers = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.prod_server_label), false);
+        setAttr("prodServers", prodServers);
     }
 
+    public void prodServerConfig() {
+        rangToRangCommon(SQLConfig.prod_server_label_config);
+        redirect("/tag");
+    }
+    //持有产品服务----end
+
+    //客户参与活动----start
     public void partActive() {
 
     }
+
+    public void partActiveConfig() {
+
+    }
+    //客户参与活动----end
 
     //产品功能消费偏好----start
     public void customHobby() {
@@ -165,17 +181,35 @@ public class TagController extends Controller {
     }
     //产品功能消费偏好----end
 
+    //月交易次数----start
     public void tranNum() {
 
     }
 
+    public void tranNumConfig() {
+
+    }
+    //月交易次数----end
+
+    //月交易金额----start
     public void tranMoney() {
 
     }
 
+    public void tranMoneyConfig() {
+
+    }
+    //月交易金额----end
+
+    //时间偏好----start
     public void timeHobby() {
 
     }
+
+    public void timeHobbyConfig() {
+
+    }
+    //时间偏好----end
 
     //安全认证方式----start
     public void secAuth() {
@@ -279,7 +313,7 @@ public class TagController extends Controller {
         setAttr("tranTypes", tranTypes);
     }
 
-    public void tranTypeConfig(){
+    public void tranTypeConfig() {
         selectCommon(SQLConfig.tran_type_label_config);
         redirect("/tag");
     }
@@ -297,23 +331,41 @@ public class TagController extends Controller {
         setAttr("prodHobbys", prodHobbys);
     }
 
-    public void prodHobbyConfig(){
+    public void prodHobbyConfig() {
         selectCommon(SQLConfig.prod_hobby_label_config);
         redirect("/tag");
     }
     //存款产品偏好----end
 
+    //用户群体类型----start
     public void groupType() {
 
     }
 
+    public void groupTypeConfig() {
+
+    }
+    //用户群体类型----end
+
+    //社交关系----start
     public void socRelation() {
 
     }
 
+    public void socRelationConfig() {
+
+    }
+    //社交关系----end
+
+    //网页操作行为----start
     public void opeBehavior() {
 
     }
+
+    public void opeBehaviorConfig() {
+
+    }
+    //网页操作行为----end
 
     //使用时段----start
     @RequiresPermissions("/tag/useTime")
@@ -341,7 +393,7 @@ public class TagController extends Controller {
         setAttr("searchEngs", searchEngs);
     }
 
-    public void searchEngConfig(){
+    public void searchEngConfig() {
         selectCommon(SQLConfig.search_eng_label_config);
         redirect("/tag");
     }
@@ -365,15 +417,26 @@ public class TagController extends Controller {
     }
     //终端----end
 
+
+    //活跃变化特征----start
     public void chaFeature() {
 
     }
 
+    public void chaFeatureCoonfig() {
+
+    }
+    //活跃变化特征----end
+
+    //活跃功能特征----start----未完成
     public void funcFeature() {
 
     }
+    //活跃功能特征----end
 
+    //网银搜索关键字----start----未完成
     public void searchKey() {
 
     }
+    //网银搜索关键字----end
 }

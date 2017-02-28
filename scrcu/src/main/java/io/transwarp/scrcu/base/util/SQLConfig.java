@@ -279,8 +279,17 @@ public enum SQLConfig {
     //标签配置—资产负债
     pro_debt_label,
     pro_debt_label_config,
-
-
+    //标签配置—持有产品服务
+    prod_server_label,
+    prod_server_label_config,
+    //标签配置—客户参与活动
+    //标签配置—月交易次数
+    //标签配置—月交易金额
+    //标签配置—时间偏好
+    //标签配置—用户群体类型
+    //标签配置—社交关系
+    //标签配置—网页操作行为
+    //标签配置—活跃变化特征
 
     // 画像 家庭关系
     portrait_family,
