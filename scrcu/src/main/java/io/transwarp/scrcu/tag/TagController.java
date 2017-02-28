@@ -339,9 +339,23 @@ public class TagController extends Controller {
     }
     //搜索引擎----end
 
+    //终端----start
     public void terminal() {
-
+        List<Map<String, Object>> terminals = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.terminal_label), false);
+        String[] select = {"PC", "平板电脑", "安卓手机", "苹果手机"};
+        List<String> contents = new ArrayList<>();
+        for (int i = 0; i < select.length; i++) {
+            contents.add(select[i]);
+        }
+        setAttr("contents", contents);
+        setAttr("terminals", terminals);
     }
+
+    public void terminalConfig() {
+        selectCommon(SQLConfig.terminal_label_config);
+        redirect("/tag");
+    }
+    //终端----end
 
     public void chaFeature() {
 
