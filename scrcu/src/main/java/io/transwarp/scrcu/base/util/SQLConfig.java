@@ -270,6 +270,9 @@ public enum SQLConfig {
     //标签配置-存款产品偏好
     prod_hobby_label,
     prod_hobby_label_config,
+    //标签配置-搜索引擎
+    search_eng_label,
+    search_eng_label_config,
 
 
     // 画像 家庭关系

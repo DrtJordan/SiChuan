@@ -321,9 +321,23 @@ public class TagController extends Controller {
     }
     //使用时段----end
 
+    //搜索引擎----start
     public void searchEng() {
-
+        List<Map<String, Object>> searchEngs = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.search_eng_label), false);
+        String[] select = {"百度", "360", "谷歌", "搜狗", "Bing"};
+        List<String> contents = new ArrayList<>();
+        for (int i = 0; i < select.length; i++) {
+            contents.add(select[i]);
+        }
+        setAttr("contents", contents);
+        setAttr("searchEngs", searchEngs);
     }
+
+    public void searchEngConfig(){
+        selectCommon(SQLConfig.search_eng_label_config);
+        redirect("/tag");
+    }
+    //搜索引擎----end
 
     public void terminal() {
 
