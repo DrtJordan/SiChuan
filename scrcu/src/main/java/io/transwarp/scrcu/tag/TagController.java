@@ -143,23 +143,25 @@ public class TagController extends Controller {
 
     //持有产品服务----start
     public void prodServer() {
-        List<Map<String, Object>> prodServers = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.prod_server_label), false);
+        List<Map<String, Object>> prodServers = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.part_active_label), false);
         setAttr("prodServers", prodServers);
     }
 
     public void prodServerConfig() {
-        rangToRangCommon(SQLConfig.prod_server_label_config);
+        rangToRangCommon(SQLConfig.part_active_label_config);
         redirect("/tag");
     }
     //持有产品服务----end
 
     //客户参与活动----start
     public void partActive() {
-
+        List<Map<String, Object>> partActives = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.part_active_label), false);
+        setAttr("partActives", partActives);
     }
 
     public void partActiveConfig() {
-
+        rangToRangCommon(SQLConfig.part_active_label_config);
+        redirect("/tag");
     }
     //客户参与活动----end
 

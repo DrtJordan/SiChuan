@@ -283,6 +283,8 @@ public enum SQLConfig {
     prod_server_label,
     prod_server_label_config,
     //标签配置—客户参与活动
+    part_active_label,
+    part_active_label_config,
     //标签配置—月交易次数
     //标签配置—月交易金额
     //标签配置—时间偏好
