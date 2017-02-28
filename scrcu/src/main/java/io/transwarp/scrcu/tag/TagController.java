@@ -347,11 +347,13 @@ public class TagController extends Controller {
 
     //用户群体类型----start
     public void groupType() {
-
+        List<Map<String, Object>> groupTypes = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.group_type_label), false);
+        setAttr("groupTypes", groupTypes);
     }
 
     public void groupTypeConfig() {
-
+        rangToRangCommon(SQLConfig.group_type_label_config);
+        redirect("/tag");
     }
     //用户群体类型----end
 

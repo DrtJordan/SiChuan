@@ -295,6 +295,8 @@ public enum SQLConfig {
     time_hobby_label,
     time_hobby_label_config,
     //标签配置—用户群体类型
+    group_type_label,
+    group_type_label_config,
     //标签配置—社交关系
     //标签配置—网页操作行为
     //标签配置—活跃变化特征

@@ -198,6 +198,17 @@
 		<sql id="sql">insert into test.t_time_hobby (timehobby_key, timehobby_name, begin_time, end_time, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
+	<sqlGroup name="group_type_label">
+		<sql id="name">用户群体类型标签</sql>
+		<sql id="header"></sql>
+		<sql id="sql">select grouptype_key, grouptype_name, begin_cont, end_cont, oper_time, oper_user from test.t_group_type order by oper_time desc limit 3</sql>
+	</sqlGroup>
+	<sqlGroup name="group_type_label_config">
+		<sql id="name">配置用户群体类型标签</sql>
+		<sql id="header"></sql>
+		<sql id="sql">insert into test.t_group_type (grouptype_key, grouptype_name, begin_cont, end_cont, oper_time, oper_user) values SQL_CONDITION</sql>
+	</sqlGroup>
+
 	<sqlGroup name="sec_auth_label">
 		<sql id="name">安全认证方式标签</sql>
 		<sql id="header"></sql>
