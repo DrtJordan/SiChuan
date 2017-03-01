@@ -303,6 +303,15 @@ public enum SQLConfig {
     //标签配置—网页搜索操作行为
     sear_behaviour_label,
     sear_behaviour_label_config,
+    //标签配置—网页投诉操作行为
+    comp_behaviour_label,
+    comp_behaviour_label_config,
+    //标签配置—网页事件操作行为
+    event_behaviour_label,
+    event_behaviour_label_config,
+    //标签配置—网页留言操作行为
+    note_behaviour_label,
+    note_behaviour_label_config,
     //标签配置—活跃变化特征
     cha_feature_label,
     cha_feature_label_config,

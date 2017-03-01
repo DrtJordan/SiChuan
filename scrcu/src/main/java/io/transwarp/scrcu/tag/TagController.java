@@ -364,32 +364,50 @@ public class TagController extends Controller {
     //社交关系----end
 
     //网页搜索操作行为----start
-    public void searBehaviour(){
+    public void searBehaviour() {
         List<Map<String, Object>> searBehaviours = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.sear_behaviour_label), false);
         setAttr("searBehaviours", searBehaviours);
     }
 
-    public void searBehaviourConfig(){
+    public void searBehaviourConfig() {
         rangToRangCommon(SQLConfig.sear_behaviour_label_config);
         redirect("/tag");
     }
     //网页搜索操作行为----end
 
     //网页投诉操作行为----start
-    public void compBehaviour(){
+    public void compBehaviour() {
+        List<Map<String, Object>> compBehaviours = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.comp_behaviour_label), false);
+        setAttr("compBehaviours", compBehaviours);
+    }
 
+    public void compBehaviourConfig() {
+        rangToRangCommon(SQLConfig.comp_behaviour_label_config);
+        redirect("/tag");
     }
     //网页投诉操作行为----end
 
     //网页留言操作行为----start
-    public void noteBehaviour(){
+    public void noteBehaviour() {
+        List<Map<String, Object>> noteBehaviours = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.note_behaviour_label), false);
+        setAttr("noteBehaviours", noteBehaviours);
+    }
 
+    public void noteBehaviourConfig() {
+        rangToRangCommon(SQLConfig.note_behaviour_label_config);
+        redirect("/tag");
     }
     //网页留言操作行为----end
 
     //网页浏览操作行为----start
-    public void eventBehaviour(){
+    public void eventBehaviour() {
+        List<Map<String, Object>> eventBehaviours = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.event_behaviour_label), false);
+        setAttr("eventBehaviours", eventBehaviours);
+    }
 
+    public void eventBehaviourConfig() {
+        rangToRangCommon(SQLConfig.event_behaviour_label_config);
+        redirect("/tag");
     }
     //网页浏览操作行为----end
 
