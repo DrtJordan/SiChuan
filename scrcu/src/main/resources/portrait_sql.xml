@@ -363,6 +363,17 @@
 		<sql id="sql">insert into test.t_search_eng (searcheng_key, searcheng_order, content_name, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
+	<sqlGroup name="func_feature_label">
+		<sql id="name">活跃功能特征标签</sql>
+		<sql id="header"></sql>
+		<sql id="sql">select funcfeature_key, funcfeature_order, content_name, oper_time, oper_user from test.t_func_feature order by oper_time desc limit 1</sql>
+	</sqlGroup>
+	<sqlGroup name="func_feature_label_config">
+		<sql id="name">配置活跃功能特征标签</sql>
+		<sql id="header"></sql>
+		<sql id="sql">insert into test.t_func_feature (funcfeature_key, funcfeature_order, content_name, oper_time, oper_user) values SQL_CONDITION</sql>
+	</sqlGroup>
+
 	<sqlGroup name="terminal_label">
 		<sql id="name">终端标签</sql>
 		<sql id="header"></sql>

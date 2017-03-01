@@ -461,7 +461,6 @@ public class TagController extends Controller {
     }
     //终端----end
 
-
     //活跃变化特征----start
     public void chaFeature() {
         List<Map<String, Object>> chaFeatures = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.cha_feature_label), false);
@@ -474,9 +473,21 @@ public class TagController extends Controller {
     }
     //活跃变化特征----end
 
-    //活跃功能特征----start----未完成
+    //活跃功能特征----start
     public void funcFeature() {
+        List<Map<String, Object>> funcFeatures = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.func_feature_label), false);
+        String[] select = {"登录", "任务活跃", "业务活跃", "交易活跃", "社交活跃", "活动活跃评论", "产品信息分享", "收藏", "营销活动"};
+        List<String> contents = new ArrayList<>();
+        for (int i = 0; i < select.length; i++) {
+            contents.add(select[i]);
+        }
+        setAttr("contents", contents);
+        setAttr("funcFeatures", funcFeatures);
+    }
 
+    public void funcFeatureConfig() {
+        selectCommon(SQLConfig.func_feature_label_config);
+        redirect("/tag");
     }
     //活跃功能特征----end
 

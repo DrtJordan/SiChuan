@@ -312,6 +312,9 @@ public enum SQLConfig {
     //标签配置—网页留言操作行为
     note_behaviour_label,
     note_behaviour_label_config,
+    //标签配置—活跃功能特征
+    func_feature_label,
+    func_feature_label_config,
     //标签配置—活跃变化特征
     cha_feature_label,
     cha_feature_label_config,
