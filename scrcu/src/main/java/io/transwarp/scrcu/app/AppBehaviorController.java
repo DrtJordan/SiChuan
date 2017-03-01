@@ -325,31 +325,91 @@ public class AppBehaviorController extends Controller {
     public void interval() {
 
         if (BaseUtils.isAjax(getRequest())) {
-            // 得到查询条件
-            String condition = InceptorUtil.getDateCondition(getRequest());
-            // 执行查询
-            List<List<String>> dataTime = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_interval, condition), 35);
-            List<List<String>> dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_interval_phone, condition),
-                    35);
-            List<List<String>> dataChannel = InceptorUtil
-                    .query(SqlKit.propSQL(SQLConfig.app_interval_channel, condition), 35);
-            List<List<String>> dataOs = InceptorUtil
-                    .query(SqlKit.propSQL(SQLConfig.app_interval_os, condition), 35);
-
+            List<List<String>> dataTime = new ArrayList<>();
+            List<List<String>> dataPhone = new ArrayList<>();
+            List<List<String>> dataChannel = new ArrayList<>();
+            List<List<String>> dataOs = new ArrayList<>();
             JSONObject result = new JSONObject();
+
+            // 得到查询条件
+            String dateType = getPara("dateType");
+            String condition = InceptorUtil.getQueryCondition(getRequest());
+
+            if (dateType != null) {
+                if (dateType.equals("day")) {
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_interval_day, condition), false);
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_interval_phone_day, condition));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_interval_channel_day, condition));
+                    dataOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_interval_os_day, condition));
+                }
+                if (dateType.equals("week")) {
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_interval_week, condition), false);
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_interval_phone_week, condition));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_interval_channel_week, condition));
+                    dataOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_interval_os_week, condition));
+                }
+                if (dateType.equals("month")) {
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_interval_month, condition), false);
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_interval_phone_month, condition));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_interval_channel_month, condition));
+                    dataOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_interval_os_month, condition));
+                }
+                if (dateType.equals("quarter")) {
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_interval_quarter, condition), false);
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_interval_phone_quarter, condition));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_interval_channel_quarter, condition));
+                    dataOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_interval_os_quarter, condition));
+                }
+                if (dateType.equals("year")) {
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_interval_year, condition), false);
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_interval_phone_year, condition));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_interval_channel_year, condition));
+                    dataOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_interval_os_year, condition));
+                }
+            }
+
             // 返回结果
             List<Object> xAxisList = new ArrayList<Object>();
-            List<Object> dataList1 = new ArrayList<Object>();
-//            List<Object> dataList2 = new ArrayList<Object>();
+            //定义时长对应的集合用来接收对应的数据
+            List<Object> firstList = new ArrayList<Object>();
+            List<Object> zeroToTwentyFourHours = new ArrayList<Object>();
+            List<Object> oneToTwoDays = new ArrayList<Object>();
+            List<Object> twoToFourDays = new ArrayList<Object>();
+            List<Object> fiveToSevenDay = new ArrayList<Object>();
+            List<Object> eightToFourteenDays = new ArrayList<Object>();
+            List<Object> fifteenToThirtyDays = new ArrayList<Object>();
+            //定义图例的name名称
+            Object[] nameList = new Object[]{"首次", "0-24h", "1-2天", "2-4天", "5-7天", "8-14天", "15-30天"};
+
             for (List<String> list : dataTime) {
-                xAxisList.add(list.get(0));
-                dataList1.add(list.get(1));
-//                dataList2.add(list.get(2));
+                if (!xAxisList.contains(list.get(0))) {
+                    xAxisList.add(list.get(0));
+                }
+                if (list.get(1).equals("首次")) {
+                    firstList.add(list.get(2));
+                }
+                if (list.get(1).equals("0-24h")) {
+                    zeroToTwentyFourHours.add(list.get(2));
+                }
+                if (list.get(1).equals("1-2天")) {
+                    oneToTwoDays.add(list.get(2));
+                }
+                if (list.get(1).equals("2-4天")) {
+                    twoToFourDays.add(list.get(2));
+                }
+                if (list.get(1).equals("5-7天")) {
+                    fiveToSevenDay.add(list.get(2));
+                }
+                if (list.get(1).equals("8-14天")) {
+                    eightToFourteenDays.add(list.get(2));
+                }
+                if (list.get(1).equals("15-30天")) {
+                    fifteenToThirtyDays.add(list.get(2));
+                }
             }
-            /*Object[] nameList = new Object[]{res.get("app.useInterval"), res.get("app.startTimes")};
-            String str = ChartUtils.genMultiLineChart(xAxisList, nameList,
-            dataList1, dataList2);*/
-            String intervalBar = ChartUtils.genBar(res.get("app.useInterval"), res.get("app.startTimes"), xAxisList, dataList1);
+
+            String intervalBar = ChartUtils.genAppMultiLineCharts(dateType, xAxisList, nameList, firstList, zeroToTwentyFourHours,
+                    oneToTwoDays, twoToFourDays, fiveToSevenDay, eightToFourteenDays, fifteenToThirtyDays);
             result.put("chartOption", intervalBar);
             result.put("dataTime", dataTime);
             result.put("dataPhone", dataPhone);

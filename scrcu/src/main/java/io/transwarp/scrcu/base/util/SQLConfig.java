@@ -220,31 +220,57 @@ public enum SQLConfig {
     app_depth_channel_year,
     app_depth_os_year,
 
-    //使用时长按天汇总
+    //使用频率按天汇总
     app_useRate_day,
     app_useRate_channel_day,
     app_useRate_phone_day,
     app_useRate_os_day,
-    //使用时长按周汇总
+    //使用频率按周汇总
     app_useRate_week,
     app_useRate_channel_week,
     app_useRate_phone_week,
     app_useRate_os_week,
-    //使用时长按月汇总
+    //使用频率按月汇总
     app_useRate_month,
     app_useRate_channel_month,
     app_useRate_phone_month,
     app_useRate_os_month,
-    //使用时长按季汇总
+    //使用频率按季汇总
     app_useRate_quarter,
     app_useRate_channel_quarter,
     app_useRate_phone_quarter,
     app_useRate_os_quarter,
-    //使用时长按年汇总
+    //使用频率按年汇总
     app_useRate_year,
     app_useRate_channel_year,
     app_useRate_phone_year,
     app_useRate_os_year,
+
+    //使用间隔按天汇总
+    app_interval_day,
+    app_interval_channel_day,
+    app_interval_phone_day,
+    app_interval_os_day,
+    //使用间隔按周汇总
+    app_interval_week,
+    app_interval_channel_week,
+    app_interval_phone_week,
+    app_interval_os_week,
+    //使用间隔按月汇总
+    app_interval_month,
+    app_interval_channel_month,
+    app_interval_phone_month,
+    app_interval_os_month,
+    //使用间隔按季汇总
+    app_interval_quarter,
+    app_interval_channel_quarter,
+    app_interval_phone_quarter,
+    app_interval_os_quarter,
+    //使用间隔按年汇总
+    app_interval_year,
+    app_interval_channel_year,
+    app_interval_phone_year,
+    app_interval_os_year,
 
     // 画像 交易曲线
     portrait_trading,
