@@ -437,6 +437,7 @@ public class InceptorUtil {
 
         StringBuffer stringBuffer = new StringBuffer();
         if (StringUtils.isNotBlank(queryType) && queryType.split(":").length == 2) {
+
             if (queryType.contains("时长")) {
                 stringBuffer.append("online_time ='" + queryType.split(":")[1] + "' and ");
             }
@@ -448,6 +449,12 @@ public class InceptorUtil {
             }
             if (queryType.contains("渠道")) {
                 stringBuffer.append("chl_id ='" + queryType.split(":")[1] + "' and ");
+            }
+            if (queryType.contains("启动次数")) {
+                stringBuffer.append("startup_cnt ='" + queryType.split(":")[1] + "' and ");
+            }
+            if (queryType.contains("使用间隔")) {
+                stringBuffer.append("use_interval ='" + queryType.split(":")[1] + "' and ");
             }
         }
         return stringBuffer.toString();

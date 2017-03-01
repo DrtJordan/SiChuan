@@ -218,6 +218,16 @@ function endBackdrop() {
 	backdrop.hide();
 }
 
+/**
+ * 表格查询选择的条件址
+ *
+ * @param i 循环的列的索引
+ * @param name 查询的名称
+ * @param num 表格的索引
+ * @param selectValues 选择的列的值
+ * @param column 列
+ * @param dateType 日期类型
+ */
 function conditionSearch(i, name, num, selectValues, column, dateType){
 	var value = "#table" + num + "_wrapper div:first div#select" + i + " select";
 	var selectValue = "#table" + num + "_wrapper div#select" + i + " select";

@@ -166,19 +166,19 @@ public class ChartUtils {
         EnhancedOption option = new EnhancedOption();
         option.tooltip().trigger(Trigger.axis);
         if (StringUtils.equals(dateType, "day")) {
-            option.title().subtext("按天汇总").x("right");
+            option.title().text("按天汇总").x("right").textStyle(new TextStyle().fontSize(15));
         }
         if (StringUtils.equals(dateType, "week")) {
-            option.title().subtext("按周汇总").x("right");
+            option.title().text("按周汇总").x("right").textStyle(new TextStyle().fontSize(15));
         }
         if (StringUtils.equals(dateType, "month")) {
-            option.title().subtext("按月汇总").x("right");
+            option.title().text("按月汇总").x("right").textStyle(new TextStyle().fontSize(15));
         }
         if (StringUtils.equals(dateType, "quarter")) {
-            option.title().subtext("按季汇总").x("right");
+            option.title().text("按季汇总").x("right").textStyle(new TextStyle().fontSize(15));
         }
         if (StringUtils.equals(dateType, "year")) {
-            option.title().subtext("按年汇总").x("right");
+            option.title().text("按年汇总").x("right").textStyle(new TextStyle().fontSize(15));
         }
 
         Legend legend = new Legend();
