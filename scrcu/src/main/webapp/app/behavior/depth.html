@@ -36,6 +36,7 @@
 					<table id="table1" class="table table-striped b-light">
 						<thead>
 							<tr>
+								<th>日期</th>
 								<th>访问页面</th>
 								<th>启动次数</th>
 								<th>启动次数占比</th>
@@ -48,6 +49,7 @@
 					<table id="table2" class="table table-striped b-light">
 						<thead>
 							<tr>
+								<th>日期</th>
 								<th>版本号</th>
 								<th>访问页面</th>
 								<th>启动次数</th>
@@ -60,6 +62,7 @@
 					<table id="table3" class="table table-striped b-light">
 						<thead>
 							<tr>
+								<th>日期</th>
 								<th>渠道名</th>
 								<th>访问页面</th>
 								<th>启动次数</th>
@@ -72,6 +75,7 @@
 					<table id="table4" class="table table-striped b-light">
 						<thead>
 						<tr>
+							<th>日期</th>
 							<th>手机os</th>
 							<th>访问页面</th>
 							<th>启动次数</th>
@@ -88,189 +92,111 @@
 
 <script>
 	function dataTableExchange(data, dateType) {
+		var chart = echarts.init(document.getElementById('chartDiv'),
+				'infographic');
+		var chartOption = data.chartOption;
+		chart.setOption($.parseJSON(chartOption));
 
-		var start = $("#start_dt").val();
-		var end = $("#end_dt").val();
-		var ajaxOption = {
-			url : window.location.href + "?start_dt=" + start + "&end_dt="
-			+ end,
-			success : function(data) {
-				var chart = echarts.init(document.getElementById('chartDiv'),
-						'infographic');
-				var chartOption = data.chartOption;
-				chart.setOption($.parseJSON(chartOption));
-				/*tableQuery({
-				 "aaData" : data.dataTime,
-				 "id" : "#table1",
-				 "aoColumnDefs": [{
-				 "targets": [3], // 目标列位置，下标从0开始
-				 "render": function(data) { // 返回自定义内容
-				 return getPercent(data);
-				 }
-				 }]
-				 });*/
-				/*tableQuery({
-				 "aaData" : data.dataPhone,
-				 "id" : "#table2",
-				 "aoColumnDefs": [{
-				 "targets": [4], // 目标列位置，下标从0开始
-				 "render": function(data) { // 返回自定义内容
-				 return getPercent(data);
-				 }
-				 }]
-				 });*/
-				/*tableQuery({
-				 "aaData" : data.dataChannel,
-				 "id" : "#table3",
-				 "aoColumnDefs": [{
-				 "targets": [4], // 目标列位置，下标从0开始
-				 "render": function(data) { // 返回自定义内容
-				 return getPercent(data);
-				 }
-				 }]
-				 });*/
-				/*tableQuery({
-				 "aaData" : data.dataOs,
-				 "id" : "#table4",
-				 "aoColumnDefs": [{
-				 "targets": [4], // 目标列位置，下标从0开始
-				 "render": function(data) { // 返回自定义内容
-				 return getPercent(data);
-				 }
-				 }]
-				 });*/
-
-				/*tableQuery({
-				 "aaData": data.dataTime,
-				 "id": "#table3",
-				 "aoColumnDefs": [{
-				 "targets": [4], // 目标列位置，下标从0开始
-				 "searchable": false
-				 }],
-				 "sDom": "<'row'<'col-sm-4'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
-				 initComplete: function () {
-				 var api = this.api();
-				 var selectValues = new Array();
-				 api.columns().indexes().flatten().each(function (i) {
-				 var name = "时长";
-				 if (i == 2 || i == 3) {
-				 if (i == 2) {
-				 name = "渠道";
-				 }
-				 var column = api.column(i);
-				 var value = "#table3_wrapper div:first div#select" + i + " select";
-				 var selectValue = "#table3_wrapper div#select" + i + " select";
-				 var tableName = "#table3_wrapper div:first";
-				 conditionSearch(i, name, tableName, value, selectValues, column, selectValue);
-				 }
-				 });
-				 }
-				 });*/
-
-				tableQuery({
-					"aaData": data.dataTime,
-					"id": "#table1",
-					"aoColumnDefs": [{
-						"targets": [3], // 目标列位置，下标从0开始
-						"searchable": false
-					}],
-					"sDom": "<'row'<'col-sm-6'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
-					initComplete: function () {
-						var api = this.api();
-						var column = api.column(1);
-						var select = $('<div id="select" class="col-sm-6"><div class="dataTables_filter"><label><i class="fa fa-search">&nbsp;访问页面&nbsp;</i><select name="optValue" style="width: 120px"><option value="">--请选择--</option></select></label></div></div>')
-								.appendTo($("#table1_wrapper div:first"))
-								.on('change', function () {
-									var selectValues = new Array();
-									var val = $.fn.dataTable.util.escapeRegex(
-											$("#table1_wrapper div:first div#select select").val()
-									);
-									column
-											.search(val ? '^' + val + '$' : '', true, false)
-											.draw();
-									selectValues.push("访问页面:" + val);
-									csvExport(selectValues, dateType);
-								});
-						column.data().unique().sort().each(function (d, j) {
-							$(" #table1_wrapper div#select select").append('<option value="' + d + '">' + d + '</option>')
+		tableQuery({
+			"aaData": data.dataTime,
+			"id": "#table1",
+			"aoColumnDefs": [{
+				"targets": [3], // 目标列位置，下标从0开始
+				"searchable": false
+			}],
+			"sDom": "<'row'<'col-sm-6'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
+			initComplete: function () {
+				var api = this.api();
+				var column = api.column(2);
+				var select = $('<div id="select" class="col-sm-6"><div class="dataTables_filter"><label><i class="fa fa-search">&nbsp;访问页面&nbsp;</i><select name="optValue" style="width: 120px"><option value="">--请选择--</option></select></label></div></div>')
+						.appendTo($("#table1_wrapper div:first"))
+						.on('change', function () {
+							var selectValues = new Array();
+							var val = $.fn.dataTable.util.escapeRegex(
+									$("#table1_wrapper div:first div#select select").val()
+							);
+							column
+									.search(val ? '^' + val + '$' : '', true, false)
+									.draw();
+							selectValues.push("访问页面:" + val);
+							csvExport(selectValues, dateType);
 						});
-					}
+				column.data().unique().sort().each(function (d, j) {
+					$(" #table1_wrapper div#select select").append('<option value="' + d + '">' + d + '</option>')
 				});
-
-				tableQuery({
-					"aaData": data.dataPhone,
-					"id": "#table2",
-					"aoColumnDefs": [{
-						"targets": [4], // 目标列位置，下标从0开始
-						"searchable": false
-					}],
-					"sDom": "<'row'<'col-sm-4'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
-					initComplete: function () {
-						var api = this.api();
-						var selectValues = new Array();
-						api.columns().indexes().flatten().each(function (i) {
-							var name = "版本";
-							if (i == 1 || i == 2) {
-								if (i == 2) {
-									name = "访问页面";
-								}
-								var column = api.column(i);
-								conditionSearch(i, name, 2, selectValues, column, dateType);
-							}
-						});
-					}
-				});
-
-				tableQuery({
-					"aaData": data.dataChannel,
-					"id": "#table3",
-					"aoColumnDefs": [{
-						"targets": [4], // 目标列位置，下标从0开始
-						"searchable": false
-					}],
-					"sDom": "<'row'<'col-sm-4'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
-					initComplete: function () {
-						var api = this.api();
-						var selectValues = new Array();
-						api.columns().indexes().flatten().each(function (i) {
-							var name = "渠道";
-							if (i == 1 || i == 2) {
-								if (i == 2) {
-									name = "访问页面";
-								}
-								var column = api.column(i);
-								conditionSearch(i, name, 3, selectValues, column, dateType);
-							}
-						});
-					}
-				});
-
-				tableQuery({
-					"aaData": data.dataOs,
-					"id": "#table4",
-					"aoColumnDefs": [{
-						"targets": [4], // 目标列位置，下标从0开始
-						"searchable": false
-					}],
-					"sDom": "<'row'<'col-sm-4'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
-					initComplete: function () {
-						var api = this.api();
-						var selectValues = new Array();
-						api.columns().indexes().flatten().each(function (i) {
-							var name = "OS";
-							if (i == 1 || i == 2) {
-								if (i == 2) {
-									name = "访问页面";
-								}
-								var column = api.column(i);
-								conditionSearch(i, name, 4, selectValues, column, dateType);
-							}
-						});
-					}
-				});
-
 			}
-		}
-		commonAjax(ajaxOption);
+		});
+
+		tableQuery({
+			"aaData": data.dataPhone,
+			"id": "#table2",
+			"aoColumnDefs": [{
+				"targets": [4], // 目标列位置，下标从0开始
+				"searchable": false
+			}],
+			"sDom": "<'row'<'col-sm-4'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
+			initComplete: function () {
+				var api = this.api();
+				var selectValues = new Array();
+				api.columns().indexes().flatten().each(function (i) {
+					var name = "版本";
+					if (i == 2 || i == 3) {
+						if (i == 3) {
+							name = "访问页面";
+						}
+						var column = api.column(i);
+						conditionSearch(i, name, 2, selectValues, column, dateType);
+					}
+				});
+			}
+		});
+
+		tableQuery({
+			"aaData": data.dataChannel,
+			"id": "#table3",
+			"aoColumnDefs": [{
+				"targets": [4], // 目标列位置，下标从0开始
+				"searchable": false
+			}],
+			"sDom": "<'row'<'col-sm-4'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
+			initComplete: function () {
+				var api = this.api();
+				var selectValues = new Array();
+				api.columns().indexes().flatten().each(function (i) {
+					var name = "渠道";
+					if (i == 2 || i == 3) {
+						if (i == 3) {
+							name = "访问页面";
+						}
+						var column = api.column(i);
+						conditionSearch(i, name, 3, selectValues, column, dateType);
+					}
+				});
+			}
+		});
+
+		tableQuery({
+			"aaData": data.dataOs,
+			"id": "#table4",
+			"aoColumnDefs": [{
+				"targets": [4], // 目标列位置，下标从0开始
+				"searchable": false
+			}],
+			"sDom": "<'row'<'col-sm-4'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
+			initComplete: function () {
+				var api = this.api();
+				var selectValues = new Array();
+				api.columns().indexes().flatten().each(function (i) {
+					var name = "OS";
+					if (i == 2 || i == 3) {
+						if (i == 3) {
+							name = "访问页面";
+						}
+						var column = api.column(i);
+						conditionSearch(i, name, 4, selectValues, column, dateType);
+					}
+				});
+			}
+		});
 	}
 </script>

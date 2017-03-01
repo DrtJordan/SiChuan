@@ -174,28 +174,83 @@ public class AppBehaviorController extends Controller {
     @RequiresPermissions("/app/behavior/depth")
     public void depth() {
         if (BaseUtils.isAjax(getRequest())) {
-            // 得到查询条件
-            String condition = InceptorUtil.getDateCondition(getRequest());
-            // 执行查询
-            List<List<String>> dataTime = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_depth, condition), 35);
-            List<List<String>> dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_depth_phone, condition),
-                    35);
-            List<List<String>> dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_depth_channel, condition),
-                    35);
-            List<List<String>> dataOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_depth_os, condition),
-                    35);
-
+            List<List<String>> dataTime = new ArrayList<>();
+            List<List<String>> dataPhone = new ArrayList<>();
+            List<List<String>> dataChannel = new ArrayList<>();
+            List<List<String>> dataOs = new ArrayList<>();
             JSONObject result = new JSONObject();
-            // 返回结果
-            List<Object> xAxisList = new ArrayList<Object>();
-            List<Object> dataList = new ArrayList<Object>();
-            for (List<String> list : dataTime) {
-                xAxisList.add(list.get(0));
-                dataList.add(list.get(1));
+            // 得到查询条件
+            String dateType = getPara("dateType");
+            String condition = InceptorUtil.getQueryCondition(getRequest());
+            if (dateType != null) {
+                if (dateType.equals("day")) {
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_depth_day, condition),false);
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_depth_phone_day, condition));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_depth_channel_week, condition));
+                    dataOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_depth_os_week, condition));
+                }
+                if (dateType.equals("week")) {
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_depth_week, condition),false);
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_depth_phone_week, condition));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_channel_week, condition));
+                    dataOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_os_week, condition));
+                }
+                if (dateType.equals("month")) {
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_depth_month, condition),false);
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_depth_phone_month, condition));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_depth_channel_month, condition));
+                    dataOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_depth_os_month, condition));
+                }
+                if (dateType.equals("quarter")) {
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_depth_quarter, condition),false);
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_depth_phone_quarter, condition));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_depth_channel_quarter, condition));
+                    dataOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_depth_os_quarter, condition));
+                }
+                if (dateType.equals("year")) {
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_depth_year, condition),false);
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_depth_phone_year, condition));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_depth_channel_year, condition));
+                    dataOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_depth_os_year, condition));
+                }
             }
-            // String str = ChartUtils.genLineChart(res.get("app.startTimes"), xAxisList,
-            // dataList);
-            String genBar = ChartUtils.genBar(res.get("app.accessDepth"), res.get("app.startTimes"), xAxisList, dataList);
+            // 返回结果
+            List<Object> xAxisList = new ArrayList<>();
+            //定义时长对应的集合用来接收对应的数据
+            List<Object> OneToTwoPageList = new ArrayList<Object>();
+            List<Object> ThreeToFivePageList = new ArrayList<Object>();
+            List<Object> SixToNinePageList = new ArrayList<Object>();
+            List<Object> TenToTwNinePageList = new ArrayList<Object>();
+            List<Object> ThirtyToMorePageList = new ArrayList<Object>();
+            List<Object> OtherPageList = new ArrayList<Object>();
+            Object[] nameList = new Object[]{"1-2页面", "3-5页面", "6-9页面", "10-29页面", "30个页面及以上", "other"};
+
+            for (List<String> list : dataTime) {
+
+                if (!xAxisList.contains(list.get(0))) {
+                    xAxisList.add(list.get(0));
+                }
+                if (list.get(1).equals("1-2页面")) {
+                    OneToTwoPageList.add(list.get(2));
+                }
+                if (list.get(1).equals("3-5页面")) {
+                    ThreeToFivePageList.add(list.get(2));
+                }
+                if (list.get(1).equals("6-9页面")) {
+                    SixToNinePageList.add(list.get(2));
+                }
+                if (list.get(1).equals("10-29页面")) {
+                    TenToTwNinePageList.add(list.get(2));
+                }
+                if (list.get(1).equals("30个页面及以上")) {
+                    ThirtyToMorePageList.add(list.get(2));
+                }
+                if (list.get(1).equals("other")) {
+                    OtherPageList.add(list.get(2));
+                }
+            }
+            String genBar = ChartUtils.genUseTimeLineChart(dateType, xAxisList, nameList, OneToTwoPageList, ThreeToFivePageList,
+                    SixToNinePageList, TenToTwNinePageList, ThirtyToMorePageList, OtherPageList);
             result.put("chartOption", genBar);
             result.put("dataTime", dataTime);
             result.put("dataPhone", dataPhone);

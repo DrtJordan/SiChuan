@@ -102,14 +102,7 @@ public enum SQLConfig {
     app_useRate_channel,
     // 移动 手机OS使用频率时长
     app_useRate_os,
-    // 移动 访问深度分布
-    app_depth,
-    // 移动 按手机深度分布
-    app_depth_phone,
-    // 移动 按渠道深度分布
-    app_depth_channel,
-    // 移动 按手机os深度分布
-    app_depth_os,
+
     // 移动 访问间隔分布
     app_interval,
     // 移动 按手机使用间隔分布
@@ -200,6 +193,33 @@ public enum SQLConfig {
     app_useTime_channel_year,
     app_useTime_phone_year,
     app_useTime_os_year,
+
+    // 移动 访问深度按天分布
+    app_depth_day,
+    app_depth_phone_day,
+    app_depth_channel_day,
+    app_depth_os_day,
+    // 移动 访问深度按周分布
+    app_depth_week,
+    app_depth_phone_week,
+    app_depth_channel_week,
+    app_depth_os_week,
+    // 移动 访问深度按月分布
+    app_depth_month,
+    app_depth_phone_month,
+    app_depth_channel_month,
+    app_depth_os_month,
+    // 移动 访问深度按季分布
+    app_depth_quarter,
+    app_depth_phone_quarter,
+    app_depth_channel_quarter,
+    app_depth_os_quarter,
+    // 移动 访问深度按年分布
+    app_depth_year,
+    app_depth_phone_year,
+    app_depth_channel_year,
+    app_depth_os_year,
+
 
     // 画像 交易曲线
     portrait_trading,
