@@ -72,94 +72,89 @@
 	<!-- 登录用户end -->
 
 	<!-- 新增用户start -->
-	<sqlGroup name="app_newUser">
-		<sql id="name">app新增用户</sql>
+	<sqlGroup name="app_newUser_day">
+		<sql id="name">app新增用户按天汇总</sql>
 		<sql id="header">日期,新增用户,新增用户占比</sql>
-		<!--<sql id="sql">select statt_dt, new_token_cnt, new_token_ratio from result_new_added_user_analysis_info_1</sql>-->
-		<sql id="sql">select data_dt, new_token_cnt, new_token_ratio from bdapp.tp_log_app_usr_added_orc_day</sql>
+		<sql id="sql">select stat_date, new_token_cnt, new_token_ratio from bdhbs.th_log_app_usr_added_orc_day where SQL_CONDITION cnt_type='99' order by stat_date asc</sql>
 	</sqlGroup>
+	<sqlGroup name="app_newUser_channel_day">
+		<sql id="name">app新增用户_渠道维度按天汇总</sql>
+		<sql id="header">日期,渠道名,新增用户数量,新增用户占比</sql>
+		<sql id="sql">select stat_date, channel_id, new_token_cnt, new_token_ratio from bdhbs.th_log_app_usr_added_orc_day where SQL_CONDITION cnt_type='3' order by stat_date asc</sql>
+	</sqlGroup>
+	<sqlGroup name="app_newUser_phone_day">
+		<sql id="name">app新增用户_手机维度按天汇总</sql>
+		<sql id="header">日期,手机os,app版本号,新增用户数量,新增用户占比</sql>
+		<sql id="sql">select stat_date, mobile_os, app_version, new_token_cnt, new_token_ratio from bdhbs.th_log_app_usr_added_orc_day where SQL_CONDITION cnt_type='2' order by stat_date asc</sql>
+	</sqlGroup>
+
+	<!-- 新增用户按周汇总 -->
+	<sqlGroup name="app_newUser_week">
+		<sql id="name">app新增用户按周汇总</sql>
+		<sql id="header">日期,新增用户,新增用户占比</sql>
+		<sql id="sql">select stat_date, new_token_cnt, new_token_ratio from bdhbs.th_log_app_usr_added_orc_day where SQL_CONDITION cnt_type='99' order by stat_date asc</sql>
+	</sqlGroup>
+	<sqlGroup name="app_newUser_channel_week">
+		<sql id="name">app新增用户渠道维度按周汇总</sql>
+		<sql id="header">日期,渠道,新增用户,新增用户占比</sql>
+		<sql id="sql">select stat_date, channel_id, new_token_cnt, new_token_ratio from bdhbs.th_log_app_usr_added_orc_day where SQL_CONDITION cnt_type='3' order by stat_date asc</sql>
+	</sqlGroup>
+	<sqlGroup name="app_newUser_phone_week">
+		<sql id="name">app新增用户手机维度按周汇总</sql>
+		<sql id="header">日期,手机os,版本,新增用户,新增用户占比</sql>
+		<sql id="sql">select stat_date, mobile_os, app_version, new_token_cnt, new_token_ratio from bdhbs.th_log_app_usr_added_orc_day where SQL_CONDITION cnt_type='2' order by stat_date asc</sql>
+	</sqlGroup>
+
 	<sqlGroup name="app_newUser_month">
 		<sql id="name">app新增用户按月汇总</sql>
 		<sql id="header">日期,新增用户,新增用户占比</sql>
-		<sql id="sql">select stat_month,sum(new_token_cnt) as new_token_cnt,count(new_token_cnt)/sum(new_token_cnt) as new_token_ratio from bdapp.tp_log_app_usr_added_orc_day group by stat_month</sql>
-	</sqlGroup>
-	<sqlGroup name="app_newUser_channel">
-		<sql id="name">app新增用户_渠道维度</sql>
-		<sql id="header">日期,渠道名,新增用户数量,占比(该渠道新增用户/所有渠道新增用户)</sql>
-		<!--<sql id="sql">select statt_dt, channel_name, new_token_cnt, new_token_ratio from result_new_added_user_analysis_info_2</sql>-->
-		<sql id="sql">select data_dt, channel_id, new_token_cnt, new_token_ratio from bdapp.tp_log_app_usr_added_orc_day</sql>
+		<sql id="sql">select stat_date,sum(new_token_cnt) as new_token_cnt,count(new_token_cnt)/sum(new_token_cnt) as new_token_ratio from bdhbs.th_log_app_usr_added_orc_day where SQL_CONDITION cnt_type='99' order by stat_date asc</sql>
 	</sqlGroup>
 	<sqlGroup name="app_newUser_channel_month">
-		<sql id="name">app新增用户按月和渠道名汇总</sql>
-		<sql id="header">日期,新增用户,新增用户占比</sql>
-		<sql id="sql">select stat_month,channel_id,sum(new_token_cnt) as new_token_cnt,count(new_token_cnt)/sum(new_token_cnt) as new_token_ratio from bdapp.tp_log_app_usr_added_orc_day where cnt_type='3' group by stat_month,channel_id</sql>
-	</sqlGroup>
-	<sqlGroup name="app_newUser_phone">
-		<sql id="name">app新增用户_手机维度</sql>
-		<sql id="header">日期,手机os,app版本号,新增用户数量,占比</sql>
-		<!--<sql id="sql">select statt_dt, os, app_version, new_token_cnt, new_token_ratio from result_new_added_user_analysis_info_3</sql>-->
-		<sql id="sql">select data_dt, mobile_os, app_version, new_token_cnt, new_token_ratio from bdapp.tp_log_app_usr_added_orc_day</sql>
+		<sql id="name">app新增用户渠道维度按月汇总</sql>
+		<sql id="header">日期,渠道,新增用户,新增用户占比</sql>
+		<sql id="sql">select stat_date,channel_id,sum(new_token_cnt) as new_token_cnt,count(new_token_cnt)/sum(new_token_cnt) as new_token_ratio from bdhbs.th_log_app_usr_added_orc_day where SQL_CONDITION cnt_type='3' order by stat_date asc</sql>
 	</sqlGroup>
 	<sqlGroup name="app_newUser_phone_month">
-		<sql id="name">app新增用户按月和手机os汇总</sql>
-		<sql id="header">日期,新增用户,新增用户占比</sql>
-		<sql id="sql">select stat_month, mobile_os, app_version,sum(new_token_cnt) as new_token_cnt,count(new_token_cnt)/sum(new_token_cnt) as new_token_ratio from bdapp.tp_log_app_usr_added_orc_day where cnt_type='2' group by stat_month,mobile_os,app_version</sql>
+		<sql id="name">app新增用户手机维度按月汇总</sql>
+		<sql id="header">日期,手机os,版本,新增用户,新增用户占比</sql>
+		<sql id="sql">select stat_date, mobile_os, app_version, new_token_cnt, new_token_ratio from bdhbs.th_log_app_usr_added_orc_day where SQL_CONDITION cnt_type='2' order by stat_date asc</sql>
 	</sqlGroup>
 
 	<sqlGroup name="app_newUser_quarter">
 		<sql id="name">app新增用户按季度汇总</sql>
 		<sql id="header">日期,新增用户,新增用户占比</sql>
-		<sql id="sql">select stat_quarter,sum(new_token_cnt) as new_token_cnt,count(new_token_cnt)/sum(new_token_cnt) as new_token_ratio from bdapp.tp_log_app_usr_added_orc_day group by stat_quarter</sql>
+		<sql id="sql">select stat_date,sum(new_token_cnt) as new_token_cnt,count(new_token_cnt)/sum(new_token_cnt) as new_token_ratio from bdhbs.th_log_app_usr_added_orc_day where SQL_CONDITION cnt_type='99' order by stat_date asc</sql>
 	</sqlGroup>
 	<sqlGroup name="app_newUser_channel_quarter">
-		<sql id="name">app新增用户按季度汇总</sql>
-		<sql id="header">日期,新增用户,新增用户占比</sql>
-		<sql id="sql">select stat_quarter, channel_id, sum(new_token_cnt) as new_token_cnt,count(new_token_cnt)/sum(new_token_cnt) as new_token_ratio from bdapp.tp_log_app_usr_added_orc_day where cnt_type='3' group by stat_quarter, channel_id</sql>
+		<sql id="name">app新增用户渠道维度按季度汇总</sql>
+		<sql id="header">日期,渠道,新增用户,新增用户占比</sql>
+		<sql id="sql">select stat_date, channel_id, new_token_cnt, new_token_ratio from bdhbs.th_log_app_usr_added_orc_day where SQL_CONDITION cnt_type='3' order by stat_date asc</sql>
 	</sqlGroup>
 	<sqlGroup name="app_newUser_phone_quarter">
-		<sql id="name">app新增用户按季度汇总</sql>
-		<sql id="header">日期,新增用户,新增用户占比</sql>
-		<sql id="sql">select stat_quarter, mobile_os, app_version, sum(new_token_cnt) as new_token_cnt,count(new_token_cnt)/sum(new_token_cnt) as new_token_ratio from bdapp.tp_log_app_usr_added_orc_day where cnt_type='2' group by stat_quarter,mobile_os,app_version</sql>
+		<sql id="name">app新增用户手机维度按季度汇总</sql>
+		<sql id="header">日期,手机os,版本,新增用户,新增用户占比</sql>
+		<sql id="sql">select stat_date, mobile_os, app_version, new_token_cnt, new_token_ratio from bdhbs.th_log_app_usr_added_orc_day where SQL_CONDITION cnt_type='2' order by stat_date asc</sql>
 	</sqlGroup>
+
 	<sqlGroup name="app_newUser_year">
 		<sql id="name">app新增用户按年汇总</sql>
 		<sql id="header">日期,新增用户,新增用户占比</sql>
-		<sql id="sql">select stat_year,sum(new_token_cnt) as new_token_cnt,count(new_token_cnt)/sum(new_token_cnt) as new_token_ratio from bdapp.tp_log_app_usr_added_orc_day group by stat_year</sql>
+		<sql id="sql">select stat_date, new_token_cnt, new_token_ratio from bdhbs.th_log_app_usr_added_orc_day where SQL_CONDITION cnt_type='99' order by stat_date asc</sql>
 	</sqlGroup>
 	<sqlGroup name="app_newUser_channel_year">
-		<sql id="name">app新增用户按年汇总</sql>
-		<sql id="header">日期,新增用户,新增用户占比</sql>
-		<sql id="sql">select stat_year, channel_id, sum(new_token_cnt) as new_token_cnt,count(new_token_cnt)/sum(new_token_cnt) as new_token_ratio from bdapp.tp_log_app_usr_added_orc_day where cnt_type='3' group by stat_year, channel_id</sql>
+		<sql id="name">app新增用户渠道维度按年汇总</sql>
+		<sql id="header">日期,渠道,新增用户,新增用户占比</sql>
+		<sql id="sql">select stat_date, channel_id, new_token_cnt, new_token_ratio from bdhbs.th_log_app_usr_added_orc_day where SQL_CONDITION cnt_type='3' order by stat_date asc</sql>
 	</sqlGroup>
 	<sqlGroup name="app_newUser_phone_year">
-		<sql id="name">app新增用户按年汇总</sql>
-		<sql id="header">日期,新增用户,新增用户占比</sql>
-		<sql id="sql">select stat_year, mobile_os, app_version, sum(new_token_cnt) as new_token_cnt,count(new_token_cnt)/sum(new_token_cnt) as new_token_ratio from bdapp.tp_log_app_usr_added_orc_day where cnt_type='2' group by stat_year,mobile_os,app_version</sql>
+		<sql id="name">app新增用户手机维度按年汇总</sql>
+		<sql id="header">日期,手机os,版本,新增用户,新增用户占比</sql>
+		<sql id="sql">select stat_date, mobile_os, app_version, new_token_cnt, new_token_ratio from bdhbs.th_log_app_usr_added_orc_day where SQL_CONDITION cnt_type='2' order by stat_date asc</sql>
 	</sqlGroup>
 	<!-- 新增用户end -->
 	
 	<!-- 使用时长start -->
-	<sqlGroup name="app_useTime">
-		<sql id="name">app使用时长</sql>
-		<sql id="header">日期,时长,启动次数,启动次数占比</sql>
-		<sql id="sql">select stat_date, online_time, startup_cnt, startup_ratio from bdhbs.th_log_app_usr_online_time_orc_day where SQL_CONDITION cnt_type ='99' and online_time != '999' order by stat_date asc</sql>
-	</sqlGroup>
-	<sqlGroup name="app_useTime_phone">
-		<sql id="name">app使用时长_手机维度</sql>
-		<sql id="header">日期,版本号,时长,启动次数,启动次数占比</sql>
-		<sql id="sql">select stat_date, app_version, online_time, startup_cnt, startup_ratio from bdhbs.th_log_app_usr_online_time_orc_day where SQL_CONDITION cnt_type ='3' and online_time != '999' order by stat_date asc</sql>
-	</sqlGroup>
-	<sqlGroup name="app_useTime_channel">
-		<sql id="name">app使用时长_渠道维度</sql>
-		<sql id="header">日期,渠道名,时长,启动次数,启动次数占比</sql>
-		<sql id="sql">select stat_date, chl_id, online_time, startup_cnt, startup_ratio from bdhbs.th_log_app_usr_online_time_orc_day where SQL_CONDITION cnt_type ='1' and online_time != '999' order by stat_date asc</sql>
-	</sqlGroup>
-	<sqlGroup name="app_useTime_os">
-		<sql id="name">手机os使用时长_渠道维度</sql>
-		<sql id="header">日期,手机os,时长,启动次数,启动次数占比</sql>
-		<sql id="sql">select stat_date, term_os, online_time, startup_cnt, startup_ratio from bdhbs.th_log_app_usr_online_time_orc_day where SQL_CONDITION cnt_type ='2' and online_time != '999' order by stat_date asc</sql>
-	</sqlGroup>
-
 	<!-- 使用时长按天汇总 -->
 	<sqlGroup name="app_useTime_day">
 		<sql id="name">app使用时长按天汇总</sql>

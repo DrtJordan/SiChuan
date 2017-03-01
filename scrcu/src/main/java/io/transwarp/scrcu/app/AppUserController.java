@@ -173,44 +173,41 @@ public class AppUserController extends BaseController {
     @RequiresPermissions("/app/userAnalysis/newUser")
     public void newUser() {
         if (BaseUtils.isAjax(getRequest())) {
-            // 得到查询条件
-            String condition = InceptorUtil.getDateCondition(getRequest());
+
             List<List<String>> dataTime = new ArrayList<>();
             List<List<String>> dataPhone = new ArrayList<>();
             List<List<String>> dataChannel = new ArrayList<>();
             // 定义json类型结果
             JSONObject result = new JSONObject();
-            String type = getPara("type");
-            if (type != null){
+            // 得到查询条件
+            String condition = InceptorUtil.getQueryCondition(getRequest());
+            String type = getPara("dateType");
+            if (type != null) {
                 if (type.equals("day")) {
-                    dataTime = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_day));
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_newUser_day, condition), false);
                     dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_phone_day));
                     dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_channel_day));
-//                    result.put("minMonth", InceptorUtil.query("select min(stat_month) as stat_month from bdapp.tp_log_app_usr_added_orc_day"));
+                }
+                if (type.equals("week")) {
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_newUser_week, condition), false);
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_phone_week));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_channel_week));
                 }
                 if (type.equals("month")) {
-                    dataTime = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_month));
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_newUser_month, condition), false);
                     dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_phone_month));
                     dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_channel_month));
-                    result.put("minMonth", InceptorUtil.query("select min(stat_month) as stat_month from bdapp.tp_log_app_usr_added_orc_day"));
                 }
                 if (type.equals("quarter")) {
-                    dataTime = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_quarter));
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_newUser_quarter, condition), false);
                     dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_phone_quarter));
                     dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_channel_quarter));
-                    result.put("minQuarter", InceptorUtil.query("select min(stat_quarter) as stat_month from bdapp.tp_log_app_usr_added_orc_day"));
                 }
-                if (type.equals("year")){
-                    dataTime = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_year));
+                if (type.equals("year")) {
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_newUser_year, condition), false);
                     dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_phone_year));
                     dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_channel_year));
-                    result.put("minYear", InceptorUtil.query("select min(stat_year) as stat_month from bdapp.tp_log_app_usr_added_orc_day"));
                 }
-            } else {
-                // 执行查询
-                dataTime = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser) + condition, 35);
-                dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_phone) + condition, 35);
-                dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_channel) + condition, 35);
             }
 
             //返回结果

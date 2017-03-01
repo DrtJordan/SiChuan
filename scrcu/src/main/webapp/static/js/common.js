@@ -100,7 +100,7 @@ function tableQuery(option, callback) {
 		"order" : [ [ 1, 'asc' ] ],
 		"bAutoWidth" : false,
 		"bProcessing" : true,
-		"sDom" : "<'row'<'col-sm-6'l><'col-sm-6'f>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
+		"sDom" : "<'row'<'col-sm-6'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
 		"sPaginationType" : "full_numbers",
 		"type" : 'post',
 		"dataType" : "json",

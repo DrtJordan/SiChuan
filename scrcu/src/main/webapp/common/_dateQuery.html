@@ -3,7 +3,7 @@
         <div class="form-group">
             <div class="col-sm-4">
                 <div class="btn-group" id="dayChange">
-                    <button type="button" id="dayButton" class="btn btn-default" value="day">天</button>
+                    <button type="button" id="dayButton" class="btn btn-default active" value="day">天</button>
                     <button type="button" id="weekButton" class="btn btn-default" value="week">周</button>
                     <button type="button" id="monthButton" class="btn btn-default" value="month">月</button>
                     <button type="button" id="quarterButton" class="btn btn-default" value="quarter">季</button>
@@ -173,12 +173,12 @@
 <script>
     $(document).ready(function () {
         //设置日期查询的默认值
-        if ($("#start_dt").val() == "") {
-            $("#start_dt").val(getDateStr(-30));
-        }
-        if ($("#end_dt").val() == "") {
-            $("#end_dt").val(getDateStr(0));
-        }
+//        if ($("#start_dt").val() == "") {
+//            $("#start_dt").val(getDateStr(-30));
+//        }
+//        if ($("#end_dt").val() == "") {
+//            $("#end_dt").val(getDateStr(0));
+//        }
         //根据时间查找数据
         query();
         //导出按钮导出数据

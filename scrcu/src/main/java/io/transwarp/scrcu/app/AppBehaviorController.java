@@ -70,15 +70,6 @@ public class AppBehaviorController extends Controller {
                     dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_channel_year, condition));
                     dataOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_os_year, condition));
                 }
-            } else {
-                // 执行查询
-                dataTime = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime, condition), 35);
-                dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_phone, condition),
-                        35);
-                dataChannel = InceptorUtil
-                        .query(SqlKit.propSQL(SQLConfig.app_useTime_channel, condition), 35);
-                dataOs = InceptorUtil
-                        .query(SqlKit.propSQL(SQLConfig.app_useTime_os, condition), 35);
             }
             // 返回结果
             List<Object> xAxisList = new ArrayList<>();
