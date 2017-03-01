@@ -179,32 +179,32 @@
 				</div>
 			</div>
 		</div>
-		<div class="panel panel-default table-responsive clear">
-			<header class=" panel-heading text-right bg-light clear" style="background-color: #fff !important">
-				<ul class="nav nav-tabs pull-left clear">
-					<li class="active "><a href="#this"><i class="icon-users text-primary"></i>&nbsp;<span
-							class="text-primary"
-						>人际关系</span></a></li>
-				</ul>
-			</header>
-			<div class="panel-body clearfix">
-				<div class="col-md-6">
-					<div id="relationdiv" style="
-					height: 300px"></div>
-				</div>
-				<div class="col-md-6">
-					<ul class="list-group no-radius" id=relationgroup>
-						<li class="list-group-item"><span id=hotName class="pull-right"></span> <span class="label bg-primary">1</span>
-							&nbsp;转账次数最多的人</li>
-						<li class="list-group-item"><span id=relationtime class="pull-right"></span> <span
-							class="label bg-info"
-						>2</span> &nbsp;最近一次转账时间</li>
-						<li class="list-group-item"><span id=relationname class="pull-right"></span> <span class="label bg-success">3</span>
-							&nbsp;最近一次转账对象</li>
-					</ul>
-				</div>
-			</div>
-		</div>
+		<!--<div class="panel panel-default table-responsive clear">-->
+			<!--<header class=" panel-heading text-right bg-light clear" style="background-color: #fff !important">-->
+				<!--<ul class="nav nav-tabs pull-left clear">-->
+					<!--<li class="active "><a href="#this"><i class="icon-users text-primary"></i>&nbsp;<span-->
+							<!--class="text-primary"-->
+						<!--&gt;人际关系</span></a></li>-->
+				<!--</ul>-->
+			<!--</header>-->
+			<!--<div class="panel-body clearfix">-->
+				<!--<div class="col-md-6">-->
+					<!--<div id="relationdiv" style="-->
+					<!--height: 300px"></div>-->
+				<!--</div>-->
+				<!--<div class="col-md-6">-->
+					<!--<ul class="list-group no-radius" id=relationgroup>-->
+						<!--<li class="list-group-item"><span id=hotName class="pull-right"></span> <span class="label bg-primary">1</span>-->
+							<!--&nbsp;转账次数最多的人</li>-->
+						<!--<li class="list-group-item"><span id=relationtime class="pull-right"></span> <span-->
+							<!--class="label bg-info"-->
+						<!--&gt;2</span> &nbsp;最近一次转账时间</li>-->
+						<!--<li class="list-group-item"><span id=relationname class="pull-right"></span> <span class="label bg-success">3</span>-->
+							<!--&nbsp;最近一次转账对象</li>-->
+					<!--</ul>-->
+				<!--</div>-->
+			<!--</div>-->
+		<!--</div>-->
 	</div>
 </section>
 </@layout>
@@ -230,15 +230,15 @@
 								var cunsumediv = echarts.init(document
 										.getElementById('cunsumediv'),
 										'macarons');
-								var charelat = echarts.init(document
-										.getElementById('relationdiv'),
-										'macarons');
+//								var charelat = echarts.init(document
+//										.getElementById('relationdiv'),
+//										'macarons');
 								var chartOption = data.chartOption;
 								var chartOptionbq = data.chartOptionbq;
-								var relationdiv = data.relationdiv;
+//								var relationdiv = data.relationdiv;
 
 								chart.setOption($.parseJSON(chartOption));
-								charelat.setOption($.parseJSON(relationdiv));
+//								charelat.setOption($.parseJSON(relationdiv));
 								radar1.setOption($.parseJSON(data.radar1));
 								cunsumediv.setOption($.parseJSON(data.moneyData));
 

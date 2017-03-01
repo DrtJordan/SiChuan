@@ -100,6 +100,7 @@
 
             if (value == "week") {
                 hidden();
+                weekValidation();
             }
 
             if (value == "month") {
@@ -124,6 +125,7 @@
 
             if (value == "quarter") {
                 hidden();
+                quarterValidation();
             }
 
             if (value == "year") {
@@ -167,6 +169,62 @@
         $("#start_dt_div2").addClass("hidden");
         $("#end_dt_div").show();
         $("#end_dt_div2").addClass("hidden");
+    }
+    /**
+     * 验证周的输入查询条件是否符合格式
+     */
+    function weekValidation() {
+        $("#dateQueryForm").validate( {
+            errorPlacement: function (error, element) {
+                error.appendTo(element.parent());
+            },
+            errorClass: "text-danger",
+            errorElement: "span",
+            rules:{
+                start_dt: {
+                    pattern: /^(\d{4})(-|\/)([0-4][1-9]|5[1-2])$/
+                },
+                end_dt: {
+                    pattern: /^(\d{4})(-|\/)([0-4][1-9]|5[1-2])$/
+                }
+            },
+            messages:{
+                start_dt: {
+                    pattern: "格式错误"
+                },
+                end_dt: {
+                    pattern: "格式错误"
+                }
+            }
+        })
+    }
+    /**
+     * 验证季的输入查询条件是否符合格式
+     */
+    function quarterValidation() {
+        $("#dateQueryForm").validate( {
+            errorPlacement: function (error, element) {
+                error.appendTo(element.parent());
+            },
+            errorClass: "text-danger",
+            errorElement: "span",
+            rules:{
+                start_dt: {
+                    pattern: /^(\d{4})(-|\/)(0[1-4])$/
+                },
+                end_dt: {
+                    pattern: /^(\d{4})(-|\/)(0[1-4])$/
+                }
+            },
+            messages:{
+                start_dt: {
+                    pattern: "格式错误"
+                },
+                end_dt: {
+                    pattern: "格式错误"
+                }
+            }
+        })
     }
 </script>
 
