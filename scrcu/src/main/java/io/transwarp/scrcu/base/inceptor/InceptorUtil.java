@@ -456,6 +456,9 @@ public class InceptorUtil {
             if (queryType.contains("使用间隔")) {
                 stringBuffer.append("use_interval ='" + queryType.split(":")[1] + "' and ");
             }
+            if (queryType.contains("访问页面")) {
+                stringBuffer.append("pv_cnt ='" + queryType.split(":")[1] + "' and ");
+            }
         }
         return stringBuffer.toString();
     }
