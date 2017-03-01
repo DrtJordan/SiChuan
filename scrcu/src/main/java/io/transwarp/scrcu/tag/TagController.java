@@ -1,9 +1,7 @@
 package io.transwarp.scrcu.tag;
 
-import com.alibaba.fastjson.JSONObject;
 import com.jfinal.core.Controller;
 import io.transwarp.scrcu.base.inceptor.InceptorUtil;
-import io.transwarp.scrcu.base.util.BaseUtils;
 import io.transwarp.scrcu.base.util.SQLConfig;
 import io.transwarp.scrcu.sqlinxml.SqlKit;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
@@ -61,6 +59,7 @@ public class TagController extends Controller {
     }
 
     //可配置标签列表页----start
+    @RequiresPermissions("/tag")
     public void index() {
         List<String[][]> tradFeas = new ArrayList<>();
         List<String[][]> peoAttrs = new ArrayList<>();
@@ -82,11 +81,13 @@ public class TagController extends Controller {
     //可配置标签列表页----end
 
     //年龄----start
+    @RequiresPermissions("/tag/age")
     public void age() {
         List<Map<String, Object>> ages = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.age_label), false);
         setAttr("ages", ages);
     }
 
+    @RequiresPermissions("/tag/ageConfig")
     public void ageConfig() {
         rangToRangCommon(SQLConfig.age_label_config);
         redirect("/tag");
@@ -94,6 +95,7 @@ public class TagController extends Controller {
     //年龄----end
 
     //职业----start
+    @RequiresPermissions("/tag/career")
     public void career() {
         List<Map<String, Object>> jobs = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.job_label), false);
         List<String> contents = new ArrayList<>();
@@ -105,6 +107,7 @@ public class TagController extends Controller {
         setAttr("jobs", jobs);
     }
 
+    @RequiresPermissions("/tag/careerConfig")
     public void careerConfig() {
         checkCommon(SQLConfig.job_label_config);
         redirect("/tag");
@@ -112,11 +115,13 @@ public class TagController extends Controller {
     //职业----end
 
     //蜀信e注册年限----start
+    @RequiresPermissions("/tag/regYear")
     public void regYear() {
         List<Map<String, Object>> regYears = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.reg_year_label), false);
         setAttr("regYears", regYears);
     }
 
+    @RequiresPermissions("/tag/regYearConfig")
     public void regYearConfig() {
         rangToRangCommon(SQLConfig.reg_year_label_config);
         redirect("/tag");
@@ -124,11 +129,13 @@ public class TagController extends Controller {
     //蜀信e注册年限----end
 
     //资产负债----start
+    @RequiresPermissions("/tag/proDebt")
     public void proDebt() {
         List<Map<String, Object>> proDebts = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.pro_debt_label), false);
         setAttr("proDebts", proDebts);
     }
 
+    @RequiresPermissions("/tag/proDebtConfig")
     public void proDebtConfig() {
         rangToRangCommon(SQLConfig.pro_debt_label_config);
         redirect("/tag");
@@ -136,11 +143,13 @@ public class TagController extends Controller {
     //资产负债----end
 
     //持有产品服务----start
+    @RequiresPermissions("/tag/prodServer")
     public void prodServer() {
         List<Map<String, Object>> prodServers = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.prod_server_label), false);
         setAttr("prodServers", prodServers);
     }
 
+    @RequiresPermissions("/tag/prodServerConfig")
     public void prodServerConfig() {
         rangToRangCommon(SQLConfig.prod_server_label_config);
         redirect("/tag");
@@ -148,11 +157,13 @@ public class TagController extends Controller {
     //持有产品服务----end
 
     //客户参与活动----start
+    @RequiresPermissions("/tag/partActive")
     public void partActive() {
         List<Map<String, Object>> partActives = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.part_active_label), false);
         setAttr("partActives", partActives);
     }
 
+    @RequiresPermissions("/tag/partActiveConfig")
     public void partActiveConfig() {
         rangToRangCommon(SQLConfig.part_active_label_config);
         redirect("/tag");
@@ -160,6 +171,7 @@ public class TagController extends Controller {
     //客户参与活动----end
 
     //产品功能消费偏好----start
+    @RequiresPermissions("/tag/customHobby")
     public void customHobby() {
         List<Map<String, Object>> customHobbys = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.custom_hobby_label), false);
         String[] select = {"红包", "AA", "游戏爱好者", "彩票达人", "车票达人", "机票达人", "电信缴费", "电力缴费", "水费缴费", "燃气缴费", "签到达人", "收藏达人"};
@@ -171,6 +183,7 @@ public class TagController extends Controller {
         setAttr("customHobbys", customHobbys);
     }
 
+    @RequiresPermissions("/tag/customHobbyConfig")
     public void customHobbyConfig() {
         selectCommon(SQLConfig.custom_hobby_label_config);
         redirect("/tag");
@@ -178,11 +191,13 @@ public class TagController extends Controller {
     //产品功能消费偏好----end
 
     //月交易次数----start
+    @RequiresPermissions("/tag/tranNum")
     public void tranNum() {
         List<Map<String, Object>> tranNums = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.tran_num_label), false);
         setAttr("tranNums", tranNums);
     }
 
+    @RequiresPermissions("/tag/tranNumConfig")
     public void tranNumConfig() {
         rangToRangCommon(SQLConfig.tran_num_label_config);
         redirect("/tag");
@@ -190,11 +205,13 @@ public class TagController extends Controller {
     //月交易次数----end
 
     //月交易金额----start
+    @RequiresPermissions("/tag/tranMoney")
     public void tranMoney() {
         List<Map<String, Object>> tranMoneys = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.tran_money_label), false);
         setAttr("tranMoneys", tranMoneys);
     }
 
+    @RequiresPermissions("/tag/tranMoneyConfig")
     public void tranMoneyConfig() {
         rangToRangCommon(SQLConfig.tran_money_label_config);
         redirect("/tag");
@@ -202,11 +219,13 @@ public class TagController extends Controller {
     //月交易金额----end
 
     //时间偏好----start
+    @RequiresPermissions("/tag/timeHobby")
     public void timeHobby() {
         List<Map<String, Object>> timeHobbys = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.time_hobby_label), false);
         setAttr("timeHobbys", timeHobbys);
     }
 
+    @RequiresPermissions("/tag/timeHobbyConfig")
     public void timeHobbyConfig() {
         rangToRangCommon(SQLConfig.time_hobby_label_config);
         redirect("/tag");
@@ -214,6 +233,7 @@ public class TagController extends Controller {
     //时间偏好----end
 
     //安全认证方式----start
+    @RequiresPermissions("/tag/secAuth")
     public void secAuth() {
         List<Map<String, Object>> secAuths = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.sec_auth_label), false);
         List<String> contents = new ArrayList<>();
@@ -225,6 +245,7 @@ public class TagController extends Controller {
         setAttr("secAuths", secAuths);
     }
 
+    @RequiresPermissions("/tag/secAuthConfig")
     public void secAuthConfig() {
         checkCommon(SQLConfig.sec_auth_label_config);
         redirect("/tag");
@@ -232,6 +253,7 @@ public class TagController extends Controller {
     //安全认证方式----end
 
     //支付偏好----start
+    @RequiresPermissions("/tag/payHobby")
     public void payHobby() {
         List<Map<String, Object>> payHobbys = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.pay_hobby_label), false);
         String[] select = {"财付通", "京东支付", "银联在线支付", "支付宝快捷支付", "蜀信e转账支付"};
@@ -243,6 +265,7 @@ public class TagController extends Controller {
         setAttr("payHobbys", payHobbys);
     }
 
+    @RequiresPermissions("/tag/payHobbyConfig")
     public void payHobbyConfig() {
         selectCommon(SQLConfig.pay_hobby_label_config);
         redirect("/tag");
@@ -250,6 +273,7 @@ public class TagController extends Controller {
     //支付偏好----start
 
     //汇路时效----start
+    @RequiresPermissions("/tag/sendEff")
     public void sendEff() {
         List<Map<String, Object>> sendEffs = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.send_eff_label), false);
         String[] select = {"普通汇款", "快速汇款", "实时汇款"};
@@ -261,6 +285,7 @@ public class TagController extends Controller {
         setAttr("sendEffs", sendEffs);
     }
 
+    @RequiresPermissions("/tag/sendEffConfig")
     public void sendEffConfig() {
         selectCommon(SQLConfig.send_eff_label_config);
         redirect("/tag");
@@ -268,6 +293,7 @@ public class TagController extends Controller {
     //汇路时效----start
 
     //行内外转账----start
+    @RequiresPermissions("/tag/bankTran")
     public void bankTran() {
         List<Map<String, Object>> bankTrans = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.bank_tran_label), false);
         String[] select = {"行内转账", "跨行转账"};
@@ -279,6 +305,7 @@ public class TagController extends Controller {
         setAttr("bankTrans", bankTrans);
     }
 
+    @RequiresPermissions("/tag/bankTranConfig")
     public void bankTranConfig() {
         selectCommon(SQLConfig.bank_tran_label_config);
         redirect("/tag");
@@ -286,6 +313,7 @@ public class TagController extends Controller {
     //行内外转账----end
 
     //交易偏好----start
+    @RequiresPermissions("/tag/tranHobby")
     public void tranHobby() {
         List<Map<String, Object>> tranHobbys = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.tran_hobby_label), false);
         String[] select = {"存款", "取款", "转账", "消费", "贷款", "费用套餐", "理财", "支付"};
@@ -297,6 +325,7 @@ public class TagController extends Controller {
         setAttr("tranHobbys", tranHobbys);
     }
 
+    @RequiresPermissions("/tag/tranHobbyConfig")
     public void tranHobbyConfig() {
         selectCommon(SQLConfig.tran_hobby_label_config);
         redirect("/tag");
@@ -304,6 +333,7 @@ public class TagController extends Controller {
     //交易偏好----end
 
     //转账类型偏好----start
+    @RequiresPermissions("/tag/tranType")
     public void tranType() {
         List<Map<String, Object>> tranTypes = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.tran_type_label), false);
         String[] select = {"随E转", "好友转账", "普通转账", "电子回单", "转帐通讯录", "资金归集"};
@@ -315,6 +345,7 @@ public class TagController extends Controller {
         setAttr("tranTypes", tranTypes);
     }
 
+    @RequiresPermissions("/tag/tranTypeConfig")
     public void tranTypeConfig() {
         selectCommon(SQLConfig.tran_type_label_config);
         redirect("/tag");
@@ -322,6 +353,7 @@ public class TagController extends Controller {
     //转账类型偏好----end
 
     //存款产品偏好----start
+    @RequiresPermissions("/tag/prodHobby")
     public void prodHobby() {
         List<Map<String, Object>> prodHobbys = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.prod_hobby_label), false);
         String[] select = {"双整", "零整", "定活两便", "整零", "通知存款", "智能通知存款", "约期定期", "定活宝", "定存宝"};
@@ -333,6 +365,7 @@ public class TagController extends Controller {
         setAttr("prodHobbys", prodHobbys);
     }
 
+    @RequiresPermissions("/tag/prodHobbyConfig")
     public void prodHobbyConfig() {
         selectCommon(SQLConfig.prod_hobby_label_config);
         redirect("/tag");
@@ -340,11 +373,13 @@ public class TagController extends Controller {
     //存款产品偏好----end
 
     //用户群体类型----start
+    @RequiresPermissions("/tag/groupType")
     public void groupType() {
         List<Map<String, Object>> groupTypes = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.group_type_label), false);
         setAttr("groupTypes", groupTypes);
     }
 
+    @RequiresPermissions("/tag/useTime")
     public void groupTypeConfig() {
         rangToRangCommon(SQLConfig.group_type_label_config);
         redirect("/tag");
@@ -352,11 +387,13 @@ public class TagController extends Controller {
     //用户群体类型----end
 
     //社交关系----start
+    @RequiresPermissions("/tag/socRelation")
     public void socRelation() {
         List<Map<String, Object>> socRelations = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.soc_relation_label), false);
         setAttr("socRelations", socRelations);
     }
 
+    @RequiresPermissions("/tag/socRelationConfig")
     public void socRelationConfig() {
         rangToRangCommon(SQLConfig.soc_relation_label_config);
         redirect("/tag");
@@ -364,11 +401,13 @@ public class TagController extends Controller {
     //社交关系----end
 
     //网页搜索操作行为----start
+    @RequiresPermissions("/tag/searBehaviour")
     public void searBehaviour() {
         List<Map<String, Object>> searBehaviours = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.sear_behaviour_label), false);
         setAttr("searBehaviours", searBehaviours);
     }
 
+    @RequiresPermissions("/tag/searBehaviourConfig")
     public void searBehaviourConfig() {
         rangToRangCommon(SQLConfig.sear_behaviour_label_config);
         redirect("/tag");
@@ -376,11 +415,13 @@ public class TagController extends Controller {
     //网页搜索操作行为----end
 
     //网页投诉操作行为----start
+    @RequiresPermissions("/tag/compBehaviour")
     public void compBehaviour() {
         List<Map<String, Object>> compBehaviours = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.comp_behaviour_label), false);
         setAttr("compBehaviours", compBehaviours);
     }
 
+    @RequiresPermissions("/tag/compBehaviourConfig")
     public void compBehaviourConfig() {
         rangToRangCommon(SQLConfig.comp_behaviour_label_config);
         redirect("/tag");
@@ -388,11 +429,13 @@ public class TagController extends Controller {
     //网页投诉操作行为----end
 
     //网页留言操作行为----start
+    @RequiresPermissions("/tag/noteBehaviour")
     public void noteBehaviour() {
         List<Map<String, Object>> noteBehaviours = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.note_behaviour_label), false);
         setAttr("noteBehaviours", noteBehaviours);
     }
 
+    @RequiresPermissions("/tag/noteBehaviourConfig")
     public void noteBehaviourConfig() {
         rangToRangCommon(SQLConfig.note_behaviour_label_config);
         redirect("/tag");
@@ -400,11 +443,13 @@ public class TagController extends Controller {
     //网页留言操作行为----end
 
     //网页浏览操作行为----start
+    @RequiresPermissions("/tag/eventBehaviour")
     public void eventBehaviour() {
         List<Map<String, Object>> eventBehaviours = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.event_behaviour_label), false);
         setAttr("eventBehaviours", eventBehaviours);
     }
 
+    @RequiresPermissions("/tag/eventBehaviourConfig")
     public void eventBehaviourConfig() {
         rangToRangCommon(SQLConfig.event_behaviour_label_config);
         redirect("/tag");
@@ -426,6 +471,7 @@ public class TagController extends Controller {
     //使用时段----end
 
     //搜索引擎----start
+    @RequiresPermissions("/tag/searchEng")
     public void searchEng() {
         List<Map<String, Object>> searchEngs = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.search_eng_label), false);
         String[] select = {"百度", "360", "谷歌", "搜狗", "Bing"};
@@ -437,6 +483,7 @@ public class TagController extends Controller {
         setAttr("searchEngs", searchEngs);
     }
 
+    @RequiresPermissions("/tag/searchEngConfig")
     public void searchEngConfig() {
         selectCommon(SQLConfig.search_eng_label_config);
         redirect("/tag");
@@ -444,6 +491,7 @@ public class TagController extends Controller {
     //搜索引擎----end
 
     //终端----start
+    @RequiresPermissions("/tag/terminal")
     public void terminal() {
         List<Map<String, Object>> terminals = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.terminal_label), false);
         String[] select = {"PC", "平板电脑", "安卓手机", "苹果手机"};
@@ -455,6 +503,7 @@ public class TagController extends Controller {
         setAttr("terminals", terminals);
     }
 
+    @RequiresPermissions("/tag/terminalConfig")
     public void terminalConfig() {
         selectCommon(SQLConfig.terminal_label_config);
         redirect("/tag");
@@ -462,11 +511,13 @@ public class TagController extends Controller {
     //终端----end
 
     //活跃变化特征----start
+    @RequiresPermissions("/tag/chaFeature")
     public void chaFeature() {
         List<Map<String, Object>> chaFeatures = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.cha_feature_label), false);
         setAttr("chaFeatures", chaFeatures);
     }
 
+    @RequiresPermissions("/tag/chaFeatureConfig")
     public void chaFeatureConfig() {
         rangToRangCommon(SQLConfig.cha_feature_label_config);
         redirect("/tag");
@@ -474,6 +525,7 @@ public class TagController extends Controller {
     //活跃变化特征----end
 
     //活跃功能特征----start
+    @RequiresPermissions("/tag/funcFeature")
     public void funcFeature() {
         List<Map<String, Object>> funcFeatures = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.func_feature_label), false);
         String[] select = {"登录", "任务活跃", "业务活跃", "交易活跃", "社交活跃", "活动活跃评论", "产品信息分享", "收藏", "营销活动"};
@@ -485,6 +537,7 @@ public class TagController extends Controller {
         setAttr("funcFeatures", funcFeatures);
     }
 
+    @RequiresPermissions("/tag/funcFeatureConfig")
     public void funcFeatureConfig() {
         selectCommon(SQLConfig.func_feature_label_config);
         redirect("/tag");
@@ -492,6 +545,7 @@ public class TagController extends Controller {
     //活跃功能特征----end
 
     //网银搜索关键字----start----未完成
+    @RequiresPermissions("/tag/searchKey")
     public void searchKey() {
 
     }
