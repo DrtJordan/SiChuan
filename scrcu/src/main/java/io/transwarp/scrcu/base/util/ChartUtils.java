@@ -162,7 +162,7 @@ public class ChartUtils {
     /**
      * 生成使用时长的折线图
      */
-    public static String genUseTimeLineChart(String dateType, List<Object> xAxisList, Object[] nameList, List<Object>... dataList) {
+    public static String genAppMultiLineCharts(String dateType, List<Object> xAxisList, Object[] nameList, List<Object>... dataList) {
         EnhancedOption option = new EnhancedOption();
         option.tooltip().trigger(Trigger.axis);
         if (StringUtils.equals(dateType, "day")) {
