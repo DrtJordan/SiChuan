@@ -1,135 +1,246 @@
-<div class="col-sm-12" >
-	<form action="" id="dateQueryForm" method="post">
-		<div class="form-group">
-			<div class="col-sm-4">
-				<div class="btn-group" id="dayChange">
-					<button type="button" id="dayButton" class="btn btn-default">天</button>
-					<button type="button" id="weekButton" class="btn btn-default">周</button>
-					<button type="button" id="monthButton" class="btn btn-default">月</button>
-					<button type="button" id="quarterButton" class="btn btn-default">季</button>
-					<button type="button" id="yearButton" class="btn btn-default">年</button>
-				</div>
-			</div>
-			<div class="col-sm-3" id="start_dt_div">
-				<div class="input-group m-b date" data-date="yyyy-mm-dd">
-					<input class="input-sm form-control" id="start_dt" value="${start_dt!}" name="start_dt"
-						type="text" data-date-format="yyyy-mm-dd">
-					<i class="add-on input-group-addon icon-calendar"></i>
-				</div>
-			</div>
-			<label id="dateTo" class="col-sm-1 control-label" style="margin-top: 8px; margin-right: -50px; margin-left: -20px">至 </label>
-			<div class="col-sm-3" id="end_dt_div">
-				<div class="input-group m-b date" data-date="yyyy-mm-dd">
-					<input class="input-sm form-control" id="end_dt" value="${end_dt!}" name="end_dt" type="text"
-						data-date-format="yyyy-mm-dd"
-					>
-					<i class="add-on input-group-addon icon-calendar"></i>
-				</div>
-			</div>
-			<div class="col-sm-1">
-				<button type="button" class="btn btn-sm btn-primary" id="dateQuery" onclick="commonQuery()">查询</button>
-			</div>
-		</div>
-	</form>
+<div class="col-sm-12">
+    <form action="" id="dateQueryForm" method="post">
+        <div class="form-group">
+            <div class="col-sm-4">
+                <div class="btn-group" id="dayChange">
+                    <button type="button" id="dayButton" class="btn btn-default" value="day">天</button>
+                    <button type="button" id="weekButton" class="btn btn-default" value="week">周</button>
+                    <button type="button" id="monthButton" class="btn btn-default" value="month">月</button>
+                    <button type="button" id="quarterButton" class="btn btn-default" value="quarter">季</button>
+                    <button type="button" id="yearButton" class="btn btn-default" value="year">年</button>
+                </div>
+            </div>
+            <div class="col-sm-3" id="start_dt_div">
+                <div class="input-group m-b date" data-date="yyyy-mm-dd">
+                    <input class="input-sm form-control" id="start_dt" value="${start_dt!}" name="start_dt"
+                           type="text" data-date-format="yyyy-mm-dd">
+                    <i class="add-on input-group-addon icon-calendar"></i>
+                </div>
+            </div>
+
+            <div class="col-sm-3 hidden" style="width: auto" id="start_dt_div2">
+                <div class="input-group m-b">
+                    <input class="input-sm form-control" id="start_dt2" value="${start_dt!}" name="start_dt"
+                           type="text" placeholder="格式 'yyyy-xx'">
+                </div>
+            </div>
+
+            <label id="dateTo" class="col-sm-1 control-label"
+                   style="margin-top: 8px; margin-right: -50px; margin-left: -20px"> 至 </label>
+            <div class="col-sm-3" id="end_dt_div">
+                <div class="input-group m-b date" data-date="yyyy-mm-dd">
+                    <input class="input-sm form-control" id="end_dt" value="${end_dt!}" name="end_dt" type="text"
+                           data-date-format="yyyy-mm-dd"
+                    >
+                    <i class="add-on input-group-addon icon-calendar"></i>
+                </div>
+            </div>
+
+            <div class="col-sm-3 hidden" style="width: auto" id="end_dt_div2">
+                <div class="input-group m-b">
+                    <input class="input-sm form-control" id="end_dt2" value="${end_dt!}" name="end_dt"
+                           type="text" placeholder="格式 'yyyy-xx'">
+                </div>
+            </div>
+
+            <div class="col-sm-1">
+                <button type="button" class="btn btn-sm btn-primary" id="dateQuery" onclick="commonQuery()">查询</button>
+            </div>
+        </div>
+    </form>
 </div>
 <div class="clear">
-	<hr />
+    <hr/>
 </div>
 
 <script>
     /**
-	 * 设置日期插件的格式
+     * 设置按钮切换的样式
      */
-    $(document).ready(function () {
-        $('#start_dt_div .input-group.m-b.date').datepicker({
-			format:'yyyy-mm-dd',
-            autoclose: true,
-            todayHighlight: true
-        });
-        $('#end_dt_div .input-group.m-b.date').datepicker({
-			format:'yyyy-mm-dd',
-            autoclose: true,
-            todayHighlight: true
-        });
-    });
-</script>
+    $().ready(function () {
 
-<script>
-    /**
-	 * 设置按钮切换的样式
-     */
-	$().ready(function () {
+        //设置日期的默认选择样式
+        var startDatePicker = "#start_dt_div .input-group.m-b.date";
+        var endDatePicker = "#end_dt_div .input-group.m-b.date";
+        $(startDatePicker).datepicker({
+            todayHighlight: true,
+            format: 'yyyy-mm-dd',
+            autoclose: true,
+            endDate: new Date()
+        });
+        $(endDatePicker).datepicker({
+            todayHighlight: true,
+            format: 'yyyy-mm-dd',
+            autoclose: true
+        });
+
         //设置按钮的样式
-        $("#dayChange .btn").click(function() {
+        $("#dayChange .btn").click(function () {
             $("#dayChange .btn").removeClass("active");
             $(this).addClass("active");
+
+            var value = $(this).val();
+            $(startDatePicker).datepicker('destroy');
+            $(endDatePicker).datepicker('destroy');
+            //判断是否是按天查询，若不是则摧毁日期样式重构
+            if (value == "day") {
+                show();
+                $(startDatePicker).datepicker({
+                    todayHighlight: true,
+                    format: 'yyyy-mm-dd',
+                    autoclose: true,
+                    endDate: new Date()
+                });
+                $(endDatePicker).datepicker({
+                    todayHighlight: true,
+                    format: 'yyyy-mm-dd',
+                    autoclose: true
+                });
+            }
+
+            if (value == "week") {
+                hidden();
+            }
+
+            if (value == "month") {
+                show();
+                $(startDatePicker).datepicker({
+                    todayHighlight: true,
+                    format: 'yyyy-mm',
+                    autoclose: true,
+                    startView: "months",
+                    minViewMode: "months",
+                    maxViewMode: "centuries"
+                });
+                $(endDatePicker).datepicker({
+                    todayHighlight: true,
+                    format: 'yyyy-mm',
+                    autoclose: true,
+                    startView: "months",
+                    minViewMode: "months",
+                    maxViewMode: "centuries"
+                });
+            }
+
+            if (value == "quarter") {
+                hidden();
+            }
+
+            if (value == "year") {
+                show();
+                $(startDatePicker).datepicker({
+                    todayHighlight: true,
+                    format: 'yyyy',
+                    autoclose: true,
+                    startView: "years",
+                    minViewMode: "years",
+                    maxViewMode: "centuries"
+                });
+                $(endDatePicker).datepicker({
+                    todayHighlight: true,
+                    format: 'yyyy',
+                    autoclose: true,
+                    startView: "years",
+                    minViewMode: "years",
+                    maxViewMode: "centuries"
+                });
+            }
         });
     })
 </script>
 
 <script>
-	$(document).ready(function() {
-		//设置日期查询的默认值
-		if ($("#start_dt").val() == "") {
-			$("#start_dt").val(getDateStr(-30));
-		}
-		if ($("#end_dt").val() == "") {
-            $("#end_dt").val(getDateStr(0));
-		}
-		//根据时间查找数据
-		query();
-        //导出按钮导出数据
-        csvExport("","");
-	});
+    /**
+     * 定义隐藏方法用来隐藏日期选择输入框，并且显示周、季文本输入框
+     */
+    function hidden() {
+        $("#start_dt_div").hide();
+        $("#start_dt_div2").removeClass("hidden");
+        $("#end_dt_div").hide();
+        $("#end_dt_div2").removeClass("hidden");
+    }
+    /**
+     * 定义显示方法用来显示日期输入框，并且隐藏周、季文本输入框
+     */
+    function show() {
+        $("#start_dt_div").show();
+        $("#start_dt_div2").addClass("hidden");
+        $("#end_dt_div").show();
+        $("#end_dt_div2").addClass("hidden");
+    }
+</script>
 
-	//设置tab csv导出action
-	//设置csv导出action
-	function csvExport(queryVal, dateType) {
-	    //定义查询条件的起始日期和结束日期
+<script>
+    $(document).ready(function () {
+        //设置日期查询的默认值
+        if ($("#start_dt").val() == "") {
+            $("#start_dt").val(getDateStr(-30));
+        }
+        if ($("#end_dt").val() == "") {
+            $("#end_dt").val(getDateStr(0));
+        }
+        //根据时间查找数据
+        query();
+        //导出按钮导出数据
+        csvExport("", "");
+    });
+
+    //设置tab csv导出action
+    //设置csv导出action
+    function csvExport(queryVal, dateType) {
+        //定义查询条件的起始日期和结束日期
         var queryCondition = "?start_dt=" + $("#start_dt").val() + "&end_dt=" + $("#end_dt").val();
 
-		//设置表格中选择的查询条件
+        //设置表格中选择的查询条件
         if (queryVal != "") {
             queryCondition = queryCondition + "&queryVal=" + queryVal;
-		    console.log(queryCondition);
-		}
-		//设置查询的类型，是否按天，月，周，季，年汇总  --传""表示不进行汇总查询
+            console.log(queryCondition);
+        }
+        //设置查询的类型，是否按天，月，周，季，年汇总  --传""表示不进行汇总查询
         if (dateType != "") {
             queryCondition = queryCondition + "&dayType=" + dateType;
             console.log(queryCondition);
         }
-		//tab excel导出
-		$("header .nav-tabs .csvExportTab").click(
-				function() {
-					var action = $(this).attr("csvAction");
-					action = "/csv/" + action;
-					$("#csvExport").attr("href",
-							action + queryCondition);
-				});
-		var action = "/csv/"
-				+ $("header .nav-tabs .active.csvExportTab").attr("csvAction");
-		$("#csvExport").attr("href",
-				action + queryCondition);
-		//excel导出
-		$(".csvExport").each(
-				function() {
-					var action = $(this).attr("csvAction");
-					$(this).attr("href",
-							action + queryCondition);
-				});
-	}
+        //tab excel导出
+        $("header .nav-tabs .csvExportTab").click(
+            function () {
+                var action = $(this).attr("csvAction");
+                action = "/csv/" + action;
+                $("#csvExport").attr("href",
+                    action + queryCondition);
+            });
+        var action = "/csv/"
+            + $("header .nav-tabs .active.csvExportTab").attr("csvAction");
+        $("#csvExport").attr("href",
+            action + queryCondition);
+        //excel导出
+        $(".csvExport").each(
+            function () {
+                var action = $(this).attr("csvAction");
+                $(this).attr("href",
+                    action + queryCondition);
+            });
+    }
 </script>
 
 <script>
 
     function query() {
+
+        var dateType = $("#dayChange .btn.active").val();
         var start = $("#start_dt").val();
         var end = $("#end_dt").val();
+
+        if (dateType == "week" || dateType == "quarter") {
+            start = $("#start_dt2").val();
+            end = $("#end_dt2").val();
+        }
+
         var ajaxOption = {
-            url : window.location.href + "?start_dt=" + start + "&end_dt="
-            + end,
-            success : function(data) {
-                dataTableExchange(data,"");
+            url: window.location.href + "?start_dt=" + start + "&end_dt="
+            + end + "&dateType=" + dateType,
+            success: function (data) {
+                dataTableExchange(data, dateType);
             }
         };
         commonAjax(ajaxOption);
@@ -139,19 +250,19 @@
         $("#start_dt").val("");
         $("#end_dt").val("");
         var ajaxOption = {
-            url : window.location.href + "?dateType=day",
-            success : function(data) {
+            url: window.location.href + "?dateType=day",
+            success: function (data) {
                 dataTableExchange(data, "day");
             }
         };
         commonAjax(ajaxOption);
     });
     $("#weekButton").click(function () {
-        $("#start_dt").val("");
-        $("#end_dt").val("");
+        $("#start_dt2").val("");
+        $("#end_dt2").val("");
         var ajaxOption = {
-            url : window.location.href + "?dateType=week",
-            success : function(data) {
+            url: window.location.href + "?dateType=week",
+            success: function (data) {
                 dataTableExchange(data, "week");
             }
         };
@@ -161,30 +272,31 @@
         $("#start_dt").val("");
         $("#end_dt").val("");
         var ajaxOption = {
-            url : window.location.href + "?dateType=month",
-            success : function(data) {
+            url: window.location.href + "?dateType=month",
+            success: function (data) {
                 dataTableExchange(data, "month");
             }
         };
         commonAjax(ajaxOption);
     });
     $("#quarterButton").click(function () {
-        $("#start_dt").val("");
-        $("#end_dt").val("");
+        $("#start_dt2").val("");
+        $("#end_dt2").val("");
         var ajaxOption = {
-            url : window.location.href + "?dateType=quarter",
-            success : function(data) {
-                dataTableExchange(data,"quarter");
+            url: window.location.href + "?dateType=quarter",
+            success: function (data) {
+                dataTableExchange(data, "quarter");
             }
         };
         commonAjax(ajaxOption);
     });
     $("#yearButton").click(function () {
+
         $("#start_dt").val("");
         $("#end_dt").val("");
         var ajaxOption = {
-            url : window.location.href + "?dateType=year",
-            success : function(data) {
+            url: window.location.href + "?dateType=year",
+            success: function (data) {
                 dataTableExchange(data, "year");
             }
         };
