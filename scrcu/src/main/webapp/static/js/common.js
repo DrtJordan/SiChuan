@@ -218,5 +218,29 @@ function endBackdrop() {
 	backdrop.hide();
 }
 
+function conditionSearch(i, name, tableName, value, selectValues, column, selectValue){
+	var select = $('<div id="select' + i + '" class="col-sm-4"><div class="dataTables_filter"><label><i class="icon-calendar">' + name + '&nbsp;</i><select style="width: 100px"><option value="">-请选择-</option></select></label></div></div>')
+			.appendTo($(tableName))
+			.on('change', function () {
+				var val = $.fn.dataTable.util.escapeRegex(
+						$(value).val()
+				);
+				for (var n = 0; n < selectValues.length; n++) {
+					if (selectValues[n].includes(name)) {
+						selectValues.splice(n, 1);
+					}
+				}
+				selectValues.push(name + ':' + val);
+				column
+						.search(val ? '^' + val + '$' : '', true, false)
+						.draw();
+				csvExport(selectValues, dateType);
+
+			});
+	column.data().unique().sort().each(function (d, j) {
+		$(selectValue).append('<option value="' + d + '">' + d + '</option>')
+	});
+}
+
 $(document).ready(function() {
 });

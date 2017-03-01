@@ -149,27 +149,8 @@
                         var column = api.column(i);
                         var value = "#table2_wrapper div:first div#select" + i + " select";
                         var selectValue = "#table2_wrapper div#select" + i + " select";
-                        var select = $('<div id="select' + i + '" class="col-sm-4"><div class="dataTables_filter"><label><i class="icon-calendar">' + name + '&nbsp;</i><select style="width: 100px"><option value="">-请选择-</option></select></label></div></div>')
-                            .appendTo($("#table2_wrapper div:first"))
-                            .on('change', function () {
-                                var val = $.fn.dataTable.util.escapeRegex(
-                                    $(value).val()
-                                );
-                                for (var n = 0; n < selectValues.length; n++) {
-                                    if (selectValues[n].includes(name)) {
-                                        selectValues.splice(n, 1);
-                                    }
-                                }
-                                selectValues.push(name + ':' + val);
-                                column
-                                    .search(val ? '^' + val + '$' : '', true, false)
-                                    .draw();
-                                csvExport(selectValues, dateType);
-
-                            });
-                        column.data().unique().sort().each(function (d, j) {
-                            $(selectValue).append('<option value="' + d + '">' + d + '</option>')
-                        });
+                        var tableName = "#table2_wrapper div:first";
+                        conditionSearch(i, name, tableName, value, selectValues, column, selectValue);
                     }
                 });
             }
@@ -194,27 +175,8 @@
                         var column = api.column(i);
                         var value = "#table3_wrapper div:first div#select" + i + " select";
                         var selectValue = "#table3_wrapper div#select" + i + " select";
-
-                        var select = $('<div id="select' + i + '" class="col-sm-4"><div class="dataTables_filter"><label><i class="icon-calendar">' + name + '&nbsp;</i><select style="width: 100px"><option value="">-请选择-</option></select></label></div></div>')
-                            .appendTo($("#table3_wrapper div:first"))
-                            .on('change', function () {
-                                var val = $.fn.dataTable.util.escapeRegex(
-                                    $(value).val()
-                                );
-                                column
-                                    .search(val ? '^' + val + '$' : '', true, false)
-                                    .draw();
-                                for (var n = 0; n < selectValues.length; n++) {
-                                    if (selectValues[n].includes(name)) {
-                                        selectValues.splice(n, 1);
-                                    }
-                                }
-                                selectValues.push(name + ':' + val);
-                                csvExport(selectValues, dateType);
-                            });
-                        column.data().unique().sort().each(function (d, j) {
-                            $(selectValue).append('<option value="' + d + '">' + d + '</option>')
-                        });
+                        var tableName = "#table3_wrapper div:first";
+                        conditionSearch(i, name, tableName, value, selectValues, column, selectValue);
                     }
                 });
             }
@@ -240,27 +202,8 @@
                         var column = api.column(i);
                         var value = "#table4_wrapper div:first div#select" + i + " select";
                         var selectValue = "#table4_wrapper div#select" + i + " select";
-
-                        var select = $('<div id="select' + i + '" class="col-sm-4"><div class="dataTables_filter"><label><i class="icon-calendar">' + name + '&nbsp;</i><select style="width: 100px"><option value="">-请选择-</option></select></label></div></div>')
-                            .appendTo($("#table4_wrapper div:first"))
-                            .on('change', function () {
-                                var val = $.fn.dataTable.util.escapeRegex(
-                                    $(value).val()
-                                );
-                                column
-                                    .search(val ? '^' + val + '$' : '', true, false)
-                                    .draw();
-                                for (var n = 0; n < selectValues.length; n++) {
-                                    if (selectValues[n].includes(name)) {
-                                        selectValues.splice(n, 1);
-                                    }
-                                }
-                                selectValues.push(name + ':' + val);
-                                csvExport(selectValues, dateType);
-                            });
-                        column.data().unique().sort().each(function (d, j) {
-                            $(selectValue).append('<option value="' + d + '">' + d + '</option>')
-                        });
+                        var tableName = "#table4_wrapper div:first";
+                        conditionSearch(i, name, tableName, value, selectValues, column, selectValue);
                     }
                 });
             }
