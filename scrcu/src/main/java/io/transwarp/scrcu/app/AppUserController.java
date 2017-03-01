@@ -186,27 +186,22 @@ public class AppUserController extends BaseController {
                 if (type.equals("day")) {
                     dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_newUser_day, condition), false);
                     dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_phone_day));
-                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_channel_day));
                 }
                 if (type.equals("week")) {
                     dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_newUser_week, condition), false);
                     dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_phone_week));
-                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_channel_week));
                 }
                 if (type.equals("month")) {
                     dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_newUser_month, condition), false);
                     dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_phone_month));
-                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_channel_month));
                 }
                 if (type.equals("quarter")) {
                     dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_newUser_quarter, condition), false);
                     dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_phone_quarter));
-                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_channel_quarter));
                 }
                 if (type.equals("year")) {
                     dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_newUser_year, condition), false);
                     dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_phone_year));
-                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_channel_year));
                 }
             }
 

@@ -149,23 +149,18 @@ public enum SQLConfig {
      */
     //新增用户按天汇总
     app_newUser_day,
-    app_newUser_channel_day,
     app_newUser_phone_day,
     //新增用户按周汇总
     app_newUser_week,
-    app_newUser_channel_week,
     app_newUser_phone_week,
     //新增用户按月汇总
     app_newUser_month,
-    app_newUser_channel_month,
     app_newUser_phone_month,
     //新增用户按季汇总
     app_newUser_quarter,
-    app_newUser_channel_quarter,
     app_newUser_phone_quarter,
     //新增用户按年汇总
     app_newUser_year,
-    app_newUser_channel_year,
     app_newUser_phone_year,
 
     //使用时长按天汇总

@@ -49,7 +49,6 @@
                         <tr>
                             <th>日期</th>
                             <th>手机OS</th>
-                            <th>APP版本号</th>
                             <th>新增用户数量</th>
                             <th>占比</th>
                         </tr>
@@ -96,7 +95,7 @@
             "id": "#table1",
             "sDom": "<'row'<'col-sm-6'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
             "aoColumnDefs": [{
-                "targets": [0, 2, 3],
+                "targets": [2, 3],
                 "searchable": false
             }]
         });
@@ -104,7 +103,7 @@
             "aaData": data.dataPhone,
             "id": "#table2",
             "aoColumnDefs": [{
-                "targets": [0, 3, 4, 5],
+                "targets": [3, 4],
                 "searchable": false
             }],
             "sDom": "<'row'<'col-sm-6'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
@@ -133,7 +132,7 @@
             "aaData": data.dataChannel,
             "id": "#table3",
             "aoColumnDefs": [{
-                "targets": [0, 3, 4],
+                "targets": [3, 4],
                 "searchable": false
             }],
             "sDom": "<'row'<'col-sm-6'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",

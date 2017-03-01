@@ -20,13 +20,13 @@
                 </li>
                 <li class="csvExportTab" csvAction="app_interval_phone"><a
                         href="#phone" data-toggle="tab"><i
-                        class="icon-screen-smartphone"></i>&nbsp;按手机使用间隔分布</a></li>
+                        class="icon-screen-smartphone"></i>&nbsp;按版本使用间隔分布</a></li>
                 <li class="csvExportTab" csvAction="app_interval_channel"><a
                         href="#channel" data-toggle="tab"><i
                         class="icon-equalizer text-muted"></i>&nbsp;按渠道使用间隔分布</a></li>
                 <li class="csvExportTab" csvAction="app_interval_os"><a
                         href="#os" data-toggle="tab"><i
-                        class="icon-screen-smartphone"></i>&nbsp;按手机os间隔分布</a></li>
+                        class="icon-screen-smartphone"></i>&nbsp;按os间隔分布</a></li>
             </ul>
             <span class="hidden-sm"><a href="/csv/app_interval"
                                        id="csvExport" class="btn btn-dark btn-sm" style="display: inline"><i
@@ -112,6 +112,7 @@
                 "targets": [3, 4], // 目标列位置，下标从0开始
                 "searchable": false
             }],
+            "sDom": "<'row'<'col-sm-8'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
             initComplete: function () {
                 var api = this.api();
                 var selectValues = new Array();
