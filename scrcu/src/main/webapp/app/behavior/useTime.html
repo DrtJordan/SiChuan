@@ -111,7 +111,7 @@
             initComplete: function () {
                 var api = this.api();
                 var column = api.column(2);
-                var select = $('<div id="select" class="col-sm-6"><div class="dataTables_filter"><label><i class="icon-calendar">时长&nbsp;</i><select name="optValue" style="width: 120px"><option value="">--请选择--</option></select></label></div></div>')
+                var select = $('<div id="select" class="col-sm-6"><div class="dataTables_filter"><label><i class="fa fa-search">&nbsp;时长&nbsp;</i><select name="optValue" style="width: 120px"><option value="">--请选择--</option></select></label></div></div>')
                     .appendTo($("#table1_wrapper div:first"))
                     .on('change', function () {
                         var selectValues = new Array();
@@ -147,10 +147,7 @@
                             name = "版本";
                         }
                         var column = api.column(i);
-                        var value = "#table2_wrapper div:first div#select" + i + " select";
-                        var selectValue = "#table2_wrapper div#select" + i + " select";
-                        var tableName = "#table2_wrapper div:first";
-                        conditionSearch(i, name, tableName, value, selectValues, column, selectValue);
+                        conditionSearch(i, name, 2, selectValues, column, dateType);
                     }
                 });
             }
@@ -173,10 +170,7 @@
                             name = "渠道";
                         }
                         var column = api.column(i);
-                        var value = "#table3_wrapper div:first div#select" + i + " select";
-                        var selectValue = "#table3_wrapper div#select" + i + " select";
-                        var tableName = "#table3_wrapper div:first";
-                        conditionSearch(i, name, tableName, value, selectValues, column, selectValue);
+                        conditionSearch(i, name, 3, selectValues, column, dateType);
                     }
                 });
             }
@@ -197,13 +191,10 @@
                     var name = "时长";
                     if (i == 2 || i == 3) {
                         if (i == 2) {
-                            name = "os";
+                            name = "OS";
                         }
                         var column = api.column(i);
-                        var value = "#table4_wrapper div:first div#select" + i + " select";
-                        var selectValue = "#table4_wrapper div#select" + i + " select";
-                        var tableName = "#table4_wrapper div:first";
-                        conditionSearch(i, name, tableName, value, selectValues, column, selectValue);
+                        conditionSearch(i, name, 4, selectValues, column, dateType);
                     }
                 });
             }

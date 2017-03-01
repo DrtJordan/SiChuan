@@ -218,8 +218,11 @@ function endBackdrop() {
 	backdrop.hide();
 }
 
-function conditionSearch(i, name, tableName, value, selectValues, column, selectValue){
-	var select = $('<div id="select' + i + '" class="col-sm-4"><div class="dataTables_filter"><label><i class="icon-calendar">' + name + '&nbsp;</i><select style="width: 100px"><option value="">-请选择-</option></select></label></div></div>')
+function conditionSearch(i, name, num, selectValues, column, dateType){
+	var value = "#table" + num + "_wrapper div:first div#select" + i + " select";
+	var selectValue = "#table" + num + "_wrapper div#select" + i + " select";
+	var tableName = "#table" + num + "_wrapper div:first";
+	var select = $('<div id="select' + i + '" class="col-sm-4"><div class="dataTables_filter"><label><i class="fa fa-search">&nbsp;' + name + '&nbsp;</i><select style="width: 100px"><option value="">-请选择-</option></select></label></div></div>')
 			.appendTo($(tableName))
 			.on('change', function () {
 				var val = $.fn.dataTable.util.escapeRegex(
