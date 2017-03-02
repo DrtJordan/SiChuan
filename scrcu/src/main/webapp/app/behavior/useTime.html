@@ -26,7 +26,7 @@
                         class="icon-equalizer text-muted"></i>&nbsp;按渠道时长分布</a></li>
                 <li class="csvExportTab" csvAction="app_useTime_os"><a
                         href="#os" data-toggle="tab"><i
-                        class="icon-screen-smartphone"></i>&nbsp;按手机OS时长分布</a></li>
+                        class="icon-screen-smartphone"></i>&nbsp;按手机os时长分布</a></li>
             </ul>
             <span class="hidden-sm"><a href="/csv/app_useTime"
                                        id="csvExport" class="btn btn-dark btn-sm" style="display: inline"><i
@@ -107,25 +107,15 @@
                 "targets": [3, 4], // 目标列位置，下标从0开始
                 "searchable": false
             }],
-            "sDom": "<'row'<'col-sm-6'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
+            "sDom": "<'row'<'col-sm-8'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
             initComplete: function () {
                 var api = this.api();
-                var column = api.column(2);
-                var select = $('<div id="select" class="col-sm-6"><div class="dataTables_filter"><label><i class="fa fa-search">&nbsp;时长&nbsp;</i><select name="optValue" style="width: 120px"><option value="">--请选择--</option></select></label></div></div>')
-                    .appendTo($("#table1_wrapper div:first"))
-                    .on('change', function () {
-                        var selectValues = new Array();
-                        var val = $.fn.dataTable.util.escapeRegex(
-                            $("#table1_wrapper div:first div#select select").val()
-                        );
-                        column
-                            .search(val ? '^' + val + '$' : '', true, false)
-                            .draw();
-                        selectValues.push("时长:" + val);
-                        csvExport(selectValues, dateType);
-                    });
-                column.data().unique().sort().each(function (d, j) {
-                    $(" #table1_wrapper div#select select").append('<option value="' + d + '">' + d + '</option>')
+                var selectValues = new Array();
+                api.columns().indexes().flatten().each(function (i) {
+                    if (i == 2) {
+                        var column = api.column(i);
+                        conditionSearch(i, "时长", 1, selectValues, column, dateType);
+                    }
                 });
             }
         });
@@ -191,7 +181,7 @@
                     var name = "时长";
                     if (i == 2 || i == 3) {
                         if (i == 2) {
-                            name = "OS";
+                            name = "os";
                         }
                         var column = api.column(i);
                         conditionSearch(i, name, 4, selectValues, column, dateType);

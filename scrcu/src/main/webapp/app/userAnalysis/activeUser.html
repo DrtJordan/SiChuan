@@ -37,8 +37,6 @@
 							<tr>
 								<th>日期</th>
 								<th>启动用户数</th>
-								<th>过去7天启动用户数</th>
-								<th>过去30天启动用户数</th>
 							</tr>
 						</thead>
 					</table>
@@ -49,10 +47,7 @@
 							<tr>
 								<th>日期</th>
 								<th>手机OS</th>
-								<th>APP版本号</th>
 								<th>启动用户数</th>
-								<th>过去7天启动用户数</th>
-								<th>过去30天启动用户数</th>
 							</tr>
 						</thead>
 					</table>
@@ -64,8 +59,6 @@
 								<th>日期</th>
 								<th>渠道名</th>
 								<th>启动用户数</th>
-								<th>过去7天启动用户数</th>
-								<th>过去30天启动用户数</th>
 							</tr>
 						</thead>
 					</table>
@@ -82,22 +75,23 @@
 </@layout>
 
 <script>
-	function dataTableExchange(data, type) {
-
-	    if(type == "month") {
-	        $("#start_dt").val("");
-	        $("#end_dt").val("");
-		}
+    /**
+     * 定义数据查询方法，用来转换后台传输数据
+     * @param data 数据
+     * @param dateType 日期类型
+     */
+	function dataTableExchange(data, dateType) {
 
         var chart = echarts.init(document.getElementById('chartDiv'),
             'infographic');
         var chartOption = data.chartOption;
         chart.setOption($.parseJSON(chartOption));
+
         tableQuery({
             "aaData" : data.dataTime,
             "id" : "#table1",
             "aoColumnDefs": [{
-                "targets": [0,2,3,4],
+                "targets": [2],
                 "searchable": false
             }]
         });
@@ -105,25 +99,18 @@
             "aaData" : data.dataPhone,
             "id" : "#table2",
             "aoColumnDefs": [{
-                "targets": [0,3,4,5,6],
+                "targets": [3,4],
                 "searchable": false
             }],
-            "sDom" : "<'row'<'col-sm-3'l><'col-sm-5'f>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
-            initComplete:function(){
+            "sDom": "<'row'<'col-sm-8'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
+            initComplete: function () {
                 var api = this.api();
-                var column = api.column(2);
-                var select = $('<div id="select" class="col-sm-4"><div class="dataTables_filter"><label><i class="icon-screen-smartphone">手机OS&nbsp;</i><select style="width: 120px"><option value="">--请选择--</option></select></label></div></div>')
-                    .appendTo( $("#table2_wrapper div:first"))
-                    .on( 'change', function () {
-                        var val = $.fn.dataTable.util.escapeRegex(
-                            $(" #table2_wrapper div:first div#select select").val()
-                        );
-                        column
-                            .search( val ? '^'+val+'$' : '', true, false )
-                            .draw();
-                    });
-                column.data().unique().sort().each( function ( d, j ) {
-                    $(" #table2_wrapper div#select select").append( '<option value="'+d+'">'+d+'</option>' )
+                var selectValues = new Array();
+                api.columns().indexes().flatten().each(function (i) {
+                    if (i == 2) {
+                        var column = api.column(i);
+                        conditionSearch(i, "os", 2, selectValues, column, dateType);
+                    }
                 });
             }
         });
@@ -131,25 +118,18 @@
             "aaData" : data.dataChannel,
             "id" : "#table3",
             "aoColumnDefs": [{
-                "targets": [0,3,4,5],
+                "targets": [3,4],
                 "searchable": false
             }],
-            "sDom" : "<'row'<'col-sm-3'l><'col-sm-5'f>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
-            initComplete:function(){
+            "sDom": "<'row'<'col-sm-8'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
+            initComplete: function () {
                 var api = this.api();
-                var column = api.column(2);
-                var select = $('<div id="select" class="col-sm-4"><div class="dataTables_filter"><label><i class="icon-screen-smartphone">渠道名&nbsp;</i><select style="width: 120px"><option value="">--请选择--</option></select></label></div></div>')
-                    .appendTo( $("#table3_wrapper div:first"))
-                    .on( 'change', function () {
-                        var val = $.fn.dataTable.util.escapeRegex(
-                            $(" #table3_wrapper div:first div#select select").val()
-                        );
-                        column
-                            .search( val ? '^'+val+'$' : '', true, false )
-                            .draw();
-                    } );
-                column.data().unique().sort().each( function ( d, j ) {
-                    $("#table3_wrapper div#select select").append( '<option value="'+d+'">'+d+'</option>' )
+                var selectValues = new Array();
+                api.columns().indexes().flatten().each(function (i) {
+                    if (i == 2) {
+                        var column = api.column(i);
+                        conditionSearch(i, "渠道", 3, selectValues, column, dateType);
+                    }
                 });
             }
         });

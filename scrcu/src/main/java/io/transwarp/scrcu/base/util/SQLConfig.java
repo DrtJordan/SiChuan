@@ -79,38 +79,6 @@ public enum SQLConfig {
     // 移动 手机登录分布
     app_loginUser_phone,
     // 移动 新增用户分析
-    app_newUser,
-    // 移动 渠道新增用户分析
-    app_newUser_channel,
-    // 移动 手机新增用户分析
-    app_newUser_phone,
-    // APP 用户统计 用户等级
-    app_userAnalysis_userLevel,
-    // 移动 使用时长
-    app_useTime,
-    // 移动 使用版本时长
-    app_useTime_phone,
-    // 移动 使用渠道时长
-    app_useTime_channel,
-    // 移动 手机os时长
-    app_useTime_os,
-    // 移动 使用频率时长
-    app_useRate,
-    // 移动 手机使用频率时长
-    app_useRate_phone,
-    // 移动 渠道使用频率时长
-    app_useRate_channel,
-    // 移动 手机OS使用频率时长
-    app_useRate_os,
-
-    // 移动 访问间隔分布
-    app_interval,
-    // 移动 按手机使用间隔分布
-    app_interval_phone,
-    // 移动 按渠道使用间隔分布
-    app_interval_channel,
-    // 移动 按手机os使用间隔分布
-    app_interval_os,
 
     // 移动地域
     app_area_query,
@@ -162,6 +130,41 @@ public enum SQLConfig {
     //新增用户按年汇总
     app_newUser_year,
     app_newUser_phone_year,
+
+    //活跃用户按天汇总
+    app_activeUser_day,
+    //活跃用户 手机纬度
+    app_activeUser_phone_day,
+    //活跃用户 渠道纬度
+    app_activeUser_channel_day,
+
+    //活跃用户按周汇总
+    app_activeUser_week,
+    //活跃用户 手机纬度
+    app_activeUser_phone_week,
+    //活跃用户 渠道纬度
+    app_activeUser_channel_week,
+
+    //活跃用户按月汇总
+    app_activeUser_month,
+    //活跃用户 手机纬度
+    app_activeUser_phone_month,
+    //活跃用户 渠道纬度
+    app_activeUser_channel_month,
+
+    //活跃用户按季汇总
+    app_activeUser_quarter,
+    //活跃用户 手机纬度
+    app_activeUser_phone_quarter,
+    //活跃用户 渠道纬度
+    app_activeUser_channel_quarter,
+
+    //活跃用户按季汇总
+    app_activeUser_year,
+    //活跃用户 手机纬度
+    app_activeUser_phone_year,
+    //活跃用户 渠道纬度
+    app_activeUser_channel_year,
 
     //使用时长按天汇总
     app_useTime_day,

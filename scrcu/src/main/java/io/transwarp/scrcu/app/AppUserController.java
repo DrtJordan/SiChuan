@@ -29,16 +29,42 @@ public class AppUserController extends BaseController {
     public void activeUser() {
 
         if (BaseUtils.isAjax(getRequest())) {
-            // 得到查询条件
-            String condition = InceptorUtil.getDateCondition(getRequest());
-            // 执行查询
-            List<List<String>> dataTime = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_activeUser) + condition, 7);
-            List<List<String>> dataPhone = InceptorUtil
-                    .query(SqlKit.propSQL(SQLConfig.app_activeUser_phone) + condition, 35);
-            List<List<String>> dataChannel = InceptorUtil
-                    .query(SqlKit.propSQL(SQLConfig.app_activeUser_channel) + condition, 35);
+
+            List<List<String>> dataTime = new ArrayList<>();
+            List<List<String>> dataPhone = new ArrayList<>();
+            List<List<String>> dataChannel = new ArrayList<>();
             // 定义json类型结果
             JSONObject result = new JSONObject();
+            // 得到查询条件
+            String condition = InceptorUtil.getQueryCondition(getRequest());
+            String type = getPara("dateType");
+            if (type != null) {
+                if (type.equals("day")) {
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_activeUser_day, condition), false);
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_activeUser_phone_day, condition));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_activeUser_channel_day, condition));
+                }
+                if (type.equals("week")) {
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_activeUser_week, condition), false);
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_activeUser_phone_week, condition));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_activeUser_channel_week, condition));
+                }
+                if (type.equals("month")) {
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_activeUser_month, condition), false);
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_activeUser_phone_month, condition));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_activeUser_channel_month, condition));
+                }
+                if (type.equals("quarter")) {
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_activeUser_quarter, condition), false);
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_activeUser_phone_quarter, condition));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_activeUser_channel_quarter, condition));
+                }
+                if (type.equals("year")) {
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_activeUser_year, condition), false);
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_activeUser_phone_year, condition));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_activeUser_channel_year, condition));
+                }
+            }
             // 返回结果
             List<Object> xAxisList = new ArrayList<Object>();
             List<Object> dataList = new ArrayList<Object>();
@@ -46,10 +72,9 @@ public class AppUserController extends BaseController {
                 xAxisList.add(list.get(0));
                 dataList.add(Integer.valueOf(list.get(1)));
             }
-//            Object[] nameList = new Object[]{res.get("app.startUser"), "7日启动用户数", "30日启动用户数"};
-//            String str = ChartUtils.genMultiLineChart(xAxisList, nameList, dataList, data7List, data30List);
-            String str = ChartUtils.genLineChart(res.get("app.startUser"), xAxisList, dataList);
-            result.put("chartOption", str);
+            Object[] nameList = new Object[]{res.get("app.startUser")};
+            String activeUserChart = ChartUtils.genAppMultiLineCharts(type, xAxisList, nameList, dataList);
+            result.put("chartOption", activeUserChart);
             result.put("dataTime", dataTime);
             result.put("dataPhone", dataPhone);
             result.put("dataChannel", dataChannel);
@@ -185,11 +210,11 @@ public class AppUserController extends BaseController {
             if (type != null) {
                 if (type.equals("day")) {
                     dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_newUser_day, condition), false);
-                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_phone_day));
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_phone_day, condition));
                 }
                 if (type.equals("week")) {
                     dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_newUser_week, condition), false);
-                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_phone_week));
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_phone_week, condition));
                 }
                 if (type.equals("month")) {
                     dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_newUser_month, condition), false);
@@ -197,11 +222,11 @@ public class AppUserController extends BaseController {
                 }
                 if (type.equals("quarter")) {
                     dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_newUser_quarter, condition), false);
-                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_phone_quarter));
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_phone_quarter, condition));
                 }
                 if (type.equals("year")) {
                     dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_newUser_year, condition), false);
-                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_phone_year));
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_newUser_phone_year, condition));
                 }
             }
 

@@ -111,24 +111,15 @@
                 "targets": [3, 4], // 目标列位置，下标从0开始
                 "searchable": false
             }],
+            "sDom": "<'row'<'col-sm-8'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
             initComplete: function () {
                 var api = this.api();
-                var column = api.column(2);
-                var select = $('<div id="select" class="col-sm-6"><div class="dataTables_filter"><label><i class="fa fa-search">&nbsp;启动次数&nbsp;</i><select name="optValue" style="width: 120px"><option value="">--请选择--</option></select></label></div></div>')
-                    .appendTo($("#table1_wrapper div:first"))
-                    .on('change', function () {
-                        var selectValues = new Array();
-                        var val = $.fn.dataTable.util.escapeRegex(
-                            $("#table1_wrapper div:first div#select select").val()
-                        );
-                        column
-                            .search(val ? '^' + val + '$' : '', true, false)
-                            .draw();
-                        selectValues.push("启动次数:" + val);
-                        csvExport(selectValues, dateType);
-                    });
-                column.data().unique().sort().each(function (d, j) {
-                    $(" #table1_wrapper div#select select").append('<option value="' + d + '">' + d + '</option>')
+                var selectValues = new Array();
+                api.columns().indexes().flatten().each(function (i) {
+                    if (i == 2) {
+                        var column = api.column(i);
+                        conditionSearch(i, "启动次数", 1, selectValues, column, dateType);
+                    }
                 });
             }
         });
