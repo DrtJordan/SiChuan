@@ -444,7 +444,7 @@ public class InceptorUtil {
             if (queryType.contains("版本")) {
                 stringBuffer.append("app_version ='" + queryType.split(":")[1] + "' and ");
             }
-            if (queryType.contains("os")) {
+            if (queryType.contains("os") || queryType.contains("OS")) {
                 stringBuffer.append("term_os ='" + queryType.split(":")[1] + "' and ");
             }
             if (queryType.contains("渠道")) {
