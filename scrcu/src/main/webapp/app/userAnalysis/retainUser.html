@@ -99,23 +99,11 @@
 		tableQuery({
 			"aaData" : data.dataTime,
 			"id" : "#table1",
-			"aoColumnDefs": [{
-				"targets": [3, 4, 5, 6, 7, 8, 9], // 目标列位置，下标从0开始
-				"render": function(data) { // 返回自定义内容
-					return getPercent(data);
-				}
-			}]
 		});
 
 		tableQuery({
 			"aaData": data.dataPhone,
 			"id": "#table2",
-			"aoColumnDefs": [{
-				"targets": [4, 5, 6, 7, 8, 9, 10], // 目标列位置，下标从0开始
-				"render": function(data) { // 返回自定义内容
-					return getPercent(data);
-				}
-			}],
 			"sDom": "<'row'<'col-sm-6'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
 			initComplete: function () {
 				var api = this.api();
@@ -142,12 +130,6 @@
 		tableQuery({
 			"aaData": data.dataChannel,
 			"id": "#table3",
-			"aoColumnDefs": [{
-				"targets": [4, 5, 6, 7, 8, 9, 10], // 目标列位置，下标从0开始
-				"render": function(data) { // 返回自定义内容
-					return getPercent(data);
-				}
-			}],
 			"sDom": "<'row'<'col-sm-6'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
 			initComplete: function () {
 				var api = this.api();

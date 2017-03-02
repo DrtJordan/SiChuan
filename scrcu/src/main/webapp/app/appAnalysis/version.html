@@ -19,6 +19,7 @@
 				<table id="table1" class="table table-striped b-light">
 				<thead>
 					<tr>
+						<th>日期</th>
 						<th>版本号</th>
 						<th>用户数</th>
 						<th>该版本用户数/总用户数</th>
@@ -34,30 +35,31 @@
 </section>
 </@layout>
 <script>
-function query(flag) {
-	if (flag) {
-		$("#weekButton").click();
-		return;
+	function dataTableExchange(data, dateType) {
+		tableQuery({
+			"aaData": data.dataPhone,
+			"id": "#table1",
+			"sDom": "<'row'<'col-sm-6'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
+			initComplete: function () {
+				var api = this.api();
+				var column = api.column(2);
+				var select = $('<div id="select" class="col-sm-6"><div class="dataTables_filter"><label><i class="fa fa-search">&nbsp;版本&nbsp;</i><select name="optValue" style="width: 120px"><option value="">--请选择--</option></select></label></div></div>')
+						.appendTo($("#table1_wrapper div:first"))
+						.on('change', function () {
+							var selectValues = new Array();
+							var val = $.fn.dataTable.util.escapeRegex(
+									$("#table1_wrapper div:first div#select select").val()
+							);
+							column
+									.search(val ? '^' + val + '$' : '', true, false)
+									.draw();
+							selectValues.push("版本:" + val);
+							csvExport(selectValues, dateType);
+						});
+				column.data().unique().sort().each(function (d, j) {
+					$(" #table1_wrapper div#select select").append('<option value="' + d + '">' + d + '</option>')
+				});
+			}
+		});
 	}
-	var start = $("#start_dt").val();
-	var end = $("#end_dt").val();
-	var ajaxOption = {
-		url : window.location.href + "?start_dt=" + start + "&end_dt="
-				+ end,
-		success : function(data) {
-			var option = {
-				"aaData" : data.data,
-                "id" : "#table1",
-				"aoColumnDefs": [{
-                    "targets": [3], // 目标列位置，下标从0开始
-                    "render": function(data) { // 返回自定义内容
-                  	  return getPercent(data);
-                    }
-              }]
-			};
-			tableQuery(option);
-		}
-	};
-	commonAjax(ajaxOption);
-}
 </script>

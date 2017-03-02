@@ -87,22 +87,24 @@
 	<!-- 活跃用户end -->
 	
 	<!-- 留存用户start -->
+	<!--app留存用户按天汇总-->
 	<sqlGroup name="app_retainUser_day">
 		<sql id="name">app留存用户按天汇总</sql>
 		<sql id="header">日期,新增用户数,次日留存,7日留存,30日留存数,60天后,90天后,180天后,360天后</sql>
-		<sql id="sql">select stat_date, new_token_cnt, last_day_retn_ratio, last_7days_retn_ratio, last_30days_retn_ratio, last_60days_retn_ratio, last_90days_retn_ratio, last_180days_retn_ratio, last_360days_retn_ratio from bdhbs.th_log_app_usr_retained_orc_day where SQL_CONDITION order by stat_date asc</sql>
+		<sql id="sql">select stat_date, new_token_cnt, last_day_retn_ratio, last_7days_retn_ratio, last_30days_retn_ratio, last_60days_retn_ratio, last_90days_retn_ratio, last_180days_retn_ratio, last_360days_retn_ratio from bdhbs.th_log_app_usr_retained_orc_day where SQL_CONDITION cnt_type = '99' order by stat_date asc</sql>
 	</sqlGroup>
 	<sqlGroup name="app_retainUser_phone_day">
 		<sql id="name">app留存用户_手机维度按天汇总</sql>
 		<sql id="header">日期,手机os,新增用户数,次日留存,7日留存,30日留存数,30日留存数,60天后,90天后,180天后,360天后</sql>
-		<sql id="sql">select stat_date, term_os, last_day_retn_ratio, last_7days_retn_ratio, last_30days_retn_ratio, last_60days_retn_ratio, last_90days_retn_ratio, last_180days_retn_ratio, last_360days_retn_ratio from bdhbs.th_log_app_usr_retained_os_orc_day where SQL_CONDITION order by stat_date asc</sql>
+		<sql id="sql">select stat_date, term_os, last_day_retn_ratio, last_7days_retn_ratio, last_30days_retn_ratio, last_60days_retn_ratio, last_90days_retn_ratio, last_180days_retn_ratio, last_360days_retn_ratio from bdhbs.th_log_app_usr_retained_os_orc_day where SQL_CONDITION cnt_type = '2' order by stat_date asc</sql>
 	</sqlGroup>
 	<sqlGroup name="app_retainUser_channel_day">
 		<sql id="name">app留存用户_渠道维度按天汇总</sql>
 		<sql id="header">日期,渠道名,次日留存,7日留存,30日留存数,30日留存数,60天后,90天后,180天后,360天后</sql>
-		<sql id="sql">select stat_date, chl_id, last_day_retn_ratio, last_7days_retn_ratio, last_30days_retn_ratio, last_60days_retn_ratio, last_90days_retn_ratio, last_180days_retn_ratio, last_360days_retn_ratio from bdhbs.th_log_app_usr_retained_chl_orc_day where SQL_CONDITION order by stat_date asc</sql>
+		<sql id="sql">select stat_date, chl_id, last_day_retn_ratio, last_7days_retn_ratio, last_30days_retn_ratio, last_60days_retn_ratio, last_90days_retn_ratio, last_180days_retn_ratio, last_360days_retn_ratio from bdhbs.th_log_app_usr_retained_chl_orc_day where SQL_CONDITION cnt_type = '1' order by stat_date asc</sql>
 	</sqlGroup>
 
+	<!--app留存用户按周汇总-->
 	<sqlGroup name="app_retainUser_week">
 		<sql id="name">app留存用户按周汇总</sql>
 		<sql id="header">日期,新增用户数,次日留存,7日留存,30日留存数</sql>
@@ -119,6 +121,7 @@
 		<sql id="sql">select stat_date, chl_id, last_day_retn_ratio, last_7days_retn_ratio, last_30days_retn_ratio, last_60days_retn_ratio, last_90days_retn_ratio, last_180days_retn_ratio, last_360days_retn_ratio from bdhbs.th_log_app_usr_retained_chl_orc_day where SQL_CONDITION cnt_type = '1' order by stat_date asc</sql>
 	</sqlGroup>
 
+	<!-- app留存用户按月汇总 -->
 	<sqlGroup name="app_retainUser_mouth">
 		<sql id="name">app留存用户按月汇总</sql>
 		<sql id="header">日期,新增用户数,次日留存,7日留存,30日留存数,30日留存数,60天后,90天后,180天后,360天后</sql>
@@ -135,6 +138,7 @@
 		<sql id="sql">select stat_date, chl_id, last_day_retn_ratio, last_7days_retn_ratio, last_30days_retn_ratio, last_60days_retn_ratio, last_90days_retn_ratio, last_180days_retn_ratio, last_360days_retn_ratio from bdhbs.th_log_app_usr_retained_chl_orc_day where SQL_CONDITION cnt_type = '2' order by stat_date asc</sql>
 	</sqlGroup>
 
+	<!--app留存用户按季汇总-->
 	<sqlGroup name="app_retainUser_quarter">
 		<sql id="name">app留存用户按季汇总</sql>
 		<sql id="header">日期,新增用户数,次日留存,7日留存,30日留存数,30日留存数,60天后,90天后,180天后,360天后</sql>
@@ -151,6 +155,7 @@
 		<sql id="sql">select stat_date, chl_id, last_day_retn_ratio, last_7days_retn_ratio, last_30days_retn_ratio, last_60days_retn_ratio, last_90days_retn_ratio, last_180days_retn_ratio, last_360days_retn_ratio from bdhbs.th_log_app_usr_retained_chl_orc_day where SQL_CONDITION cnt_type = '3' order by stat_date asc</sql>
 	</sqlGroup>
 
+	<!--app留存用户按年汇总-->
 	<sqlGroup name="app_retainUser_year">
 		<sql id="name">app留存用户按年汇总</sql>
 		<sql id="header">日期,新增用户数,次日留存,7日留存,30日留存数,30日留存数,60天后,90天后,180天后,360天后</sql>
@@ -752,10 +757,35 @@
 	</sqlGroup>
 	
 	<!-- 版本分布 -->
-	<sqlGroup name="app_version">
-		<sql id="name">手机启动次数分布</sql>
-		<sql id="header">版本号,用户数,该版本用户数/总用户数,新增用户,启动用户,启动次数</sql>
-		<sql id="sql">select app_version ,cast(sum(user_cnt)as int) ,sum(user_cnt_div_user_cnt_sum)/count(user_cnt_div_user_cnt_sum) ,cast(sum(new_token_cnt)as int) ,cast(sum(startover_user_cnt)as int) ,cast(sum(startover_cnt)as int)  from hb_result_version_distribution_analysis_info SQL_CONDITION group by app_version 
+	<!--版本分布按天汇总-->
+	<sqlGroup name="app_version_day">
+		<sql id="name">手机启动次数按天分布</sql>
+		<sql id="header">日期,版本号,用户数,该版本用户数/总用户数,新增用户,启动用户,启动次数</sql>
+		<sql id="sql">select stat_date, app_version, user_cnt, user_ration, new_token_cnt, startover_user_cnt, startover_cnt from bdhbs.th_log_app_version_orc_day where SQL_CONDITION order by stat_dt asc
+		</sql>
+	</sqlGroup>
+
+	<!--版本分布按月汇总-->
+	<sqlGroup name="app_version_mouth">
+		<sql id="name">手机启动次数按月分布</sql>
+		<sql id="header">日期,版本号,用户数,该版本用户数/总用户数,新增用户,启动用户,启动次数</sql>
+		<sql id="sql">select stat_date, app_version, user_cnt, user_ration, new_token_cnt, startover_user_cnt, startover_cnt from bdhbs.th_log_app_version_orc_sum_day where SQL_CONDITION cnt_type = '2' order by stat_dt asc
+		</sql>
+	</sqlGroup>
+
+	<!--版本分布按季汇总-->
+	<sqlGroup name="app_version_quarter">
+		<sql id="name">手机启动次数按季分布</sql>
+		<sql id="header">日期,版本号,用户数,该版本用户数/总用户数,新增用户,启动用户,启动次数</sql>
+		<sql id="sql">select stat_date, app_version, user_cnt, user_ration, new_token_cnt, startover_user_cnt, startover_cnt from bdhbs.th_log_app_version_orc_sum_day where SQL_CONDITION cnt_type = '3' order by stat_dt asc
+		</sql>
+	</sqlGroup>
+
+	<!--版本分布按年汇总-->
+	<sqlGroup name="app_version_year">
+		<sql id="name">手机启动次数按年分布</sql>
+		<sql id="header">日期,版本号,用户数,该版本用户数/总用户数,新增用户,启动用户,启动次数</sql>
+		<sql id="sql">select stat_date, app_version, user_cnt, user_ration, new_token_cnt, startover_user_cnt, startover_cnt from bdhbs.th_log_app_version_orc_sum_day where SQL_CONDITION cnt_type = '4' order by stat_dt asc
 		</sql>
 	</sqlGroup>
 

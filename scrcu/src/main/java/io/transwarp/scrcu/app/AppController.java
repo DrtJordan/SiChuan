@@ -60,14 +60,29 @@ public class AppController extends Controller {
     @RequiresPermissions("/app/appAnalysis/version")
     public void version() {
         if (BaseUtils.isAjax(getRequest())) {
-            // 得到查询条件
-            String condition = InceptorUtil.getDateCondition(getRequest());
-            // 执行查询
-            List<List<String>> data = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_version.toString(), condition),
-                    4);
-            // 返回结果
+
+            List<List<String>> dataTime = new ArrayList<>();
+            // 定义json类型结果
             JSONObject result = new JSONObject();
-            result.put("data", data);
+            // 得到查询条件
+            String condition = InceptorUtil.getQueryCondition(getRequest());
+            String type = getPara("dateType");
+            if (type != null) { 
+                if (type.equals("day")) {
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_version_day, condition), false);
+                }
+                if (type.equals("month")) {
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_version_mouth, condition), false);
+                }
+                if (type.equals("quarter")) {
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_version_quarter, condition), false);
+                }
+                if (type.equals("year")) {
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_version_year, condition), false);
+                }
+            }
+            //返回结果
+            result.put("dataTime", dataTime);
             renderJson(result);
         }
     }

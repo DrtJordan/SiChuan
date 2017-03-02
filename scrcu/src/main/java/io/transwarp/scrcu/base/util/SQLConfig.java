@@ -291,6 +291,15 @@ public enum SQLConfig {
     app_interval_phone_year,
     app_interval_os_year,
 
+    // 移动 版本分布按天汇总
+    app_version_day,
+    // 移动 版本分布按月汇总
+    app_version_mouth,
+    // 移动 版本分布按季汇总
+    app_version_quarter,
+    // 移动 版本分布按年汇总
+    app_version_year,
+
     // 画像 交易曲线
     portrait_trading,
     // 画像 交易曲线
@@ -318,8 +327,6 @@ public enum SQLConfig {
     portrait_trading_ratio_sum,
     // 画像 交易类型次数
     portrait_trading_ratio,
-    // 移动 版本分布
-    app_version,
     // 静态标签
     label_label_grouping,
 
