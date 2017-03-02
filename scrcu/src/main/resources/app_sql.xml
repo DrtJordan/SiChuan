@@ -866,30 +866,116 @@
 	</sqlGroup>
 
 	<!-- 地域分布 -->
-	<sqlGroup name="app_area_query">
-		<sql id="name">APP用户地域分布</sql>
-		<sql id="header">地市,日期,新增用户,占比,启动次数,注册用户数,新注册用户数,平均访问深度</sql>
-		<sql id="sql">select city, statt_dt, new_token_cnt, sum(new_token_cnt_ratio)/count(new_token_cnt_ratio),cast(sum(startover_cnt) as int),cast(sum(user_cnt) as int),cast(sum(new_user_cnt)as int),cast(sum(aver_vist_url_num)as int) from hb_result_Regional_Distribution_Info_1 SQL_CONDITION group by city,statt_dt,new_token_cnt
-		</sql>
+	<!--APP用户地域分布按天汇总-->
+	<sqlGroup name="app_area_query_day">
+		<sql id="name">APP用户地域分布按天汇总</sql>
+		<sql id="header">地市,日期,新增用户,占比,启动次数,平均访问深度</sql>
+		<sql id="sql">select city_id, stat_date, new_usr_cnt, new_usr_cnt_ratio, startup_cnt, avg_visit_url from bdhbs.th_log_app_usr_area_orc_day where SQL_CONDITION cnt_type='99' order by stat_date asc</sql>
 	</sqlGroup>
-    <sqlGroup name="app_area_phone">
-        <sql id="name">APP用户版本地域分布</sql>
-        <sql id="header">地市,日期,新增用户,占比,启动次数,注册用户数,新注册用户数,平均访问深度</sql>
-        <sql id="sql">select city, statt_dt, new_token_cnt, sum(new_token_cnt_ratio)/count(new_token_cnt_ratio),cast(sum(startover_cnt) as int),cast(sum(user_cnt) as int),cast(sum(new_user_cnt)as int),cast(sum(aver_vist_url_num)as int) from hb_result_Regional_Distribution_Info_1 SQL_CONDITION group by city,statt_dt,new_token_cnt
-        </sql>
-    </sqlGroup>
-    <sqlGroup name="app_area_channel">
-        <sql id="name">APP用户渠道地域分布</sql>
-        <sql id="header">地市,日期,新增用户,占比,启动次数,注册用户数,新注册用户数,平均访问深度</sql>
-        <sql id="sql">select city, statt_dt, new_token_cnt, sum(new_token_cnt_ratio)/count(new_token_cnt_ratio),cast(sum(startover_cnt) as int),cast(sum(user_cnt) as int),cast(sum(new_user_cnt)as int),cast(sum(aver_vist_url_num)as int) from hb_result_Regional_Distribution_Info_1 SQL_CONDITION group by city,statt_dt,new_token_cnt
-        </sql>
-    </sqlGroup>
-    <sqlGroup name="app_area_os">
-        <sql id="name">APP用户手机os地域分布</sql>
-        <sql id="header">地市,日期,新增用户,占比,启动次数,注册用户数,新注册用户数,平均访问深度</sql>
-        <sql id="sql">select city, statt_dt, new_token_cnt, sum(new_token_cnt_ratio)/count(new_token_cnt_ratio),cast(sum(startover_cnt) as int),cast(sum(user_cnt) as int),cast(sum(new_user_cnt)as int),cast(sum(aver_vist_url_num)as int) from hb_result_Regional_Distribution_Info_1 SQL_CONDITION group by city,statt_dt,new_token_cnt
-        </sql>
-    </sqlGroup>
+	<sqlGroup name="app_area_phone_day">
+		<sql id="name">APP用户版本地域分布按天汇总</sql>
+		<sql id="header">地市,日期,新增用户,占比,启动次数,注册用户数,新注册用户数,平均访问深度</sql>
+		<sql id="sql">select city_id, stat_date, app_version, new_usr_cnt, new_usr_cnt_ratio, startup_cnt, avg_visit_url from bdhbs.th_log_app_usr_area_orc_day where SQL_CONDITION cnt_type='3' order by stat_date asc</sql>
+	</sqlGroup>
+	<sqlGroup name="app_area_chanel_day">
+		<sql id="name">APP用户渠道地域分布按天汇总</sql>
+		<sql id="header">地市,日期,新增用户,占比,启动次数,注册用户数,新注册用户数,平均访问深度</sql>
+		<sql id="sql">select city_id, stat_date, chl_id, new_usr_cnt, new_usr_cnt_ratio, startup_cnt, avg_visit_url from bdhbs.th_log_app_usr_area_orc_day where SQL_CONDITION cnt_type='1' order by stat_date asc</sql>
+	</sqlGroup>
+	<sqlGroup name="app_area_os_day">
+		<sql id="name">APP用户手机os地域分布按天汇总</sql>
+		<sql id="header">地市,日期,新增用户,占比,启动次数,注册用户数,新注册用户数,平均访问深度</sql>
+		<sql id="sql">select city_id, stat_date, term_OS, new_usr_cnt, new_usr_cnt_ratio, startup_cnt, avg_visit_url from bdhbs.th_log_app_usr_area_orc_day where SQL_CONDITION cnt_type='2' order by stat_date asc</sql>
+	</sqlGroup>
+
+	<!--APP用户地域分布按周汇总-->
+	<sqlGroup name="app_area_query_week">
+		<sql id="name">APP用户地域分布按周汇总</sql>
+		<sql id="header">地市,日期,新增用户,占比,启动次数,平均访问深度</sql>
+		<sql id="sql">select city_id, stat_date, new_usr_cnt, new_usr_cnt_ratio, startup_cnt, avg_visit_url from bdhbs.th_log_app_usr_area_orc_sum_day where SQL_CONDITION cnt_type='1' order by stat_date asc</sql>
+	</sqlGroup>
+	<sqlGroup name="app_area_phone_week">
+		<sql id="name">APP用户版本地域分布按周汇总</sql>
+		<sql id="header">地市,日期,新增用户,占比,启动次数,注册用户数,新注册用户数,平均访问深度</sql>
+		<sql id="sql">select city_id, stat_date, app_version, new_usr_cnt, new_usr_cnt_ratio, startup_cnt, avg_visit_url from bdhbs.th_log_app_usr_area_appv_orc_sum_day where SQL_CONDITION cnt_type='1' order by stat_date asc</sql>
+	</sqlGroup>
+	<sqlGroup name="app_area_chanel_week">
+		<sql id="name">APP用户渠道地域分布按周汇总</sql>
+		<sql id="header">地市,日期,新增用户,占比,启动次数,注册用户数,新注册用户数,平均访问深度</sql>
+		<sql id="sql">select city_id, stat_date, chl_id, new_usr_cnt, new_usr_cnt_ratio, startup_cnt, avg_visit_url from bdhbs.th_log_app_usr_area_chl_orc_sum_day where SQL_CONDITION cnt_type='1' order by stat_date asc</sql>
+	</sqlGroup>
+	<sqlGroup name="app_area_os_week">
+		<sql id="name">APP用户手机os地域分布按周汇总</sql>
+		<sql id="header">地市,日期,新增用户,占比,启动次数,注册用户数,新注册用户数,平均访问深度</sql>
+		<sql id="sql">select city_id, stat_date, term_OS, new_usr_cnt, new_usr_cnt_ratio, startup_cnt, avg_visit_url from bdhbs.th_log_app_usr_area_os_orc_sum_day where SQL_CONDITION cnt_type='1' order by stat_date asc</sql>
+	</sqlGroup>
+
+	<!--APP用户地域分布按月汇总-->
+	<sqlGroup name="app_area_query_mouth">
+		<sql id="name">APP用户地域分布按月汇总</sql>
+		<sql id="header">地市,日期,新增用户,占比,启动次数,平均访问深度</sql>
+		<sql id="sql">select city_id, stat_date, new_usr_cnt, new_usr_cnt_ratio, startup_cnt, avg_visit_url from bdhbs.th_log_app_usr_area_orc_sum_day where SQL_CONDITION cnt_type='2' order by stat_date asc</sql>
+	</sqlGroup>
+	<sqlGroup name="app_area_phone_mouth">
+		<sql id="name">APP用户版本地域分布按月汇总</sql>
+		<sql id="header">地市,日期,新增用户,占比,启动次数,注册用户数,新注册用户数,平均访问深度</sql>
+		<sql id="sql">select city_id, stat_date, app_version, new_usr_cnt, new_usr_cnt_ratio, startup_cnt, avg_visit_url from bdhbs.th_log_app_usr_area_appv_orc_sum_day where SQL_CONDITION cnt_type='2' order by stat_date asc</sql>
+	</sqlGroup>
+	<sqlGroup name="app_area_chanel_mouth">
+		<sql id="name">APP用户渠道地域分布按月汇总</sql>
+		<sql id="header">地市,日期,新增用户,占比,启动次数,注册用户数,新注册用户数,平均访问深度</sql>
+		<sql id="sql">select city_id, stat_date, chl_id, new_usr_cnt, new_usr_cnt_ratio, startup_cnt, avg_visit_url from bdhbs.th_log_app_usr_area_chl_orc_sum_day where SQL_CONDITION cnt_type='2' order by stat_date asc</sql>
+	</sqlGroup>
+	<sqlGroup name="app_area_os_mouth">
+		<sql id="name">APP用户手机os地域分布按月汇总</sql>
+		<sql id="header">地市,日期,新增用户,占比,启动次数,注册用户数,新注册用户数,平均访问深度</sql>
+		<sql id="sql">select city_id, stat_date, term_OS, new_usr_cnt, new_usr_cnt_ratio, startup_cnt, avg_visit_url from bdhbs.th_log_app_usr_area_os_orc_sum_day where SQL_CONDITION cnt_type='2' order by stat_date asc</sql>
+	</sqlGroup>
+
+	<!--APP用户地域分布按季汇总-->
+	<sqlGroup name="app_area_query_quarter">
+		<sql id="name">APP用户地域分布按季汇总</sql>
+		<sql id="header">地市,日期,新增用户,占比,启动次数,平均访问深度</sql>
+		<sql id="sql">select city_id, stat_date, new_usr_cnt, new_usr_cnt_ratio, startup_cnt, avg_visit_url from bdhbs.th_log_app_usr_area_orc_sum_day where SQL_CONDITION cnt_type='3' order by stat_date asc</sql>
+	</sqlGroup>
+	<sqlGroup name="app_area_phone_quarter">
+		<sql id="name">APP用户版本地域分布按季汇总</sql>
+		<sql id="header">地市,日期,新增用户,占比,启动次数,注册用户数,新注册用户数,平均访问深度</sql>
+		<sql id="sql">select city_id, stat_date, app_version, new_usr_cnt, new_usr_cnt_ratio, startup_cnt, avg_visit_url from bdhbs.th_log_app_usr_area_appv_orc_sum_day where SQL_CONDITION cnt_type='3' order by stat_date asc</sql>
+	</sqlGroup>
+	<sqlGroup name="app_area_chanel_quarter">
+		<sql id="name">APP用户渠道地域分布按季汇总</sql>
+		<sql id="header">地市,日期,新增用户,占比,启动次数,注册用户数,新注册用户数,平均访问深度</sql>
+		<sql id="sql">select city_id, stat_date, chl_id, new_usr_cnt, new_usr_cnt_ratio, startup_cnt, avg_visit_url from bdhbs.th_log_app_usr_area_chl_orc_sum_day where SQL_CONDITION cnt_type='3' order by stat_date asc</sql>
+	</sqlGroup>
+	<sqlGroup name="app_area_os_quarter">
+		<sql id="name">APP用户手机os地域分布按季汇总</sql>
+		<sql id="header">地市,日期,新增用户,占比,启动次数,注册用户数,新注册用户数,平均访问深度</sql>
+		<sql id="sql">select city_id, stat_date, term_OS, new_usr_cnt, new_usr_cnt_ratio, startup_cnt, avg_visit_url from bdhbs.th_log_app_usr_area_os_orc_sum_day where SQL_CONDITION cnt_type='3' order by stat_date asc</sql>
+	</sqlGroup>
+
+	<!--APP用户地域分布按年汇总-->
+	<sqlGroup name="app_area_query_year">
+		<sql id="name">APP用户地域分布按年汇总</sql>
+		<sql id="header">地市,日期,新增用户,占比,启动次数,平均访问深度</sql>
+		<sql id="sql">select city_id, stat_date, new_usr_cnt, new_usr_cnt_ratio, startup_cnt, avg_visit_url from bdhbs.th_log_app_usr_area_orc_sum_day where SQL_CONDITION cnt_type='4' order by stat_date asc</sql>
+	</sqlGroup>
+	<sqlGroup name="app_area_phone_year">
+		<sql id="name">APP用户版本地域分布按年汇总</sql>
+		<sql id="header">地市,日期,新增用户,占比,启动次数,注册用户数,新注册用户数,平均访问深度</sql>
+		<sql id="sql">select city_id, stat_date, app_version, new_usr_cnt, new_usr_cnt_ratio, startup_cnt, avg_visit_url from bdhbs.th_log_app_usr_area_appv_orc_sum_day where SQL_CONDITION cnt_type='4' order by stat_date asc</sql>
+	</sqlGroup>
+	<sqlGroup name="app_area_chanel_year">
+		<sql id="name">APP用户渠道地域分布按年汇总</sql>
+		<sql id="header">地市,日期,新增用户,占比,启动次数,注册用户数,新注册用户数,平均访问深度</sql>
+		<sql id="sql">select city_id, stat_date, chl_id, new_usr_cnt, new_usr_cnt_ratio, startup_cnt, avg_visit_url from bdhbs.th_log_app_usr_area_chl_orc_sum_day where SQL_CONDITION cnt_type='4' order by stat_date asc</sql>
+	</sqlGroup>
+	<sqlGroup name="app_area_os_year">
+		<sql id="name">APP用户手机os地域分布按年汇总</sql>
+		<sql id="header">地市,日期,新增用户,占比,启动次数,注册用户数,新注册用户数,平均访问深度</sql>
+		<sql id="sql">select city_id, stat_date, term_OS, new_usr_cnt, new_usr_cnt_ratio, startup_cnt, avg_visit_url from bdhbs.th_log_app_usr_area_os_orc_sum_day where SQL_CONDITION cnt_type='4' order by stat_date asc</sql>
+	</sqlGroup>
+
 	<sqlGroup name="app_area_max_uv">
 		<sql id="name">APP用户地域分布新增用户数最大值</sql>
 		<sql id="header">新增用户数</sql>

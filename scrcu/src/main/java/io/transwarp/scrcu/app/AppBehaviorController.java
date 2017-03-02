@@ -431,24 +431,49 @@ public class AppBehaviorController extends Controller {
     @RequiresPermissions("/app/behavior/area")
     public void area() {
         if (BaseUtils.isAjax(getRequest())) {
+            List<List<String>> dataArea = new ArrayList<>();
+            List<List<String>> dataAreaPhone = new ArrayList<>();
+            List<List<String>> dataAreaChannel = new ArrayList<>();
+            List<List<String>> dataAreaOs = new ArrayList<>();
+            JSONObject result = new JSONObject();
             // 得到查询条件
-            String condition = InceptorUtil.getDateCondition(getRequest());
-            // 根据日期查询
-            List<List<String>> dataArea = InceptorUtil
-                    .query(SqlKit.propSQL(SQLConfig.app_area_query.toString(), condition));
-            //根据渠道查询
-            List<List<String>> dataAreaChannel = InceptorUtil
-                    .query(SqlKit.propSQL(SQLConfig.app_area_channel.toString(), condition));
-            //根据版本查询
-            List<List<String>> dataAreaPhone = InceptorUtil
-                    .query(SqlKit.propSQL(SQLConfig.app_area_phone.toString(), condition));
-            //根据手机os查询
-            List<List<String>> dataAreaOs = InceptorUtil
-                    .query(SqlKit.propSQL(SQLConfig.app_area_os.toString(), condition));
+            String dateType = getPara("dateType");
+            String condition = InceptorUtil.getQueryCondition(getRequest());
+            if (dateType != null) {
+                if (dateType.equals("day")) {
+                    dataArea = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_area_query_day, condition),false);
+                    dataAreaPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_phone_day, condition));
+                    dataAreaChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_chanel_day, condition));
+                    dataAreaOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_os_day, condition));
+                }
+                if (dateType.equals("week")) {
+                    dataArea = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_area_query_week, condition),false);
+                    dataAreaPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_phone_week, condition));
+                    dataAreaChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_chanel_week, condition));
+                    dataAreaOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_os_week, condition));
+                }
+                if (dateType.equals("month")) {
+                    dataArea = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_area_query_mouth, condition),false);
+                    dataAreaPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_phone_mouth, condition));
+                    dataAreaChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_chanel_mouth, condition));
+                    dataAreaOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_os_mouth, condition));
+                }
+                if (dateType.equals("quarter")) {
+                    dataArea = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_area_query_quarter, condition),false);
+                    dataAreaPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_phone_quarter, condition));
+                    dataAreaChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_chanel_quarter, condition));
+                    dataAreaOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_os_quarter, condition));
+                }
+                if (dateType.equals("year")) {
+                    dataArea = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_area_query_year, condition),false);
+                    dataAreaPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_phone_year, condition));
+                    dataAreaChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_chanel_year, condition));
+                    dataAreaOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_os_year, condition));
+                }
+            }
             //查询新增用户数的最大值
             List<List<String>> MaxUvValue = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_max_uv));
             // 返回结果
-            JSONObject result = new JSONObject();
             List<Object> dataList = new ArrayList<Object>();
             for (List<String> list : dataArea) {
                 String name = list.get(0).replace("甘孜州", "甘孜藏族自治州").replace("阿坝州", "阿坝藏族羌族自治州").replace("凉山州", "凉山彝族自治州");

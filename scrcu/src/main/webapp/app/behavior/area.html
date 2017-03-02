@@ -38,13 +38,11 @@
 					<table id="table1" class="table table-striped b-light">
 						<thead>
 						<tr>
-							<th>地市</th>
+							<th>城市</th>
 							<th>日期</th>
 							<th>新增用户</th>
 							<th>占比</th>
 							<th>启动次数</th>
-							<th>注册用户数</th>
-							<th>新注册用户数</th>
 							<th>平均访问深度</th>
 						</tr>
 						</thead>
@@ -55,13 +53,12 @@
 					<table id="table2" class="table table-striped b-light">
 						<thead>
 						<tr>
-							<th>地市</th>
+							<th>城市</th>
 							<th>日期</th>
+							<th>版本</th>
 							<th>新增用户</th>
 							<th>占比</th>
 							<th>启动次数</th>
-							<th>注册用户数</th>
-							<th>新注册用户数</th>
 							<th>平均访问深度</th>
 						</tr>
 						</thead>
@@ -71,13 +68,12 @@
 					<table id="table3" class="table table-striped b-light">
 						<thead>
 						<tr>
-							<th>地市</th>
+							<th>城市</th>
 							<th>日期</th>
+							<th>渠道</th>
 							<th>新增用户</th>
 							<th>占比</th>
 							<th>启动次数</th>
-							<th>注册用户数</th>
-							<th>新注册用户数</th>
 							<th>平均访问深度</th>
 						</tr>
 						</thead>
@@ -87,13 +83,12 @@
 					<table id="table4" class="table table-striped b-light">
 						<thead>
 						<tr>
-							<th>地市</th>
+							<th>城市</th>
 							<th>日期</th>
+							<th>手机OS</th>
 							<th>新增用户</th>
 							<th>占比</th>
 							<th>启动次数</th>
-							<th>注册用户数</th>
-							<th>新注册用户数</th>
 							<th>平均访问深度</th>
 						</tr>
 						</thead>
@@ -106,65 +101,82 @@
 </section>
 </@layout>
 <script>
-	function query(flag) {
-		if (flag) {
-			$("#weekButton").click();
-			return;
-		}
-		var start = $("#start_dt").val();
-		var end = $("#end_dt").val();
-		var ajaxOption = {
-			url : window.location.href + "?start_dt=" + start + "&end_dt="
-					+ end,
-			success : function(data) {
+	function dataTableExchange(data, dateType) {
 				var chart = echarts.init(document.getElementById('provinceDiv'), 'macarons');
 				var chartOption = data.chartOption;
 
-                tableQuery({
-                    "aaData" : data.data,
-                    "id" : "#table1",
-                    "aoColumnDefs": [{
-                        "targets": [4], // 目标列位置，下标从0开始
-                        "render": function(data) { // 返回自定义内容
-                            return getPercent(data);
-                        }
-                    }]
-                });
-                tableQuery({
-                    "aaData" : data.dataAreaChannel,
-                    "id" : "#table2",
-                    "aoColumnDefs": [{
-                        "targets": [4], // 目标列位置，下标从0开始
-                        "render": function(data) { // 返回自定义内容
-                            return getPercent(data);
-                        }
-                    }]
-                });
-                tableQuery({
-                    "aaData" : data.dataAreaPhone,
-                    "id" : "#table3",
-                    "aoColumnDefs": [{
-                        "targets": [4], // 目标列位置，下标从0开始
-                        "render": function(data) { // 返回自定义内容
-                            return getPercent(data);
-                        }
-                    }]
-                });
-                tableQuery({
-                    "aaData" : data.dataAreaOs,
-                    "id" : "#table4",
-                    "aoColumnDefs": [{
-                        "targets": [4], // 目标列位置，下标从0开始
-                        "render": function(data) { // 返回自定义内容
-                            return getPercent(data);
-                        }
-                    }]
-                });
-
-                chart.setOption($.parseJSON(chartOption));
+		tableQuery({
+			"aaData": data.data,
+			"id": "#table1",
+			"sDom": "<'row'<'col-sm-6'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
+			initComplete: function () {
+				var api = this.api();
+				var column = api.column(1);
+				var select = $('<div id="select" class="col-sm-6"><div class="dataTables_filter"><label><i class="fa fa-search">&nbsp;城市&nbsp;</i><select name="optValue" style="width: 120px"><option value="">--请选择--</option></select></label></div></div>')
+						.appendTo($("#table1_wrapper div:first"))
+						.on('change', function () {
+							var selectValues = new Array();
+							var val = $.fn.dataTable.util.escapeRegex(
+									$("#table1_wrapper div:first div#select select").val()
+							);
+							column
+									.search(val ? '^' + val + '$' : '', true, false)
+									.draw();
+							selectValues.push("城市:" + val);
+							csvExport(selectValues, dateType);
+						});
+				column.data().unique().sort().each(function (d, j) {
+					$(" #table1_wrapper div#select select").append('<option value="' + d + '">' + d + '</option>')
+				});
 			}
-		};
-		commonAjax(ajaxOption);
+		});
+
+		tableQuery({
+			"aaData": data.dataAreaPhone,
+			"id": "#table2",
+			"sDom": "<'row'<'col-sm-4'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
+			initComplete: function () {
+				var api = this.api();
+				var selectValues = new Array();
+				api.columns().indexes().flatten().each(function (i) {
+					var name = "城市";
+					if (i == 1 || i == 3) {
+						if (i == 3) {
+							name = "版本";
+						}
+						var column = api.column(i);
+						conditionSearch(i, name, 2, selectValues, column, dateType);
+					}
+				});
+			}
+		});
+
+		tableQuery({
+			"aaData": data.dataAreaChannel,
+			"id": "#table3",
+			"sDom": "<'row'<'col-sm-4'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
+			initComplete: function () {
+				var api = this.api();
+				var selectValues = new Array();
+				api.columns().indexes().flatten().each(function (i) {
+					var name = "城市";
+					if (i == 1 || i == 3) {
+						if (i == 3) {
+							name = "渠道";
+						}
+						var column = api.column(i);
+						conditionSearch(i, name, 3, selectValues, column, dateType);
+					}
+				});
+			}
+		});
+
+		tableQuery({
+			"aaData" : data.dataAreaOs,
+			"id" : "#table4"
+		});
+
+		chart.setOption($.parseJSON(chartOption));
 	}
 
 </script>
