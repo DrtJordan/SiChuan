@@ -38,6 +38,10 @@
 								<th>次日留存</th>
 								<th>7日留存</th>
 								<th>30日留存</th>
+								<th>60天后</th>
+								<th>90天后</th>
+								<th>180天后</th>
+								<th>360天后</th>
 							</tr>
 						</thead>
 					</table>
@@ -53,6 +57,10 @@
 							<th>次日留存</th>
 							<th>7日留存</th>
 							<th>30日留存</th>
+							<th>60天后</th>
+							<th>90天后</th>
+							<th>180天后</th>
+							<th>360天后</th>
 						</tr>
 						</thead>
 					</table>
@@ -67,6 +75,10 @@
 									<th>次日留存</th>
 									<th>7日留存</th>
 									<th>30日留存</th>
+									<th>60天后</th>
+									<th>90天后</th>
+									<th>180天后</th>
+									<th>360天后</th>
 								</tr>
 							</thead>
 						</table>
@@ -77,83 +89,86 @@
 </section>
 </@layout>
 <script>
-	function query(flag) {
-		if (flag) {
-			$("#weekButton").click();
-			return;
-		}
-		var start = $("#start_dt").val();
-		var end = $("#end_dt").val();
-		var ajaxOption = {
-			url : window.location.href + "?start_dt=" + start + "&end_dt="
-					+ end,
-			success : function(data) {
-				var chart = echarts.init(document.getElementById('chartDiv'),
-						'infographic');
-				var chartOption = data.chartOption;
-				chart.setOption($.parseJSON(chartOption));
-				tableQuery({
-					"aaData" : data.dataTime,
-					"id" : "#table1",
-					"aoColumnDefs": [{
-	                      "targets": [3], // 目标列位置，下标从0开始
-	                      "render": function(data) { // 返回自定义内容
-	                          return getPercent(data);
-	                      }
-	                  },{
-	                      "targets": [4], // 目标列位置，下标从0开始
-	                      "render": function(data) { // 返回自定义内容
-	                          return getPercent(data);
-	                      }
-	                  },{
-	                      "targets": [5], // 目标列位置，下标从0开始
-	                      "render": function(data) { // 返回自定义内容
-	                          return getPercent(data);
-	                      }
-	                  }]
-				});
-				tableQuery({
-					"aaData" : data.dataPhone,
-					"id" : "#table2",
-					"aoColumnDefs": [{
-	                      "targets": [4], // 目标列位置，下标从0开始
-	                      "render": function(data) { // 返回自定义内容
-	                          return getPercent(data);
-	                      }
-	                  },{
-	                      "targets": [5], // 目标列位置，下标从0开始
-	                      "render": function(data) { // 返回自定义内容
-	                          return getPercent(data);
-	                      }
-	                  },{
-	                      "targets": [6], // 目标列位置，下标从0开始
-	                      "render": function(data) { // 返回自定义内容
-	                          return getPercent(data);
-	                      }
-	                  }]
-				});
-				tableQuery({
-					"aaData" : data.dataChannel,
-					"id" : "#table3",
-					"aoColumnDefs": [{
-	                      "targets": [4], // 目标列位置，下标从0开始
-	                      "render": function(data) { // 返回自定义内容
-	                          return getPercent(data);
-	                      }
-	                  },{
-	                      "targets": [5], // 目标列位置，下标从0开始
-	                      "render": function(data) { // 返回自定义内容
-	                          return getPercent(data);
-	                      }
-	                  },{
-	                      "targets": [6], // 目标列位置，下标从0开始
-	                      "render": function(data) { // 返回自定义内容
-	                          return getPercent(data);
-	                      }
-	                  }]
+
+	function dataTableExchange(data, dateType) {
+		var chart = echarts.init(document.getElementById('chartDiv'),
+				'infographic');
+		var chartOption = data.chartOption;
+		chart.setOption($.parseJSON(chartOption));
+
+		tableQuery({
+			"aaData" : data.dataTime,
+			"id" : "#table1",
+			"aoColumnDefs": [{
+				"targets": [3, 4, 5, 6, 7, 8, 9], // 目标列位置，下标从0开始
+				"render": function(data) { // 返回自定义内容
+					return getPercent(data);
+				}
+			}]
+		});
+
+		tableQuery({
+			"aaData": data.dataPhone,
+			"id": "#table2",
+			"aoColumnDefs": [{
+				"targets": [4, 5, 6, 7, 8, 9, 10], // 目标列位置，下标从0开始
+				"render": function(data) { // 返回自定义内容
+					return getPercent(data);
+				}
+			}],
+			"sDom": "<'row'<'col-sm-6'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
+			initComplete: function () {
+				var api = this.api();
+				var column = api.column(1);
+				var select = $('<div id="select" class="col-sm-6"><div class="dataTables_filter"><label><i class="fa fa-search">&nbsp;OS&nbsp;</i><select name="optValue" style="width: 120px"><option value="">--请选择--</option></select></label></div></div>')
+						.appendTo($("#table2_wrapper div:first"))
+						.on('change', function () {
+							var selectValues = new Array();
+							var val = $.fn.dataTable.util.escapeRegex(
+									$("#table2_wrapper div:first div#select select").val()
+							);
+							column
+									.search(val ? '^' + val + '$' : '', true, false)
+									.draw();
+							selectValues.push("OS:" + val);
+							csvExport(selectValues, dateType);
+						});
+				column.data().unique().sort().each(function (d, j) {
+					$(" #table2_wrapper div#select select").append('<option value="' + d + '">' + d + '</option>')
 				});
 			}
-		};
-		commonAjax(ajaxOption);
+		});
+
+		tableQuery({
+			"aaData": data.dataChannel,
+			"id": "#table3",
+			"aoColumnDefs": [{
+				"targets": [4, 5, 6, 7, 8, 9, 10], // 目标列位置，下标从0开始
+				"render": function(data) { // 返回自定义内容
+					return getPercent(data);
+				}
+			}],
+			"sDom": "<'row'<'col-sm-6'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
+			initComplete: function () {
+				var api = this.api();
+				var column = api.column(1);
+				var select = $('<div id="select" class="col-sm-6"><div class="dataTables_filter"><label><i class="fa fa-search">&nbsp;渠道&nbsp;</i><select name="optValue" style="width: 120px"><option value="">--请选择--</option></select></label></div></div>')
+						.appendTo($("#table3_wrapper div:first"))
+						.on('change', function () {
+							var selectValues = new Array();
+							var val = $.fn.dataTable.util.escapeRegex(
+									$("#table3_wrapper div:first div#select select").val()
+							);
+							column
+									.search(val ? '^' + val + '$' : '', true, false)
+									.draw();
+							selectValues.push("渠道:" + val);
+							csvExport(selectValues, dateType);
+						});
+				column.data().unique().sort().each(function (d, j) {
+					$(" #table3_wrapper div#select select").append('<option value="' + d + '">' + d + '</option>')
+				});
+			}
+		});
 	}
 </script>

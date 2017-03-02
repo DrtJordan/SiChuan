@@ -115,6 +115,27 @@ public enum SQLConfig {
     /**
      * App移动统计按天、周、月、季、年汇总统计
      */
+    //app留存用户按天汇总
+    app_retainUser_day,
+    app_retainUser_phone_day,
+    app_retainUser_channel_day,
+    //app留存用户按周汇总
+    app_retainUser_week,
+    app_retainUser_phone_week,
+    app_retainUser_channel_week,
+    //app留存用户按月汇总
+    app_retainUser_mouth,
+    app_retainUser_phone_mouth,
+    app_retainUser_channel_mouth,
+    //app留存用户按季汇总
+    app_retainUser_quarter,
+    app_retainUser_phone_quarter,
+    app_retainUser_channel_quarter,
+    //app留存用户按年汇总
+    app_retainUser_year,
+    app_retainUser_phone_year,
+    app_retainUser_channel_year,
+
     //新增用户按天汇总
     app_newUser_day,
     app_newUser_phone_day,

@@ -90,29 +90,51 @@ public class AppUserController extends BaseController {
     @RequiresPermissions("/app/userAnalysis/retainUser")
     public void retainUser() {
         if (BaseUtils.isAjax(getRequest())) {
-            // 得到查询条件
-            String condition = InceptorUtil.getDateCondition(getRequest());
-            // 执行查询
-            List<List<String>> dataTime = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser) + condition, 7);
-            List<List<String>> dataPhone = InceptorUtil
-                    .query(SqlKit.propSQL(SQLConfig.app_retainUser_phone) + condition, 7);
-            List<List<String>> dataChannel = InceptorUtil
-                    .query(SqlKit.propSQL(SQLConfig.app_retainUser_channel) + condition, 7);
+
+            List<List<String>> dataTime = new ArrayList<>();
+            List<List<String>> dataPhone = new ArrayList<>();
+            List<List<String>> dataChannel = new ArrayList<>();
             // 定义json类型结果
             JSONObject result = new JSONObject();
-            // 返回结果
+            // 得到查询条件
+            String condition = InceptorUtil.getQueryCondition(getRequest());
+            String type = getPara("dateType");
+            if (type != null) { //app留存用户按天汇总
+                if (type.equals("day")) {
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_retainUser_day, condition), false);
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_phone_day));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_channel_day));
+                }
+                if (type.equals("week")) {
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_retainUser_week, condition), false);
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_phone_week));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_channel_week));
+                }
+                if (type.equals("month")) {
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_retainUser_mouth, condition), false);
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_phone_mouth));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_channel_mouth));
+                }
+                if (type.equals("quarter")) {
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_retainUser_quarter, condition), false);
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_phone_quarter));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_channel_quarter));
+                }
+                if (type.equals("year")) {
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_retainUser_year, condition), false);
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_phone_year));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_channel_year));
+                }
+            }
+
+            //返回结果
             List<Object> xAxisList = new ArrayList<Object>();
-            List<Object> dataList1 = new ArrayList<Object>();
-            List<Object> dataList2 = new ArrayList<Object>();
-            List<Object> dataList3 = new ArrayList<Object>();
+            List<Object> dataList = new ArrayList<Object>();
             for (List<String> list : dataTime) {
                 xAxisList.add(list.get(0));
-                dataList1.add(InceptorUtil.getDouble(list.get(2)));
-                dataList2.add(InceptorUtil.getDouble(list.get(3)));
-                dataList3.add(InceptorUtil.getDouble(list.get(4)));
+                dataList.add(list.get(1));
             }
-            Object[] nameList = new Object[]{res.get("app.retentionNextDay"), res.get("app.retentionWeek"), res.get("app.retentionMonth")};
-            String str = ChartUtils.genMultiLineChart(xAxisList, nameList, dataList1, dataList2, dataList3);
+            String str = ChartUtils.genLineChart(res.get("app.newAddUser"), xAxisList, dataList);
             result.put("chartOption", str);
             result.put("dataTime", dataTime);
             result.put("dataPhone", dataPhone);
@@ -120,7 +142,6 @@ public class AppUserController extends BaseController {
             renderJson(result);
         }
     }
-
     /**
      * app注册用户数据
      */
@@ -247,3 +268,4 @@ public class AppUserController extends BaseController {
     }
 
 }
+
