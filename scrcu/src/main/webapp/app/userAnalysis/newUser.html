@@ -21,9 +21,6 @@
                 <li class="csvExportTab" csvAction="app_newUser_phone">
                     <a href="#phone" data-toggle="tab"><i class="icon-screen-smartphone"></i>&nbsp;手机分布</a>
                 </li>
-                <li class="csvExportTab" csvAction="app_newUser_channel">
-                    <a href="#channel" data-toggle="tab"><i class="icon-equalizer text-muted"></i>&nbsp;渠道分布</a>
-                </li>
             </ul>
             <span class="hidden-sm"><a href="/csv/app_newUser" id="csvExport" class="btn btn-dark btn-sm"
                                        style="display: inline"><i
@@ -51,18 +48,6 @@
                             <th>手机OS</th>
                             <th>新增用户数量</th>
                             <th>占比</th>
-                        </tr>
-                        </thead>
-                    </table>
-                </div>
-                <div class="tab-pane fade" id="channel">
-                    <table id="table3" class="table table-striped b-light">
-                        <thead>
-                        <tr>
-                            <th>日期</th>
-                            <th>渠道名</th>
-                            <th>新增用户数量</th>
-                            <th>占比(该渠道新增用户/所有渠道新增用户)</th>
                         </tr>
                         </thead>
                     </table>
@@ -118,25 +103,7 @@
                 });
             }
         });
-        tableQuery({
-            "aaData": data.dataChannel,
-            "id": "#table3",
-            "aoColumnDefs": [{
-                "targets": [3, 4],
-                "searchable": false
-            }],
-            "sDom": "<'row'<'col-sm-8'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
-            initComplete: function () {
-                var api = this.api();
-                var selectValues = new Array();
-                api.columns().indexes().flatten().each(function (i) {
-                    if (i == 2) {
-                        var column = api.column(i);
-                        conditionSearch(i, "渠道", 3, selectValues, column, dateType);
-                    }
-                });
-            }
-        });
+
         csvExport("", dateType);
     }
 </script>

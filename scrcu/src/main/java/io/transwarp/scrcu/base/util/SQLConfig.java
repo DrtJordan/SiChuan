@@ -187,6 +187,26 @@ public enum SQLConfig {
     //活跃用户 渠道纬度
     app_activeUser_channel_year,
 
+    //注册用户 渠道注册按天汇总
+    app_regUser_channel_day,
+    //注册用户 手机os注册按天汇总
+    app_regUser_os_day,
+
+    //注册用户 渠道注册按月汇总
+    app_regUser_channel_month,
+    //注册用户 手机os注册按月汇总
+    app_regUser_os_month,
+
+    //注册用户 渠道注册按季汇总
+    app_regUser_channel_quarter,
+    //注册用户 手机os注册按季汇总
+    app_regUser_os_quarter,
+
+    //注册用户 渠道注册按年汇总
+    app_regUser_channel_year,
+    //注册用户 手机os注册按年汇总
+    app_regUser_os_year,
+
     //使用时长按天汇总
     app_useTime_day,
     app_useTime_channel_day,
