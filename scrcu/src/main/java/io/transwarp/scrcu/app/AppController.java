@@ -61,28 +61,28 @@ public class AppController extends Controller {
     public void version() {
         if (BaseUtils.isAjax(getRequest())) {
 
-            List<List<String>> dataTime = new ArrayList<>();
+            List<List<String>> data = new ArrayList<>();
             // 定义json类型结果
             JSONObject result = new JSONObject();
             // 得到查询条件
             String condition = InceptorUtil.getQueryCondition(getRequest());
             String type = getPara("dateType");
-            if (type != null) { 
+            if (type != null) {
                 if (type.equals("day")) {
-                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_version_day, condition), false);
+                    data = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_version_day, condition), false);
                 }
                 if (type.equals("month")) {
-                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_version_mouth, condition), false);
+                    data = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_version_mouth, condition), false);
                 }
                 if (type.equals("quarter")) {
-                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_version_quarter, condition), false);
+                    data = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_version_quarter, condition), false);
                 }
                 if (type.equals("year")) {
-                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_version_year, condition), false);
+                    data = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_version_year, condition), false);
                 }
             }
             //返回结果
-            result.put("dataTime", dataTime);
+            result.put("data", data);
             renderJson(result);
         }
     }

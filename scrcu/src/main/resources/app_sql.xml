@@ -800,7 +800,7 @@
 	<sqlGroup name="app_version_day">
 		<sql id="name">手机启动次数按天分布</sql>
 		<sql id="header">日期,版本号,用户数,该版本用户数/总用户数,新增用户,启动用户,启动次数</sql>
-		<sql id="sql">select stat_date, app_version, user_cnt, user_ration, new_token_cnt, startover_user_cnt, startover_cnt from bdhbs.th_log_app_version_orc_day where SQL_CONDITION order by stat_dt asc
+		<sql id="sql">select stat_date, app_version, user_cnt, user_ration, new_token_cnt, startover_user_cnt, startover_cnt from bdhbs.th_log_app_version_orc_day where SQL_CONDITION cnt_type = '99' order by stat_date asc
 		</sql>
 	</sqlGroup>
 
@@ -808,7 +808,7 @@
 	<sqlGroup name="app_version_mouth">
 		<sql id="name">手机启动次数按月分布</sql>
 		<sql id="header">日期,版本号,用户数,该版本用户数/总用户数,新增用户,启动用户,启动次数</sql>
-		<sql id="sql">select stat_date, app_version, user_cnt, user_ration, new_token_cnt, startover_user_cnt, startover_cnt from bdhbs.th_log_app_version_orc_sum_day where SQL_CONDITION cnt_type = '2' order by stat_dt asc
+		<sql id="sql">select stat_date, app_version, user_cnt, user_ration, new_token_cnt, startover_user_cnt, startover_cnt from bdhbs.th_log_app_version_orc_sum_day where SQL_CONDITION cnt_type = '2' order by stat_date asc
 		</sql>
 	</sqlGroup>
 
@@ -816,7 +816,7 @@
 	<sqlGroup name="app_version_quarter">
 		<sql id="name">手机启动次数按季分布</sql>
 		<sql id="header">日期,版本号,用户数,该版本用户数/总用户数,新增用户,启动用户,启动次数</sql>
-		<sql id="sql">select stat_date, app_version, user_cnt, user_ration, new_token_cnt, startover_user_cnt, startover_cnt from bdhbs.th_log_app_version_orc_sum_day where SQL_CONDITION cnt_type = '3' order by stat_dt asc
+		<sql id="sql">select stat_date, app_version, user_cnt, user_ration, new_token_cnt, startover_user_cnt, startover_cnt from bdhbs.th_log_app_version_orc_sum_day where SQL_CONDITION cnt_type = '3' order by stat_date asc
 		</sql>
 	</sqlGroup>
 
@@ -824,7 +824,7 @@
 	<sqlGroup name="app_version_year">
 		<sql id="name">手机启动次数按年分布</sql>
 		<sql id="header">日期,版本号,用户数,该版本用户数/总用户数,新增用户,启动用户,启动次数</sql>
-		<sql id="sql">select stat_date, app_version, user_cnt, user_ration, new_token_cnt, startover_user_cnt, startover_cnt from bdhbs.th_log_app_version_orc_sum_day where SQL_CONDITION cnt_type = '4' order by stat_dt asc
+		<sql id="sql">select stat_date, app_version, user_cnt, user_ration, new_token_cnt, startover_user_cnt, startover_cnt from bdhbs.th_log_app_version_orc_sum_day where SQL_CONDITION cnt_type = '4' order by stat_date asc
 		</sql>
 	</sqlGroup>
 

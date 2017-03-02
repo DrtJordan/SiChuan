@@ -35,9 +35,12 @@
 </section>
 </@layout>
 <script>
+
+	$("#weekButton").hide();
+
 	function dataTableExchange(data, dateType) {
 		tableQuery({
-			"aaData": data.dataPhone,
+			"aaData": data.data,
 			"id": "#table1",
 			"sDom": "<'row'<'col-sm-6'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
 			initComplete: function () {

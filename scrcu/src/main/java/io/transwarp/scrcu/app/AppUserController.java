@@ -99,31 +99,31 @@ public class AppUserController extends BaseController {
             // 得到查询条件
             String condition = InceptorUtil.getQueryCondition(getRequest());
             String type = getPara("dateType");
-            if (type != null) { //app留存用户按天汇总
+            if (type != null) {
                 if (type.equals("day")) {
                     dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_retainUser_day, condition), false);
-                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_phone_day));
-                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_channel_day));
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_phone_day, condition));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_channel_day, condition));
                 }
                 if (type.equals("week")) {
                     dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_retainUser_week, condition), false);
-                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_phone_week));
-                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_channel_week));
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_phone_week, condition));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_channel_week, condition));
                 }
                 if (type.equals("month")) {
                     dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_retainUser_mouth, condition), false);
-                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_phone_mouth));
-                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_channel_mouth));
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_phone_mouth, condition));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_channel_mouth, condition));
                 }
                 if (type.equals("quarter")) {
                     dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_retainUser_quarter, condition), false);
-                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_phone_quarter));
-                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_channel_quarter));
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_phone_quarter, condition));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_channel_quarter, condition));
                 }
                 if (type.equals("year")) {
                     dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_retainUser_year, condition), false);
-                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_phone_year));
-                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_channel_year));
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_phone_year, condition));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_channel_year, condition));
                 }
             }
 
