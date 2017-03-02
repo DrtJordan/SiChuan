@@ -9,11 +9,9 @@ import io.transwarp.scrcu.base.util.BaseUtils;
 import io.transwarp.scrcu.base.util.ChartUtils;
 import io.transwarp.scrcu.base.util.SQLConfig;
 import io.transwarp.scrcu.sqlinxml.SqlKit;
-import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +23,7 @@ public class AppUserController extends BaseController {
     /**
      * app活跃用户数据
      */
+    @SuppressWarnings("unchecked")
     @RequiresPermissions("/app/userAnalysis/activeUser")
     public void activeUser() {
 
@@ -66,8 +65,8 @@ public class AppUserController extends BaseController {
                 }
             }
             // 返回结果
-            List<Object> xAxisList = new ArrayList<Object>();
-            List<Object> dataList = new ArrayList<Object>();
+            List<Object> xAxisList = new ArrayList<>();
+            List<Object> dataList = new ArrayList<>();
             for (List<String> list : dataTime) {
                 xAxisList.add(list.get(0));
                 dataList.add(Integer.valueOf(list.get(1)));
@@ -128,8 +127,8 @@ public class AppUserController extends BaseController {
             }
 
             //返回结果
-            List<Object> xAxisList = new ArrayList<Object>();
-            List<Object> dataList = new ArrayList<Object>();
+            List<Object> xAxisList = new ArrayList<>();
+            List<Object> dataList = new ArrayList<>();
             for (List<String> list : dataTime) {
                 xAxisList.add(list.get(0));
                 dataList.add(list.get(1));
@@ -146,6 +145,7 @@ public class AppUserController extends BaseController {
     /**
      * app注册用户数据
      */
+    @SuppressWarnings("unchecked")
     @RequiresPermissions("/app/userAnalysis/regUser")
     public void regUser() {
         if (BaseUtils.isAjax(getRequest())) {
@@ -175,9 +175,9 @@ public class AppUserController extends BaseController {
                 }
             }
             // 返回结果
-            List<Object> xAxisList = new ArrayList<Object>();
-            List<Object> dataList1 = new ArrayList<Object>();
-            List<Object> dataList2 = new ArrayList<Object>();
+            List<Object> xAxisList = new ArrayList<>();
+            List<Object> dataList1 = new ArrayList<>();
+            List<Object> dataList2 = new ArrayList<>();
             for (List<String> list : dataChannel) {
                 xAxisList.add(list.get(0));
                 dataList1.add(Integer.valueOf(list.get(1)));
@@ -196,6 +196,7 @@ public class AppUserController extends BaseController {
     /**
      * app登录用户数据
      */
+    @SuppressWarnings("unchecked")
     @RequiresPermissions("/app/userAnalysis/loginUser")
     public void loginUser() {
         if (BaseUtils.isAjax(getRequest())) {
@@ -210,9 +211,9 @@ public class AppUserController extends BaseController {
             // 定义json类型结果
             JSONObject result = new JSONObject();
             // 返回结果
-            List<Object> xAxisList = new ArrayList<Object>();
-            List<Object> dataList1 = new ArrayList<Object>();
-            List<Object> dataList2 = new ArrayList<Object>();
+            List<Object> xAxisList = new ArrayList<>();
+            List<Object> dataList1 = new ArrayList<>();
+            List<Object> dataList2 = new ArrayList<>();
             for (List<String> list : dataTime) {
                 xAxisList.add(list.get(0));
                 dataList1.add(list.get(1));
@@ -231,6 +232,7 @@ public class AppUserController extends BaseController {
     /**
      * app新增用户数据
      */
+    @SuppressWarnings("unchecked")
     @RequiresPermissions("/app/userAnalysis/newUser")
     public void newUser() {
         if (BaseUtils.isAjax(getRequest())) {
@@ -266,8 +268,8 @@ public class AppUserController extends BaseController {
             }
 
             //返回结果
-            List<Object> xAxisList = new ArrayList<Object>();
-            List<Object> dataList = new ArrayList<Object>();
+            List<Object> xAxisList = new ArrayList<>();
+            List<Object> dataList = new ArrayList<>();
             for (List<String> list : dataTime) {
                 xAxisList.add(list.get(0));
                 dataList.add(list.get(1));

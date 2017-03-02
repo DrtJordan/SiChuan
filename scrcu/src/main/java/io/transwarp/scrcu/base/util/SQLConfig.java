@@ -95,10 +95,6 @@ public enum SQLConfig {
     app_channel_detail,
     // 移动 渠道列表
     app_channel_list,
-    // 移动 渠道启动次数
-    app_startCount_channel,
-    // 移动 手机启动次数
-    app_startCount_phone,
 
     //移动 会员页面分析
     app_memberPage,
@@ -319,6 +315,26 @@ public enum SQLConfig {
     app_version_quarter,
     // 移动 版本分布按年汇总
     app_version_year,
+
+    // 移动 渠道启动次数按天汇总
+    app_startCount_channel_day,
+    // 移动 手机启动次数按天汇总
+    app_startCount_phone_day,
+
+    // 移动 渠道启动次数按月汇总
+    app_startCount_channel_month,
+    // 移动 手机启动次数按月汇总
+    app_startCount_phone_month,
+
+    // 移动 渠道启动次数按季汇总
+    app_startCount_channel_quarter,
+    // 移动 手机启动次数按季汇总
+    app_startCount_phone_quarter,
+
+    // 移动 渠道启动次数按年汇总
+    app_startCount_channel_year,
+    // 移动 手机启动次数按年汇总
+    app_startCount_phone_year,
 
     // 画像 交易曲线
     portrait_trading,

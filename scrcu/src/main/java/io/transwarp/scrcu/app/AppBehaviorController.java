@@ -25,6 +25,7 @@ public class AppBehaviorController extends Controller {
     /**
      * 获取使用时长
      */
+    @SuppressWarnings("unchecked")
     @RequiresPermissions("/app/behavior/useTime")
     public void useTime() {
         if (BaseUtils.isAjax(getRequest())) {
@@ -129,6 +130,7 @@ public class AppBehaviorController extends Controller {
     /**
      * 获取使用频率
      */
+    @SuppressWarnings("unchecked")
     @RequiresPermissions("/app/behavior/useRate")
     public void useRate() {
         if (BaseUtils.isAjax(getRequest())) {
@@ -228,6 +230,7 @@ public class AppBehaviorController extends Controller {
     /**
      * 获取访问深度
      */
+    @SuppressWarnings("unchecked")
     @RequiresPermissions("/app/behavior/depth")
     public void depth() {
         if (BaseUtils.isAjax(getRequest())) {
@@ -321,6 +324,7 @@ public class AppBehaviorController extends Controller {
     /**
      * 获取访问间隔
      */
+    @SuppressWarnings("unchecked")
     @RequiresPermissions("/app/behavior/interval")
     public void interval() {
 
@@ -423,6 +427,7 @@ public class AppBehaviorController extends Controller {
     /**
      * 获取地域分布
      */
+    @SuppressWarnings("unchecked")
     @RequiresPermissions("/app/behavior/area")
     public void area() {
         if (BaseUtils.isAjax(getRequest())) {

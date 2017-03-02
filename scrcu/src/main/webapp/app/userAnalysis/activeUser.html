@@ -78,7 +78,7 @@
     /**
      * 定义数据查询方法，用来转换后台传输数据
      * @param data 数据
-     * @param dateType 日期类型
+     * @param dateType 日期类型：day,week,month,quarter,year
      */
 	function dataTableExchange(data, dateType) {
 
@@ -99,7 +99,7 @@
             "aaData" : data.dataPhone,
             "id" : "#table2",
             "aoColumnDefs": [{
-                "targets": [3,4],
+                "targets": [3],
                 "searchable": false
             }],
             "sDom": "<'row'<'col-sm-8'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
@@ -118,7 +118,7 @@
             "aaData" : data.dataChannel,
             "id" : "#table3",
             "aoColumnDefs": [{
-                "targets": [3,4],
+                "targets": [3],
                 "searchable": false
             }],
             "sDom": "<'row'<'col-sm-8'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",

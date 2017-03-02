@@ -25,18 +25,37 @@ public class AppController extends Controller {
     /**
      * 获取启动次数
      */
+    @SuppressWarnings("unchecked")
     @RequiresPermissions("/app/appAnalysis/startCount")
     public void startCount() {
         if (BaseUtils.isAjax(getRequest())) {
-            // 得到查询条件
-            String condition = InceptorUtil.getDateCondition(getRequest());
-            // 执行查询
-            List<List<String>> dataPhone = InceptorUtil
-                    .query(SqlKit.propSQL(SQLConfig.app_startCount_phone) + condition, 35);
-            List<List<String>> dataChannel = InceptorUtil
-                    .query(SqlKit.propSQL(SQLConfig.app_startCount_channel) + condition, 35);
 
+            List<List<String>> dataPhone = new ArrayList<>();
+            List<List<String>> dataChannel = new ArrayList<>();
+            // 定义json类型结果
             JSONObject result = new JSONObject();
+
+            // 得到查询条件
+            String condition = InceptorUtil.getQueryCondition(getRequest());
+            String dateType = getPara("dateType");
+            if (dateType != null) {
+                if (dateType.equals("day")) {
+                    dataPhone = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_startCount_phone_day, condition), false);
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_startCount_channel_day, condition));
+                }
+                if (dateType.equals("month")) {
+                    dataPhone = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_startCount_phone_month, condition), false);
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_startCount_channel_month, condition));
+                }
+                if (dateType.equals("quarter")) {
+                    dataPhone = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_startCount_phone_quarter, condition),false);
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_startCount_channel_quarter, condition));
+                }
+                if (dateType.equals("year")) {
+                    dataPhone = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_startCount_phone_year, condition),false);
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_startCount_channel_year, condition));
+                }
+            }
             // 返回结果
             List<Object> xAxisList = new ArrayList<Object>();
             List<Object> dataList = new ArrayList<Object>();
@@ -45,8 +64,10 @@ public class AppController extends Controller {
                 dataList.add(Integer.valueOf(list.get(3)));
             }
 
+            //定义折线图图例的名称
+            Object[] names = new Object[]{res.get("app.startTimes")};
             // 生成启动次数折线图数据
-            String genLineChart = ChartUtils.genLineChart(res.get("app.startTimes"), xAxisList, dataList);
+            String genLineChart = ChartUtils.genAppMultiLineCharts(dateType, xAxisList, names, dataList);
             result.put("chartOption", genLineChart);
             result.put("dataPhone", dataPhone);
             result.put("dataChannel", dataChannel);

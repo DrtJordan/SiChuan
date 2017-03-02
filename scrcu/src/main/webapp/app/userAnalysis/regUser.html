@@ -71,6 +71,11 @@
 </script>
 
 <script>
+    /**
+     * 定义数据查询方法，用来转换后台传输数据
+     * @param data 数据
+     * @param dateType 日期类型：day,month,quarter,year
+     */
     function dataTableExchange(data, dateType) {
 
         var chart = echarts.init(document.getElementById('chartDiv'),
