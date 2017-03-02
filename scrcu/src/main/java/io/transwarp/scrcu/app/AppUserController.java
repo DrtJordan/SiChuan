@@ -110,9 +110,9 @@ public class AppUserController extends BaseController {
                     dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_channel_week, condition));
                 }
                 if (type.equals("month")) {
-                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_retainUser_mouth, condition), false);
-                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_phone_mouth, condition));
-                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_channel_mouth, condition));
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_retainUser_month, condition), false);
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_phone_month, condition));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_channel_month, condition));
                 }
                 if (type.equals("quarter")) {
                     dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_retainUser_quarter, condition), false);

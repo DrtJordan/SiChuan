@@ -93,7 +93,7 @@ public class AppController extends Controller {
                     data = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_version_day, condition), false);
                 }
                 if (type.equals("month")) {
-                    data = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_version_mouth, condition), false);
+                    data = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_version_month, condition), false);
                 }
                 if (type.equals("quarter")) {
                     data = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_version_quarter, condition), false);

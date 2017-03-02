@@ -109,9 +109,9 @@ public enum SQLConfig {
     app_retainUser_phone_week,
     app_retainUser_channel_week,
     //app留存用户按月汇总
-    app_retainUser_mouth,
-    app_retainUser_phone_mouth,
-    app_retainUser_channel_mouth,
+    app_retainUser_month,
+    app_retainUser_phone_month,
+    app_retainUser_channel_month,
     //app留存用户按季汇总
     app_retainUser_quarter,
     app_retainUser_phone_quarter,
@@ -299,7 +299,7 @@ public enum SQLConfig {
     // 移动 版本分布按天汇总
     app_version_day,
     // 移动 版本分布按月汇总
-    app_version_mouth,
+    app_version_month,
     // 移动 版本分布按季汇总
     app_version_quarter,
     // 移动 版本分布按年汇总
@@ -316,10 +316,10 @@ public enum SQLConfig {
     app_area_chanel_week,
     app_area_os_week,
     // //移动地域按月汇总
-    app_area_query_mouth,
-    app_area_phone_mouth,
-    app_area_chanel_mouth,
-    app_area_os_mouth,
+    app_area_query_month,
+    app_area_phone_month,
+    app_area_chanel_month,
+    app_area_os_month,
     // //移动地域按季汇总
     app_area_query_quarter,
     app_area_phone_quarter,

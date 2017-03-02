@@ -453,10 +453,10 @@ public class AppBehaviorController extends Controller {
                     dataAreaOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_os_week, condition));
                 }
                 if (dateType.equals("month")) {
-                    dataArea = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_area_query_mouth, condition),false);
-                    dataAreaPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_phone_mouth, condition));
-                    dataAreaChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_chanel_mouth, condition));
-                    dataAreaOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_os_mouth, condition));
+                    dataArea = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_area_query_month, condition),false);
+                    dataAreaPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_phone_month, condition));
+                    dataAreaChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_chanel_month, condition));
+                    dataAreaOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_os_month, condition));
                 }
                 if (dateType.equals("quarter")) {
                     dataArea = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_area_query_quarter, condition),false);

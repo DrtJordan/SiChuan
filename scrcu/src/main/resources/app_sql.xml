@@ -123,17 +123,17 @@
 	</sqlGroup>
 
 	<!-- app留存用户按月汇总 -->
-	<sqlGroup name="app_retainUser_mouth">
+	<sqlGroup name="app_retainUser_month">
 		<sql id="name">app留存用户按月汇总</sql>
 		<sql id="header">日期,新增用户数,次日留存,7日留存,30日留存数,30日留存数,60天后,90天后,180天后,360天后</sql>
 		<sql id="sql">select stat_date, new_token_cnt, last_day_retn_ratio, last_7days_retn_ratio, last_30days_retn_ratio, last_60days_retn_ratio, last_90days_retn_ratio, last_180days_retn_ratio, last_360days_retn_ratio from bdhbs.th_log_app_usr_retained_chl_orc_day where SQL_CONDITION cnt_type = '2' order by stat_date asc</sql>
 	</sqlGroup>
-	<sqlGroup name="app_retainUser_phone_mouth">
+	<sqlGroup name="app_retainUser_phone_month">
 		<sql id="name">app留存用户_手机维度按月汇总</sql>
 		<sql id="header">日期,手机os,新增用户数,次日留存,7日留存,30日留存数</sql>
 		<sql id="sql">select stat_date, term_os, last_day_retn_ratio, last_7days_retn_ratio, last_30days_retn_ratio, last_60days_retn_ratio, last_90days_retn_ratio, last_180days_retn_ratio, last_360days_retn_ratio from bdhbs.th_log_app_usr_retained_chl_orc_day where SQL_CONDITION cnt_type = '2' order by stat_date asc</sql>
 	</sqlGroup>
-	<sqlGroup name="app_retainUser_channel_mouth">
+	<sqlGroup name="app_retainUser_channel_month">
 		<sql id="name">app留存用户_渠道维度按月汇总</sql>
 		<sql id="header">日期,渠道名,次日留存,7日留存,30日留存数,30日留存数,60天后,90天后,180天后,360天后</sql>
 		<sql id="sql">select stat_date, chl_id, last_day_retn_ratio, last_7days_retn_ratio, last_30days_retn_ratio, last_60days_retn_ratio, last_90days_retn_ratio, last_180days_retn_ratio, last_360days_retn_ratio from bdhbs.th_log_app_usr_retained_chl_orc_day where SQL_CONDITION cnt_type = '2' order by stat_date asc</sql>
@@ -842,7 +842,7 @@
 	</sqlGroup>
 
 	<!--版本分布按月汇总-->
-	<sqlGroup name="app_version_mouth">
+	<sqlGroup name="app_version_month">
 		<sql id="name">手机启动次数按月分布</sql>
 		<sql id="header">日期,版本号,用户数,该版本用户数/总用户数,新增用户,启动用户,启动次数</sql>
 		<sql id="sql">select stat_date, app_version, user_cnt, user_ration, new_token_cnt, startover_user_cnt, startover_cnt from bdhbs.th_log_app_version_orc_sum_day where SQL_CONDITION cnt_type = '2' order by stat_date asc
@@ -911,22 +911,22 @@
 	</sqlGroup>
 
 	<!--APP用户地域分布按月汇总-->
-	<sqlGroup name="app_area_query_mouth">
+	<sqlGroup name="app_area_query_month">
 		<sql id="name">APP用户地域分布按月汇总</sql>
 		<sql id="header">地市,日期,新增用户,占比,启动次数,平均访问深度</sql>
 		<sql id="sql">select city_id, stat_date, new_usr_cnt, new_usr_cnt_ratio, startup_cnt, avg_visit_url from bdhbs.th_log_app_usr_area_orc_sum_day where SQL_CONDITION cnt_type='2' order by stat_date asc</sql>
 	</sqlGroup>
-	<sqlGroup name="app_area_phone_mouth">
+	<sqlGroup name="app_area_phone_month">
 		<sql id="name">APP用户版本地域分布按月汇总</sql>
 		<sql id="header">地市,日期,新增用户,占比,启动次数,注册用户数,新注册用户数,平均访问深度</sql>
 		<sql id="sql">select city_id, stat_date, app_version, new_usr_cnt, new_usr_cnt_ratio, startup_cnt, avg_visit_url from bdhbs.th_log_app_usr_area_appv_orc_sum_day where SQL_CONDITION cnt_type='2' order by stat_date asc</sql>
 	</sqlGroup>
-	<sqlGroup name="app_area_chanel_mouth">
+	<sqlGroup name="app_area_chanel_month">
 		<sql id="name">APP用户渠道地域分布按月汇总</sql>
 		<sql id="header">地市,日期,新增用户,占比,启动次数,注册用户数,新注册用户数,平均访问深度</sql>
 		<sql id="sql">select city_id, stat_date, chl_id, new_usr_cnt, new_usr_cnt_ratio, startup_cnt, avg_visit_url from bdhbs.th_log_app_usr_area_chl_orc_sum_day where SQL_CONDITION cnt_type='2' order by stat_date asc</sql>
 	</sqlGroup>
-	<sqlGroup name="app_area_os_mouth">
+	<sqlGroup name="app_area_os_month">
 		<sql id="name">APP用户手机os地域分布按月汇总</sql>
 		<sql id="header">地市,日期,新增用户,占比,启动次数,注册用户数,新注册用户数,平均访问深度</sql>
 		<sql id="sql">select city_id, stat_date, term_OS, new_usr_cnt, new_usr_cnt_ratio, startup_cnt, avg_visit_url from bdhbs.th_log_app_usr_area_os_orc_sum_day where SQL_CONDITION cnt_type='2' order by stat_date asc</sql>
