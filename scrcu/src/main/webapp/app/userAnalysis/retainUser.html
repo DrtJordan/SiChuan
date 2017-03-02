@@ -119,7 +119,7 @@
 			"sDom": "<'row'<'col-sm-6'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
 			initComplete: function () {
 				var api = this.api();
-				var column = api.column(1);
+				var column = api.column(2);
 				var select = $('<div id="select" class="col-sm-6"><div class="dataTables_filter"><label><i class="fa fa-search">&nbsp;OS&nbsp;</i><select name="optValue" style="width: 120px"><option value="">--请选择--</option></select></label></div></div>')
 						.appendTo($("#table2_wrapper div:first"))
 						.on('change', function () {
@@ -151,7 +151,7 @@
 			"sDom": "<'row'<'col-sm-6'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
 			initComplete: function () {
 				var api = this.api();
-				var column = api.column(1);
+				var column = api.column(2);
 				var select = $('<div id="select" class="col-sm-6"><div class="dataTables_filter"><label><i class="fa fa-search">&nbsp;渠道&nbsp;</i><select name="optValue" style="width: 120px"><option value="">--请选择--</option></select></label></div></div>')
 						.appendTo($("#table3_wrapper div:first"))
 						.on('change', function () {
