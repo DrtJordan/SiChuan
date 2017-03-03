@@ -11,7 +11,6 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import com.alibaba.fastjson.JSONObject;
 import com.jfinal.core.Controller;
 
-import io.transwarp.echarts.data.Data;
 import io.transwarp.scrcu.base.inceptor.InceptorUtil;
 import io.transwarp.scrcu.base.util.BaseUtils;
 import io.transwarp.scrcu.base.util.ChartUtils;
@@ -58,33 +57,41 @@ public class AppChannelController extends Controller {
 
 	}
 
-	/**
-	 * 获取app渠道详情
-	 */
-	@RequiresPermissions("/app/channel/detail")
-	public void detail() {
+    /**
+     * 获取app渠道详情
+     */
+    @SuppressWarnings("unchecked")
+    @RequiresPermissions("/app/channel/detail")
+    public void detail() {
 
-		if (BaseUtils.isAjax(getRequest())) {
-			// 得到查询条件
-			String condition = InceptorUtil.getDateCondition(getRequest());
-			// 执行查询
-			List<List<String>> data = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_channel_detail, condition), 7);
+        if (BaseUtils.isAjax(getRequest())) {
+            // 得到查询条件
+            String condition = InceptorUtil.getQueryCondition(getRequest());
+            // 执行查询
+            List<List<String>> dataChannel = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_channel_detail, condition), false);
 
-			JSONObject result = new JSONObject();
-			// 返回结果
-			List<Object> dataList = new ArrayList<Object>();
-			for (List<String> list : data) {
-				list.set(0, res.get("app.officialWebSite"));
-				Data d = new Data(list.get(0), Integer.valueOf(list.get(2)));
-				dataList.add(d);
-			}
+            JSONObject result = new JSONObject();
+            // 返回结果
+            List<Object> xDataList = new ArrayList<>();
+            List<Object> newUserList = new ArrayList<>();
+            List<Object> startUserList = new ArrayList<>();
+            List<Object> startCntList = new ArrayList<>();
+            Object[] nameList = new Object[]{"新增用户", "启动用户", "启动次数"};
+            for (List<String> list : dataChannel) {
+                if (!xDataList.contains(list.get(0))) {
+                    xDataList.add(list.get(0));
+                }
+                newUserList.add(list.get(2));
+                startUserList.add(list.get(3));
+                startCntList.add(list.get(4));
+            }
 
-			//生成渠道详情的饼图数据
-			String genPie = ChartUtils.genPie(res.get("app.startUser"), dataList);
-			result.put("chartOption", genPie);
-			result.put("data", data);
-			renderJson(result);
-		}
-	}
+            //生成渠道详情的数据
+            String genDetailChannel = ChartUtils.genAppMultiLineCharts("", xDataList, nameList, newUserList, startUserList, startCntList);
+            result.put("chartOption", genDetailChannel);
+            result.put("data", dataChannel);
+            renderJson(result);
+        }
+    }
 
 }
