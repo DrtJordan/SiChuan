@@ -75,8 +75,6 @@ public enum SQLConfig {
 
     // 移动 渠道明细
     app_channel_detail,
-    // 移动 渠道列表
-    app_channel_list,
 
     //移动 会员页面分析
     app_memberPage,
@@ -136,7 +134,6 @@ public enum SQLConfig {
     app_activeUser_phone_day,
     //活跃用户 渠道纬度
     app_activeUser_channel_day,
-
     //活跃用户按周汇总
     app_activeUser_week,
     //活跃用户 手机纬度
@@ -150,14 +147,12 @@ public enum SQLConfig {
     app_activeUser_phone_month,
     //活跃用户 渠道纬度
     app_activeUser_channel_month,
-
     //活跃用户按季汇总
     app_activeUser_quarter,
     //活跃用户 手机纬度
     app_activeUser_phone_quarter,
     //活跃用户 渠道纬度
     app_activeUser_channel_quarter,
-
     //活跃用户按季汇总
     app_activeUser_year,
     //活跃用户 手机纬度
@@ -169,17 +164,14 @@ public enum SQLConfig {
     app_regUser_channel_day,
     //注册用户 手机os注册按天汇总
     app_regUser_os_day,
-
     //注册用户 渠道注册按月汇总
     app_regUser_channel_month,
     //注册用户 手机os注册按月汇总
     app_regUser_os_month,
-
     //注册用户 渠道注册按季汇总
     app_regUser_channel_quarter,
     //注册用户 手机os注册按季汇总
     app_regUser_os_quarter,
-
     //注册用户 渠道注册按年汇总
     app_regUser_channel_year,
     //注册用户 手机os注册按年汇总
@@ -358,21 +350,30 @@ public enum SQLConfig {
     app_startCount_channel_day,
     // 移动 手机启动次数按天汇总
     app_startCount_phone_day,
-
     // 移动 渠道启动次数按月汇总
     app_startCount_channel_month,
     // 移动 手机启动次数按月汇总
     app_startCount_phone_month,
-
     // 移动 渠道启动次数按季汇总
     app_startCount_channel_quarter,
     // 移动 手机启动次数按季汇总
     app_startCount_phone_quarter,
-
     // 移动 渠道启动次数按年汇总
     app_startCount_channel_year,
     // 移动 手机启动次数按年汇总
     app_startCount_phone_year,
+
+    // 移动 渠道列表按天汇总
+    app_channel_list_day,
+    // 移动 渠道列表按周汇总
+    app_channel_list_week,
+    // 移动 渠道列表按月汇总
+    app_channel_list_month,
+    // 移动 渠道列表按季汇总
+    app_channel_list_quarter,
+    // 移动 渠道列表按年汇总
+    app_channel_list_year,
+
 
     // 画像 交易曲线
     portrait_trading,

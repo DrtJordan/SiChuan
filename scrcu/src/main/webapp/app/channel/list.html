@@ -10,15 +10,6 @@
 	<#include "/common/_dateQuery.html"/>
 
 	<div class="panel panel-default table-responsive clear">
-		<!--<header class="noborder panel-heading text-right bg-light clear">
-			<ul class="nav nav-tabs pull-left clear">
-				<li class="active csvExportTab" csvAction="app_channel_list" >
-					<a href="#table1" data-toggle="tab"><i class="icon-list"></i>&nbsp;渠道列表</a>
-				</li>
-			</ul>
-			<span class="hidden-sm"><a href="/csv/app_channel_list" id="csvExport" class="btn btn-dark btn-sm" style="display: inline"
-			><i class="fa fa-cloud-download"></i>&nbsp;导出</a></span>
-		</header>-->
 		<header class="panel-heading">
 			<i class="icon-list padder-xs"></i>渠道列表
 			<span class="hidden-sm pull-right"><a href="" csvAction="/csv/app_channel_list" class="csvExport btn btn-default btn-sm" style="display: inline"><i
@@ -48,23 +39,31 @@
 </@layout>
 
 <script>
-	function query(flag) {
-		if (flag) {
-			$("#weekButton").click();
-			return;
-		}
-		var start = $("#start_dt").val();
-		var end = $("#end_dt").val();
-		var ajaxOption = {
-			url : window.location.href + "?start_dt=" + start + "&end_dt="
-					+ end,
-			success : function(data) {
-                tableQuery({
-                    "aaData" : data.data,
-                    "id" : "#table1"
-                });
+	function dataTableExchange(data, dateType) {
+		tableQuery({
+			"aaData": data.data,
+			"id": "#table1",
+			"sDom": "<'row'<'col-sm-6'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
+			initComplete: function () {
+				var api = this.api();
+				var column = api.column(2);
+				var select = $('<div id="select" class="col-sm-6"><div class="dataTables_filter"><label><i class="fa fa-search">&nbsp;渠道&nbsp;</i><select name="optValue" style="width: 120px"><option value="">--请选择--</option></select></label></div></div>')
+						.appendTo($("#table1_wrapper div:first"))
+						.on('change', function () {
+							var selectValues = new Array();
+							var val = $.fn.dataTable.util.escapeRegex(
+									$("#table1_wrapper div:first div#select select").val()
+							);
+							column
+									.search(val ? '^' + val + '$' : '', true, false)
+									.draw();
+							selectValues.push("渠道:" + val);
+							csvExport(selectValues, dateType);
+						});
+				column.data().unique().sort().each(function (d, j) {
+					$(" #table1_wrapper div#select select").append('<option value="' + d + '">' + d + '</option>')
+				});
 			}
-		};
-		commonAjax(ajaxOption);
+		});
 	}
 </script>

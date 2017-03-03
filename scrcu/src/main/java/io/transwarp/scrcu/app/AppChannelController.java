@@ -29,15 +29,33 @@ public class AppChannelController extends Controller {
 	@RequiresPermissions("/app/channel/list")
 	public void list() {
 		if (BaseUtils.isAjax(getRequest())) {
-			// 得到查询条件
-			String condition = InceptorUtil.getDateCondition(getRequest());
-			// 执行查询
-			List<List<String>> data = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_channel_list.toString(), condition));
-			// 返回结果
+			List<List<String>> data = new ArrayList<>();
 			JSONObject result = new JSONObject();
+			// 得到查询条件
+			String dateType = getPara("dateType");
+			String condition = InceptorUtil.getQueryCondition(getRequest());
+			if (dateType != null) {
+				if (dateType.equals("day")) {
+					data = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_channel_list_day, condition),false);
+				}
+				if (dateType.equals("week")) {
+					data = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_channel_list_week, condition),false);
+				}
+				if (dateType.equals("month")) {
+					data = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_channel_list_month, condition),false);
+				}
+				if (dateType.equals("quarter")) {
+					data = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_channel_list_quarter, condition),false);
+				}
+				if (dateType.equals("year")) {
+					data = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_channel_list_year, condition),false);
+				}
+			}
+			// 返回结果
 			result.put("data", data);
 			renderJson(result);
 		}
+
 	}
 
 	/**
@@ -62,7 +80,7 @@ public class AppChannelController extends Controller {
 			}
 
 			//生成渠道详情的饼图数据
-			String genPie = ChartUtils.genPie(res.get("app..startUser"), dataList);
+			String genPie = ChartUtils.genPie(res.get("app.startUser"), dataList);
 			result.put("chartOption", genPie);
 			result.put("data", data);
 			renderJson(result);

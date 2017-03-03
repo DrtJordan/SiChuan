@@ -871,10 +871,39 @@
 	</sqlGroup>
 
 	<!-- 渠道列表-->
-	<sqlGroup name="app_channel_list">
-		<sql id="name">渠道列表</sql>
-		<sql id="header">日期,渠道名称,新增用户数,启动用户数,累计用户数 ,占比（该渠道新增用户数/所有新增用户数）,启动次数,平均单次使用时长</sql>
-			<sql id="sql">select statt_dt,channel_name,new_token_cnt,startover_user_cnt,user_cnt,new_token_cnt_div_new_token_cnt_sum,startover_cnt,aver_vist_durat from Result_Channel_List_Info</sql>
+	<!-- 渠道列表按天汇总-->
+	<sqlGroup name="app_channel_list_day">
+		<sql id="name">app访问深度按天汇总</sql>
+		<sql id="header">日期,渠道名称,新增用户数,启动用户数,累计用户数,占比（该渠道新增用户数/所有新增用户数,启动次数,平均单次使用时长</sql>
+		<sql id="sql">select stat_date, chl_id, new_token_cnt, startover_user_cnt, accumulate_user_cnt, new_token_cnt_ratio, startover_cnt, aver_vist_durat from bdhbs.th_log_app_chl_list_orc_day where SQL_CONDITION cnt_type ='99' order by stat_date asc</sql>
+	</sqlGroup>
+
+	<!-- 渠道列表按周汇总-->
+	<sqlGroup name="app_channel_list_week">
+		<sql id="name">渠道列表按周汇总</sql>
+		<sql id="header">日期,渠道名称,新增用户数,启动用户数,累计用户数,占比（该渠道新增用户数/所有新增用户数,启动次数,平均单次使用时长</sql>
+		<sql id="sql">select stat_date, chl_id, new_token_cnt, startover_user_cnt, accumulate_user_cnt, new_token_cnt_ratio, startover_cnt, aver_vist_durat from bdhbs.th_log_app_chl_list_orc_sum_day where SQL_CONDITION cnt_type ='1' order by stat_date asc</sql>
+	</sqlGroup>
+
+	<!-- 渠道列表按月汇总-->
+	<sqlGroup name="app_channel_list_month">
+		<sql id="name">渠道列表按月汇总</sql>
+		<sql id="header">日期,渠道名称,新增用户数,启动用户数,累计用户数,占比（该渠道新增用户数/所有新增用户数,启动次数,平均单次使用时长</sql>
+		<sql id="sql">select stat_date, chl_id, new_token_cnt, startover_user_cnt, accumulate_user_cnt, new_token_cnt_ratio, startover_cnt, aver_vist_durat from bdhbs.th_log_app_chl_list_orc_sum_day where SQL_CONDITION cnt_type ='2' order by stat_date asc</sql>
+	</sqlGroup>
+
+	<!-- 渠道列表按季汇总-->
+	<sqlGroup name="app_channel_list_quarter">
+		<sql id="name">渠道列表按月汇总</sql>
+		<sql id="header">日期,渠道名称,新增用户数,启动用户数,累计用户数,占比（该渠道新增用户数/所有新增用户数,启动次数,平均单次使用时长</sql>
+		<sql id="sql">select stat_date, chl_id, new_token_cnt, startover_user_cnt, accumulate_user_cnt, new_token_cnt_ratio, startover_cnt, aver_vist_durat from bdhbs.th_log_app_chl_list_orc_sum_day where SQL_CONDITION cnt_type ='3' order by stat_date asc</sql>
+	</sqlGroup>
+
+	<!-- 渠道列表按年汇总-->
+	<sqlGroup name="app_channel_list_year">
+		<sql id="name">渠道列表按季汇总</sql>
+		<sql id="header">日期,渠道名称,新增用户数,启动用户数,累计用户数,占比（该渠道新增用户数/所有新增用户数,启动次数,平均单次使用时长</sql>
+		<sql id="sql">select stat_date, chl_id, new_token_cnt, startover_user_cnt, accumulate_user_cnt, new_token_cnt_ratio, startover_cnt, aver_vist_durat from bdhbs.th_log_app_chl_list_orc_sum_day where SQL_CONDITION cnt_type ='4' order by stat_date asc</sql>
 	</sqlGroup>
 	
 	<!-- 用户等级 -->
