@@ -12,7 +12,8 @@
     <div class="panel panel-default table-responsive clear">
         <header class="panel-heading">
             <i class="icon-list padder-xs"></i>事详详情
-            <span class="hidden-sm pull-right"><a href="" csvAction="/csv/app_event_detail" class="csvExport btn btn-default btn-sm" style="display: inline"><i
+            <span class="hidden-sm pull-right"><a href="" csvAction="/csv/app_event_detail"
+                                                  class="csvExport btn btn-default btn-sm" style="display: inline"><i
                     class="fa fa-cloud-download"
             ></i>&nbsp;导出</a></span>
         </header>
@@ -54,24 +55,15 @@
 </@layout>
 
 <script>
-    function query(flag) {
-        if (flag) {
-            $("#weekButton").click();
-            return;
-        }
-        var start = $("#start_dt").val();
-        var end = $("#end_dt").val();
-        var ajaxOption = {
-            url : window.location.href + "?start_dt=" + start + "&end_dt="
-            + end,
-            success : function(data) {
-                tableQuery({
-                    "aaData" : data.detailData,
-                    "id" : "#table1",
-                    "sScrollX" : "2500px"
-                });
-            }
-        };
-        commonAjax(ajaxOption);
+    function dataTableExchange(data, dateType) {
+        tableQuery({
+            "aaData": data.detailData,
+            "id": "#table1",
+            "sScrollX": "2500px",
+            "aoColumnDefs": [{
+                "targets": [2],
+                "searchable": false
+            }]
+        });
     }
 </script>

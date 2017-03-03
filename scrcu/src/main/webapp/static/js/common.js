@@ -106,7 +106,7 @@ function tableQuery(option, callback) {
 		"dataType" : "json",
 		"oLanguage" : {
 			"sProcessing" : "正在加载数据...",
-			"sLengthMenu" : "显示 &nbsp;_MENU_&nbsp条 ",
+			"sLengthMenu" : "显示 &nbsp;_MENU_ 条 ",
 			"sZeroRecords" : "没有记录",
 			"sInfo" : "第 _START_ 到 _END_ 条&nbsp;&nbsp;总数 _TOTAL_ 条",
 			"sInfoEmpty" : "记录数为&nbsp;0",
