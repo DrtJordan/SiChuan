@@ -72,13 +72,6 @@ public enum SQLConfig {
     app_regUser_channel,
     // 移动 手机注册分布
     app_regUser_phone,
-    // 移动 登录分析
-    app_loginUser,
-    // 移动 渠道登录分析
-    app_loginUser_channel,
-    // 移动 手机登录分布
-    app_loginUser_phone,
-    // 移动 新增用户分析
 
     // 移动 渠道明细
     app_channel_detail,
@@ -191,6 +184,34 @@ public enum SQLConfig {
     app_regUser_channel_year,
     //注册用户 手机os注册按年汇总
     app_regUser_os_year,
+
+    //登陆用户按天汇总
+    app_loginUser_day,
+    //登陆用户 渠道登录按天汇总
+    app_loginUser_channel_day,
+    //登陆用户 手机登录按天汇总
+    app_loginUser_os_day,
+
+    //登陆用户按月汇总
+    app_loginUser_month,
+    //登陆用户 渠道登录按月汇总
+    app_loginUser_channel_month,
+    //登陆用户 手机登录按月汇总
+    app_loginUser_os_month,
+
+    //登陆用户按季汇总
+    app_loginUser_quarter,
+    //登陆用户 渠道登录按季汇总
+    app_loginUser_channel_quarter,
+    //登陆用户 手机登录按季汇总
+    app_loginUser_os_quarter,
+
+    //登陆用户按年汇总
+    app_loginUser_year,
+    //登陆用户 渠道登录按年汇总
+    app_loginUser_channel_year,
+    //登陆用户 手机登录按年汇总
+    app_loginUser_os_year,
 
     //使用时长按天汇总
     app_useTime_day,

@@ -69,7 +69,7 @@ public class AppUserController extends BaseController {
             List<Object> dataList = new ArrayList<>();
             for (List<String> list : dataTime) {
                 xAxisList.add(list.get(0));
-                dataList.add(Integer.valueOf(list.get(1)));
+                dataList.add(list.get(1));
             }
             Object[] nameList = new Object[]{res.get("app.startUser")};
             String activeUserChart = ChartUtils.genAppMultiLineCharts(type, xAxisList, nameList, dataList);
@@ -149,6 +149,7 @@ public class AppUserController extends BaseController {
     @RequiresPermissions("/app/userAnalysis/regUser")
     public void regUser() {
         if (BaseUtils.isAjax(getRequest())) {
+
             List<List<String>> dataPhone = new ArrayList<>();
             List<List<String>> dataChannel = new ArrayList<>();
             // 定义json类型结果
@@ -163,7 +164,7 @@ public class AppUserController extends BaseController {
                 }
                 if (dateType.equals("month")) {
                     dataChannel = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_regUser_channel_month, condition), false);
-                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_regUser_os_month));
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_regUser_os_month, condition));
                 }
                 if (dateType.equals("quarter")) {
                     dataChannel = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_regUser_channel_quarter, condition), false);
@@ -176,15 +177,22 @@ public class AppUserController extends BaseController {
             }
             // 返回结果
             List<Object> xAxisList = new ArrayList<>();
-            List<Object> dataList1 = new ArrayList<>();
-            List<Object> dataList2 = new ArrayList<>();
-            for (List<String> list : dataChannel) {
-                xAxisList.add(list.get(0));
-                dataList1.add(Integer.valueOf(list.get(1)));
-                dataList2.add(Integer.valueOf(list.get(2)));
+            List<Object> androidList = new ArrayList<>();
+            List<Object> iosList = new ArrayList<>();
+            for (List<String> list : dataPhone) {
+                if (!xAxisList.contains(list.get(0))) {
+                    xAxisList.add(list.get(0));
+                }
+                String os = list.get(1);
+                if (os.contains("Android")) {
+                    androidList.add(list.get(2));
+                }
+                if (os.toUpperCase().contains("IOS")) {
+                    iosList.add(list.get(2));
+                }
             }
-            Object[] nameList = new Object[]{res.get("app.newAddUser"), res.get("app.registerUser")};
-            String str = ChartUtils.genAppMultiLineCharts(dateType, xAxisList, nameList, dataList1, dataList2);
+            Object[] nameList = new Object[]{"android", "ios"};
+            String str = ChartUtils.genAppMultiLineCharts(dateType, xAxisList, nameList, androidList, iosList);
             result.put("chartOption", str);
             result.put("dataPhone", dataPhone);
             result.put("dataChannel", dataChannel);
@@ -200,27 +208,51 @@ public class AppUserController extends BaseController {
     @RequiresPermissions("/app/userAnalysis/loginUser")
     public void loginUser() {
         if (BaseUtils.isAjax(getRequest())) {
-            // 得到查询条件
-            String condition = InceptorUtil.getDateCondition(getRequest());
-            // 执行查询
-            List<List<String>> dataTime = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_loginUser) + condition, 35);
-            List<List<String>> dataPhone = InceptorUtil
-                    .query(SqlKit.propSQL(SQLConfig.app_loginUser_phone) + condition, 35);
-            List<List<String>> dataChannel = InceptorUtil
-                    .query(SqlKit.propSQL(SQLConfig.app_loginUser_channel) + condition, 35);
+
+            List<List<String>> dataTime = new ArrayList<>();
+            List<List<String>> dataPhone = new ArrayList<>();
+            List<List<String>> dataChannel = new ArrayList<>();
             // 定义json类型结果
             JSONObject result = new JSONObject();
+            // 得到查询条件
+            String condition = InceptorUtil.getQueryCondition(getRequest());
+            String type = getPara("dateType");
+            if (type != null) {
+                if (type.equals("day")) {
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_loginUser_day, condition), false);
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_loginUser_os_day, condition));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_loginUser_channel_day, condition));
+                }
+                if (type.equals("month")) {
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_loginUser_month, condition), false);
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_loginUser_os_month, condition));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_loginUser_channel_month, condition));
+                }
+                if (type.equals("quarter")) {
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_loginUser_quarter, condition), false);
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_loginUser_os_quarter, condition));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_loginUser_channel_quarter, condition));
+                }
+                if (type.equals("year")) {
+                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_loginUser_year, condition), false);
+                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_loginUser_os_year, condition));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_loginUser_channel_year, condition));
+                }
+            }
+
             // 返回结果
             List<Object> xAxisList = new ArrayList<>();
-            List<Object> dataList1 = new ArrayList<>();
-            List<Object> dataList2 = new ArrayList<>();
+            List<Object> startCntList = new ArrayList<>();
+            List<Object> loginCntList = new ArrayList<>();
             for (List<String> list : dataTime) {
-                xAxisList.add(list.get(0));
-                dataList1.add(list.get(1));
-                dataList2.add(list.get(2));
+                if (!xAxisList.contains(list.get(0))) {
+                    xAxisList.add(list.get(0));
+                }
+                startCntList.add(list.get(1));
+                loginCntList.add(list.get(2));
             }
             Object[] nameList = new Object[]{res.get("app.loginUser"), res.get("app.startUser")};
-            String str = ChartUtils.genMultiLineChart(xAxisList, nameList, dataList1, dataList2);
+            String str = ChartUtils.genAppMultiLineCharts(type, xAxisList, nameList, startCntList, loginCntList);
             result.put("chartOption", str);
             result.put("dataTime", dataTime);
             result.put("dataPhone", dataPhone);
@@ -274,7 +306,9 @@ public class AppUserController extends BaseController {
                 xAxisList.add(list.get(0));
                 dataList.add(list.get(1));
             }
-            String str = ChartUtils.genLineChart(res.get("app.newAddUser"), xAxisList, dataList);
+
+            Object[] name = new Object[]{res.get("app.newAddUser")};
+            String str = ChartUtils.genAppMultiLineCharts(type, xAxisList, name, dataList);
             result.put("chartOption", str);
             result.put("dataTime", dataTime);
             result.put("dataPhone", dataPhone);

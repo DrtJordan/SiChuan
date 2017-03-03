@@ -14,7 +14,7 @@
 	<sqlGroup name="app_activeUser_channel_day">
 		<sql id="name">app活跃用户_渠道维度</sql>
 		<sql id="header">日期,渠道名,启动用户数</sql>
-		<sql id="sql">select stat_date, chl_id, user_cnt from bdhbs.th_log_app_usr_startup_orc_day where SQL_CONDITION cnt_type='3' order by stat_date asc</sql>
+		<sql id="sql">select stat_date, chl_id, user_cnt from bdhbs.th_log_app_usr_startup_orc_day where SQL_CONDITION cnt_type='1' order by stat_date asc</sql>
 	</sqlGroup>
 
 	<!-- 活跃用户按周汇总 -->
@@ -175,17 +175,17 @@
 	<!-- 留存用户end -->
 
 
-	<!-- ################################### 注册用户 ################################### -->
+	<!-- ################################### 注册用户start ################################### -->
 	<!-- 按天汇总-->
 	<sqlGroup name="app_regUser_channel_day">
 		<sql id="name">app注册用户_渠道维度</sql>
 		<sql id="header">日期,渠道名,新增用户数,注册量,占比(注册量/新增用户数)</sql>
-		<sql id="sql">select stat_date, chl_id, new_token_cnt, rgst_usr_cnt, rgst_ratio from bdhbs.th_log_app_usr_registered_orc_day where SQL_CONDITION cnt_type='99' order by stat_date asc</sql>
+		<sql id="sql">select stat_date, chl_id, new_token_cnt, rgst_usr_cnt, rgst_ratio from bdhbs.th_log_app_usr_registered_orc_day where SQL_CONDITION cnt_type='1' order by stat_date asc</sql>
 	</sqlGroup>
 	<sqlGroup name="app_regUser_os_day">
 		<sql id="name">app注册用户_手机os维度</sql>
 		<sql id="header">日期,手机os,新增用户数,注册量,占比(注册量/新增用户数)</sql>
-		<sql id="sql">select stat_date, term_os, new_token_cnt, rgst_usr_cnt, rgst_ratio from bdhbs.th_log_app_usr_registered_orc_day where SQL_CONDITION cnt_type='1' order by stat_date asc</sql>
+		<sql id="sql">select stat_date, term_os, new_token_cnt, rgst_usr_cnt, rgst_ratio from bdhbs.th_log_app_usr_registered_orc_day where SQL_CONDITION cnt_type='2' order by stat_date asc</sql>
 	</sqlGroup>
 
 	<!-- 按月汇总-->
@@ -223,25 +223,78 @@
 		<sql id="header">日期,手机os,新增用户数,注册量,占比(注册量/新增用户数)</sql>
 		<sql id="sql">select stat_date, term_os, new_token_cnt, rgst_usr_cnt, rgst_ratio from bdhbs.th_log_app_usr_registered_os_orc_sum_day where SQL_CONDITION cnt_type='4' order by stat_date asc</sql>
 	</sqlGroup>
-	<!-- ######################################### 注册用户 ######################################### -->
-	
-	<!-- 登录用户start -->
-	<sqlGroup name="app_loginUser">
-		<sql id="name">app登录用户</sql>
-		<sql id="header">日期,登录量,启动用户数,占比(登录量/启动用户数)</sql>
-		<sql id="sql">select statt_dt ,logon_user_cnt,startover_user_cnt  ,logon_user_cnt_div_startover_user_cnt  from hb_result_login_user_analysis_info_1</sql>
+	<!-- ######################################### 注册用户end ######################################### -->
+
+
+	<!-- ######################################### 登录用户start ######################################### -->
+	<!-- 登陆用户按天汇总 -->
+	<sqlGroup name="app_loginUser_day">
+		<sql id="name">app登录用户按天汇总</sql>
+		<sql id="header">日期,启动用户数量,登录用户数,占比(登录用户数/启动用户数)</sql>
+		<sql id="sql">select stat_date, startup_cnt, login_cnt, login_ratio  from bdhbs.th_log_app_usr_login_orc_day where SQL_CONDITION cnt_type='99' order by stat_date asc</sql>
 	</sqlGroup>
-	<sqlGroup name="app_loginUser_channel">
-		<sql id="name">app登录用户_渠道维度</sql>
-		<sql id="header">日期,渠道名,登录量,启动用户数,占比(登录量/启动用户数)</sql>
-		<sql id="sql">select statt_dt ,channel_name ,logon_user_cnt,startover_user_cnt  ,logon_user_cnt_div_startover_user_cnt  from hb_result_login_user_analysis_info_2</sql>
+	<sqlGroup name="app_loginUser_channel_day">
+		<sql id="name">app登录用户_渠道维度按天汇总</sql>
+		<sql id="header">日期,渠道名,启动用户数量,登录用户数,占比(登录用户数/启动用户数)</sql>
+		<sql id="sql">select stat_date, chl_id, startup_cnt, login_cnt, login_ratio from bdhbs.th_log_app_usr_login_orc_day where SQL_CONDITION cnt_type='1' order by stat_date asc</sql>
 	</sqlGroup>
-	<sqlGroup name="app_loginUser_phone">
-		<sql id="name">app登录用户_手机维度</sql>
-		<sql id="header">日期,手机,登录量,启动用户数,占比(登录量/启动用户数)</sql>
-		<sql id="sql">select statt_dt ,os ,logon_user_cnt,startover_user_cnt  ,logon_user_cnt_div_startover_user_cnt from hb_result_login_user_analysis_info_3</sql>
+	<sqlGroup name="app_loginUser_os_day">
+		<sql id="name">app登录用户_手机os维度按天汇总</sql>
+		<sql id="header">日期,手机os,启动用户数量,登录用户数,占比(登录用户数/启动用户数)</sql>
+		<sql id="sql">select stat_date, term_os, startup_cnt, login_cnt, login_ratio from bdhbs.th_log_app_usr_login_orc_day where SQL_CONDITION cnt_type='2' order by stat_date asc</sql>
 	</sqlGroup>
-	<!-- 登录用户end -->
+
+	<!-- 登陆用户按月汇总 -->
+	<sqlGroup name="app_loginUser_month">
+		<sql id="name">app登录用户按月汇总</sql>
+		<sql id="header">日期,启动用户数量,登录用户数,占比(登录用户数/启动用户数)</sql>
+		<sql id="sql">select stat_date, startup_cnt, login_cnt, login_ratio from bdhbs.th_log_app_usr_login_orc_sum_day where SQL_CONDITION cnt_type='2' order by stat_date asc</sql>
+	</sqlGroup>
+	<sqlGroup name="app_loginUser_channel_month">
+		<sql id="name">app登录用户_渠道维度按月汇总</sql>
+		<sql id="header">日期,渠道名,启动用户数量,登录用户数,占比(登录用户数/启动用户数)</sql>
+		<sql id="sql">select stat_date, chl_id, startup_cnt, login_cnt, login_ratio from bdhbs.th_log_app_usr_login_chl_orc_sum_day where SQL_CONDITION cnt_type='2' order by stat_date asc</sql>
+	</sqlGroup>
+	<sqlGroup name="app_loginUser_os_month">
+		<sql id="name">app登录用户_手机os维度按月汇总</sql>
+		<sql id="header">日期,手机os,启动用户数量,登录用户数,占比(登录用户数/启动用户数)</sql>
+		<sql id="sql">select stat_date, term_os, startup_cnt, login_cnt, login_ratio from bdhbs.th_log_app_usr_login_os_orc_sum_day where SQL_CONDITION cnt_type='2' order by stat_date asc</sql>
+	</sqlGroup>
+
+	<!-- 登陆用户按季汇总 -->
+	<sqlGroup name="app_loginUser_quarter">
+		<sql id="name">app登录用户按月汇总</sql>
+		<sql id="header">日期,启动用户数量,登录用户数,占比(登录用户数/启动用户数)</sql>
+		<sql id="sql">select stat_date, startup_cnt, login_cnt, login_ratio from bdhbs.th_log_app_usr_login_orc_sum_day where SQL_CONDITION cnt_type='3' order by stat_date asc</sql>
+	</sqlGroup>
+	<sqlGroup name="app_loginUser_channel_quarter">
+		<sql id="name">app登录用户_渠道维度按季汇总</sql>
+		<sql id="header">日期,渠道名,启动用户数量,登录用户数,占比(登录用户数/启动用户数)</sql>
+		<sql id="sql">select stat_date, chl_id, startup_cnt, login_cnt, login_ratio from bdhbs.th_log_app_usr_login_chl_orc_sum_day where SQL_CONDITION cnt_type='3' order by stat_date asc</sql>
+	</sqlGroup>
+	<sqlGroup name="app_loginUser_os_quarter">
+		<sql id="name">app登录用户_手机os维度按季汇总</sql>
+		<sql id="header">日期,手机os,启动用户数量,登录用户数,占比(登录用户数/启动用户数)</sql>
+		<sql id="sql">select stat_date, term_os, startup_cnt, login_cnt, login_ratio from bdhbs.th_log_app_usr_login_os_orc_sum_day where SQL_CONDITION cnt_type='3' order by stat_date asc</sql>
+	</sqlGroup>
+
+	<!-- 登陆用户按年汇总 -->
+	<sqlGroup name="app_loginUser_year">
+		<sql id="name">app登录用户按年汇总</sql>
+		<sql id="header">日期,启动用户数量,登录用户数,占比(登录用户数/启动用户数)</sql>
+		<sql id="sql">select stat_date, startup_cnt, login_cnt, login_ratio from bdhbs.th_log_app_usr_login_orc_sum_day where SQL_CONDITION cnt_type='4' order by stat_date asc</sql>
+	</sqlGroup>
+	<sqlGroup name="app_loginUser_channel_year">
+		<sql id="name">app登录用户_渠道维度按年汇总</sql>
+		<sql id="header">日期,渠道名,启动用户数量,登录用户数,占比(登录用户数/启动用户数)</sql>
+		<sql id="sql">select stat_date, chl_id, startup_cnt, login_cnt, login_ratio from bdhbs.th_log_app_usr_login_chl_orc_sum_day where SQL_CONDITION cnt_type='4' order by stat_date asc</sql>
+	</sqlGroup>
+	<sqlGroup name="app_loginUser_os_year">
+		<sql id="name">app登录用户_手机os维度按年汇总</sql>
+		<sql id="header">日期,手机os,启动用户数量,登录用户数,占比(登录用户数/启动用户数)</sql>
+		<sql id="sql">select stat_date, term_os, startup_cnt, login_cnt, login_ratio from bdhbs.th_log_app_usr_login_os_orc_sum_day where SQL_CONDITION cnt_type='4' order by stat_date asc</sql>
+	</sqlGroup>
+	<!-- ######################################### 登录用户end ######################################### -->
 
 
 	<!-- ######################################### 新增用户 ######################################### -->
@@ -762,7 +815,7 @@
 	<sqlGroup name="app_startCount_phone_day">
 		<sql id="name">app启动次数_手机os维度按天汇总</sql>
 		<sql id="header">日期,手机os,启动次数,启动次数占比</sql>
-		<sql id="sql">select stat_date, term_os, startup_cnt, startup_ratio from bdhbs.th_log_app_usr_startup_cnt_orc_day where SQL_CONDITION cnt_type='99' order by stat_date asc</sql>
+		<sql id="sql">select stat_date, term_os, startup_cnt, startup_ratio from bdhbs.th_log_app_usr_startup_cnt_orc_day where SQL_CONDITION cnt_type='2' order by stat_date asc</sql>
 	</sqlGroup>
 	<sqlGroup name="app_startCount_channel_day">
 		<sql id="name">app启动次数_渠道维度按天汇总</sql>
@@ -774,7 +827,7 @@
 	<sqlGroup name="app_startCount_phone_month">
 		<sql id="name">app启动次数_手机os维度按月汇总</sql>
 		<sql id="header">日期,手机os,启动次数,启动次数占比</sql>
-		<sql id="sql">select stat_date, term_os, startup_cnt, startup_ratio from bdhbs.th_log_app_usr_startup_cnt_os_orc_sum_day where SQL_CONDITION cnt_type='2' order by stat_date asc</sql>
+		<sql id="sql">select stat_date, term_os, startup_cnt, startup_ratio from bdhbs.th_log_app_usr_startup_cnt_os_orc_sum_day  where SQL_CONDITION cnt_type='2' order by stat_date asc</sql>
 	</sqlGroup>
 	<sqlGroup name="app_startCount_channel_month">
 		<sql id="name">app启动次数_渠道维度按月汇总</sql>

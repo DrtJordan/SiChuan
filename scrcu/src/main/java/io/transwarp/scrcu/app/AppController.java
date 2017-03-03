@@ -57,17 +57,26 @@ public class AppController extends Controller {
                 }
             }
             // 返回结果
-            List<Object> xAxisList = new ArrayList<Object>();
-            List<Object> dataList = new ArrayList<Object>();
+            List<Object> xAxisList = new ArrayList<>();
+            List<Object> androidList = new ArrayList<>();
+            List<Object> iosList = new ArrayList<>();
             for (List<String> list : dataPhone) {
-                xAxisList.add(list.get(0));
-                dataList.add(Integer.valueOf(list.get(3)));
+                if (!xAxisList.contains(list.get(0))) {
+                    xAxisList.add(list.get(0));
+                }
+                String os = list.get(1);
+                if (os.contains("Android")) {
+                    androidList.add(list.get(2));
+                }
+                if (os.toUpperCase().contains("IOS")) {
+                    iosList.add(list.get(2));
+                }
             }
 
             //定义折线图图例的名称
-            Object[] names = new Object[]{res.get("app.startTimes")};
+            Object[] nameList = new Object[]{"android", "ios"};
             // 生成启动次数折线图数据
-            String genLineChart = ChartUtils.genAppMultiLineCharts(dateType, xAxisList, names, dataList);
+            String genLineChart = ChartUtils.genAppMultiLineCharts(dateType, xAxisList, nameList, androidList, iosList);
             result.put("chartOption", genLineChart);
             result.put("dataPhone", dataPhone);
             result.put("dataChannel", dataChannel);
