@@ -76,8 +76,7 @@ public enum SQLConfig {
     // 移动 渠道明细
     app_channel_detail,
 
-    //移动 会员页面分析
-    app_memberPage,
+
     //移动 会员流失分析
     app_member_runoff,
 
@@ -374,6 +373,10 @@ public enum SQLConfig {
     // 移动 渠道列表按年汇总
     app_channel_list_year,
 
+    //移动 app会员页面按天汇总
+    app_memberPage_day,
+    //移动 app会员页面按月汇总
+    app_memberPage_month,
 
     // 画像 交易曲线
     portrait_trading,

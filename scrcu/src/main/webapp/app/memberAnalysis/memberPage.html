@@ -33,40 +33,14 @@
 </section>
 </@layout>
 <script>
-    function query(flag) {
-        if (flag) {
-            $("#weekButton").click();
-            return;
-        }
-        var start = $("#start_dt").val();
-        var end = $("#end_dt").val();
-        var ajaxOption = {
-            url : window.location.href + "?start_dt=" + start + "&end_dt="
-            + end,
-            success : function(data) {
-                var option = {
-                    "aaData" : data.data,
-                    "sDom" : "<'row'<'col-sm-6'l><'col-sm-6'f>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
-                    "aoColumnDefs": [{
-                        "targets": [3], // 目标列位置，下标从0开始
-                        "render": function(data) { // 返回自定义内容
-                            return getPercent(data);
-                        }
-                    },{
-                        "targets": [5], // 目标列位置，下标从0开始
-                        "render": function(data) { // 返回自定义内容
-                            return getPercent(data);
-                        }
-                    },{
-                        "targets": [7], // 目标列位置，下标从0开始
-                        "render": function(data) { // 返回自定义内容
-                            return getPercent(data);
-                        }
-                    }]
-                };
-                tableQuery(option);
-            }
-        }
-        commonAjax(ajaxOption);
+
+    $("#weekButton").hide();
+    $("#quarterButton").hide();
+    $("#yearButton").hide();
+
+    function dataTableExchange(data, dateType) {
+        tableQuery({
+            "aaData": data.data
+        });
     }
 </script>

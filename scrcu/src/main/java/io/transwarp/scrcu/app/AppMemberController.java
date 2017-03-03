@@ -1,14 +1,17 @@
 package io.transwarp.scrcu.app;
 
 import com.alibaba.fastjson.JSONObject;
+import io.transwarp.echarts.data.Data;
 import io.transwarp.scrcu.base.controller.BaseController;
 import io.transwarp.scrcu.base.inceptor.InceptorUtil;
 import io.transwarp.scrcu.base.util.BaseUtils;
+import io.transwarp.scrcu.base.util.ChartUtils;
 import io.transwarp.scrcu.base.util.SQLConfig;
 import io.transwarp.scrcu.sqlinxml.SqlKit;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,14 +25,21 @@ public class AppMemberController extends BaseController {
 	 */
 	@RequiresPermissions("/app/memberAnalysis/memberPage")
 	public void memberPage(){
-
-		if (BaseUtils.isAjax(getRequest())){
-			//得到查询条件
-			String condition = InceptorUtil.getDateCondition(getRequest());
-			//执行查询
-			List<List<String>> data = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_memberPage) + condition, 4);
-			//返回结果
+		if (BaseUtils.isAjax(getRequest())) {
+			List<List<String>> data = new ArrayList<>();
 			JSONObject result = new JSONObject();
+			// 得到查询条件
+			String dateType = getPara("dateType");
+			String condition = InceptorUtil.getQueryCondition(getRequest());
+			if (dateType != null) {
+				if (dateType.equals("day")) {
+					data = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_area_query_day, condition),false);
+				}
+				if (dateType.equals("month")) {
+					data = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_area_query_month, condition),false);
+				}
+			}
+			// 返回结果
 			result.put("data", data);
 			renderJson(result);
 		}
