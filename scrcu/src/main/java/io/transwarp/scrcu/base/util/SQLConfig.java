@@ -77,8 +77,10 @@ public enum SQLConfig {
     app_channel_detail,
 
 
-    //移动 会员流失分析
-    app_member_runoff,
+    //会员流失分析 按天汇总
+    app_member_runoff_day,
+    //会员流失分析 按月汇总
+    app_member_runoff_month,
 
     // 全部事件查询
     app_event_list,
@@ -86,6 +88,96 @@ public enum SQLConfig {
     app_event_tendency,
     // 事件详情
     app_event_detail,
+
+    /**
+     * 门户统计按照天、月汇总统计
+     */
+    //页面排行 按天汇总
+    portal_pageRank_day,
+    //页面排行 按月汇总
+    portal_pageRank_month,
+
+    //页面排行 按天汇总
+    portal_siteAnalysis_userVisitPage_query_day,
+    //页面排行 按月汇总
+    portal_siteAnalysis_userVisitPage_query_month,
+
+    //访问时长 按天汇总
+    portal_visitAnalysis_time_day,
+    //访问时长 按月汇总
+    portal_visitAnalysis_time_month,
+
+    //访问深度 按天汇总
+    portal_visitAnalysis_depth_day,
+    //访问深度 按月汇总
+    portal_visitAnalysis_depth_month,
+
+    //访问时长 按季汇总
+    portal_visitAnalysis_time_quarter,
+    //访问时长 按年汇总
+    portal_visitAnalysis_time_year,
+
+    //访问深度 按季汇总
+    portal_visitAnalysis_depth_quarter,
+    //访问深度 按年汇总
+    portal_visitAnalysis_depth_year,
+
+    //广告趋势 按天汇总
+    portal_siteAnalysis_adTrend_query_day,
+    //广告趋势 按月汇总
+    portal_siteAnalysis_adTrend_query_month,
+
+    //地域分布 按天汇总
+    portal_siteAnalysis_area_query_day,
+    //地域分布 按月汇总
+    portal_siteAnalysis_area_query_month,
+    //地域分布 按季汇总
+    portal_siteAnalysis_area_query_quarter,
+    //地域分布 按年汇总
+    portal_siteAnalysis_area_query_year,
+
+    //终端类型 操作系统按天汇总
+    portal_terminal_os_day,
+    //终端类型 浏览器按天汇总
+    portal_terminal_browserDiv_day,
+
+    //终端类型 操作系统按月汇总
+    portal_terminal_os_month,
+    //终端类型 浏览器按月汇总
+    portal_terminal_browserDiv_month,
+
+    // 用户统计 流失分析按天汇总
+    portal_siteAnalysis_userLoss_query_day,
+    // 用户统计 流失分析按周汇总
+    portal_siteAnalysis_userLoss_query_week,
+    // 用户统计 流失分析按月汇总
+    portal_siteAnalysis_userLoss_query_month,
+    // 用户统计 流失分析按季汇总
+    portal_siteAnalysis_userLoss_query_quarter,
+    // 用户统计 流失分析按年汇总
+    portal_siteAnalysis_userLoss_query_year,
+
+    //会员页面分析按天汇总
+    portal_siteAnalysis_userPage_query_day,
+    //会员页面分析按月汇总
+    portal_siteAnalysis_userPage_query_month,
+
+    //唯一用户分析 按天汇总
+    portal_userAnalysis_userOnly_day,
+    //唯一用户分析 按周汇总
+    portal_userAnalysis_userOnly_week,
+    //唯一用户分析 按月汇总
+    portal_userAnalysis_userOnly_month,
+    //唯一用户分析 按季汇总
+    portal_userAnalysis_userOnly_quarter,
+    //唯一用户分析 按年汇总
+    portal_userAnalysis_userOnly_year,
+
+    //搜索引擎分析 按天汇总
+    portal_sourceAnalysis_searchEngine_day,
+    //搜索引擎分析 按月汇总
+    portal_sourceAnalysis_searchEngine_month,
+
 
     /**
      * App移动统计按天、周、月、季、年汇总统计

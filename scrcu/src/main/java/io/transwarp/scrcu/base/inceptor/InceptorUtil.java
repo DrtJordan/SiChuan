@@ -438,16 +438,16 @@ public class InceptorUtil {
         StringBuffer stringBuffer = new StringBuffer();
         if (StringUtils.isNotBlank(queryType) && queryType.split(":").length == 2) {
 
-            if (queryType.contains("时长")) {
+            if (queryType.equals("时长")) {
                 stringBuffer.append("online_time ='" + queryType.split(":")[1] + "' and ");
             }
-            if (queryType.contains("版本")) {
+            if (queryType.equals("版本")) {
                 stringBuffer.append("app_version ='" + queryType.split(":")[1] + "' and ");
             }
-            if (queryType.contains("os") || queryType.contains("OS")) {
+            if (queryType.equals("os") || queryType.equals("OS")) {
                 stringBuffer.append("term_os ='" + queryType.split(":")[1] + "' and ");
             }
-            if (queryType.contains("渠道")) {
+            if (queryType.equals("渠道")) {
                 stringBuffer.append("chl_id ='" + queryType.split(":")[1] + "' and ");
             }
             if (queryType.contains("启动次数")) {
@@ -457,6 +457,12 @@ public class InceptorUtil {
                 stringBuffer.append("use_interval ='" + queryType.split(":")[1] + "' and ");
             }
             if (queryType.contains("访问页面")) {
+                stringBuffer.append("pv_cnt ='" + queryType.split(":")[1] + "' and ");
+            }
+            if (queryType.equals("访问时长")) {
+                stringBuffer.append("pv_cnt ='" + queryType.split(":")[1] + "' and ");
+            }
+            if (queryType.equals("访问深度")) {
                 stringBuffer.append("pv_cnt ='" + queryType.split(":")[1] + "' and ");
             }
         }

@@ -13,27 +13,28 @@
     <div class="panel panel-default table-responsive clear">
         <header class="panel-heading">
             <i class="icon-list padder-xs"></i>事件列表
-            <span class="hidden-sm pull-right"><a href="" csvAction="/csv/app_event_list" class="csvExport btn btn-default btn-sm" style="display: inline"><i
+            <span class="hidden-sm pull-right"><a href="" csvAction="/csv/app_event_list"
+                                                  class="csvExport btn btn-default btn-sm" style="display: inline"><i
                     class="fa fa-cloud-download"
             ></i>&nbsp;导出</a></span>
         </header>
         <div class="panel-body" style="padding: 0px">
             <table id="table1" class="table table-striped b-light">
                 <thead>
-                    <tr>
-                        <th>日期</th>
-                        <th>登录用户数</th>
-                        <th>事件触发次数</th>
-                        <th>触发独立用户数</th>
-                        <th>事件平均持续时长</th>
-                        <th>事件完成次数</th>
-                        <th>完成独立用户数</th>
-                        <th>占比</th>
-                        <th>平均完成时长</th>
-                        <th>事件中断次数</th>
-                        <th>中断独立用户数</th>
-                        <th>占比</th>
-                    </tr>
+                <tr>
+                    <th>日期</th>
+                    <th>登录用户数</th>
+                    <th>事件触发次数</th>
+                    <th>触发独立用户数</th>
+                    <th>事件平均持续时长</th>
+                    <th>事件完成次数</th>
+                    <th>完成独立用户数</th>
+                    <th>占比</th>
+                    <th>平均完成时长</th>
+                    <th>事件中断次数</th>
+                    <th>中断独立用户数</th>
+                    <th>占比</th>
+                </tr>
                 </thead>
             </table>
         </div>
@@ -43,24 +44,17 @@
 </@layout>
 
 <script>
-    function query(flag) {
-        if (flag) {
-            $("#weekButton").click();
-            return;
-        }
-        var start = $("#start_dt").val();
-        var end = $("#end_dt").val();
-        var ajaxOption = {
-            url : window.location.href + "?start_dt=" + start + "&end_dt="
-            + end,
-            success : function(data) {
-                tableQuery({
-                    "aaData" : data.eventData,
-                    "id" : "#table1",
-                    sScrollX:"1200px"
-                });
-            }
-        };
-        commonAjax(ajaxOption);
+    /**
+     * 定义数据查询方法，用来转换后台传输数据
+     * @param data 数据
+     * @param dateType 日期类型：day,week,month,quarter,year
+     */
+    function dataTableExchange(data, dateType) {
+        tableQuery({
+            "aaData": data.eventData,
+            "id": "#table1",
+            sScrollX: "1200px"
+        });
+
     }
 </script>

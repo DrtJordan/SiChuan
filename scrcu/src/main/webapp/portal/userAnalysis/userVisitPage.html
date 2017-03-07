@@ -16,15 +16,15 @@
 				<i class="icon-bar-chart padder-xs"></i>会员页面分析<i class="fa fa-info-sign text-muted" data-toggle="tooltip"
 					data-placement="bottom" data-title="ajax to load the data."
 				></i>
-				<span class="hidden-sm pull-right"><a href="" csvAction="/csv/portal_siteAnalysis_userVisitPage_query" class="csvExport btn btn-default btn-sm" style="display: inline"><i
+				<span class="hidden-sm pull-right"><a href="" csvAction="/csv/portal_siteAnalysis_userPage_query" class="csvExport btn btn-default btn-sm" style="display: inline"><i
 					class="fa fa-cloud-download"
 				></i>&nbsp;导出</a></span>
 			</header>
 			<div class="table-responsive">
-				<table id="table" class="datatables table table-striped m-b-none" data-ride="datatables">
+				<table id="table1" class="datatables table table-striped m-b-none" data-ride="datatables">
 					<thead>
 						<tr>
-							<th>网址</th>
+							<th class="displayTitle">网址</th>
 							<th class="w-7">浏览量（PV）</th>
 							<th class="w-7">访问次数(VV)</th>
 							<th class="w-9">平均页面停留时长(秒)</th>
@@ -38,9 +38,38 @@
 				</table>
 			</div>
 		</section>
-
-
-	
 	<div class="clear"></div>
 </section>
 </@layout>
+
+<script>
+    /**
+     * 隐藏按周、季、年汇总的按钮
+     */
+    $().ready(function () {
+        $("#weekButton").hide();
+        $("#quarterButton").hide();
+        $("#yearButton").hide();
+    })
+</script>
+<script>
+    /**
+     * 定义数据查询方法，用来转换后台传输数据
+     * @param data 数据
+     * @param dateType 日期类型：day,week,month,quarter,year
+     */
+    function dataTableExchange(data, dateType) {
+
+        tableQuery({
+            "aaData": data.dataPage,
+            "sDom": "<'row'<'col-sm-6'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
+            "id": "#table1",
+            "aoColumnDefs": [{
+                "targets": [1, 2, 3, 4, 5, 6, 7], // 目标列位置，下标从0开始
+                "searchable": false
+            }]
+        });
+
+        csvExport("", dateType);
+    }
+</script>

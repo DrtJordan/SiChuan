@@ -35,16 +35,43 @@ public class UserAnalysisController extends Controller {
     public void area() {
         if (BaseUtils.isAjax(getRequest())) {
             // 得到查询条件
-            String condition = InceptorUtil.getDateCondition(getRequest());
+            String condition = InceptorUtil.getQueryCondition(getRequest());
+            String dateType = getPara("dateType");
+
             // 执行查询
-            List<List<String>> data = InceptorUtil
-                    .query(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_area_query, condition), 20);
+            List<List<String>> areaData = new ArrayList<>();
+            if (dateType != null) {
+                if (dateType.equals("day")) {
+                    // 执行查询
+                    areaData = InceptorUtil
+                            .queryCache(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_area_query_day, condition), false);
+                }
+
+                if (dateType.equals("month")) {
+                    // 执行查询
+                    areaData = InceptorUtil
+                            .queryCache(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_area_query_month, condition), false);
+                }
+
+                if (dateType.equals("quarter")) {
+                    // 执行查询
+                    areaData = InceptorUtil
+                            .queryCache(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_area_query_quarter, condition), false);
+                }
+
+                if (dateType.equals("year")) {
+                    // 执行查询
+                    areaData = InceptorUtil
+                            .queryCache(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_area_query_year, condition), false);
+                }
+            }
+
             //查询访客数最大值
             List<List<String>> maxUv = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_max_uv));
             // 返回结果
             JSONObject result = new JSONObject();
             List<Object> dataList = new ArrayList<Object>();
-            for (List<String> list : data) {
+            for (List<String> list : areaData) {
                 String name = list.get(0).replace("甘孜州", "甘孜藏族自治州").replace("阿坝州", "阿坝藏族羌族自治州").replace("凉山州", "凉山彝族自治州");
                 //获取访客数量
                 Data uvValue = new Data(name, list.get(1));
@@ -53,7 +80,7 @@ public class UserAnalysisController extends Controller {
             //生成四川省地域分布图
             String areaMap = ChartUtils.genMapChart(res.get("portal.visitor"), dataList, maxUv);
             result.put("chartOption", areaMap);
-            result.put("data", data);
+            result.put("areaData", areaData);
             renderJson(result);
 
         }
@@ -61,45 +88,66 @@ public class UserAnalysisController extends Controller {
     }
 
     /**
-     * 访问次数
+     * 终端统计
      */
     @RequiresPermissions("/portal/userAnalysis/terminal")
     public void terminal() {
         if (BaseUtils.isAjax(getRequest())) {
+            //定义终端操作系统以及浏览器的集合用来接收数据
+            List<List<String>> terminalOsData = new ArrayList<>();
+            List<List<String>> terminalBrowserData = new ArrayList<>();
+
             // 得到查询条件
-            String condition = InceptorUtil.getDateCondition(getRequest());
-            // 执行查询
-            List<List<String>> terminalos = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_terminal_os, condition),
-                    5);
-            List<List<String>> terminalbrowser = InceptorUtil
-                    .query(SqlKit.propSQL(SQLConfig.portal_terminal_browserDiv, condition), 5);
+            String condition = InceptorUtil.getQueryCondition(getRequest());
+            String dateType = getPara("dateType");
+
+            if (dateType != null) {
+                if (dateType.equals("day")) {
+                    // 执行查询
+                    terminalOsData = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.portal_terminal_os_day, condition),
+                            false);
+                    terminalBrowserData = InceptorUtil
+                            .queryCache(SqlKit.propSQL(SQLConfig.portal_terminal_browserDiv_day, condition), false);
+                }
+
+                if (dateType.equals("month")) {
+                    // 执行查询
+                    terminalOsData = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.portal_terminal_os_month, condition),
+                            false);
+                    terminalBrowserData = InceptorUtil
+                            .queryCache(SqlKit.propSQL(SQLConfig.portal_terminal_browserDiv_month, condition), false);
+                }
+            }
 
             // 返回结果
-            List<Object> dataList2 = new ArrayList<Object>();
-            List<Object> dataList3 = new ArrayList<Object>();
-            for (List<String> list : terminalos) {
+            List<Object> osChartList = new ArrayList<Object>();
+            List<Object> browserChartList = new ArrayList<Object>();
+            for (List<String> list : terminalOsData) {
                 Data d = new Data(list.get(0), InceptorUtil.getDouble(list.get(1)));
-                dataList2.add(d);
+                osChartList.add(d);
             }
-            for (List<String> list : terminalbrowser) {
+            for (List<String> list : terminalBrowserData) {
                 Data d = new Data(list.get(0), InceptorUtil.getDouble(list.get(1)));
-                dataList3.add(d);
+                browserChartList.add(d);
             }
             // 返回结果
             JSONObject result = new JSONObject();
-            String str2 = ChartUtils.genPie(res.get("portal.visitorCount"), dataList2);
-            String str3 = ChartUtils.genPie(res.get("portal.visitorCount"), dataList3);
+            String osChartOption = ChartUtils.genPie(res.get("portal.visitorCount"), osChartList);
+            String browserChartOption = ChartUtils.genPie(res.get("portal.visitorCount"), browserChartList);
             // 生成图
-            result.put("chartOption2", str2);
-            result.put("chartOption3", str3);
+            result.put("osChartOption", osChartOption);
+            result.put("browserChartOption", browserChartOption);
 
-            result.put("data_terminalos", terminalos);
-            result.put("data_terminalbrowser", terminalbrowser);
+            result.put("terminalOsData", terminalOsData);
+            result.put("terminalBrowserData", terminalBrowserData);
             renderJson(result);
         }
 
     }
 
+    /**
+     * 最新需求没有此功能
+     */
     @RequiresPermissions("/portal/userAnalysis/userLevel")
     public void userLevel() {
         if (BaseUtils.isAjax(getRequest())) {
@@ -125,37 +173,103 @@ public class UserAnalysisController extends Controller {
 
     }
 
-    // @RequiresPermissions("/portal/useranalysis/userVisitPage")
+    /**
+     * 会员页面分析
+     */
+    @RequiresPermissions("/portal/userAnalysis/userVisitPage")
     @Deprecated
     public void userVisitPage() {
         if (BaseUtils.isAjax(getRequest())) {
+
+            List<List<String>> dataPage = new ArrayList<>();
             // 得到查询条件
-            String condition = InceptorUtil.getDateCondition(getRequest());
-            // 执行查询
-            List<List<String>> data = InceptorUtil
-                    .query(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_userVisitPage_query.toString()) + condition);
+            String condition = InceptorUtil.getQueryCondition(getRequest());
+            String dateType = getPara("dateType");
+
+            if (dateType != null) {
+                if (dateType.equals("day")) {
+                    // 执行查询
+                    dataPage = InceptorUtil
+                            .query(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_userPage_query_day, condition));
+                }
+
+                if (dateType.equals("month")) {
+                    // 执行查询
+                    dataPage = InceptorUtil
+                            .query(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_userPage_query_month, condition));
+                }
+            }
             // 返回结果
             JSONObject result = new JSONObject();
-            result.put("data", data);
+            result.put("dataPage", dataPage);
             renderJson(result);
         }
-
     }
 
     /**
      * 流失用户分析
      */
+    @SuppressWarnings("unchecked")
     @RequiresPermissions("/portal/userAnalysis/userLoss")
     public void userLoss() {
         if (BaseUtils.isAjax(getRequest())) {
-            // 得到查询条件
-            String condition = InceptorUtil.getDateCondition(getRequest());
-            // 执行查询
-            List<List<String>> data = InceptorUtil
-                    .query(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_userLoss_query.toString()) + condition);
+
+            List<List<String>> dataLoss = new ArrayList<>();
             // 返回结果
             JSONObject result = new JSONObject();
-            result.put("data", data);
+
+            // 得到查询条件
+            String condition = InceptorUtil.getQueryCondition(getRequest());
+            String dateType = getPara("dateType");
+
+            if (dateType != null) {
+                if (dateType.equals("day")) {
+                    // 执行查询
+                    dataLoss = InceptorUtil
+                            .queryCache(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_userLoss_query_day, condition), false);
+                }
+                if (dateType.equals("week")) {
+                    // 执行查询
+                    dataLoss = InceptorUtil
+                            .queryCache(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_userLoss_query_week, condition),false);
+                }
+
+                if (dateType.equals("month")) {
+                    // 执行查询
+                    dataLoss = InceptorUtil
+                            .queryCache(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_userLoss_query_month, condition),false);
+                }
+
+                if (dateType.equals("quarter")) {
+                    // 执行查询
+                    dataLoss = InceptorUtil
+                            .queryCache(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_userLoss_query_quarter, condition),false);
+                }
+
+                if (dateType.equals("year")) {
+                    // 执行查询
+                    dataLoss = InceptorUtil
+                            .queryCache(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_userLoss_query_year, condition),false);
+                }
+            }
+
+            List<Object> xAxisList = new ArrayList<>();
+            List<Object> userLossList = new ArrayList<>();
+            Object[] nameList = new Object[]{"会员流失数"};
+
+            for (List<String> list : dataLoss) {
+
+                if (!xAxisList.contains(list.get(0))) {
+                    xAxisList.add(list.get(0));
+                }
+                userLossList.add(list.get(1));
+
+            }
+            //生成会员流失的折线图数据,此处传入list数据的顺序必须按照nameList中的顺序传入，否则会造成数据对应错误
+            String genUserLossChart = ChartUtils.genAppMultiLineCharts(dateType, xAxisList, nameList, userLossList);
+            result.put("chartOption", genUserLossChart);
+
+            result.put("dataLoss", dataLoss);
             renderJson(result);
         }
 
@@ -164,17 +278,71 @@ public class UserAnalysisController extends Controller {
     /**
      * 唯一用户分析
      */
+    @SuppressWarnings("unchecked")
     @RequiresPermissions("/portal/userAnalysis/userOnly")
     public void userOnly() {
         if (BaseUtils.isAjax(getRequest())) {
-            // 得到时间查询条件
-            String condition = InceptorUtil.getDateCondition(getRequest());
-            // 执行查询
-            List<List<String>> data = InceptorUtil
-                    .query(SqlKit.propSQL(SQLConfig.portal_userAnalysis_userOnly.toString()) + condition);
+
+            List<List<String>> dataUserOnly = new ArrayList<>();
             // 返回结果
             JSONObject result = new JSONObject();
-            result.put("data", data);
+
+            // 得到查询条件
+            String condition = InceptorUtil.getQueryCondition(getRequest());
+            String dateType = getPara("dateType");
+
+            if (dateType != null) {
+                if (dateType.equals("day")) {
+                    // 执行查询
+                    dataUserOnly = InceptorUtil
+                            .queryCache(SqlKit.propSQL(SQLConfig.portal_userAnalysis_userOnly_day, condition), false);
+                }
+                if (dateType.equals("week")) {
+                    // 执行查询
+                    dataUserOnly = InceptorUtil
+                            .queryCache(SqlKit.propSQL(SQLConfig.portal_userAnalysis_userOnly_week, condition),false);
+                }
+
+                if (dateType.equals("month")) {
+                    // 执行查询
+                    dataUserOnly = InceptorUtil
+                            .queryCache(SqlKit.propSQL(SQLConfig.portal_userAnalysis_userOnly_month, condition),false);
+                }
+
+                if (dateType.equals("quarter")) {
+                    // 执行查询
+                    dataUserOnly = InceptorUtil
+                            .queryCache(SqlKit.propSQL(SQLConfig.portal_userAnalysis_userOnly_quarter, condition),false);
+                }
+
+                if (dateType.equals("year")) {
+                    // 执行查询
+                    dataUserOnly = InceptorUtil
+                            .queryCache(SqlKit.propSQL(SQLConfig.portal_userAnalysis_userOnly_year, condition),false);
+                }
+            }
+
+            List<Object> xAxisList = new ArrayList<>();
+            List<Object> guestCntList = new ArrayList<>();
+            List<Object> loginCntList = new ArrayList<>();
+            List<Object> ipCntList = new ArrayList<>();
+            Object[] nameList = new Object[]{"访客数", "登陆用户数", "IP数"};
+
+            for (List<String> list : dataUserOnly) {
+
+//                if (!xAxisList.contains(list.get(0))) {
+                    xAxisList.add(list.get(0));
+//                }
+                guestCntList.add(list.get(1));
+                loginCntList.add(list.get(2));
+                ipCntList.add(list.get(3));
+
+            }
+            //生成会员流失的折线图数据,此处传入list数据的顺序必须按照nameList中的顺序传入，否则会造成数据对应错误
+            String genUserLossChart = ChartUtils.genAppMultiLineCharts(dateType, xAxisList, nameList, guestCntList, loginCntList, ipCntList);
+            result.put("chartOption", genUserLossChart);
+
+            result.put("dataUserOnly", dataUserOnly);
             renderJson(result);
         }
     }

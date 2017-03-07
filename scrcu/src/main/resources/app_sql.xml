@@ -1070,22 +1070,27 @@
 	<sqlGroup name="app_memberPage_day">
 		<sql id="name">app会员页面按天汇总</sql>
 		<sql id="header">页面,浏览量(PV),访问次数(VV),平均页面停留时长(秒),贡献下游浏览量,跳出率,退出率</sql>
-		<sql id="sql">select  from bdhbs.th_log_app_webpage_vip_orc_day where SQL_CONDITION cnt_type='99' order by stat_date asc</sql>
+		<sql id="sql">select * from bdhbs.th_log_app_webpage_vip_orc_day where SQL_CONDITION cnt_type='99' order by stat_date asc</sql>
 	</sqlGroup>
 
 	<!--app会员页面按月汇总-->
 	<sqlGroup name="app_memberPage_month">
 		<sql id="name">app会员页面按月汇总</sql>
 		<sql id="header">页面,浏览量(PV),访问次数(VV),平均页面停留时长(秒),贡献下游浏览量,跳出率,退出率</sql>
-		<sql id="sql">select  from bdhbs.th_log_app_webpage_vip_orc_day where SQL_CONDITION cnt_type='2' order by stat_date asc</sql>
+		<sql id="sql">select * from bdhbs.th_log_app_webpage_vip_orc_day where SQL_CONDITION cnt_type='2' order by stat_date asc</sql>
 	</sqlGroup>
 	<!-- 会员页面end -->
 
 	<!-- 会员流失start -->
-	<sqlGroup name="app_member_runoff">
+	<sqlGroup name="app_member_runoff_day">
 		<sql id="name">app会员流失</sql>
-		<sql id="header">会员流失数,会员流失数,会员流失数,会员流失数,会员流失数,会员流失数</sql>
-		<sql id="sql">select statt_dt, mem_run_off_cnt, mem_run_off_pct, sleep_mem_cnt, sleep_mem_pct, return_user_cnt, return_user_pct from result_run_off_analy_info</sql>
+		<sql id="header">日期,会员流失数,会员流失数,会员流失数,会员流失数,会员流失数,会员流失数</sql>
+		<sql id="sql">select stat_date, mem_run_off_cnt, mem_run_off_pct, sleep_mem_cnt, sleep_mem_pct, return_user_cnt, return_user_pct from bdhbs.th_log_app_usr_value_lost_orc_day where SQL_CONDITION cnt_type='99' order by stat_date asc</sql>
+	</sqlGroup>
+	<sqlGroup name="app_member_runoff_month">
+		<sql id="name">app会员流失</sql>
+		<sql id="header">日期,会员流失数,会员流失数,会员流失数,会员流失数,会员流失数,会员流失数</sql>
+		<sql id="sql">select stat_date, mem_run_off_cnt, mem_run_off_pct, sleep_mem_cnt, sleep_mem_pct, return_user_cnt, return_user_pct from bdhbs.th_log_app_usr_value_lost_orc_sum_mon where SQL_CONDITION cnt_type='2' order by stat_date asc</sql>
 	</sqlGroup>
 	<!-- 会员流失end -->
 

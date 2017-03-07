@@ -20,46 +20,57 @@ import java.util.List;
 @RequiresAuthentication
 public class AppMemberController extends BaseController {
 
-	/**
-	 * 会员页面分析
-	 */
-	@RequiresPermissions("/app/memberAnalysis/memberPage")
-	public void memberPage(){
-		if (BaseUtils.isAjax(getRequest())) {
-			List<List<String>> data = new ArrayList<>();
-			JSONObject result = new JSONObject();
-			// 得到查询条件
-			String dateType = getPara("dateType");
-			String condition = InceptorUtil.getQueryCondition(getRequest());
-			if (dateType != null) {
-				if (dateType.equals("day")) {
-					data = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_area_query_day, condition),false);
-				}
-				if (dateType.equals("month")) {
-					data = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_area_query_month, condition),false);
-				}
-			}
-			// 返回结果
-			result.put("data", data);
-			renderJson(result);
-		}
-	}
+    /**
+     * 会员页面分析
+     */
+    @RequiresPermissions("/app/memberAnalysis/memberPage")
+    public void memberPage() {
+        if (BaseUtils.isAjax(getRequest())) {
+            List<List<String>> data = new ArrayList<>();
+            JSONObject result = new JSONObject();
+            // 得到查询条件
+            String dateType = getPara("dateType");
+            String condition = InceptorUtil.getQueryCondition(getRequest());
+            if (dateType != null) {
+                if (dateType.equals("day")) {
+                    data = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_area_query_day, condition), false);
+                }
+                if (dateType.equals("month")) {
+                    data = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_area_query_month, condition), false);
+                }
+            }
+            // 返回结果
+            result.put("data", data);
+            renderJson(result);
+        }
+    }
 
-	/**
-	 * 会员流失分析
-	 */
-	@RequiresPermissions("/app/memberAnalysis/memberRunOff")
-	public void memberRunOff(){
+    /**
+     * 会员流失分析
+     */
+    @RequiresPermissions("/app/memberAnalysis/memberRunOff")
+    public void memberRunOff() {
 
-		if (BaseUtils.isAjax(getRequest())){
-			//得到查询条件
-			String condition = InceptorUtil.getDateCondition(getRequest());
-			//执行查询
-			List<List<String>> data = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_member_runoff) + condition, 4);
-			//返回结果
-			JSONObject result = new JSONObject();
-			result.put("data", data);
-			renderJson(result);
-		}
-	}
+        if (BaseUtils.isAjax(getRequest())) {
+            //执行查询
+            List<List<String>> data = new ArrayList<>();
+            //返回结果
+            JSONObject result = new JSONObject();
+
+            // 得到查询条件
+            String dateType = getPara("dateType");
+            String condition = InceptorUtil.getQueryCondition(getRequest());
+            if (dateType != null) {
+                if (dateType.equals("day")) {
+                    data = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_member_runoff_day, condition), false);
+                }
+                if (dateType.equals("month")) {
+                    data = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_member_runoff_month, condition), false);
+                }
+            }
+
+            result.put("data", data);
+            renderJson(result);
+        }
+    }
 }

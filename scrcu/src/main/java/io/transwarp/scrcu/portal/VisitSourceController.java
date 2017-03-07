@@ -23,32 +23,55 @@ public class VisitSourceController extends Controller {
 
 	Res res = I18n.use("i18n", "zh_CN");
 
+	/**
+	 * web统计 搜索引擎
+	 */
 	@RequiresPermissions("/portal/visitsource/searchEngine")
 	public void searchEngine() {
 		if (BaseUtils.isAjax(getRequest())) {
+
+			//定义集合接收搜索引擎数据
+			List<List<String>> searchEngineData = new ArrayList<>();
+
 			// 得到查询条件
-			String condition = InceptorUtil.getDateCondition(getRequest());
-			// 执行查询
-			List<List<String>> data = InceptorUtil
-					.query(SqlKit.propSQL(SQLConfig.portal_sourceAnalysis_searchEngine.toString(), condition), 5);
+			String condition = InceptorUtil.getQueryCondition(getRequest());
+			//获取汇总查询的类型，day:天, month:月
+			String dateType = getPara("dateType");
+
+			if (dateType != null) {
+				if (dateType.equals("day")) {
+					// 执行查询
+					searchEngineData = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.portal_sourceAnalysis_searchEngine_day, condition),
+							false);
+				}
+
+				if (dateType.equals("month")) {
+					// 执行查询
+					searchEngineData = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.portal_sourceAnalysis_searchEngine_month, condition),
+							false);
+				}
+			}
 
 			List<Object> dataList = new ArrayList<Object>();
-			for (List<String> list : data) {
+			for (List<String> list : searchEngineData) {
 				Data d = new Data(list.get(0), Integer.valueOf(list.get(1)));
 				dataList.add(d);
 			}
 			// 返回结果
 			JSONObject result = new JSONObject();
-			result.put("data", data);
-			// setAttr("data", data);
-			String str = ChartUtils.genPie(res.get("portal.visitorCount"), dataList);
-			// 生成图
-			result.put("chartOption", str);
-			// setAttr("chartOption", str);
+
+			//生成饼图数据
+			String searchEngineChart = ChartUtils.genPie(res.get("portal.visitorCount"), dataList);
+			result.put("chartOption", searchEngineChart);
+
+			result.put("data", searchEngineData);
 			renderJson(result);
 		}
 	}
 
+	/**
+	 * web统计 来源分析以及入口页面分析
+	 */
 	@RequiresPermissions("/portal/visitsource/source")
 	public void source() {
 		if (BaseUtils.isAjax(getRequest())) {

@@ -21,7 +21,7 @@ public class AppEventController extends Controller {
     public void list() {
         if (BaseUtils.isAjax(getRequest())) {
             // 得到时间查询条件
-            String condition = InceptorUtil.getDateCondition(getRequest());
+            String condition = InceptorUtil.getQueryCondition(getRequest());
             // 执行查询
             List<List<String>> eventData = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_event_list, condition));
             JSONObject listResult = new JSONObject();
@@ -38,7 +38,7 @@ public class AppEventController extends Controller {
     public void detail() {
         if (BaseUtils.isAjax(getRequest())) {
             // 得到时间查询条件
-            String condition = InceptorUtil.getDateCondition(getRequest());
+            String condition = InceptorUtil.getQueryCondition(getRequest());
             // 执行查询
             List<List<String>> detailData = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_event_detail, condition));
             JSONObject detailResult = new JSONObject();
@@ -54,7 +54,7 @@ public class AppEventController extends Controller {
     public void tendency() {
         if (BaseUtils.isAjax(getRequest())) {
             // 得到时间查询条件
-            String condition = InceptorUtil.getDateCondition(getRequest());
+            String condition = InceptorUtil.getQueryCondition(getRequest());
             // 执行查询
             List<List<String>> tendencyData = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_event_tendency, condition));
             JSONObject tendencyResult = new JSONObject();
