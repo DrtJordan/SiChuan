@@ -11,20 +11,16 @@
         <div id="provincediv" style="height: 400px; margin: 0px 30px 0px 30px;"></div>
     </div>
     <#include "/common/_dateQuery.html"/>
-    <div>
-        <header class="noborder panel-heading text-right bg-light clear">
-            <ul class="nav nav-tabs pull-left clear">
-                <li class="active csvExportTab" csvAction="portal_siteAnalysis_area_query"><a
-                        href="#area" data-toggle="tab"><i class="fa-map-marker fa"></i>&nbsp;地域分布</a>
-                </li>
-            </ul>
-            <span class="hidden-sm"><a href="/csv/portal_siteAnalysis_area_query" id="csvExport" class="btn btn-dark btn-sm" style="display: inline"><i
-                    class="fa fa-cloud-download"></i>&nbsp;导出</a></span>
+    <div class="panel panel-default">
+        <header class="panel-heading">
+            <i class="fa-map-marker fa"></i>&nbsp;地域分布<span class="hidden-sm pull-right">
+			<a href="" csvAction="/csv/portal_siteAnalysis_area_query" class="csvExport btn btn-default btn-sm"
+               style="display: inline"><i class="fa fa-cloud-download"></i>&nbsp;导出</a></span>
         </header>
-    </div>
-    <section class="panel panel-default ">
+
         <div class="table-responsive">
-            <table id="table" class="table_select_row datatables table table-striped m-b-none" style="border-top: 0px"
+            <table id="table" class="table_select_row datatables table table-striped m-b-none"
+                   style="border-top: 0px"
                    data-ride="datatables">
                 <thead>
                 <tr>
@@ -45,8 +41,10 @@
                 </tbody>
             </table>
         </div>
-    </section>
-    <div class="clear"></div>
+    </div>
+    <div class="clear">
+        <hr/>
+    </div>
 
 </section>
 </@layout>
@@ -72,12 +70,7 @@
         var chartOption = data.chartOption;
 
         tableQuery({
-            "aaData": data.areaData,
-            "sDom": "",
-            bPaginate: false,
-            bInfo: false,
-            bFilter: false,
-            bLengthChange: false
+            "aaData": data.areaData
         });
         chart.setOption($.parseJSON(chartOption));
         csvExport("", dateType);

@@ -10,19 +10,10 @@
     <!-- 引入日期查询  -->
     <#include "/common/_dateQuery.html"/>
     <div class="panel panel-default table-responsive clear">
-        <header class="noborder panel-heading text-right bg-light clear">
-            <ul class="nav nav-tabs pull-left clear">
-                <li class="active csvExportTab" csvAction="portal_pageRank"><a href="#data" data-toggle="tab"><i
-                        class="icon-calendar"
-                ></i>&nbsp;页面排行</a></li>
-                <!--li class="csvExportTab" csvAction="portal_siteAnalysis_userVisitPage_query"><a href="#user_data"
-                                                                                                                          data-toggle="tab"><i
-                    class="icon-screen-smartphone"
-            ></i>&nbsp;会员页面排行</a></li>-->
-            </ul>
-            <span class="hidden-sm pull-right"><a href="" id="csvExport" csvAction="/csv/portal_pageRank"
-                                                  class=" btn btn-default btn-sm" style="display: inline"
-            ><i class="fa fa-cloud-download"></i>&nbsp;导出</a></span>
+        <header class="panel-heading">
+            <i class="icon-bar-chart padder-xs"></i>页面排行<span class="hidden-sm pull-right">
+			<a href="" csvAction="/csv/portal_pageRank" class="csvExport btn btn-default btn-sm"
+               style="display: inline"><i class="fa fa-cloud-download"></i>&nbsp;导出</a></span>
         </header>
         <div class="panel-body" style="padding: 0px">
             <div class="tab-content">

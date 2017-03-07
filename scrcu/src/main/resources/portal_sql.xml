@@ -17,63 +17,63 @@
 
 	<!-- 访问页面时长start -->
 	<sqlGroup name="portal_visitAnalysis_time_day">
-		<sql id="name">页面时长</sql>
-		<sql id="header">日期,访问时长,登录用户数,占比,浏览量（PV）,PV占比</sql>
-		<sql id="sql">select statt_dt, Long_vis,cast(sum(Log_Usr_Num) as int),sum(ratio)/count(ratio),cast(sum(pv) as int),sum(pv_ratio)/count(pv_ratio) from hb_Result_Access_analysis_Info_1 SQL_CONDITION group by statt_dt,Long_vis order by statt_dt asc</sql>
+		<sql id="name">访问页面时长</sql>
+		<sql id="header">日期,访问时长,登录用户数,占比,浏览量(PV),PV占比</sql>
+		<sql id="sql">select stat_date, long_vis, log_usr_num, ratio, pv, pv_ratio from bdhbs.th_log_web_usr_page_view_orc_day where SQL_CONDITION cnt_type='3'</sql>
 	</sqlGroup>
 
 	<sqlGroup name="portal_visitAnalysis_time_month">
-		<sql id="name">页面时长按月汇总</sql>
-		<sql id="header">日期,访问时长,登录用户数,占比,浏览量（PV）,PV占比</sql>
-		<sql id="sql">select statt_dt,Long_vis,cast(sum(Log_Usr_Num) as int),sum(ratio)/count(ratio),cast(sum(pv) as int),sum(pv_ratio)/count(pv_ratio) from hb_Result_Access_analysis_Info_1 SQL_CONDITION group by statt_dt,Long_vis order by statt_dt asc</sql>
+		<sql id="name">访问页面时长按月汇总</sql>
+		<sql id="header">日期,访问时长,登录用户数,占比,浏览量(PV),PV占比</sql>
+		<sql id="sql">select stat_date, long_vis, log_usr_num, ratio, pv, pv_ratio from bdhbs.th_log_web_usr_page_view_lvis_orc_sum_day where SQL_CONDITION cnt_type='2'</sql>
 	</sqlGroup>
 
 	<sqlGroup name="portal_visitAnalysis_time_quarter">
-		<sql id="name">页面时长按季汇总</sql>
-		<sql id="header">日期,访问时长,登录用户数,占比,浏览量（PV）,PV占比</sql>
-		<sql id="sql">select statt_dt,Long_vis,cast(sum(Log_Usr_Num) as int),sum(ratio)/count(ratio),cast(sum(pv) as int),sum(pv_ratio)/count(pv_ratio) from hb_Result_Access_analysis_Info_1 SQL_CONDITION group by statt_dt,Long_vis order by statt_dt asc</sql>
+		<sql id="name">访问页面时长按季汇总</sql>
+		<sql id="header">日期,访问时长,登录用户数,占比,浏览量(PV),PV占比</sql>
+		<sql id="sql">select stat_date, long_vis, log_usr_num, ratio, pv, pv_ratio from bdhbs.th_log_web_usr_page_view_lvis_orc_sum_day where SQL_CONDITION cnt_type='3'</sql>
 	</sqlGroup>
 
 	<sqlGroup name="portal_visitAnalysis_time_year">
-		<sql id="name">页面时长按年汇总</sql>
-		<sql id="header">日期,访问时长,登录用户数,占比,浏览量（PV）,PV占比</sql>
-		<sql id="sql">select statt_dt,Long_vis,cast(sum(Log_Usr_Num) as int),sum(ratio)/count(ratio),cast(sum(pv) as int),sum(pv_ratio)/count(pv_ratio) from hb_Result_Access_analysis_Info_1 SQL_CONDITION group by statt_dt,Long_vis order by statt_dt asc</sql>
+		<sql id="name">访问页面时长按年汇总</sql>
+		<sql id="header">日期,访问时长,登录用户数,占比,浏览量(PV),PV占比</sql>
+		<sql id="sql">select stat_date, long_vis, log_usr_num, ratio, pv, pv_ratio from bdhbs.th_log_web_usr_page_view_lvis_orc_sum_day where SQL_CONDITION cnt_type='4'</sql>
 	</sqlGroup>
 	<!--访问页面end -->
 
 	<!-- 访问页面深度start -->
 	<sqlGroup name="portal_visitAnalysis_depth_day">
-		<sql id="name">访问深度</sql>
-		<sql id="header">日期,访问深度,登录用户数,占比,浏览量（PV）,PV占比</sql>
-		<sql id="sql">select statt_dt,access_depth,cast(sum(Log_Usr_Num) as int),sum(ratio)/count(ratio),cast(sum(pv) as int),sum(pv_ratio)/count(pv_ratio) from hb_Result_Access_analysis_Info_2 SQL_CONDITION group by statt_dt,access_depth</sql>
+		<sql id="name">访问深度按天汇总</sql>
+		<sql id="header">日期,访问深度,登录用户数,占比,浏览量(PV),PV占比</sql>
+		<sql id="sql">select stat_date, access_depth, log_usr_num, ratio, pv, pv_ratio from bdhbs.th_log_web_usr_page_view_orc_day where SQL_CONDITION cnt_type='4'</sql>
 	</sqlGroup>
 
 	<!-- 访问页面深度按月汇总 -->
 	<sqlGroup name="portal_visitAnalysis_depth_month">
-		<sql id="name">访问深度</sql>
-		<sql id="header">日期,访问深度,登录用户数,占比,浏览量（PV）,PV占比</sql>
-		<sql id="sql">select statt_dt,access_depth,cast(sum(Log_Usr_Num) as int),sum(ratio)/count(ratio),cast(sum(pv) as int),sum(pv_ratio)/count(pv_ratio) from hb_Result_Access_analysis_Info_2 SQL_CONDITION group by statt_dt,access_depth</sql>
+		<sql id="name">访问深度按月汇总</sql>
+		<sql id="header">日期,访问深度,登录用户数,占比,浏览量(PV),PV占比</sql>
+		<sql id="sql">select stat_date, access_depth, log_usr_num, ratio, pv, pv_ratio from bdhbs.th_log_web_usr_page_view_depth_orc_sum_day where SQL_CONDITION cnt_type='2'</sql>
 	</sqlGroup>
 
 	<!-- 访问页面深度按季汇总 -->
 	<sqlGroup name="portal_visitAnalysis_depth_quarter">
-		<sql id="name">访问深度</sql>
-		<sql id="header">日期,访问深度,登录用户数,占比,浏览量（PV）,PV占比</sql>
-		<sql id="sql">select statt_dt,access_depth,cast(sum(Log_Usr_Num) as int),sum(ratio)/count(ratio),cast(sum(pv) as int),sum(pv_ratio)/count(pv_ratio) from hb_Result_Access_analysis_Info_2 SQL_CONDITION group by statt_dt,access_depth</sql>
+		<sql id="name">访问深度按季汇总</sql>
+		<sql id="header">日期,访问深度,登录用户数,占比,浏览量(PV),PV占比</sql>
+		<sql id="sql">select stat_date, access_depth, log_usr_num, ratio, pv, pv_ratio from bdhbs.th_log_web_usr_page_view_depth_orc_sum_day where SQL_CONDITION cnt_type='3'</sql>
 	</sqlGroup>
 
 	<!-- 访问页面深度按年汇总 -->
 	<sqlGroup name="portal_visitAnalysis_depth_year">
-		<sql id="name">访问深度</sql>
-		<sql id="header">日期,访问深度,登录用户数,占比,浏览量（PV）,PV占比</sql>
-		<sql id="sql">select statt_dt,access_depth,cast(sum(Log_Usr_Num) as int),sum(ratio)/count(ratio),cast(sum(pv) as int),sum(pv_ratio)/count(pv_ratio) from hb_Result_Access_analysis_Info_2 SQL_CONDITION group by statt_dt,access_depth</sql>
+		<sql id="name">访问深度按年汇总</sql>
+		<sql id="header">日期,访问深度,登录用户数,占比,浏览量(PV),PV占比</sql>
+		<sql id="sql">select stat_date, access_depth, log_usr_num, ratio, pv, pv_ratio from bdhbs.th_log_web_usr_page_view_depth_orc_sum_day where SQL_CONDITION cnt_type='4'</sql>
 	</sqlGroup>
 	<!-- 访问页面深度end -->
 
 	<!-- 页面分析 start -->
 	<sqlGroup name="portal_pageAnalysis">
 		<sql id="name">页面分析</sql>
-		<sql id="header">浏览量（PV）,访客数（VV）,跳出率,退出率</sql>
+		<sql id="header">浏览量(PV),访客数(VV),跳出率,退出率</sql>
 		<sql id="sql">select url,pv,uv,Bounce_Rate,Exit_rate from hb_Result_Page_analysis_Info</sql>
 	</sqlGroup>
 	<!--访页面分析 end -->
@@ -137,29 +137,29 @@
 	<!-- 地域分布  start -->
 	<sqlGroup name="portal_siteAnalysis_area_query_day">
 		<sql id="name">地域分布</sql>
-		<sql id="header">城市,访客,UV占比,PV,VV,IP数,新访客,新访客/访客数,平均访问深度,登录,登录/访客数,注册用户数,注册用户数/访客数</sql>
-		<sql id="sql">select city,cast(sum(uv) as int),sum(uv_ratio)/count(uv_ratio),cast(sum(pv) as int),cast(sum(vv) as int),cast(sum(ip_num) as int),cast(sum(New_Vis_Num) as int),cast(sum(new_vis_num_div_uv) as int),cast(sum(Aver_access_depth) as int),cast(sum(Log_Usr_Num) as int),cast(sum(log_usr_num_div_uv) as int),cast(sum(Rgst_Usr_Num) as int),cast(sum(Rgst_usr_num_Div_uv) as int) from hb_Result_visitor_area_Info SQL_CONDITION group by city
+		<sql id="header">城市,访客,UV占比,PV,VV,IP数,新访客,新访客/访客数,平均访问深度,登录,登录/访客数</sql>
+		<sql id="sql">select city, uv, uv_ratio, pv, vv, ip_num, new_vis_num, new_vis_num_div_uv, aver_access_depth, log_usr_num, log_usr_num_div_uv from bdhbs.th_log_web_usr_area_orc_day where SQL_CONDITION cnt_type='99'
 		</sql>
 	</sqlGroup>
 
 	<sqlGroup name="portal_siteAnalysis_area_query_month">
 		<sql id="name">地域分布按月汇总</sql>
-		<sql id="header">城市,访客,UV占比,PV,VV,IP数,新访客,新访客/访客数,平均访问深度,登录,登录/访客数,注册用户数,注册用户数/访客数</sql>
-		<sql id="sql">select city,cast(sum(uv) as int),sum(uv_ratio)/count(uv_ratio),cast(sum(pv) as int),cast(sum(vv) as int),cast(sum(ip_num) as int),cast(sum(New_Vis_Num) as int),cast(sum(new_vis_num_div_uv) as int),cast(sum(Aver_access_depth) as int),cast(sum(Log_Usr_Num) as int),cast(sum(log_usr_num_div_uv) as int),cast(sum(Rgst_Usr_Num) as int),cast(sum(Rgst_usr_num_Div_uv) as int) from hb_Result_visitor_area_Info SQL_CONDITION group by city
+		<sql id="header">城市,访客,UV占比,PV,VV,IP数,新访客,新访客/访客数,平均访问深度,登录,登录/访客数</sql>
+		<sql id="sql">select city, uv, uv_ratio, pv, vv, ip_num, new_vis_num, new_vis_num_div_uv, aver_access_depth, log_usr_num, log_usr_num_div_uv from bdhbs.th_log_web_usr_area_orc_sum_day where SQL_CONDITION cnt_type='2'
 		</sql>
 	</sqlGroup>
 
 	<sqlGroup name="portal_siteAnalysis_area_query_quarter">
 		<sql id="name">地域分布按季汇总</sql>
-		<sql id="header">城市,访客,UV占比,PV,VV,IP数,新访客,新访客/访客数,平均访问深度,登录,登录/访客数,注册用户数,注册用户数/访客数</sql>
-		<sql id="sql">select city,cast(sum(uv) as int),sum(uv_ratio)/count(uv_ratio),cast(sum(pv) as int),cast(sum(vv) as int),cast(sum(ip_num) as int),cast(sum(New_Vis_Num) as int),cast(sum(new_vis_num_div_uv) as int),cast(sum(Aver_access_depth) as int),cast(sum(Log_Usr_Num) as int),cast(sum(log_usr_num_div_uv) as int),cast(sum(Rgst_Usr_Num) as int),cast(sum(Rgst_usr_num_Div_uv) as int) from hb_Result_visitor_area_Info SQL_CONDITION group by city
+		<sql id="header">城市,访客,UV占比,PV,VV,IP数,新访客,新访客/访客数,平均访问深度,登录,登录/访客数</sql>
+		<sql id="sql">select city, uv, uv_ratio, pv, vv, ip_num, new_vis_num, new_vis_num_div_uv, aver_access_depth, log_usr_num, log_usr_num_div_uv from bdhbs.th_log_web_usr_area_orc_sum_day where SQL_CONDITION cnt_type='3'
 		</sql>
 	</sqlGroup>
 
 	<sqlGroup name="portal_siteAnalysis_area_query_year">
 		<sql id="name">地域分布按年汇总</sql>
-		<sql id="header">城市,访客,UV占比,PV,VV,IP数,新访客,新访客/访客数,平均访问深度,登录,登录/访客数,注册用户数,注册用户数/访客数</sql>
-		<sql id="sql">select city,cast(sum(uv) as int),sum(uv_ratio)/count(uv_ratio),cast(sum(pv) as int),cast(sum(vv) as int),cast(sum(ip_num) as int),cast(sum(New_Vis_Num) as int),cast(sum(new_vis_num_div_uv) as int),cast(sum(Aver_access_depth) as int),cast(sum(Log_Usr_Num) as int),cast(sum(log_usr_num_div_uv) as int),cast(sum(Rgst_Usr_Num) as int),cast(sum(Rgst_usr_num_Div_uv) as int) from hb_Result_visitor_area_Info SQL_CONDITION group by city
+		<sql id="header">城市,访客,UV占比,PV,VV,IP数,新访客,新访客/访客数,平均访问深度,登录,登录/访客数</sql>
+		<sql id="sql">select city, uv, uv_ratio, pv, vv, ip_num, new_vis_num, new_vis_num_div_uv, aver_access_depth, log_usr_num, log_usr_num_div_uv from bdhbs.th_log_web_usr_area_orc_sum_day where SQL_CONDITION cnt_type='4'
 		</sql>
 	</sqlGroup>
 
@@ -184,49 +184,49 @@
 	<sqlGroup name="portal_terminal_os_day">
 		<sql id="name">操作系统占比</sql>
 		<sql id="header">操作系统,访问次数VV,浏览量,浏览量占比,访客数UV,UV占比,IP数</sql>
-		<sql id="sql">select os,cast(sum(vv) as int),cast(sum(pv) as int),sum(Bro_vol_ratio)/count(Bro_vol_ratio),cast(sum(uv) as int),sum(uv_ratio)/count(uv_ratio),cast(sum(ip_num) as int) from hb_Result_Terminal_details_Info_2 SQL_CONDITION group by os</sql>
+		<sql id="sql">select os, vv, pv, bro_vol_ratio,uv, uv_ratio, ip_num from bdhbs.th_log_web_usr_terminal_detail_orc_day where SQL_CONDITION cnt_type='1'</sql>
 	</sqlGroup>
 
 	<!-- 终端操作系统按月汇总 -->
 	<sqlGroup name="portal_terminal_os_month">
-		<sql id="name">操作系统占比</sql>
+		<sql id="name">操作系统占比按月汇总</sql>
 		<sql id="header">操作系统,访问次数VV,浏览量,浏览量占比,访客数UV,UV占比,IP数</sql>
-		<sql id="sql">select os,cast(sum(vv) as int),cast(sum(pv) as int),sum(Bro_vol_ratio)/count(Bro_vol_ratio),cast(sum(uv) as int),sum(uv_ratio)/count(uv_ratio),cast(sum(ip_num) as int) from hb_Result_Terminal_details_Info_2 SQL_CONDITION group by os</sql>
+		<sql id="sql">select os, vv, pv, bro_vol_ratio,uv, uv_ratio, ip_num from bdhbs.th_log_web_usr_terminal_detail_os_orc_sum_day where SQL_CONDITION cnt_type='2'</sql>
 	</sqlGroup>
 
 	<!-- 终端浏览器按天汇总 -->
 	<sqlGroup name="portal_terminal_browserDiv_day">
 		<sql id="name">浏览器占比</sql>
 		<sql id="header">浏览器,访问次数VV,浏览量,浏览量占比,访客数UV,UV占比,IP数</sql>
-		<sql id="sql">select browser,cast(sum(vv) as int),cast(sum(pv) as int),sum(Bro_vol_ratio)/count(Bro_vol_ratio),cast(sum(uv) as int),sum(uv_ratio)/count(uv_ratio),cast(sum(ip_num) as int) from hb_Result_Terminal_details_Info_3 SQL_CONDITION group by browser</sql>
+		<sql id="sql">select browser, vv, pv, bro_vol_ratio,uv, uv_ratio, ip_num from bdhbs.th_log_web_usr_terminal_detail_orc_day where SQL_CONDITION cnt_type='2'</sql>
 	</sqlGroup>
 
 	<!-- 终端浏览器按月汇总 -->
 	<sqlGroup name="portal_terminal_browserDiv_month">
 		<sql id="name">浏览器占比</sql>
 		<sql id="header">浏览器,访问次数VV,浏览量,浏览量占比,访客数UV,UV占比,IP数</sql>
-		<sql id="sql">select browser,cast(sum(vv) as int),cast(sum(pv) as int),sum(Bro_vol_ratio)/count(Bro_vol_ratio),cast(sum(uv) as int),sum(uv_ratio)/count(uv_ratio),cast(sum(ip_num) as int) from hb_Result_Terminal_details_Info_3 SQL_CONDITION group by browser</sql>
+		<sql id="sql">select browser, vv, pv, bro_vol_ratio,uv, uv_ratio, ip_num from bdhbs.th_log_web_usr_terminal_detail_browser_orc_sum_day where SQL_CONDITION cnt_type='2'</sql>
 	</sqlGroup>
 	<!-- 终端类型end -->
 	
 	<!--页面排行start -->
 	<sqlGroup name="portal_siteAnalysis_userVisitPage_query">
 		<sql id="name">会员页面</sql>
-		<sql id="header">页面,浏览量（PV）,访问次数(VV),平均页面停留时长(秒),贡献下游浏览量,跳出率,退出率</sql>
+		<sql id="header">页面,浏览量(PV),访问次数(VV),平均页面停留时长(秒),贡献下游浏览量,跳出率,退出率</sql>
 		<sql id="sql">select url,cast(sum(PV) as int) as pvcount,cast(sum(VV) as int),cast(sum(avg_page_stay_durat)/count(avg_page_stay_durat) as int),cast(sum(contr_dowst_pv) as int),sum(Bounce_Rate)/count(Bounce_Rate),sum(Exit_rate)/count(Exit_rate) from hb_result_Mem_Page_Analy_Info SQL_CONDITION group by url order by pvcount desc
 		</sql>
 	</sqlGroup>
 
 	<sqlGroup name="portal_siteAnalysis_userVisitPage_query_day">
 		<sql id="name">会员页面</sql>
-		<sql id="header">页面,浏览量（PV）,访问次数(VV),平均页面停留时长(秒),贡献下游浏览量,跳出率,退出率</sql>
+		<sql id="header">页面,浏览量(PV),访问次数(VV),平均页面停留时长(秒),贡献下游浏览量,跳出率,退出率</sql>
 		<sql id="sql">select url,cast(sum(PV) as int) as pvcount,cast(sum(VV) as int),cast(sum(avg_page_stay_durat)/count(avg_page_stay_durat) as int),cast(sum(contr_dowst_pv) as int),sum(Bounce_Rate)/count(Bounce_Rate),sum(Exit_rate)/count(Exit_rate) from hb_result_Mem_Page_Analy_Info SQL_CONDITION group by url order by pvcount desc
 		</sql>
 	</sqlGroup>
 
 	<sqlGroup name="portal_siteAnalysis_userVisitPage_query_month">
 		<sql id="name">会员页面</sql>
-		<sql id="header">页面,浏览量（PV）,访问次数(VV),平均页面停留时长(秒),贡献下游浏览量,跳出率,退出率</sql>
+		<sql id="header">页面,浏览量(PV),访问次数(VV),平均页面停留时长(秒),贡献下游浏览量,跳出率,退出率</sql>
 		<sql id="sql">select url,cast(sum(PV) as int) as pvcount,cast(sum(VV) as int),cast(sum(avg_page_stay_durat)/count(avg_page_stay_durat) as int),cast(sum(contr_dowst_pv) as int),sum(Bounce_Rate)/count(Bounce_Rate),sum(Exit_rate)/count(Exit_rate) from hb_result_Mem_Page_Analy_Info SQL_CONDITION group by url order by pvcount desc
 		</sql>
 	</sqlGroup>
@@ -263,14 +263,14 @@
 	<!-- 会员页面分析start -->
 	<sqlGroup name="portal_siteAnalysis_userPage_query_day">
 		<sql id="name">会员页面分析按天汇总</sql>
-		<sql id="header">网址,浏览量（PV）,访问次数(VV),平均页面停留时长(秒),贡献下游浏览量,跳出率,退出率</sql>
+		<sql id="header">网址,浏览量(PV),访问次数(VV),平均页面停留时长(秒),贡献下游浏览量,跳出率,退出率</sql>
 		<sql id="sql">select url,cast(sum(PV) as int) as pvcount,cast(sum(VV) as int),cast(sum(avg_page_stay_durat)/count(avg_page_stay_durat) as int),cast(sum(contr_dowst_pv) as int),sum(Bounce_Rate)/count(Bounce_Rate),sum(Exit_rate)/count(Exit_rate) from hb_result_Mem_Page_Analy_Info SQL_CONDITION group by url order by pvcount desc
 		</sql>
 	</sqlGroup>
 
 	<sqlGroup name="portal_siteAnalysis_userPage_query_month">
 		<sql id="name">会员页面分析按月汇总</sql>
-		<sql id="header">网址,浏览量（PV）,访问次数(VV),平均页面停留时长(秒),贡献下游浏览量,跳出率,退出率</sql>
+		<sql id="header">网址,浏览量(PV),访问次数(VV),平均页面停留时长(秒),贡献下游浏览量,跳出率,退出率</sql>
 		<sql id="sql">select url,cast(sum(PV) as int) as pvcount,cast(sum(VV) as int),cast(sum(avg_page_stay_durat)/count(avg_page_stay_durat) as int),cast(sum(contr_dowst_pv) as int),sum(Bounce_Rate)/count(Bounce_Rate),sum(Exit_rate)/count(Exit_rate) from hb_result_Mem_Page_Analy_Info SQL_CONDITION group by url order by pvcount desc
 		</sql>
 	</sqlGroup>
@@ -313,32 +313,44 @@
 	<!-- ############################### 唯一用户分析end ################################## -->
 	
 	<!--来源分析 start -->
-	<sqlGroup name="portal_sourceAnalysis_source">
-		<sql id="name">来源分析</sql>
-		<sql id="header">来源方式,访问次数,浏览量（PV）,访客数（UV）,IP数,跳出率</sql>
-		<sql id="sql">select Src_Mod_Cd,url,cast(sum(vv)as int),cast(sum(pv)as int),cast(sum(uv)as int),cast(sum(IP_num)as int),sum(Bounce_Rate)/count(Bounce_Rate) from hb_Result_Source_analysis_Info SQL_CONDITION group by Src_Mod_Cd,url</sql>
+	<sqlGroup name="portal_sourceAnalysis_source_day">
+		<sql id="name">来源分析按天汇总</sql>
+		<sql id="header">日期,来源方式,页面,访问次数,浏览量(PV),访客数(UV),IP数,跳出率</sql>
+		<sql id="sql">select stat_date, src_mod_cd, url, vv, pv, uv, ip_num, bounce_rate from bdhbs.th_log_web_usr_access_from_orc_day where SQL_CONDITION cnt_type='99'</sql>
+	</sqlGroup>
+
+	<sqlGroup name="portal_sourceAnalysis_source_month">
+		<sql id="name">来源分析按月汇总</sql>
+		<sql id="header">日期,来源方式,页面,访问次数,浏览量(PV),访客数(UV),IP数,跳出率</sql>
+		<sql id="sql">select stat_date, src_mod_cd, url, vv, pv, uv, ip_num, bounce_rate from bdhbs.th_log_web_usr_access_from_orc_sum_day where SQL_CONDITION cnt_type='2'</sql>
 	</sqlGroup>
 	<!--来源分析  end -->
 	
 	<!--入口页面分析  start -->
-	<sqlGroup name="portal_siteAnalysis_entryPage_query">
+	<sqlGroup name="portal_siteAnalysis_entryPage_query_day">
 		<sql id="name">入口页面分析</sql>
-		<sql id="header">入口页面,访问次数(VV),浏览量(PV),访客数(UV),IP数,跳出率</sql>
-		<sql id="sql">select Ent_Page,cast(sum(VV)as int),cast(sum(PV)as int),cast(sum(UV)as int),cast(sum(Ip_Num)as int),sum(Bounce_Rate)/count(Bounce_Rate) from hb_result_ent_page_info SQL_CONDITION group by Ent_Page</sql>
+		<sql id="header">日期,入口页面,访问次数(VV),浏览量(PV),访客数(UV),IP数,跳出率</sql>
+		<sql id="sql">select stat_date, ent_page, vv, pv, uv, ip_num, bounce_rate from bdhbs.th_log_web_usr_access_first_page_orc_day where SQL_CONDITION cnt_type='99' order by vv desc</sql>
+	</sqlGroup>
+
+	<sqlGroup name="portal_siteAnalysis_entryPage_query_month">
+		<sql id="name">入口页面分析按月汇总</sql>
+		<sql id="header">日期,入口页面,访问次数(VV),浏览量(PV),访客数(UV),IP数,跳出率</sql>
+		<sql id="sql">select stat_date, ent_page, vv, pv, uv, ip_num, bounce_rate from bdhbs.th_log_web_usr_access_first_page_orc_sum_day where SQL_CONDITION cnt_type='2' order by vv desc</sql>
 	</sqlGroup>
 	<!--入口页面分析   end -->
 	
 	<!--搜索引擎分析  start -->
 	<sqlGroup name="portal_sourceAnalysis_searchEngine_day">
 		<sql id="name">搜索引擎分析按天汇总</sql>
-		<sql id="header">搜素引擎,访问次数,浏览量（PV）,访客数（UV）,IP数,浏览占比,新访客数</sql>
-		<sql id="sql">select Search_engine,cast(sum(vv)as int),cast(sum(pv)as int),cast(sum(uv)as int),cast(sum(ip_num)as int),sum(Bro_vol_ratio)/count(Bro_vol_ratio),cast(sum(New_Vis_Num)as int) from hb_Result_Search_engine_Info SQL_CONDITION group by Search_engine</sql>
+		<sql id="header">日期,搜素引擎,访问次数,浏览量(PV),访客数(UV),IP数,浏览占比,新访客数</sql>
+		<sql id="sql">select stat_date, search_engine, vv, pv, uv, ip_num, bro_vol_ratio, new_vis_num from bdhbs.th_log_web_usr_search_engine_orc_day where SQL_CONDITION cnt_type='99'</sql>
 	</sqlGroup>
 
 	<sqlGroup name="portal_sourceAnalysis_searchEngine_month">
 		<sql id="name">搜索引擎分析按月汇总</sql>
-		<sql id="header">搜素引擎,访问次数,浏览量（PV）,访客数（UV）,IP数,浏览占比,新访客数</sql>
-		<sql id="sql">select Search_engine,cast(sum(vv)as int),cast(sum(pv)as int),cast(sum(uv)as int),cast(sum(ip_num)as int),sum(Bro_vol_ratio)/count(Bro_vol_ratio),cast(sum(New_Vis_Num)as int) from hb_Result_Search_engine_Info SQL_CONDITION group by Search_engine</sql>
+		<sql id="header">日期,搜素引擎,访问次数,浏览量(PV),访客数(UV),IP数,浏览占比,新访客数</sql>
+		<sql id="sql">select stat_date, search_engine, vv, pv, uv, ip_num, bro_vol_ratio, new_vis_num from bdhbs.th_log_web_usr_search_engine_orc_sum_day where SQL_CONDITION cnt_type='2'</sql>
 	</sqlGroup>
 	<!--搜索引擎分析end -->
 

@@ -173,10 +173,20 @@ public enum SQLConfig {
     //唯一用户分析 按年汇总
     portal_userAnalysis_userOnly_year,
 
-    //搜索引擎分析 按天汇总
+    //来源统计 搜索引擎分析 按天汇总
     portal_sourceAnalysis_searchEngine_day,
-    //搜索引擎分析 按月汇总
+    //来源统计 搜索引擎分析 按月汇总
     portal_sourceAnalysis_searchEngine_month,
+
+    //来源统计 来源分析按天汇总
+    portal_sourceAnalysis_source_day,
+    //来源统计 来源分析按月汇总
+    portal_sourceAnalysis_source_month,
+
+    //来源统计 入口页面按天汇总
+    portal_siteAnalysis_entryPage_query_day,
+    //来源统计 入口页面按月汇总
+    portal_siteAnalysis_entryPage_query_month,
 
 
     /**

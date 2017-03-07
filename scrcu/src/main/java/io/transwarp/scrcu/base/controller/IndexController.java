@@ -181,7 +181,7 @@ public class IndexController extends BaseController {
 
             // 入口页面
             List<List<String>> landingPage = InceptorUtil.query(
-                    SqlKit.propSQL(SQLConfig.portal_siteAnalysis_entryPage_query.toString(), condition) + " limit 5",
+                    SqlKit.propSQL(SQLConfig.portal_siteAnalysis_entryPage_query_day.toString(), condition) + " limit 5",
                     5);
             // 返回结果
             result.put("landingPage", landingPage);
