@@ -13,11 +13,12 @@
 </style>
 <section id="content">
 	<div class="row">
+
 		<div class="col-sm-6">
 			<div class="panel panel-default table-responsive">
-				<header class="panel-heading clear"> 性别和终端 </header>
+				<header class="panel-heading clear"> 职业 </header>
 				<div class="panel-body" style="padding: 0px">
-					<div id="sexDiv" style="height: 240px;"></div>
+					<div id="jobDiv" style="height: 240px;"></div>
 				</div>
 			</div>
 		</div>
@@ -30,23 +31,34 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-sm-6">
+
+		<div class="col-sm-4">
 			<div class="panel panel-default table-responsive">
-				<header class="panel-heading clear">持卡和注册年限 </header>
+				<header class="panel-heading clear">注册年限 </header>
 				<div class="panel-body" style="padding: 0px">
-					<div id="yearDiv" class="col-md-6" style="height: 240px;"></div>
-					<div id="zc_yearDiv" class="col-md-6" style="height: 240px;"></div>
+					<div id="reg_yearDiv" class="col-md-12" style="height: 240px;"></div>
 				</div>
 			</div>
 		</div>
-		<div class="col-sm-6">
+
+		<div class="col-sm-4">
 			<div class="panel panel-default table-responsive">
-				<header class="panel-heading clear"> 职业 </header>
+				<header class="panel-heading clear"> 教育程度 </header>
 				<div class="panel-body" style="padding: 0px">
-					<div id="jobDiv" style="height: 240px;"></div>
+					<div id="edu_bgDiv" style="height: 240px;"></div>
 				</div>
 			</div>
 		</div>
+
+		<div class="col-sm-4">
+			<div class="panel panel-default table-responsive">
+				<header class="panel-heading clear"> 性别和终端 </header>
+				<div class="panel-body" style="padding: 0px">
+					<div id="sexDiv" style="height: 240px;"></div>
+				</div>
+			</div>
+		</div>
+
 		<div class="col-sm-6">
 			<div class="panel panel-default table-responsive">
 				<header class="panel-heading clear"> 群体比例 </header>
@@ -55,25 +67,18 @@
 				</div>
 			</div>
 		</div>
+
 		<div class="col-sm-6">
 			<div class="panel panel-default table-responsive">
 				<header class="panel-heading clear"> 使用时段 </header>
 				<div class="panel-body" style="padding: 0px">
-					<div id="timeDiv" style="height: 240px;"></div>
+					<div id="use_timeDiv" style="height: 240px;"></div>
 
 				</div>
 			</div>
 		</div>
-		
-		<div class="col-sm-3">
-			<div class="panel panel-default table-responsive">
-				<header class="panel-heading clear"> 教育程度 </header>
-				<div class="panel-body" style="padding: 0px">
-					<div id="eduDiv" style="height: 240px;"></div>
-				</div>
-			</div>
-		</div>
-		<div class="col-sm-3" style="padding-left:0px">
+
+		<div class="col-sm-4" >
 			<div class="panel panel-default table-responsive">
 				<header class="panel-heading clear"> 搜索引擎 </header>
 				<div class="panel-body" style="padding: 0px">
@@ -81,15 +86,16 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-sm-3" style="padding-left:0px">
+
+		<div class="col-sm-4">
 			<div class="panel panel-default table-responsive">
 				<header class="panel-heading clear"> 用户卡类别 </header>
 				<div class="panel-body" style="padding: 0px">
-					<div id="cardDiv" style="height: 240px;"></div>
+					<div id="card_typeDiv" style="height: 240px;"></div>
 				</div>
 			</div>
 		</div>
-		<div class="col-sm-3" style="padding-left:0px">
+		<div class="col-sm-4">
 			<div class="panel panel-default table-responsive">
 				<header class="panel-heading clear"> 交易类型 </header>
 				<div class="panel-body" style="padding: 0px">
@@ -98,6 +104,7 @@
 				</div>
 			</div>
 		</div>
+
 		<div class="clear">
 		<hr />
 	</div>
@@ -105,7 +112,7 @@
 			<div class="panel panel-default table-responsive">
 				<header class="panel-heading clear"> 标签 </header>
 				<div class="panel-body" >
-		<ul class="userTags clear" id="rateMap">
+		<ul class="userTags clear" id="rateMap" style="width: 100%">
 		</ul>
 				</div>
 			</div>
@@ -123,20 +130,20 @@
 			success : function(data) {
 				setChart("jobDiv", data.job);
 				setChart("yearDiv", data.year);
-				setChart("zc_yearDiv", data.zc_year);
+				setChart("reg_yearDiv", data.reg_year);
 				setChart("colonyDiv", data.colony);
-				setChart("timeDiv", data.time);
+				setChart("use_timeDiv", data.use_time);
 				setChart("searchDiv", data.search);
 				setChart("tradeDiv", data.trade);
-				setChart("cardDiv", data.card);
-				setChart("eduDiv", data.edu);
+				setChart("card_typeDiv", data.card_type);
+				setChart("edu_bgDiv", data.edu_bg);
 				setChart("generationDiv", data.generation);
 				setChart("sexDiv", data.sex);
 				
 				var tagMap=data.rateMap;
 		　　		var str ="";
 				$.each(tagMap, function(key, val) { 
-					str = str + '<div class="tagtype col-sm-4"><div>'+key+'</div><ul class="userTags">';
+					str = str + '<div class="tagtype col-sm-3"><div>'+key+'</div><ul class="userTags">';
 			　　		var tags=tagMap[key]; 
 			　　		$.each(tags,function(i,tag){
 			　　			str = str + '<li name="'+tag["label_only"]+'">'+tag["label_desc"]+'<br>占比:'+tag["rate"]+'%</li>';

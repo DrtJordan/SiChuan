@@ -12,16 +12,7 @@ import io.transwarp.echarts.axis.AxisLabel;
 import io.transwarp.echarts.axis.CategoryAxis;
 import io.transwarp.echarts.axis.SplitArea;
 import io.transwarp.echarts.axis.ValueAxis;
-import io.transwarp.echarts.code.AxisType;
-import io.transwarp.echarts.code.BrushType;
-import io.transwarp.echarts.code.LineType;
-import io.transwarp.echarts.code.Orient;
-import io.transwarp.echarts.code.Position;
-import io.transwarp.echarts.code.Sort;
-import io.transwarp.echarts.code.Symbol;
-import io.transwarp.echarts.code.Tool;
-import io.transwarp.echarts.code.Trigger;
-import io.transwarp.echarts.code.X;
+import io.transwarp.echarts.code.*;
 import io.transwarp.echarts.data.Data;
 import io.transwarp.echarts.data.TreeData;
 import io.transwarp.echarts.data.WordCloudData;
@@ -61,12 +52,12 @@ public class ChartUtils {
         option.title().text(name).x("center").y("bottom");
         //设置触发类型
         option.tooltip().trigger(Trigger.item).formatter("{b}<br/>{a}: {c} ({d}%)");
-        option.toolbox().show(true);
         option.calculable(false);
         //option.toolbox().show(true).feature(Tool.magicType);
         Pie p1 = new Pie(name);
         //设置饼图的内半径、外半径
-        p1.radius(20, 40).setData(dataList);
+        p1.radius(30, 60).setData(dataList);
+        p1.roseType(RoseType.radius);
         option.series(p1);
         return GsonUtil.format(option);
 
@@ -413,7 +404,7 @@ public class ChartUtils {
 
     public static String genRadar(String name, List<String> key, List<Integer> value) {
         EnhancedOption option = new EnhancedOption();
-        option.title().text(name);
+        option.title().text(name).x("center").y("bottom");
         option.tooltip().trigger(Trigger.axis);
         option.toolbox().show(false).feature(Tool.mark, Tool.dataView, Tool.restore, Tool.saveAsImage);
         option.calculable(true);

@@ -95,7 +95,7 @@ public class PortraitController extends Controller {
     public void home() {
 
         if (BaseUtils.isAjax(getRequest())) {
-
+            List<Object> xAxisList = new ArrayList<Object>();
             //获取具有标签用户的数量
             List<Map<String, Object>> count = InceptorUtil
                     .mapQuery(SqlKit.propSQL(SQLConfig.label_colony_users) + getLevelCondition(), true);
@@ -126,10 +126,11 @@ public class PortraitController extends Controller {
             }
 
             // 交易类型
+            List<Map<String, Object>> trades = tagMap.get("trade_prefer");
             List<Map<String, Object>> trade = tagMap.get("trade");
             List<Object> tradeList = new ArrayList<Object>();
-            if (trade != null) {
-                for (Map<String, Object> m : trade) {
+            if (trades != null) {
+                for (Map<String, Object> m : trades) {
                     Data data = new Data((String) m.get("label_desc"), m.get("total"));
                     tradeList.add(data);
                 }
@@ -149,7 +150,6 @@ public class PortraitController extends Controller {
 
             // 群体类型
             List<Map<String, Object>> colony = tagMap.get("colony");
-            List<Object> xAxisList = new ArrayList<Object>();
             List<Object> colonyList = new ArrayList<Object>();
             if (colony != null) {
                 for (Map<String, Object> m : colony) {
@@ -160,18 +160,19 @@ public class PortraitController extends Controller {
             result.put("colony", ChartUtils.genBar(res.get("portrait.groupType"), res.get("portrait.groupType"), xAxisList, colonyList));
 
             // 注册年限
+            List<Map<String, Object>> zc_years = tagMap.get("reg_year");
             List<Map<String, Object>> zc_year = tagMap.get("zc_year");
             List<String> keyList = new ArrayList<String>();
             List<Integer> zc_yearList = new ArrayList<Integer>();
-            if (zc_year != null) {
-                for (Map<String, Object> m : zc_year) {
+            if (zc_years != null) {
+                for (Map<String, Object> m : zc_years) {
                     keyList.add((String) m.get("label_desc"));
                     zc_yearList.add(InceptorUtil.getInt("total", m));
                 }
             }
-            result.put("zc_year", ChartUtils.genRadar(res.get("portrait.registrationPeriod"), keyList, zc_yearList));
+            result.put("reg_year", ChartUtils.genRadar(res.get("portrait.registrationPeriod"), keyList, zc_yearList));
 
-            // 持卡年限
+           /* // 持卡年限
             List<Map<String, Object>> year = tagMap.get("ck_year");
             keyList = new ArrayList<String>();
             List<Integer> yearList = new ArrayList<Integer>();
@@ -181,7 +182,7 @@ public class PortraitController extends Controller {
                     yearList.add(InceptorUtil.getInt("total", m));
                 }
             }
-            result.put("year", ChartUtils.genRadar(res.get("portrait.cardAge"), keyList, yearList));
+            result.put("year", ChartUtils.genRadar(res.get("portrait.cardAge"), keyList, yearList));*/
 
             // 使用时段
             List<Map<String, Object>> time = tagMap.get("use_time");
@@ -193,7 +194,7 @@ public class PortraitController extends Controller {
                     timeList.add(InceptorUtil.getInt("total", m));
                 }
             }
-            result.put("time", ChartUtils.genBar(res.get("portrait.usePeriod"), res.get("portrait.usePeriod"), xAxisList, timeList));
+            result.put("use_time", ChartUtils.genBar(res.get("portrait.usePeriod"), res.get("portrait.usePeriod"), xAxisList, timeList));
 
             // 搜索引擎
             List<Map<String, Object>> search = tagMap.get("searchengine");
@@ -207,17 +208,18 @@ public class PortraitController extends Controller {
             result.put("search", ChartUtils.genPie(res.get("portrait.searchEngine"), searchList));
 
             // 用户卡类别
+            List<Map<String, Object>> cards = tagMap.get("card_type");
             List<Map<String, Object>> card = tagMap.get("card_cat_cd");
             List<Object> cardList = new ArrayList<Object>();
-            if (card != null) {
-                for (Map<String, Object> m : card) {
+            if (cards != null) {
+                for (Map<String, Object> m : cards) {
                     Data data = new Data((String) m.get("label_desc"), m.get("total"));
                     cardList.add(data);
                 }
             }
-            result.put("card", ChartUtils.genPie(res.get("portrait.userCardCategory"), cardList));
+            result.put("card_type", ChartUtils.genPie(res.get("portrait.userCardCategory"), cardList));
 
-            // 操作系统
+           /* // 操作系统
             List<Map<String, Object>> os = tagMap.get("terminal");
             List<Object> osList = new ArrayList<Object>();
             if (os != null) {
@@ -226,7 +228,7 @@ public class PortraitController extends Controller {
                     osList.add(data);
                 }
             }
-            result.put("os", ChartUtils.genPie(res.get("portrait.terminal"), osList));
+            result.put("os", ChartUtils.genPie(res.get("portrait.terminal"), osList));*/
 
             // 年代
             List<Map<String, Object>> generation = tagMap.get("generation");
@@ -234,8 +236,10 @@ public class PortraitController extends Controller {
             List<Object> generationList = new ArrayList<Object>();
             if (generation != null) {
                 for (Map<String, Object> m : generation) {
-                    xAxisList.add((String) m.get("label_desc"));
-                    generationList.add(InceptorUtil.getInt("total", m));
+                    if (m.get("label_desc") != null){
+                        xAxisList.add((String) m.get("label_desc"));
+                        generationList.add(InceptorUtil.getInt("total", m));
+                    }
                 }
             }
             result.put("generation", ChartUtils.genBar(res.get("portrait.decade"), res.get("portrait.decade"), xAxisList, generationList));
@@ -249,6 +253,7 @@ public class PortraitController extends Controller {
                     sexList.add(data);
                 }
             }
+            result.put("sex", ChartUtils.genPie(res.get("portrait.genderTerminal"), sexList));
 
             // 教育程度
             List<Map<String, Object>> edu = tagMap.get("edu_bg");
@@ -259,9 +264,9 @@ public class PortraitController extends Controller {
                     eduList.add(data);
                 }
             }
-            result.put("edu", ChartUtils.genPie(res.get("portrait.educationLevel"), eduList));
+            result.put("edu_bg", ChartUtils.genPie(res.get("portrait.educationLevel"), eduList));
 
-            // 终端
+           /* // 终端
             List<Map<String, Object>> terminal = tagMap.get("terminal");
             List<Object> terminalList = new ArrayList<Object>();
             if (terminal != null) {
@@ -270,17 +275,16 @@ public class PortraitController extends Controller {
                     terminalList.add(data);
                 }
             }
-            result.put("sex", ChartUtils.genMutilPie(res.get("portrait.genderTerminal"), sexList, terminalList));
+            result.put("sex", ChartUtils.genMutilPie(res.get("portrait.genderTerminal"), sexList, terminalList));*/
 
             Map<String, List<Map<String, Object>>> rateMap = new HashMap<String, List<Map<String, Object>>>();
             List<String> types = new ArrayList<String>();
             types.add("inn_org_zone_cd");
-            types.add("risk_level");
-            types.add("pay_channel");
+            types.add("pay_transfer_channel");
             types.add("security_type");
             types.add("user_cert_level");
-            types.add("loan_use");
-            types.add("guaranteemethod");
+            types.add("loan_purpose");
+            types.add("ass_mode");
             for (Map<String, Object> map : tagList) {
                 String s = ((String) map.get("topic")).toLowerCase();
                 if (types.contains(s)) {
@@ -310,17 +314,19 @@ public class PortraitController extends Controller {
     @RequiresPermissions("/portrait/tags")
     public void tags() throws Exception {
         if (BaseUtils.isAjax(getRequest())) {
-            List<Map<String, Object>> tagList = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.label_label_grouping)
+            List<Map<String, Object>> tagList = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.label_label_wall)
                     + getLevelCondition() + " group by topic,label_code order by total desc", true);
             final Map<String, List<Map<String, Object>>> tagMap = new TreeMap<String, List<Map<String, Object>>>();
             for (Map<String, Object> map : tagList) {
                 String key = (String) map.get("topic_desc");
                 allTagMap.put((String) map.get("label_only"), map);
-                if (tagMap.get(key) == null) {
-                    List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-                    tagMap.put(key, list);
+                if(key != null){
+                    if (tagMap.get(key) == null) {
+                        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+                        tagMap.put(key, list);
+                    }
+                    tagMap.get(key).add(map);
                 }
-                tagMap.get(key).add(map);
             }
             Map<String, List<Map<String, Object>>> m = new TreeMap<String, List<Map<String, Object>>>(
                     new Comparator<String>() {
@@ -644,12 +650,12 @@ public class PortraitController extends Controller {
             }
         }
         if (user != null && BaseUtils.isAjax(getRequest())) {
-            Map<String, String> r = new HashMap<String, String>();
+           /* Map<String, String> r = new HashMap<String, String>();
             Map<String, Object> labelTopic = JSON.parseObject(label_topic);
             Map<String, Object> labelDesc = JSON.parseObject(label_desc);
             List<String> notKeys = new ArrayList<>();
             notKeys.add("sex");
-            notKeys.add("zc_year");
+            notKeys.add("reg_year");
             notKeys.add("ck_year");
             notKeys.add("marriage");
             for (String str : user.keySet()) {
@@ -661,8 +667,8 @@ public class PortraitController extends Controller {
                 } else if (!notKeys.contains(key)) {
                     r.put(key, (String) user.get(key));
                 }
-            }
-            result.put("userTags", r);
+            }*/
+            result.put("userTags", user);
             // 调用交易偏好
             tradepreference(userid, result);
             // 调用人际关系
@@ -673,8 +679,8 @@ public class PortraitController extends Controller {
 
     }
 
-    public String label_topic = "{'generation_others':'generation','xz_juxie':'constellation','user_cert_level_high':'user_cert_level','user_cert_level_low':'user_cert_level','hy_40':'marriage','xz_chunv':'constellation','guaranteemethod_53':'guaranteemethod','guaranteemethod_54':'guaranteemethod','xz_shuangyu':'constellation','searchengine_bing':'searchengine','guaranteemethod_51':'guaranteemethod','guaranteemethod_52':'guaranteemethod','edu_college_below':'edu_bg','industry_s':'industry','industry_t':'industry','industry_q':'industry','use_time_01':'use_time','xz_mojie':'constellation','industry_r':'industry','use_time_02':'use_time','trans_transfer':'trade','use_time_03':'use_time','org_zone_19':'inn_org_zone_cd','use_time_04':'use_time','use_time_05':'use_time','xz_shuangzi':'constellation','industry_d':'industry','generation_90s':'generation','trans_dept':'trade','industry_c':'industry','org_zone_20':'inn_org_zone_cd','industry_b':'industry','ck_year_1':'ck_year','org_zone_21':'inn_org_zone_cd','industry_a':'industry','xz_shizi':'constellation','industry_h':'industry','hy_30':'marriage','industry_g':'industry','industry_f':'industry','industry_e':'industry','industry_l':'industry','industry_k':'industry','industry_j':'industry','industry_i':'industry','guaranteemethod_40':'guaranteemethod','industry_p':'industry','generation_70s':'generation','industry_o':'industry','industry_n':'industry','industry_m':'industry','org_zone_09':'inn_org_zone_cd','zc_others':'zc_year','org_zone_08':'inn_org_zone_cd','loan_use_10':'loan_use','security_uk_type':'security_type','loan_use_11':'loan_use','generation_50s':'generation','pay_channel_06':'pay_channel','pay_channel_07':'pay_channel','loan_use_12':'loan_use','loan_use_13':'loan_use','generation_10s':'generation','sex_others':'sex','hy_20':'marriage','hy_21':'marriage','generation_50b':'generation','org_zone_10':'inn_org_zone_cd','edu_college_above':'edu_bg','hy_22':'marriage','trans_fin':'trade','hy_23':'marriage','zc_3_5':'zc_year','org_zone_13':'inn_org_zone_cd','xz_tianping':'constellation','org_zone_14':'inn_org_zone_cd','org_zone_11':'inn_org_zone_cd','ck_year_3_5':'ck_year','org_zone_12':'inn_org_zone_cd','org_zone_17':'inn_org_zone_cd','xz_jinniu':'constellation','zc_1_3':'zc_year','org_zone_18':'inn_org_zone_cd','org_zone_15':'inn_org_zone_cd','org_zone_16':'inn_org_zone_cd','ass_grade_1':'ass_grade','xz_others':'constellation','searchengine_baidu':'searchengine','ass_grade_0':'ass_grade','colony_4':'colony','ass_grade_3':'ass_grade','colony_3':'colony','ass_grade_2':'ass_grade','colony_2':'colony','whitegold_card':'card_cat_cd','colony_1':'colony','ck_year_1_3':'ck_year','ass_grade_4':'ass_grade','citizen_card':'card_cat_cd','golden_card':'card_cat_cd','others_card':'card_cat_cd','hy_10':'marriage','org_zone_01':'inn_org_zone_cd','colony_5':'colony','org_zone_02':'inn_org_zone_cd','colony_6':'colony','org_zone_03':'inn_org_zone_cd','org_zone_04':'inn_org_zone_cd','org_zone_05':'inn_org_zone_cd','org_zone_06':'inn_org_zone_cd','org_zone_07':'inn_org_zone_cd','job_1':'job','guaranteemethod_10':'guaranteemethod','terminal_mobile':'terminal','zc_1':'zc_year','ass_grade_others':'ass_grade','zc_10_':'zc_year','loan_use_04':'loan_use','risk_level_2':'risk_level','loan_use_03':'loan_use','risk_level_1':'risk_level','loan_use_02':'loan_use','loan_use_01':'loan_use','loan_use_05':'loan_use','job_6':'job','xz_shuiping':'constellation','trans_loan':'trade','job_5':'job','risk_level_5':'risk_level','job_4':'job','risk_level_4':'risk_level','job_3':'job','sex_woman':'sex','risk_level_3':'risk_level','ck_year_10_':'ck_year','job_2':'job','zc_5_10':'zc_year','social_security_card':'card_cat_cd','cert_others':'user_cert_level','generation_80s':'generation','sex_man':'sex','xz_baiyang':'constellation','searchengine_haosou':'searchengine','security_secret_type':'security_type','guaranteemethod_30':'guaranteemethod','security_others':'security_type','generation_60s':'generation','xz_tianxie':'constellation','marriage_others':'marriage','ck_year_5_10':'ck_year','ordinary_card':'card_cat_cd','xz_sheshou':'constellation','generation_00s':'generation','diamond_card':'card_cat_cd','job_x':'job','terminal_pc':'terminal','use_time_06':'use_time','use_time_07':'use_time','guaranteemethod_20':'guaranteemethod','trans_addedservice':'trade','searchengine_sogou':'searchengine','college_others':'edu_bg','ck_year_others':'ck_year'}";
-    public String label_desc = "{'generation_others':'未知','xz_juxie':'巨蟹座','user_cert_level_high':'高认证级别用户','user_cert_level_low':'低认证级别用户','hy_40':'离婚','xz_chunv':'处女座','guaranteemethod_53':'质押+保证担保','guaranteemethod_54':'抵押+质押+保证担保','xz_shuangyu':'双鱼座','searchengine_bing':'必应','guaranteemethod_51':'抵押+保证担保','guaranteemethod_52':'质押+抵押担保','edu_college_below':'本科以下','industry_s':'公共管理和社会组织人员','industry_t':'国际组织人员','industry_q':'从事卫生、社会保障和社会福利业','use_time_01':'夜猫子','xz_mojie':'摩羯座','industry_r':'从事文化、体育和娱乐业','use_time_02':'早起鸟','trans_transfer':'转账','use_time_03':'上午时间','org_zone_19':'泸州市','use_time_04':'下午茶','use_time_05':'下午时间','xz_shuangzi':'双子座','industry_d':'从事生产供应业','generation_90s':'90后','trans_dept':'存款','industry_c':'从事制造业','org_zone_20':'德阳市','industry_b':'从事采矿业','ck_year_1':'1年','org_zone_21':'绵阳市','industry_a':'从事农业','xz_shizi':'狮子座','industry_h':'从事批发和零售业','hy_30':'丧偶','industry_g':'从事互联网行业','industry_f':'从事交通运输业','industry_e':'从事建筑业','industry_l':'从事租赁和商务服务业','industry_k':'从事房地产业','industry_j':'从事金融业','industry_i':'从事住宿和餐饮业','guaranteemethod_40':'质押担保','industry_p':'从事教育','generation_70s':'70后','industry_o':'从事居民服务和其他服务业','industry_n':'从事水利、环境和公共设施管理业','industry_m':'从事科学研究、技术服务和地质勘查业','org_zone_09':'广安市','zc_others':'未知','org_zone_08':'宜宾市','loan_use_10':'种植业贷款','security_uk_type':'uk安全认证','loan_use_11':'养殖业贷款','generation_50s':'50后','pay_channel_06':'网银交易','pay_channel_07':'手机银行','loan_use_12':'服务业贷款','loan_use_13':'餐饮业贷款','generation_10s':'10后','sex_others':'其它','hy_20':'已婚','hy_21':'初婚','generation_50b':'50前','org_zone_10':'达州市','edu_college_above':'本科及以上','hy_22':'再婚','trans_fin':'理财','hy_23':'复婚','zc_3_5':'3-5年','org_zone_13':'资阳市','xz_tianping':'天秤座','org_zone_14':'阿坝州','org_zone_11':'雅安市','ck_year_3_5':'3-5年','org_zone_12':'巴中市','org_zone_17':'自贡市','xz_jinniu':'金牛座','zc_1_3':'2年','org_zone_18':'攀枝花市','org_zone_15':'甘孜州','org_zone_16':'凉山州','ass_grade_1':'优秀级','xz_others':'未知','searchengine_baidu':'百度','ass_grade_0':'未评级','colony_4':'高活跃一般贡献客户','ass_grade_3':'一般级','colony_3':'潜力客户','ass_grade_2':'较好级','colony_2':'高活跃低贡献客户','whitegold_card':'白金卡','colony_1':'一般客户','ck_year_1_3':'2年','ass_grade_4':'未能评级','citizen_card':'社保卡','golden_card':'金卡','others_card':'其它','hy_10':'未婚','org_zone_01':'成都市','colony_5':'高贡献一般活跃用户','org_zone_02':'广元市','colony_6':'高贡献高活跃客户','org_zone_03':'遂宁市','org_zone_04':'内江市','org_zone_05':'乐山市','org_zone_06':'南充市','org_zone_07':'眉山市','job_1':'事业单位工作','guaranteemethod_10':'信用担保','terminal_mobile':'手机','zc_1':'1年','ass_grade_others':'未知','zc_10_':'10年以上','loan_use_04':'商用房贷款','risk_level_2':'中低风险','loan_use_03':'住房建设贷款','risk_level_1':'低风险','loan_use_02':'助学贷款','loan_use_01':'生产经营贷款','loan_use_05':'汽车贷款','job_6':'生产、运输设备操作人员','xz_shuiping':'水瓶座','trans_loan':'贷款','job_5':'农、林、牧、渔、水利业','risk_level_5':'高风险','job_4':'商业、服务业','risk_level_4':'中高风险','job_3':'办事人员','sex_woman':'女','risk_level_3':'中风险','ck_year_10_':'10年以上','job_2':'技术人员','zc_5_10':'6-10年','social_security_card':'市民卡','cert_others':'未知','generation_80s':'80后','sex_man':'男','xz_baiyang':'白羊座','searchengine_haosou':'好搜','security_secret_type':'密码安全认证','guaranteemethod_30':'抵押担保','security_others':'其它','generation_60s':'60后','xz_tianxie':'天蝎座','marriage_others':'未知','ck_year_5_10':'6-10年','ordinary_card':'普卡','xz_sheshou':'射手座','generation_00s':'00后','diamond_card':'钻石卡','job_x':'军人','terminal_pc':'pc','use_time_06':'下班后','use_time_07':'夜生活','guaranteemethod_20':'保证担保','trans_addedservice':'增值服务','searchengine_sogou':'搜狗','college_others':'未知','ck_year_others':'未知'}";
+//    public String label_topic = "{'generation_others':'generation','xz_juxie':'constellation','user_cert_level_high':'user_cert_level','user_cert_level_low':'user_cert_level','hy_40':'marriage','xz_chunv':'constellation','guaranteemethod_53':'guaranteemethod','guaranteemethod_54':'guaranteemethod','xz_shuangyu':'constellation','searchengine_bing':'searchengine','guaranteemethod_51':'guaranteemethod','guaranteemethod_52':'guaranteemethod','edu_college_below':'edu_bg','industry_s':'industry','industry_t':'industry','industry_q':'industry','use_time_01':'use_time','xz_mojie':'constellation','industry_r':'industry','use_time_02':'use_time','trans_transfer':'trade','use_time_03':'use_time','org_zone_19':'inn_org_zone_cd','use_time_04':'use_time','use_time_05':'use_time','xz_shuangzi':'constellation','industry_d':'industry','generation_90s':'generation','trans_dept':'trade','industry_c':'industry','org_zone_20':'inn_org_zone_cd','industry_b':'industry','ck_year_1':'ck_year','org_zone_21':'inn_org_zone_cd','industry_a':'industry','xz_shizi':'constellation','industry_h':'industry','hy_30':'marriage','industry_g':'industry','industry_f':'industry','industry_e':'industry','industry_l':'industry','industry_k':'industry','industry_j':'industry','industry_i':'industry','guaranteemethod_40':'guaranteemethod','industry_p':'industry','generation_70s':'generation','industry_o':'industry','industry_n':'industry','industry_m':'industry','org_zone_09':'inn_org_zone_cd','zc_others':'zc_year','org_zone_08':'inn_org_zone_cd','loan_use_10':'loan_use','security_uk_type':'security_type','loan_use_11':'loan_use','generation_50s':'generation','pay_channel_06':'pay_channel','pay_channel_07':'pay_channel','loan_use_12':'loan_use','loan_use_13':'loan_use','generation_10s':'generation','sex_others':'sex','hy_20':'marriage','hy_21':'marriage','generation_50b':'generation','org_zone_10':'inn_org_zone_cd','edu_college_above':'edu_bg','hy_22':'marriage','trans_fin':'trade','hy_23':'marriage','zc_3_5':'zc_year','org_zone_13':'inn_org_zone_cd','xz_tianping':'constellation','org_zone_14':'inn_org_zone_cd','org_zone_11':'inn_org_zone_cd','ck_year_3_5':'ck_year','org_zone_12':'inn_org_zone_cd','org_zone_17':'inn_org_zone_cd','xz_jinniu':'constellation','zc_1_3':'zc_year','org_zone_18':'inn_org_zone_cd','org_zone_15':'inn_org_zone_cd','org_zone_16':'inn_org_zone_cd','ass_grade_1':'ass_grade','xz_others':'constellation','searchengine_baidu':'searchengine','ass_grade_0':'ass_grade','colony_4':'colony','ass_grade_3':'ass_grade','colony_3':'colony','ass_grade_2':'ass_grade','colony_2':'colony','whitegold_card':'card_cat_cd','colony_1':'colony','ck_year_1_3':'ck_year','ass_grade_4':'ass_grade','citizen_card':'card_cat_cd','golden_card':'card_cat_cd','others_card':'card_cat_cd','hy_10':'marriage','org_zone_01':'inn_org_zone_cd','colony_5':'colony','org_zone_02':'inn_org_zone_cd','colony_6':'colony','org_zone_03':'inn_org_zone_cd','org_zone_04':'inn_org_zone_cd','org_zone_05':'inn_org_zone_cd','org_zone_06':'inn_org_zone_cd','org_zone_07':'inn_org_zone_cd','job_1':'job','guaranteemethod_10':'guaranteemethod','terminal_mobile':'terminal','zc_1':'zc_year','ass_grade_others':'ass_grade','zc_10_':'zc_year','loan_use_04':'loan_use','risk_level_2':'risk_level','loan_use_03':'loan_use','risk_level_1':'risk_level','loan_use_02':'loan_use','loan_use_01':'loan_use','loan_use_05':'loan_use','job_6':'job','xz_shuiping':'constellation','trans_loan':'trade','job_5':'job','risk_level_5':'risk_level','job_4':'job','risk_level_4':'risk_level','job_3':'job','sex_woman':'sex','risk_level_3':'risk_level','ck_year_10_':'ck_year','job_2':'job','zc_5_10':'zc_year','social_security_card':'card_cat_cd','cert_others':'user_cert_level','generation_80s':'generation','sex_man':'sex','xz_baiyang':'constellation','searchengine_haosou':'searchengine','security_secret_type':'security_type','guaranteemethod_30':'guaranteemethod','security_others':'security_type','generation_60s':'generation','xz_tianxie':'constellation','marriage_others':'marriage','ck_year_5_10':'ck_year','ordinary_card':'card_cat_cd','xz_sheshou':'constellation','generation_00s':'generation','diamond_card':'card_cat_cd','job_x':'job','terminal_pc':'terminal','use_time_06':'use_time','use_time_07':'use_time','guaranteemethod_20':'guaranteemethod','trans_addedservice':'trade','searchengine_sogou':'searchengine','college_others':'edu_bg','ck_year_others':'ck_year'}";
+//    public String label_desc = "{'generation_others':'未知','xz_juxie':'巨蟹座','user_cert_level_high':'高认证级别用户','user_cert_level_low':'低认证级别用户','hy_40':'离婚','xz_chunv':'处女座','guaranteemethod_53':'质押+保证担保','guaranteemethod_54':'抵押+质押+保证担保','xz_shuangyu':'双鱼座','searchengine_bing':'必应','guaranteemethod_51':'抵押+保证担保','guaranteemethod_52':'质押+抵押担保','edu_college_below':'本科以下','industry_s':'公共管理和社会组织人员','industry_t':'国际组织人员','industry_q':'从事卫生、社会保障和社会福利业','use_time_01':'夜猫子','xz_mojie':'摩羯座','industry_r':'从事文化、体育和娱乐业','use_time_02':'早起鸟','trans_transfer':'转账','use_time_03':'上午时间','org_zone_19':'泸州市','use_time_04':'下午茶','use_time_05':'下午时间','xz_shuangzi':'双子座','industry_d':'从事生产供应业','generation_90s':'90后','trans_dept':'存款','industry_c':'从事制造业','org_zone_20':'德阳市','industry_b':'从事采矿业','ck_year_1':'1年','org_zone_21':'绵阳市','industry_a':'从事农业','xz_shizi':'狮子座','industry_h':'从事批发和零售业','hy_30':'丧偶','industry_g':'从事互联网行业','industry_f':'从事交通运输业','industry_e':'从事建筑业','industry_l':'从事租赁和商务服务业','industry_k':'从事房地产业','industry_j':'从事金融业','industry_i':'从事住宿和餐饮业','guaranteemethod_40':'质押担保','industry_p':'从事教育','generation_70s':'70后','industry_o':'从事居民服务和其他服务业','industry_n':'从事水利、环境和公共设施管理业','industry_m':'从事科学研究、技术服务和地质勘查业','org_zone_09':'广安市','zc_others':'未知','org_zone_08':'宜宾市','loan_use_10':'种植业贷款','security_uk_type':'uk安全认证','loan_use_11':'养殖业贷款','generation_50s':'50后','pay_channel_06':'网银交易','pay_channel_07':'手机银行','loan_use_12':'服务业贷款','loan_use_13':'餐饮业贷款','generation_10s':'10后','sex_others':'其它','hy_20':'已婚','hy_21':'初婚','generation_50b':'50前','org_zone_10':'达州市','edu_college_above':'本科及以上','hy_22':'再婚','trans_fin':'理财','hy_23':'复婚','zc_3_5':'3-5年','org_zone_13':'资阳市','xz_tianping':'天秤座','org_zone_14':'阿坝州','org_zone_11':'雅安市','ck_year_3_5':'3-5年','org_zone_12':'巴中市','org_zone_17':'自贡市','xz_jinniu':'金牛座','zc_1_3':'2年','org_zone_18':'攀枝花市','org_zone_15':'甘孜州','org_zone_16':'凉山州','ass_grade_1':'优秀级','xz_others':'未知','searchengine_baidu':'百度','ass_grade_0':'未评级','colony_4':'高活跃一般贡献客户','ass_grade_3':'一般级','colony_3':'潜力客户','ass_grade_2':'较好级','colony_2':'高活跃低贡献客户','whitegold_card':'白金卡','colony_1':'一般客户','ck_year_1_3':'2年','ass_grade_4':'未能评级','citizen_card':'社保卡','golden_card':'金卡','others_card':'其它','hy_10':'未婚','org_zone_01':'成都市','colony_5':'高贡献一般活跃用户','org_zone_02':'广元市','colony_6':'高贡献高活跃客户','org_zone_03':'遂宁市','org_zone_04':'内江市','org_zone_05':'乐山市','org_zone_06':'南充市','org_zone_07':'眉山市','job_1':'事业单位工作','guaranteemethod_10':'信用担保','terminal_mobile':'手机','zc_1':'1年','ass_grade_others':'未知','zc_10_':'10年以上','loan_use_04':'商用房贷款','risk_level_2':'中低风险','loan_use_03':'住房建设贷款','risk_level_1':'低风险','loan_use_02':'助学贷款','loan_use_01':'生产经营贷款','loan_use_05':'汽车贷款','job_6':'生产、运输设备操作人员','xz_shuiping':'水瓶座','trans_loan':'贷款','job_5':'农、林、牧、渔、水利业','risk_level_5':'高风险','job_4':'商业、服务业','risk_level_4':'中高风险','job_3':'办事人员','sex_woman':'女','risk_level_3':'中风险','ck_year_10_':'10年以上','job_2':'技术人员','zc_5_10':'6-10年','social_security_card':'市民卡','cert_others':'未知','generation_80s':'80后','sex_man':'男','xz_baiyang':'白羊座','searchengine_haosou':'好搜','security_secret_type':'密码安全认证','guaranteemethod_30':'抵押担保','security_others':'其它','generation_60s':'60后','xz_tianxie':'天蝎座','marriage_others':'未知','ck_year_5_10':'6-10年','ordinary_card':'普卡','xz_sheshou':'射手座','generation_00s':'00后','diamond_card':'钻石卡','job_x':'军人','terminal_pc':'pc','use_time_06':'下班后','use_time_07':'夜生活','guaranteemethod_20':'保证担保','trans_addedservice':'增值服务','searchengine_sogou':'搜狗','college_others':'未知','ck_year_others':'未知'}";
 
     /**
      * 交易偏好方法
@@ -684,6 +690,7 @@ public class PortraitController extends Controller {
         List<Map<String, Object>> data = InceptorUtil.mapQuery(
                 SqlKit.propSQL(SQLConfig.portrait_trading.toString()) + " where user_id= '" + userid + "'", true);
         List<Object> xAxisListCount = new ArrayList<Object>();
+        List<Object> xAxisList = new ArrayList<Object>();
         // 雷达图计算各类型次数占比
         // 获取总次数与各个类型次数
         Map<String, String> focusmap = new HashMap<String, String>();
@@ -714,28 +721,29 @@ public class PortraitController extends Controller {
         if (data != null) {
             for (int i = 0; i < data.size(); i++) {
                 Map ration = data.get(i);
-                String key = (String) ration.get("trade_type");
-                if (focusmap.containsKey(key)) {
-                    int num = Double.valueOf((String) ration.get("trade_thirty_count")).intValue();
+                String value = (String) ration.get("trade_type");
+                if (focusmap.containsValue(value)) {int num = Double.valueOf((String) ration.get("trade_thirty_count")).intValue();
                     int m = Double.valueOf((String) ration.get("trade_thirty_money")).intValue();
-                    radarMap.put(focusmap.get(key), num);
-                    moneyMap.put(focusmap.get(key), m);
+                    xAxisListCount.add(num);
+                    xAxisList.add(value);
+                    radarMap.put(value, num);
+                    moneyMap.put(value, m);
                     tradeCount += num;
                     tradeMoney += m;
                     if (num > maxCountType) {
                         maxCountType = num;
-                        maxCountTypeDesc = focusmap.get(key);
+                        maxCountTypeDesc = value;
                     }
                     if (m > maxMoneyType) {
                         maxMoneyType = m;
-                        maxMoneyTypeDesc = focusmap.get(key);
+                        maxMoneyTypeDesc = value;
                     }
 
                 }
             }
         }
-        // 3个月交易
-        List<Object> xAxisList = new ArrayList<Object>();
+        // 月交易次数
+        /*List<Object> xAxisList = new ArrayList<Object>();
         data = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.portrait_30_trading.toString()) + " where user_id= '"
                 + userid + "' group by date_month", true);
         if (data != null) {
@@ -745,14 +753,15 @@ public class PortraitController extends Controller {
                 xAxisList.add(ration.get("date_month") + "月");
                 xAxisListCount.add(num);
             }
-        }
-        // 进行图表展示
+        }*/
+        // 月交易次数图
         String str = ChartUtils.genLineChart(res.get("portrait.monthlyTransactions"), xAxisList, xAxisListCount);
         result.put("chartOption", str);
-        // 雷达图
+        // 用户关注度图
         result.put("radar1", ChartUtils.genRadar(res.get("portrait.userAttention"), radarMap));
-        result.put("moneyData", ChartUtils.genPortraitPie(res.get("portrait.userTransactionAmountDistribution"), radarMap));
-        // 交易总额
+        // 月交易金额图
+        result.put("moneyData", ChartUtils.genPortraitPie(res.get("portrait.userTransactionAmountDistribution"), moneyMap));
+        // 交易总额和交易总次数
         result.put("tradeMoney", tradeMoney);
         result.put("tradeCount", tradeCount);
         // 金额和次数倾向

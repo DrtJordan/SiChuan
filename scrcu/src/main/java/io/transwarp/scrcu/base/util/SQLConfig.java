@@ -509,6 +509,8 @@ public enum SQLConfig {
     portrait_trading_ratio,
     // 静态标签
     label_label_grouping,
+    // 标签墙
+    label_label_wall,
 
     //标签配置
     //标签配置-使用时段
