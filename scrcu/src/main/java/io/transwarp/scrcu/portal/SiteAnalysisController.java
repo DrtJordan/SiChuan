@@ -203,25 +203,49 @@ public class SiteAnalysisController extends Controller {
     /**
      * 流量趋势
      */
+    @SuppressWarnings("unchecked")
     @RequiresPermissions("/portal/siteAnalysis/flowTrend")
     public void flowTrend() {
         if (BaseUtils.isAjax(getRequest())) {
-            // 得到查询条件
-            String condition = InceptorUtil.getDateCondition(getRequest());
-            // 执行查询
-            List<List<String>> data = InceptorUtil
-                    .query(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_flowTrend.toString()) + condition, 24);
 
-            List<List<String>> charData = InceptorUtil
-                    .query(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_flowTrend_chart.toString(), condition));
+            List<List<String>> dataFlowTrend = new ArrayList<>();
+            List<List<String>> dataNewVisitor = new ArrayList<>();
+
+            // 得到查询条件
+            String dateType = getPara("dateType");
+            String condition = InceptorUtil.getQueryCondition(getRequest());
+
+            if (dateType != null) {
+                if (dateType.equals("day")) {
+                    dataFlowTrend = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_flowTrend_day, condition), false);
+                    dataNewVisitor = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_flowTrend_newVisitor_day, condition));
+                }
+                if (dateType.equals("week")) {
+                    dataFlowTrend = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_flowTrend_week, condition), false);
+                    dataNewVisitor = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_flowTrend_newVisitor_week, condition));
+                }
+                if (dateType.equals("month")) {
+                    dataFlowTrend = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_flowTrend_month, condition), false);
+                    dataNewVisitor = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_flowTrend_newVisitor_month, condition));
+                }
+                if (dateType.equals("quarter")) {
+                    dataFlowTrend = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_flowTrend_quarter, condition), false);
+                    dataNewVisitor = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_flowTrend_newVisitor_quarter, condition));
+                }
+                if (dateType.equals("year")) {
+                    dataFlowTrend = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_flowTrend_year, condition), false);
+                    dataNewVisitor = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_flowTrend_newVisitor_year, condition));
+                }
+            }
+
             // 返回结果
             JSONObject result = new JSONObject();
-            List<Object> xAxisList = new ArrayList<Object>();
-            List<Object> pvList = new ArrayList<Object>();
-            List<Object> uvList = new ArrayList<Object>();
-            List<Object> ipList = new ArrayList<Object>();
-            List<Object> loginCntList = new ArrayList<Object>();
-            for (List<String> list : charData) {
+            List<Object> xAxisList = new ArrayList<>();
+            List<Object> pvList = new ArrayList<>();
+            List<Object> uvList = new ArrayList<>();
+            List<Object> ipList = new ArrayList<>();
+            List<Object> loginCntList = new ArrayList<>();
+            for (List<String> list : dataFlowTrend) {
                 xAxisList.add(list.get(0));
                 pvList.add(list.get(1));
                 uvList.add(list.get(2));
@@ -230,9 +254,10 @@ public class SiteAnalysisController extends Controller {
             }
             Object[] nameList = new Object[]{res.get("portal.pageViewPV"), res.get("portal.visitorUV"), res.get("portal.IPCount"), res.get("portal.loginUser")};
             //获取折线图数据
-            String flowTrendChart = ChartUtils.genMultiLineChart(xAxisList, nameList, pvList, uvList, ipList, loginCntList);
+            String flowTrendChart = ChartUtils.genAppMultiLineCharts(dateType, xAxisList, nameList, pvList, uvList, ipList, loginCntList);
             result.put("chartOption", flowTrendChart);
-            result.put("data", data);
+            result.put("dataFlowTrend", dataFlowTrend);
+            result.put("dataNewVisitor", dataNewVisitor);
             renderJson(result);
         }
 

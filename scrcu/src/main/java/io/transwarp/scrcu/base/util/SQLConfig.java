@@ -127,6 +127,28 @@ public enum SQLConfig {
     //广告趋势 按月汇总
     portal_siteAnalysis_adTrend_query_month,
 
+    //流量趋势 按天汇总
+    portal_siteAnalysis_flowTrend_day,
+    //流量趋势 按周汇总
+    portal_siteAnalysis_flowTrend_week,
+    //流量趋势 按月汇总
+    portal_siteAnalysis_flowTrend_month,
+    //流量趋势 按季汇总
+    portal_siteAnalysis_flowTrend_quarter,
+    //流量趋势 按年汇总
+    portal_siteAnalysis_flowTrend_year,
+
+    //新访客按天汇总
+    portal_siteAnalysis_flowTrend_newVisitor_day,
+    //新访客按周汇总
+    portal_siteAnalysis_flowTrend_newVisitor_week,
+    //新访客按月汇总
+    portal_siteAnalysis_flowTrend_newVisitor_month,
+    //新访客按季汇总
+    portal_siteAnalysis_flowTrend_newVisitor_quarter,
+    //新访客按年汇总
+    portal_siteAnalysis_flowTrend_newVisitor_year,
+
     //地域分布 按天汇总
     portal_siteAnalysis_area_query_day,
     //地域分布 按月汇总

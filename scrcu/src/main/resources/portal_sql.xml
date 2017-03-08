@@ -119,20 +119,86 @@
 		</sql>
 	</sqlGroup>
 	<!-- 实时趋势  end -->
-	<!-- 流量趋势 start -->
-	<sqlGroup name="portal_siteAnalysis_flowTrend">
-		<sql id="name">流量趋势</sql>
-		<sql id="header">日期,时段,浏览量(PV),访客数(UV),IP数,来访次数,新访客数,登录用户数,登录比,平均访问深度,平均时长,停留时长,平均停留时长,贡献下游浏览量,二跳率,跳出率,展现量,点击量,唯一点击量,点击率,唯一点击率,到达量</sql>
-		<sql id="sql">select Statt_Dt,Statt_Hr,PV,UV,IP_Cnt,VV,NUV,Logon_User_Cnt,Logon_User_Vs,Avg_Vist_Url_Num,Avg_Vist_Durat,Page_Stay_Durat,Avg_Page_Stay_Durat,Contr_dowst_PV,Twice_Skip_Rate,Bounce_Rate,Inst_Show_Qty,Inst_Click_Qty,Uniq_Inst_Click_Qty,Inst_Click_Rate,Uniq_Click_Rate,Arrv_Qty from hb_t88_sites_indx_hour
+	<!-- ################################### 流量趋势 start #######################################-->
+	<sqlGroup name="portal_siteAnalysis_flowTrend_day">
+		<sql id="name">流量趋势按天汇总</sql>
+		<sql id="header">日期,时段,浏览量(PV),访客数(UV),IP数,登陆用户数</sql>
+		<sql id="sql">select stat_date, statt_hr, pv, uv, ip_num, log_usr_num from bdhbs.th_log_web_view_trend_orc_sum_day where SQL_CONDITION cnt_type='5'
 		</sql>
 	</sqlGroup>
+
+	<sqlGroup name="portal_siteAnalysis_flowTrend_week">
+		<sql id="name">流量趋势按周汇总</sql>
+		<sql id="header">日期,时段,浏览量(PV),访客数(UV),IP数,登陆用户数</sql>
+		<sql id="sql">select stat_date, statt_hr, pv, uv, ip_num, log_usr_num from bdhbs.th_log_web_view_trend_orc_sum_day where SQL_CONDITION cnt_type='1' and statt_hr='999'
+		</sql>
+	</sqlGroup>
+
+	<sqlGroup name="portal_siteAnalysis_flowTrend_month">
+		<sql id="name">流量趋势按月汇总</sql>
+		<sql id="header">日期,时段,浏览量(PV),访客数(UV),IP数,登陆用户数</sql>
+		<sql id="sql">select stat_date, statt_hr, pv, uv, ip_num, log_usr_num from bdhbs.th_log_web_view_trend_orc_sum_day where SQL_CONDITION cnt_type='2' and statt_hr='999'
+		</sql>
+	</sqlGroup>
+
+	<sqlGroup name="portal_siteAnalysis_flowTrend_quarter">
+		<sql id="name">流量趋势按季汇总</sql>
+		<sql id="header">日期,时段,浏览量(PV),访客数(UV),IP数,登陆用户数</sql>
+		<sql id="sql">select stat_date, statt_hr, pv, uv, ip_num, log_usr_num from bdhbs.th_log_web_view_trend_orc_sum_day where SQL_CONDITION cnt_type='3' and statt_hr='999'
+		</sql>
+	</sqlGroup>
+
+	<sqlGroup name="portal_siteAnalysis_flowTrend_year">
+		<sql id="name">流量趋势按年汇总</sql>
+		<sql id="header">日期,时段,浏览量(PV),访客数(UV),IP数,登陆用户数</sql>
+		<sql id="sql">select stat_date, statt_hr, pv, uv, ip_num, log_usr_num from bdhbs.th_log_web_view_trend_orc_sum_day where SQL_CONDITION cnt_type='4' and statt_hr='999'
+		</sql>
+	</sqlGroup>
+
+
+	<sqlGroup name="portal_siteAnalysis_flowTrend_newVisitor_day">
+		<sql id="name">流量趋势新访客按天汇总</sql>
+		<sql id="header">日期,新访客,平均访问深度</sql>
+		<sql id="sql">select stat_date, new_vis_num, aver_access_depth from bdhbs.th_log_web_view_trend_newvis_orc_sum_day where SQL_CONDITION cnt_type='5'
+		</sql>
+	</sqlGroup>
+
+	<sqlGroup name="portal_siteAnalysis_flowTrend_newVisitor_week">
+		<sql id="name">流量趋势新访客按周汇总</sql>
+		<sql id="header">日期,新访客,平均访问深度</sql>
+		<sql id="sql">select stat_date, new_vis_num, aver_access_depth from bdhbs.th_log_web_view_trend_newvis_orc_sum_day where SQL_CONDITION cnt_type='1'
+		</sql>
+	</sqlGroup>
+
+	<sqlGroup name="portal_siteAnalysis_flowTrend_newVisitor_month">
+		<sql id="name">流量趋势新访客按月汇总</sql>
+		<sql id="header">日期,新访客,平均访问深度</sql>
+		<sql id="sql">select stat_date, new_vis_num, aver_access_depth from bdhbs.th_log_web_view_trend_newvis_orc_sum_day where SQL_CONDITION cnt_type='2'
+		</sql>
+	</sqlGroup>
+
+	<sqlGroup name="portal_siteAnalysis_flowTrend_newVisitor_quarter">
+		<sql id="name">流量趋势新访客按季汇总</sql>
+		<sql id="header">日期,新访客,平均访问深度</sql>
+		<sql id="sql">select stat_date, new_vis_num, aver_access_depth from bdhbs.th_log_web_view_trend_newvis_orc_sum_day where SQL_CONDITION cnt_type='3'
+		</sql>
+	</sqlGroup>
+
+	<sqlGroup name="portal_siteAnalysis_flowTrend_newVisitor_year">
+		<sql id="name">流量趋势新访客按年汇总</sql>
+		<sql id="header">日期,新访客,平均访问深度</sql>
+		<sql id="sql">select stat_date, new_vis_num, aver_access_depth from bdhbs.th_log_web_view_trend_newvis_orc_sum_day where SQL_CONDITION cnt_type='4'
+		</sql>
+	</sqlGroup>
+
 	<sqlGroup name="portal_siteAnalysis_flowTrend_chart"> 
 		<sql id="name">流量趋势</sql> 
 		<sql id="header">日期,浏览量(PV),访客数(UV),IP数,登录用户数</sql> 
 		<sql id="sql">select Statt_Dt,cast(sum(PV) as int),cast(sum(UV) as int),cast(sum(IP_Cnt) as int),cast(sum(Logon_User_Cnt) as int) from hb_t88_sites_indx_hour SQL_CONDITION group by Statt_Dt
 		</sql>
 	</sqlGroup>
-	<!-- 流量趋势  end -->
+	<!-- ################################### 流量趋势  end #######################################-->
+
 
 	<!-- 地域分布  start -->
 	<sqlGroup name="portal_siteAnalysis_area_query_day">
