@@ -124,11 +124,15 @@ public class UserAnalysisController extends Controller {
             List<Object> browserChartList = new ArrayList<Object>();
             for (List<String> list : terminalOsData) {
                 Data d = new Data(list.get(0), InceptorUtil.getDouble(list.get(1)));
-                osChartList.add(d);
+                if (!list.get(0).equals("999")){
+                    osChartList.add(d);
+                }
             }
             for (List<String> list : terminalBrowserData) {
                 Data d = new Data(list.get(0), InceptorUtil.getDouble(list.get(1)));
-                browserChartList.add(d);
+                if (!list.get(0).equals("999")){
+                    browserChartList.add(d);
+                }
             }
             // 返回结果
             JSONObject result = new JSONObject();
