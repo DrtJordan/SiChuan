@@ -65,15 +65,18 @@
 							</div>
 						</div>
 					</header>
-					<div style="padding: 0px 10px; height: 50px">
-						<label class="col-sm-2 control-label"
-							style="width: 100px; padding-left: 20px; padding-top: 20px; text-align: left"
-						>标签：</label>
-						<div class="pagination userTags col-sm-9" id="tags" style="padding: 10px; height: 50px">
-							<#if tagList??> <#list tagList as tagMap> <#if tagMap??>
-							<li><b>${tagMap.get("label_desc")!}</b></li> </#if> </#list> </#if>
+					<div style="padding: 0px 10px; height: 80px">
+						<label class="col-sm-2 control-label" style="width: 100px; padding-left: 28px; padding-top: 20px; text-align: left">标签：</label>
+						<div class="userTags col-sm-9" id="tags" style="padding: 10px; height: auto">
+							<#if tagList??>
+								<#list tagList as tagMap>
+									<#if tagMap??>
+										<li><b>${tagMap.get("label_desc")!}</b></li>
+									</#if>
+								</#list>
+							</#if>
 						</div>
-						<div class="col-sm-1" style="padding: 10px; height: 50px">
+						<div class="col-sm-1" style="padding: 10px">
 							<form action="${root}/portrait/groupUserList" method="post">
 								<input type="hidden" name="code" id="code" value="${code}">
 								<input type="submit" style="min-width: 30px !important" class="btn btn-s-md btn-sm btn-primary btn-rounded pull-right"
@@ -85,7 +88,7 @@
 				</div>
 			</div>
 			<div class="col-sm-6">
-				<div class=" panel panel-default table-responsive ">
+				<div class="panel panel-default table-responsive">
 					<header class="panel-heading clear"> 群体标签占比 </header>
 					<div class="panel-body" style="padding: 0px">
 						<div id="educationdiv" style="height: 240px; padding: 5px"></div>
@@ -123,6 +126,11 @@
 	</section>
 </section>
 <script src="/static/echarts/echarts.js"></script>
+<style>
+	.chart-site{
+		margin-left: 25%;
+	}
+</style>
 <script>
 	var code='${code}';
 	var condition='${condition}';
@@ -131,11 +139,8 @@
 			url : window.location.href,
 			data:{code:code.substr(0,code.length),condition:condition},
 			success : function(data) {
-				
-// 				var chart = echarts.init(document.getElementById('educationdiv'),
-// 				'infographic');
  				var chartOption = data.tagsRankOption;
-// 				chart.setOption($.parseJSON(chartOption));
+				var size = data.size;
 				require.config({
 				    paths:{
 				        'echarts':'/static/echarts/',
@@ -144,11 +149,25 @@
 				    }
 				});
 				//使用
-				require(['echarts','echarts/theme/macarons','echarts/chart/bar'],function(ec,theme){
-				    var myChart = ec.init(document.getElementById('educationdiv'),theme); //设置主题
-				    myChart.setOption($.parseJSON(chartOption)); 
-				});
-				genGauge(data.val);
+				if (size == 0){
+					require(['echarts','echarts/theme/macarons','echarts/chart/bar'],function(ec,theme){
+						var myChart = ec.init(document.getElementById('educationdiv'),theme); //设置主题
+						myChart.setOption($.parseJSON(chartOption));
+					});
+					$("#educationdiv").parent().parent().parent().removeClass().addClass("col-sm-12");
+					$("#genderdiv").parent().parent().parent().hide();
+					$("#word").parent().parent().parent().hide();
+					$("#groupTagsRate").parent().parent().parent().hide();
+				}else {
+					require(['echarts','echarts/theme/macarons','echarts/chart/bar'],function(ec,theme){
+						var myChart = ec.init(document.getElementById('educationdiv'),theme); //设置主题
+						myChart.setOption($.parseJSON(chartOption));
+					});
+					genGauge(data.val);
+					$("#educationdiv").parent().parent().parent().hide();
+					$("#genderdiv").parent().parent().parent().removeClass().addClass("col-sm-12");
+					$("#genderdiv").addClass("chart-site")
+				}
 				$("#word").html(data.word);
 				if (typeof(data.groupTagsRate) != "undefined"){
 			　　		var tagMap=data.groupTagsRate;
@@ -170,7 +189,6 @@
 	
 	
 	function genGauge(val){
-		
 		option = {
 			    tooltip : {
 			        formatter: "{a} <br/>{b} : {c}%"
@@ -261,11 +279,12 @@
 			        }
 			    ]
 			};
-
 		var rateChart = echarts.init(document.getElementById('genderdiv'),
 		'macarons');
 		rateChart.setOption(option);
 	}
+
+
 
 </script>
 </@layout>

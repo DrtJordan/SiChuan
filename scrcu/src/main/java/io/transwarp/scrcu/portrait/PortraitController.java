@@ -1,6 +1,7 @@
 package io.transwarp.scrcu.portrait;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -142,7 +143,7 @@ public class PortraitController extends Controller {
             List<Object> dataList = new ArrayList<Object>();
             if (job != null) {
                 for (Map<String, Object> m : job) {
-                    Data data = new Data((String) m.get("label_desc"), m.get("total"));
+                    Data data = new Data((String) m.get("label_desc").toString().split("（")[0], m.get("total"));
                     dataList.add(data);
                 }
             }
@@ -166,7 +167,13 @@ public class PortraitController extends Controller {
             List<Integer> zc_yearList = new ArrayList<Integer>();
             if (zc_years != null) {
                 for (Map<String, Object> m : zc_years) {
-                    keyList.add((String) m.get("label_desc"));
+                    String[][] s = new String[][]{m.get("label_desc").toString().split("（")};
+//                    keyList.add((String) m.get("label_desc"));
+                    if (s[0].length > 1){
+                        keyList.add(s[0][0] + "\n" + "（" + s[0][1]);
+                    }else {
+                        keyList.add(s[0][0]);
+                    }
                     zc_yearList.add(InceptorUtil.getInt("total", m));
                 }
             }
@@ -315,11 +322,10 @@ public class PortraitController extends Controller {
     public void tags() throws Exception {
         if (BaseUtils.isAjax(getRequest())) {
             List<Map<String, Object>> tagList = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.label_label_wall)
-                    + getLevelCondition() + " group by topic,label_code order by total desc", true);
+                    + getLevelCondition() + " group by topic,label_code order by total desc ", true);
             final Map<String, List<Map<String, Object>>> tagMap = new TreeMap<String, List<Map<String, Object>>>();
             for (Map<String, Object> map : tagList) {
                 String key = (String) map.get("topic_desc");
-                allTagMap.put((String) map.get("label_only"), map);
                 if(key != null){
                     if (tagMap.get(key) == null) {
                         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
@@ -392,7 +398,9 @@ public class PortraitController extends Controller {
             if (StringUtils.isNotBlank(code)) {
                 codes = code.substring(0, code.length() - 1).split(",");
                 for (String c : codes) {
-                    tagList.add(allTagMap.get(c));
+                    if (allTagMap.get(c) != null ){
+                        tagList.add(allTagMap.get(c));
+                    }
                 }
             }
 
@@ -419,9 +427,14 @@ public class PortraitController extends Controller {
             List<Object> keys = new LinkedList<Object>();
             List<Object> values = new LinkedList<Object>();
             for (Map map : tagList) {
-                keys.add(map.get("label_desc"));
-                double v = (Double.valueOf(map.get("total").toString()) / allcount);
-                values.add((int) (v * 100));
+                if (map.get("topic").equals("job")){
+                    keys.add(map.get("label_desc").toString().split("（")[0]);
+                }else{
+                    keys.add(map.get("label_desc"));
+                }
+                float v = (Float.valueOf(map.get("total").toString()) / allcount) * 100;
+                DecimalFormat decimalFormat = new DecimalFormat("0.00");
+                values.add(decimalFormat.format(v));
             }
             result.put("tagsRankOption", ChartUtils.genPercentBar(res.get("portrait.groupLabelAccounting"), res.get("portrait.groupLabelAccounting"), keys, values));
 
@@ -430,10 +443,11 @@ public class PortraitController extends Controller {
             String sql = "select max(topic) as topic,max(topic_desc) as topic_desc,max(label_only) as label_only,"
                     + "min(label_desc) as label_desc,count(*) as total "
                     + "from(select a1.user_id,a2.topic,a2.topic_desc,a2.label_code,a2.label_desc,a2.label_only "
-                    + "from (select user_id from label_user_result " + getLevelCondition() + condition.toString()
+                    + "from (select user_id from bdlbl.tl_label_user_result " + getLevelCondition() + condition.toString()
                     + " ) as a1 "
-                    + "left join label_all_summary as a2 on a1.user_id=a2.user_id) group by label_only,label_desc having label_desc<>'其它' and label_desc<>'未知' order by total desc;";
+                    + "left join bdlbl.tl_label_all_summary as a2 on a1.user_id=a2.user_id) group by label_only,label_desc having label_desc<>'其它' and label_desc<>'未知' order by total desc;";
             List<Map<String, Object>> tags = InceptorUtil.mapQuery(sql, true);
+            result.put("size", tags.size());
             if (tags != null && !tags.isEmpty()) {
                 result.put("word", genString(tags, codes, have, allcount));
 
@@ -443,11 +457,11 @@ public class PortraitController extends Controller {
                 Map<String, List<Map<String, Object>>> tagMap = new HashMap<String, List<Map<String, Object>>>();
                 List<String> types = new ArrayList<String>();
                 types.add("colony");
-                types.add("pay_channel");
+                types.add("pay_transfer_channel");
                 types.add("security_type");
                 types.add("user_cert_level");
-                types.add("loan_use");
-                types.add("guaranteemethod");
+                types.add("loan_purpose");
+                types.add("ass_mode");
                 for (Map<String, Object> map : tags) {
                     String s = ((String) map.get("topic")).toLowerCase();
                     if (types.contains(s)) {
@@ -524,22 +538,22 @@ public class PortraitController extends Controller {
 
         Map<String, Map<String, Object>> tagMap = new HashMap<String, Map<String, Object>>();
         List<String> types = new ArrayList<String>();
-        types.add("colony");
-        types.add("ass_grade");
-        types.add("generation");
-        types.add("sex");
-        types.add("inn_org_zone_cd");
-        types.add("kh_year");
-        types.add("industry");
-        types.add("edu_bg");
-        types.add("interest");
-        types.add("trans_type");
-        types.add("risk_level");
-        types.add("pay_channel");
-        types.add("trans_dept");
-        types.add("route_way");
-        types.add("loan_type");
-        types.add("transfer_type");
+        types.add("colony");            //用户群体类型
+        types.add("ass_grade");         //信用评级
+        types.add("generation");        //年代
+        types.add("sex");               //性别
+        types.add("inn_org_zone_cd");   //注册地区
+        types.add("kh_year");           //开户时间
+        types.add("industry");          //单位所属行业
+        types.add("edu_bg");            //教育程度
+        types.add("interest");          //？？
+        types.add("trans_type");        //？？
+        types.add("risk_level");        //风险承受能力
+        types.add("pay_channel");       //支付转账渠道
+        types.add("trans_dept");        //？？
+        types.add("route_way");         //？？
+        types.add("loan_type");         //贷款类型
+        types.add("transfer_type");     //？？
         StringBuffer sb = new StringBuffer();
         sb.append("同时具有");
         String s = "";
@@ -584,7 +598,7 @@ public class PortraitController extends Controller {
             if (tagMap.get("sex") != null) {
                 sb.append("的").append(tagMap.get("sex").get("label_desc"));
             }
-            sb.append("为主，");
+            sb.append("性为主，");
         }
 
         if (tagMap.get("inn_org_zone_cd") != null) {
