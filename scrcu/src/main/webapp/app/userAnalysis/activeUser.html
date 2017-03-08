@@ -15,13 +15,13 @@
 	<div class="panel panel-default table-responsive clear">
 		<header class="noborder panel-heading text-right bg-light clear">
 			<ul class="nav nav-tabs pull-left clear">
-				<li class="active csvExportTab" csvAction="app_activeUser" >
+				<li class="csvExportTab active" csvAction="app_activeUser" id="timeChart">
 					<a href="#date" data-toggle="tab"><i class="icon-calendar"></i>&nbsp;日期分布</a>
 				</li>
-				<li class="csvExportTab" csvAction="app_activeUser_phone" >
+				<li class="csvExportTab" csvAction="app_activeUser_phone" id="phoneChart">
 					<a href="#phone" data-toggle="tab"><i class="icon-screen-smartphone"></i>&nbsp;手机分布</a>
 				</li>
-				<li class="csvExportTab" csvAction="app_activeUser_channel" >
+				<li class="csvExportTab" csvAction="app_activeUser_channel" id="channelChart">
 					<a href="#channel" data-toggle="tab"><i class="icon-equalizer text-muted"></i>&nbsp;渠道分布</a>
 				</li>
 			</ul>
@@ -75,17 +75,37 @@
 </@layout>
 
 <script>
+
     /**
      * 定义数据查询方法，用来转换后台传输数据
      * @param data 数据
      * @param dateType 日期类型：day,week,month,quarter,year
      */
 	function dataTableExchange(data, dateType) {
-
+		//初始化echarts图表
         var chart = echarts.init(document.getElementById('chartDiv'),
             'infographic');
-        var chartOption = data.chartOption;
-        chart.setOption($.parseJSON(chartOption));
+        chart.setOption($.parseJSON(data.timeChart));
+
+//        var activePhoneChart = data.phoneChart;
+//        var activeChannelChart = data.channelChart;
+//        $("#timeChart").click(function () {
+//            var timeChart = echarts.init(document.getElementById('chartDiv'),
+//                'infographic');
+//            timeChart.setOption($.parseJSON(activeTimeChart));
+//        });
+//
+//        $("#phoneChart").click(function () {
+//            var chart = echarts.init(document.getElementById('chartDiv'),
+//                'infographic');
+//            chart.setOption($.parseJSON(activePhoneChart));
+//        });
+//
+//        $("#channelChart").click(function () {
+//            var channelChart = echarts.init(document.getElementById('chartDiv'),
+//                'infographic');
+//            channelChart.setOption($.parseJSON(activeChannelChart));
+//        });
 
         tableQuery({
             "aaData" : data.dataTime,
@@ -134,4 +154,5 @@
             }
         });
     }
+
 </script>

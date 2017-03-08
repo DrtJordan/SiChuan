@@ -45,69 +45,101 @@ public class SiteAnalysisController extends Controller {
             if (dateType != null) {
                 if (dateType.equals("day")) {
                     // 执行查询
-                    timeData = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_visitAnalysis_time_day, condition));
+                    timeData = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.portal_visitAnalysis_time_day, condition), false);
                     depthData = InceptorUtil
-                            .query(SqlKit.propSQL(SQLConfig.portal_visitAnalysis_depth_day.toString(), condition));
+                            .queryCache(SqlKit.propSQL(SQLConfig.portal_visitAnalysis_depth_day.toString(), condition), false);
                 }
 
                 if (dateType.equals("month")) {
                     // 执行查询
-                    timeData = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_visitAnalysis_time_month, condition));
+                    timeData = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.portal_visitAnalysis_time_month, condition), false);
                     depthData = InceptorUtil
-                            .query(SqlKit.propSQL(SQLConfig.portal_visitAnalysis_depth_month.toString(), condition));
+                            .queryCache(SqlKit.propSQL(SQLConfig.portal_visitAnalysis_depth_month.toString(), condition), false);
                 }
 
                 if (dateType.equals("quarter")) {
                     // 执行查询
-                    timeData = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_visitAnalysis_time_quarter, condition));
+                    timeData = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.portal_visitAnalysis_time_quarter, condition), false);
                     depthData = InceptorUtil
-                            .query(SqlKit.propSQL(SQLConfig.portal_visitAnalysis_depth_quarter.toString(), condition));
+                            .queryCache(SqlKit.propSQL(SQLConfig.portal_visitAnalysis_depth_quarter.toString(), condition), false);
                 }
 
                 if (dateType.equals("year")) {
                     // 执行查询
-                    timeData = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_visitAnalysis_time_year, condition));
+                    timeData = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.portal_visitAnalysis_time_year, condition), false);
                     depthData = InceptorUtil
-                            .query(SqlKit.propSQL(SQLConfig.portal_visitAnalysis_depth_year.toString(), condition));
+                            .queryCache(SqlKit.propSQL(SQLConfig.portal_visitAnalysis_depth_year.toString(), condition), false);
                 }
             }
             // 返回结果
             List<Object> xAxisList = new ArrayList<>();
             //定义时长对应的集合用来接收对应的数据
-            List<Object> lessThanTenSecList = new ArrayList<Object>();
-            List<Object> elevenToSixtySecList = new ArrayList<Object>();
-            List<Object> oneToTenMinList = new ArrayList<Object>();
-            List<Object> thirtyOverMinList = new ArrayList<Object>();
-            List<Object> tenToThirtyMinList = new ArrayList<Object>();
+            List<Object> lessThanTenSecList = new ArrayList<>();
+            List<Object> elevenToSixtySecList = new ArrayList<>();
+            List<Object> oneToTenMinList = new ArrayList<>();
+            List<Object> thirtyOverMinList = new ArrayList<>();
+            List<Object> tenToThirtyMinList = new ArrayList<>();
 
-            Object[] nameList = new Object[]{"小于10秒", "11~60秒", "1~10分钟", "10分钟-30分钟", "30分钟以上"};
+            Object[] nameList = new Object[]{"小于10秒", "11~60秒", "1~10分钟", "10~30分钟", "30分钟以上"};
 
             for (List<String> list : timeData) {
 
                 if (!xAxisList.contains(list.get(0))) {
                     xAxisList.add(list.get(0));
                 }
-                if (list.get(1).equals("小于10秒")) {
+                if (list.get(1).contains("小于10秒")) {
                     lessThanTenSecList.add(list.get(2));
                 }
-                if (list.get(1).equals("11~60秒")) {
+                if (list.get(1).contains("11~60秒")) {
                     elevenToSixtySecList.add(list.get(2));
                 }
-                if (list.get(1).equals("1~10分钟")) {
+                if (list.get(1).contains("1~10分钟")) {
                     oneToTenMinList.add(list.get(2));
                 }
-                if (list.get(1).equals("10分钟-30分钟")) {
+                if (list.get(1).contains("10~30分钟")) {
                     tenToThirtyMinList.add(list.get(2));
                 }
-                if (list.get(1).equals("30分以上")) {
+                if (list.get(1).contains("30分钟以上")) {
                     thirtyOverMinList.add(list.get(2));
                 }
 
             }
             //生成使用时长的折线图数据,此处传入list数据的顺序必须按照nameList中的顺序传入，否则会造成数据对应错误
-            String genBar = ChartUtils.genAppMultiLineCharts(dateType, xAxisList, nameList, lessThanTenSecList, elevenToSixtySecList,
+            String genUseTime = ChartUtils.genAppMultiLineCharts(dateType, xAxisList, nameList, lessThanTenSecList, elevenToSixtySecList,
                     oneToTenMinList, tenToThirtyMinList, thirtyOverMinList);
-            result.put("chartOption", genBar);
+            result.put("useTimeChart", genUseTime);
+
+            // 返回结果
+            List<Object> depthXAxisList = new ArrayList<>();
+            Object[] depthNames = new Object[]{"小于2", "2~4", "4~10", "10以上"};
+            List<Object> lessThanTwoList = new ArrayList<>();
+            List<Object> twoToFourList = new ArrayList<>();
+            List<Object> fourToTenList = new ArrayList<>();
+            List<Object> tenOverList = new ArrayList<>();
+
+            for (List<String> list : depthData) {
+
+                if (!depthXAxisList.contains(list.get(0))) {
+                    depthXAxisList.add(list.get(0));
+                }
+                if (list.get(1).contains("小于2")) {
+                    lessThanTwoList.add(list.get(2));
+                }
+                if (list.get(1).contains("2~4")) {
+                    twoToFourList.add(list.get(2));
+                }
+                if (list.get(1).contains("4~10")) {
+                    fourToTenList.add(list.get(2));
+                }
+                if (list.get(1).contains("10以上")) {
+                    tenOverList.add(list.get(2));
+                }
+
+            }
+            //生成使用深度的折线图数据,此处传入list数据的顺序必须按照nameList中的顺序传入，否则会造成数据对应错误
+            String genUseDepth = ChartUtils.genAppMultiLineCharts(dateType, depthXAxisList, depthNames, lessThanTwoList, twoToFourList,
+                    fourToTenList, tenOverList);
+            result.put("useDepthChart", genUseDepth);
 
             result.put("timeData", timeData);
             result.put("depthData", depthData);
@@ -145,8 +177,6 @@ public class SiteAnalysisController extends Controller {
             // 返回结果
             JSONObject result = new JSONObject();
             List<List<String>> guestData = new ArrayList<>();
-            // 会员
-//            List<List<String>> userData = new ArrayList<>();
 
             // 得到查询条件
             String condition = InceptorUtil.getQueryCondition(getRequest());
@@ -157,19 +187,14 @@ public class SiteAnalysisController extends Controller {
                 if (dateType.equals("day")) {
                     // 执行查询
                     guestData = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_pageRank_day, condition));
-//                    userData = InceptorUtil
-//                            .query(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_userVisitPage_query_day.toString(), condition));
                 }
 
                 if (dateType.equals("month")) {
                     // 执行查询
                     guestData = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_pageRank_month, condition));
-//                    userData = InceptorUtil
-//                            .query(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_userVisitPage_query_month.toString(), condition));
                 }
             }
 
-//            result.put("userData", userData);
             result.put("guestData", guestData);
             renderJson(result);
         }

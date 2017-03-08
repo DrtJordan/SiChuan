@@ -64,6 +64,8 @@ public class AppUserController extends BaseController {
                     dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_activeUser_channel_year, condition));
                 }
             }
+            //定义图例名称
+            Object[] nameList = new Object[]{res.get("app.startUser")};
             // 返回结果
             List<Object> xAxisList = new ArrayList<>();
             List<Object> dataList = new ArrayList<>();
@@ -71,9 +73,38 @@ public class AppUserController extends BaseController {
                 xAxisList.add(list.get(0));
                 dataList.add(list.get(1));
             }
-            Object[] nameList = new Object[]{res.get("app.startUser")};
             String activeUserChart = ChartUtils.genAppMultiLineCharts(type, xAxisList, nameList, dataList);
-            result.put("chartOption", activeUserChart);
+            result.put("timeChart", activeUserChart);
+
+           /* // 返回结果
+            List<Object> phoneXAxisList = new ArrayList<>();
+            List<Object> phoneList = new ArrayList<>();
+            Object[] phoneNames = new Object[]{"Android", "IOS"};
+            for (List<String> list : dataPhone) {
+                if (!xAxisList.contains(list.get(0))) {
+                    phoneXAxisList.add(list.get(0));
+                }
+                if (list.get(1).contains("Android")) {
+                    phoneList.add(list.get(2));
+                }
+                if (list.get(1).toUpperCase().contains("IOS")) {
+                    phoneList.add(list.get(2));
+                }
+            }
+            String phoneChart = ChartUtils.genAppMultiLineCharts(type, phoneXAxisList, phoneNames, phoneList);
+            result.put("phoneChart", phoneChart);
+
+            // 返回结果
+            List<Object> channelXAxisList = new ArrayList<>();
+            List<Object> channelList = new ArrayList<>();
+            Object[] channelNames = new Object[]{"启动用户数"};
+            for (List<String> list : dataChannel) {
+                channelXAxisList.add(list.get(0));
+                channelList.add(list.get(2));
+            }
+            String channelChart = ChartUtils.genAppMultiLineCharts(type, channelXAxisList, channelNames, channelList);
+            result.put("channelChart", channelChart);*/
+
             result.put("dataTime", dataTime);
             result.put("dataPhone", dataPhone);
             result.put("dataChannel", dataChannel);

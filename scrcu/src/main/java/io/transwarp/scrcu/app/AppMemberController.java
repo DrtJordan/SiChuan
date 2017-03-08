@@ -33,10 +33,10 @@ public class AppMemberController extends BaseController {
             String condition = InceptorUtil.getQueryCondition(getRequest());
             if (dateType != null) {
                 if (dateType.equals("day")) {
-                    data = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_area_query_day, condition), false);
+                    data = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_memberPage_day, condition), false);
                 }
                 if (dateType.equals("month")) {
-                    data = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_area_query_month, condition), false);
+                    data = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_memberPage_month, condition), false);
                 }
             }
             // 返回结果

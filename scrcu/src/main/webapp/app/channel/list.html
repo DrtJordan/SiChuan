@@ -9,6 +9,11 @@
 	<!-- 引入日期查询  -->
 	<#include "/common/_dateQuery.html"/>
 
+	<div id="chartDiv" style="height: 280px;"></div>
+	<div class="clear">
+		<hr/>
+	</div>
+
 	<div class="panel panel-default table-responsive clear">
 		<header class="panel-heading">
 			<i class="icon-list padder-xs"></i>渠道列表
@@ -39,30 +44,31 @@
 </@layout>
 
 <script>
+    /**
+     * 定义数据查询方法，用来转换后台传输数据
+     * @param data 数据
+     * @param dateType 日期类型：day,week,month,quarter,year
+     */
 	function dataTableExchange(data, dateType) {
+
+        var chart = echarts.init(document.getElementById('chartDiv'),
+            'infographic');
+        var chartOption = data.chartOption;
+        chart.setOption($.parseJSON(chartOption));
+
 		tableQuery({
 			"aaData": data.data,
 			"id": "#table1",
-			"sDom": "<'row'<'col-sm-6'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
+			"sDom": "<'row'<'col-sm-8'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
 			initComplete: function () {
-				var api = this.api();
-				var column = api.column(2);
-				var select = $('<div id="select" class="col-sm-6"><div class="dataTables_filter"><label><i class="fa fa-search">&nbsp;渠道&nbsp;</i><select name="optValue" style="width: 120px"><option value="">--请选择--</option></select></label></div></div>')
-						.appendTo($("#table1_wrapper div:first"))
-						.on('change', function () {
-							var selectValues = new Array();
-							var val = $.fn.dataTable.util.escapeRegex(
-									$("#table1_wrapper div:first div#select select").val()
-							);
-							column
-									.search(val ? '^' + val + '$' : '', true, false)
-									.draw();
-							selectValues.push("渠道:" + val);
-							csvExport(selectValues, dateType);
-						});
-				column.data().unique().sort().each(function (d, j) {
-					$(" #table1_wrapper div#select select").append('<option value="' + d + '">' + d + '</option>')
-				});
+                var api = this.api();
+                var selectValues = new Array();
+                api.columns().indexes().flatten().each(function (i) {
+                    if (i == 2) {
+                        var column = api.column(i);
+                        conditionSearch(i, "渠道", 1, selectValues, column, dateType);
+                    }
+                });
 			}
 		});
 	}

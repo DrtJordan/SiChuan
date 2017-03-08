@@ -10,6 +10,7 @@ import io.transwarp.scrcu.sqlinxml.SqlKit;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,15 +22,40 @@ public class EventAnalysisController extends Controller {
     @ActionKey("/portal/eventAnalysis")
     public void index(){}
 
+    /**
+     * 事件列表
+     */
     @RequiresPermissions("/portal/eventAnalysis/list")
     public void list(){
         if (BaseUtils.isAjax(getRequest())) {
 
-            String condition = InceptorUtil.getDateCondition(getRequest());
+            List<List<String>> eventData = new ArrayList<>();
+            //获取查询条件
+            String condition = InceptorUtil.getQueryCondition(getRequest());
+            String dateType = getPara("dateType");
 
-            // 执行查询
-            List<List<String>> eventData = InceptorUtil
-                    .query(SqlKit.propSQL(SQLConfig.portal_eventAnalysis_list, condition));
+            if (dateType != null) {
+                if (dateType.equals("day")) {
+                    // 执行查询
+                    eventData = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_eventAnalysis_list_day, condition), false);
+                }
+                if (dateType.equals("week")) {
+                    // 执行查询
+                    eventData = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_eventAnalysis_list_week, condition), false);
+                }
+                if (dateType.equals("month")) {
+                    // 执行查询
+                    eventData = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_eventAnalysis_list_month, condition), false);
+                }
+                if (dateType.equals("quarter")) {
+                    // 执行查询
+                    eventData = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_eventAnalysis_list_quarter, condition), false);
+                }
+                if (dateType.equals("year")) {
+                    // 执行查询
+                    eventData = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_eventAnalysis_list_year, condition), false);
+                }
+            }
 
             // 返回结果
             JSONObject result = new JSONObject();

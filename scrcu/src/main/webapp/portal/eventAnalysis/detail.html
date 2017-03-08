@@ -1,4 +1,5 @@
 <#include "/common/_layout.html"/> <@layout>
+
 <div class="top">
     <ul class="breadcrumb">
         <li><i class="fa fa-home"></i>&nbsp;事件分析</li>
@@ -12,7 +13,8 @@
     <div class="panel panel-default table-responsive clear">
         <header class="panel-heading">
             <i class="icon-list padder-xs"></i>事件详情
-            <span class="hidden-sm pull-right"><a href="" csvAction="/csv/app_eventAnalysis_detail" class="csvExport btn btn-default btn-sm" style="display: inline"><i
+            <span class="hidden-sm pull-right"><a href="" csvAction="/csv/app_eventAnalysis_detail"
+                                                  class="csvExport btn btn-default btn-sm" style="display: inline"><i
                     class="fa fa-cloud-download"
             ></i>&nbsp;导出</a></span>
         </header>
@@ -20,29 +22,29 @@
             <table id="table1" class="table table-striped b-light">
                 <thead>
                 <tr>
-                    <th>日期</th>
-                    <th>事件名称</th>
-                    <th>登录用户数</th>
-                    <th>事件触发次数</th>
-                    <th>触发独立用户数</th>
-                    <th>事件平均持续时长</th>
-                    <th>完成次数</th>
-                    <th>完成独立用户数</th>
-                    <th>平均完成时长</th>
-                    <th>中断次数</th>
-                    <th>中断独立用户数</th>
-                    <th>步骤1完成次数</th>
-                    <th>步骤1完成独立用户数</th>
-                    <th>平均完成时长</th>
-                    <th>转化率</th>
-                    <th>步骤2完成次数</th>
-                    <th>步骤2完成独立用户数</th>
-                    <th>平均完成时长</th>
-                    <th>转化率</th>
-                    <th>步骤n完成次数</th>
-                    <th>步骤n完成独立用户数</th>
-                    <th>平均完成时长</th>
-                    <th>转化率</th>
+                    <th class="w-3">日期</th>
+                    <th class="w-4">事件名称</th>
+                    <th class="w-4">登录用户数</th>
+                    <th class="w-4">事件触发次数</th>
+                    <th class="w-5">触发独立用户数</th>
+                    <th class="w-7">事件平均持续时长</th>
+                    <th class="w-3">完成次数</th>
+                    <th class="w-5">完成独立用户数</th>
+                    <th class="w-4">平均完成时长</th>
+                    <th class="w-4">中断次数</th>
+                    <th class="w-5">中断独立用户数</th>
+                    <th class="w-6">步骤1完成次数</th>
+                    <th class="w-7">步骤1完成独立用户数</th>
+                    <th class="w-5">平均完成时长</th>
+                    <th class="w-3">转化率</th>
+                    <th class="w-5">步骤2完成次数</th>
+                    <th class="w-7">步骤2完成独立用户数</th>
+                    <th class="w-4">平均完成时长</th>
+                    <th class="w-3">转化率</th>
+                    <th class="w-4">步骤n完成次数</th>
+                    <th class="w-7">步骤n完成独立用户数</th>
+                    <th class="w-5">平均完成时长</th>
+                    <th class="w-3">转化率</th>
                 </tr>
                 </thead>
             </table>
@@ -54,24 +56,30 @@
 </@layout>
 
 <script>
-    function query(flag) {
-        if (flag) {
-            $("#weekButton").click();
-            return;
-        }
-        var start = $("#start_dt").val();
-        var end = $("#end_dt").val();
-        var ajaxOption = {
-            url : window.location.href + "?start_dt=" + start + "&end_dt="
-            + end,
-            success : function(data) {
-                tableQuery({
-                    "aaData" : data.detailData,
-                    "id" : "#table1",
-                    "sScrollX" : "2500px"
-                });
-            }
-        };
-        commonAjax(ajaxOption);
+    /**
+     * 隐藏按周、季、年汇总的按钮
+     */
+    $().ready(function () {
+        $("#weekButton").hide();
+        $("#monthButton").hide();
+        $("#quarterButton").hide();
+        $("#yearButton").hide();
+    })
+</script>
+
+<script>
+    /**
+     * 定义数据查询方法，用来转换后台传输数据
+     * @param data 数据
+     * @param dateType 日期类型：day,week,month,quarter,year
+     */
+    function dataTableExchange(data, dateType) {
+        tableQuery({
+            "aaData": data.detailData,
+            "id": "#table1",
+            "sScrollX": true,
+            "sScrollXInner": "2800px"
+        });
+        csvExport("", dateType);
     }
 </script>

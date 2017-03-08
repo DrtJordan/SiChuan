@@ -235,28 +235,28 @@
 	<!--会员流失分析 start -->
 	<sqlGroup name="portal_siteAnalysis_userLoss_query_day">
 		<sql id="name">会员流失分析</sql>
-		<sql id="header">会员流失数,会员流失占比,休眠会员数,休眠会员占比,回访用户数,回访用户占比</sql>
-		<sql id="sql">select Statt_Dt,Mem_Run_Off_Cnt,Mem_Run_Off_Pct,Sleep_Mem_Cnt,Sleep_Mem_Pct,Return_User_Cnt,Return_User_Pct from hb_result_Run_Off_Analy_Info</sql>
+		<sql id="header">日期,会员流失数,会员流失占比,休眠会员数,休眠会员占比,回访用户数,回访用户占比</sql>
+		<sql id="sql">select stat_date, mem_run_off_cnt, mem_run_off_pct, sleep_mem_cnt, sleep_mem_pct, return_user_cnt, return_user_pct from bdhbs.th_log_web_member_lost_orc_day where SQL_CONDITION cnt_type='99' order by stat_date asc</sql>
 	</sqlGroup>
 	<sqlGroup name="portal_siteAnalysis_userLoss_query_week">
 		<sql id="name">会员流失分析</sql>
-		<sql id="header">会员流失数,会员流失占比,休眠会员数,休眠会员占比,回访用户数,回访用户占比</sql>
-		<sql id="sql">select Statt_Dt,Mem_Run_Off_Cnt,Mem_Run_Off_Pct,Sleep_Mem_Cnt,Sleep_Mem_Pct,Return_User_Cnt,Return_User_Pct from hb_result_Run_Off_Analy_Info</sql>
+		<sql id="header">日期,会员流失数,会员流失占比,休眠会员数,休眠会员占比,回访用户数,回访用户占比</sql>
+		<sql id="sql">select stat_date, mem_run_off_cnt, mem_run_off_pct, sleep_mem_cnt, sleep_mem_pct, return_user_cnt, return_user_pct from bdhbs.th_log_web_member_lost_orc_sum_day where SQL_CONDITION cnt_type='1' order by stat_date asc</sql>
 	</sqlGroup>
 	<sqlGroup name="portal_siteAnalysis_userLoss_query_month">
 		<sql id="name">会员流失分析</sql>
-		<sql id="header">会员流失数,会员流失占比,休眠会员数,休眠会员占比,回访用户数,回访用户占比</sql>
-		<sql id="sql">select Statt_Dt,Mem_Run_Off_Cnt,Mem_Run_Off_Pct,Sleep_Mem_Cnt,Sleep_Mem_Pct,Return_User_Cnt,Return_User_Pct from hb_result_Run_Off_Analy_Info</sql>
+		<sql id="header">日期,会员流失数,会员流失占比,休眠会员数,休眠会员占比,回访用户数,回访用户占比</sql>
+		<sql id="sql">select stat_date, mem_run_off_cnt, mem_run_off_pct, sleep_mem_cnt, sleep_mem_pct, return_user_cnt, return_user_pct from bdhbs.th_log_web_member_lost_orc_sum_day where SQL_CONDITION cnt_type='2' order by stat_date asc</sql>
 	</sqlGroup>
 	<sqlGroup name="portal_siteAnalysis_userLoss_query_quarter">
 		<sql id="name">会员流失分析</sql>
-		<sql id="header">会员流失数,会员流失占比,休眠会员数,休眠会员占比,回访用户数,回访用户占比</sql>
-		<sql id="sql">select Statt_Dt,Mem_Run_Off_Cnt,Mem_Run_Off_Pct,Sleep_Mem_Cnt,Sleep_Mem_Pct,Return_User_Cnt,Return_User_Pct from hb_result_Run_Off_Analy_Info</sql>
+		<sql id="header">日期,会员流失数,会员流失占比,休眠会员数,休眠会员占比,回访用户数,回访用户占比</sql>
+		<sql id="sql">select stat_date, mem_run_off_cnt, mem_run_off_pct, sleep_mem_cnt, sleep_mem_pct, return_user_cnt, return_user_pct from bdhbs.th_log_web_member_lost_orc_sum_day where SQL_CONDITION cnt_type='3' order by stat_date asc</sql>
 	</sqlGroup>
 	<sqlGroup name="portal_siteAnalysis_userLoss_query_year">
 		<sql id="name">会员流失分析</sql>
-		<sql id="header">会员流失数,会员流失占比,休眠会员数,休眠会员占比,回访用户数,回访用户占比</sql>
-		<sql id="sql">select Statt_Dt,Mem_Run_Off_Cnt,Mem_Run_Off_Pct,Sleep_Mem_Cnt,Sleep_Mem_Pct,Return_User_Cnt,Return_User_Pct from hb_result_Run_Off_Analy_Info</sql>
+		<sql id="header">日期,会员流失数,会员流失占比,休眠会员数,休眠会员占比,回访用户数,回访用户占比</sql>
+		<sql id="sql">select stat_date, mem_run_off_cnt, mem_run_off_pct, sleep_mem_cnt, sleep_mem_pct, return_user_cnt, return_user_pct from bdhbs.th_log_web_member_lost_orc_sum_day where SQL_CONDITION cnt_type='4' order by stat_date asc</sql>
 	</sqlGroup>
 	<!--会员流失分析  end -->
 
@@ -264,14 +264,14 @@
 	<sqlGroup name="portal_siteAnalysis_userPage_query_day">
 		<sql id="name">会员页面分析按天汇总</sql>
 		<sql id="header">网址,浏览量(PV),访问次数(VV),平均页面停留时长(秒),贡献下游浏览量,跳出率,退出率</sql>
-		<sql id="sql">select url,cast(sum(PV) as int) as pvcount,cast(sum(VV) as int),cast(sum(avg_page_stay_durat)/count(avg_page_stay_durat) as int),cast(sum(contr_dowst_pv) as int),sum(Bounce_Rate)/count(Bounce_Rate),sum(Exit_rate)/count(Exit_rate) from hb_result_Mem_Page_Analy_Info SQL_CONDITION group by url order by pvcount desc
+		<sql id="sql">select url, pv, vv, avg_page_stay_durat, contr_dowst_pv, bounce_rate, exit_rate from bdhbs.th_log_web_member_page_orc_day where SQL_CONDITION cnt_type='99'
 		</sql>
 	</sqlGroup>
 
 	<sqlGroup name="portal_siteAnalysis_userPage_query_month">
 		<sql id="name">会员页面分析按月汇总</sql>
 		<sql id="header">网址,浏览量(PV),访问次数(VV),平均页面停留时长(秒),贡献下游浏览量,跳出率,退出率</sql>
-		<sql id="sql">select url,cast(sum(PV) as int) as pvcount,cast(sum(VV) as int),cast(sum(avg_page_stay_durat)/count(avg_page_stay_durat) as int),cast(sum(contr_dowst_pv) as int),sum(Bounce_Rate)/count(Bounce_Rate),sum(Exit_rate)/count(Exit_rate) from hb_result_Mem_Page_Analy_Info SQL_CONDITION group by url order by pvcount desc
+		<sql id="sql">select url, pv, vv, avg_page_stay_durat, contr_dowst_pv, bounce_rate, exit_rate from bdhbs.th_log_web_member_page_orc_sum_day where SQL_CONDITION cnt_type='2'
 		</sql>
 	</sqlGroup>
 	<!-- 会员页面分析end -->
@@ -280,35 +280,35 @@
 	<sqlGroup name="portal_userAnalysis_userOnly_day">
 		<sql id="name">唯一用户分析按天汇总</sql>
 		<sql id="header">日期,访客数,登录用户数,IP数</sql>
-		<sql id="sql">select statt_dt,uv,login_cnt,ip_cnt from result_user_analysis_user_only_info</sql>
+		<sql id="sql">select stat_date, uv, logon_user_cnt, ip_cnt from bdhbs.th_log_web_member_only_usr_orc_day where SQL_CONDITION cnt_type='99'</sql>
 	</sqlGroup>
 
 	<!-- 唯一用户分析按月汇总 -->
 	<sqlGroup name="portal_userAnalysis_userOnly_month">
 		<sql id="name">唯一用户分析按月汇总</sql>
 		<sql id="header">日期,访客数,登录用户数,IP数</sql>
-		<sql id="sql">select statt_dt,uv,login_cnt,ip_cnt from result_user_analysis_user_only_info</sql>
+		<sql id="sql">select stat_date, uv, logon_user_cnt, ip_cnt from bdhbs.th_log_web_member_only_usr_orc_sum_day where SQL_CONDITION cnt_type='2'</sql>
 	</sqlGroup>
 
 	<!-- 唯一用户分析按周汇总 -->
 	<sqlGroup name="portal_userAnalysis_userOnly_week">
 		<sql id="name">唯一用户分析按周汇总</sql>
 		<sql id="header">日期,访客数,登录用户数,IP数</sql>
-		<sql id="sql">select statt_dt,uv,login_cnt,ip_cnt from result_user_analysis_user_only_info</sql>
+		<sql id="sql">select stat_date, uv, logon_user_cnt, ip_cnt from bdhbs.th_log_web_member_only_usr_orc_sum_day where SQL_CONDITION cnt_type='1'</sql>
 	</sqlGroup>
 
 	<!-- 唯一用户分析按季汇总 -->
 	<sqlGroup name="portal_userAnalysis_userOnly_quarter">
 		<sql id="name">唯一用户分析按季汇总</sql>
 		<sql id="header">日期,访客数,登录用户数,IP数</sql>
-		<sql id="sql">select statt_dt,uv,login_cnt,ip_cnt from result_user_analysis_user_only_info</sql>
+		<sql id="sql">select stat_date, uv, logon_user_cnt, ip_cnt from bdhbs.th_log_web_member_only_usr_orc_sum_day where SQL_CONDITION cnt_type='3'</sql>
 	</sqlGroup>
 
 	<!-- 唯一用户分析按年汇总 -->
 	<sqlGroup name="portal_userAnalysis_userOnly_year">
 		<sql id="name">唯一用户分析按年汇总</sql>
 		<sql id="header">日期,访客数,登录用户数,IP数</sql>
-		<sql id="sql">select statt_dt,uv,login_cnt,ip_cnt from result_user_analysis_user_only_info</sql>
+		<sql id="sql">select stat_date, uv, logon_user_cnt, ip_cnt from bdhbs.th_log_web_member_only_usr_orc_sum_day where SQL_CONDITION cnt_type='4'</sql>
 	</sqlGroup>
 	<!-- ############################### 唯一用户分析end ################################## -->
 	
@@ -363,17 +363,42 @@
 	<!--搜索引擎分析end -->
 
 	<!--事件统计 start -->
-	<sqlGroup name="portal_eventAnalysis_list">
-		<sql id="name">事件列表</sql>
+	<!-- 事件列表 start -->
+	<sqlGroup name="portal_eventAnalysis_list_day">
+		<sql id="name">事件列表按天汇总</sql>
 		<sql id="header">日期,登录用户数,事件触发次数,触发独立用户数,事件平均持续时长,事件完成次数,完成独立用户数,占比,平均完成时长,事件中断次数,中断独立用户数,占比</sql>
 		<sql id="sql">select * from result_event_summary</sql>
 	</sqlGroup>
+	<sqlGroup name="portal_eventAnalysis_list_week">
+		<sql id="name">事件列表按周汇总</sql>
+		<sql id="header">日期,登录用户数,事件触发次数,触发独立用户数,事件平均持续时长,事件完成次数,完成独立用户数,占比,平均完成时长,事件中断次数,中断独立用户数,占比</sql>
+		<sql id="sql">select * from result_event_summary</sql>
+	</sqlGroup>
+	<sqlGroup name="portal_eventAnalysis_list_month">
+		<sql id="name">事件列表按月汇总</sql>
+		<sql id="header">日期,登录用户数,事件触发次数,触发独立用户数,事件平均持续时长,事件完成次数,完成独立用户数,占比,平均完成时长,事件中断次数,中断独立用户数,占比</sql>
+		<sql id="sql">select * from result_event_summary</sql>
+	</sqlGroup>
+	<sqlGroup name="portal_eventAnalysis_list_quarter">
+		<sql id="name">事件列表按季汇总</sql>
+		<sql id="header">日期,登录用户数,事件触发次数,触发独立用户数,事件平均持续时长,事件完成次数,完成独立用户数,占比,平均完成时长,事件中断次数,中断独立用户数,占比</sql>
+		<sql id="sql">select * from result_event_summary</sql>
+	</sqlGroup>
+	<sqlGroup name="portal_eventAnalysis_list_year">
+		<sql id="name">事件列表按年汇总</sql>
+		<sql id="header">日期,登录用户数,事件触发次数,触发独立用户数,事件平均持续时长,事件完成次数,完成独立用户数,占比,平均完成时长,事件中断次数,中断独立用户数,占比</sql>
+		<sql id="sql">select * from result_event_summary</sql>
+	</sqlGroup>
+	<!-- 事件列表 end -->
 
+	<!-- 事件详情 start -->
 	<sqlGroup name="portal_eventAnalysis_detail">
 		<sql id="name">事件详情</sql>
 		<sql id="header">事件ID,事件名称,昨日完成次数,昨日完成独立用户数,今日完成次数,今日完成独立用户数</sql>
 		<sql id="sql">select * from result_event_summary</sql>
 	</sqlGroup>
+	<!-- 事件详情 end -->
+
 
 	<sqlGroup name="portal_eventAnalysis_tendency">
 		<sql id="name">事件趋势</sql>

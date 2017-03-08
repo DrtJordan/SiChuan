@@ -282,8 +282,7 @@ public class AppBehaviorController extends Controller {
             List<Object> SixToNinePageList = new ArrayList<Object>();
             List<Object> TenToTwNinePageList = new ArrayList<Object>();
             List<Object> ThirtyToMorePageList = new ArrayList<Object>();
-            List<Object> OtherPageList = new ArrayList<Object>();
-            Object[] nameList = new Object[]{"1-2页面", "3-5页面", "6-9页面", "10-29页面", "30个页面及以上", "other"};
+            Object[] nameList = new Object[]{"1-2页面", "3-5页面", "6-9页面", "10-29页面", "30个页面及以上"};
 
             for (List<String> list : dataTime) {
 
@@ -305,12 +304,10 @@ public class AppBehaviorController extends Controller {
                 if (list.get(1).equals("30个页面及以上")) {
                     ThirtyToMorePageList.add(list.get(2));
                 }
-                if (list.get(1).equals("other")) {
-                    OtherPageList.add(list.get(2));
-                }
+
             }
             String genBar = ChartUtils.genAppMultiLineCharts(dateType, xAxisList, nameList, OneToTwoPageList, ThreeToFivePageList,
-                    SixToNinePageList, TenToTwNinePageList, ThirtyToMorePageList, OtherPageList);
+                    SixToNinePageList, TenToTwNinePageList, ThirtyToMorePageList);
             result.put("chartOption", genBar);
             result.put("dataTime", dataTime);
             result.put("dataPhone", dataPhone);

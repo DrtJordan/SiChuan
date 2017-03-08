@@ -188,6 +188,17 @@ public enum SQLConfig {
     //来源统计 入口页面按月汇总
     portal_siteAnalysis_entryPage_query_month,
 
+    //事件统计 事件列表 按天汇总
+    portal_eventAnalysis_list_day,
+    //事件统计 事件列表 按周汇总
+    portal_eventAnalysis_list_week,
+    //事件统计 事件列表 按月汇总
+    portal_eventAnalysis_list_month,
+    //事件统计 事件列表 按季汇总
+    portal_eventAnalysis_list_quarter,
+    //事件统计 事件列表 按年汇总
+    portal_eventAnalysis_list_year,
+
 
     /**
      * App移动统计按天、周、月、季、年汇总统计

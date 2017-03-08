@@ -863,10 +863,8 @@
 	<!-- 渠道明细 -->
 	<sqlGroup name="app_channel_detail">
 		<sql id="name">渠道明细</sql>
-		<sql id="header">渠道,新增用户,启动用户,启动次数,平均单次使用时长,次日留存率,7日留存率,30日留存率</sql>
-		<sql id="sql">select
-			channel_name,cast(sum(new_token_cnt)as int),cast(sum(startover_user_cnt)as int),cast(sum(startover_cnt)as int),cast(sum(aver_vist_durat)/count(aver_vist_durat) as int),sum(last_day_retn_ratio)/count(last_day_retn_ratio),sum(last_7days_retn_ratio)/count(last_7days_retn_ratio),sum(last_30days_retn_ratio)/count(last_30days_retn_ratio)
-			from hb_result_channel_details_info SQL_CONDITION group by channel_name
+		<sql id="header">日期,渠道,新增用户,启动用户,启动次数,平均单次使用时长</sql>
+		<sql id="sql">select stat_date, channel_name, new_token_cnt, startover_user_cnt, startover_cnt, aver_vist_durat from bdhbs.th_log_app_chl_detail_orc_day where cnt_type='99' order by stat_date asc
 		</sql>
 	</sqlGroup>
 

@@ -79,6 +79,8 @@
     })
 </script>
 <script>
+    var useTimeChart;
+    var useDepthChart;
     /**
      * 定义数据查询方法，用来转换后台传输数据
      * @param data 数据
@@ -86,10 +88,16 @@
      */
     function dataTableExchange(data, dateType) {
 
+        var useTimeChartOption = data.useTimeChart;
+        var useDepthChartOption = data.useDepthChart;
+        useTimeChart = $.parseJSON(useTimeChartOption);
+        useDepthChart = $.parseJSON(useDepthChartOption);
         var chart = echarts.init(document.getElementById('chartDiv'),
             'infographic');
-        var chartOption = data.chartOption;
-        chart.setOption($.parseJSON(chartOption));
+        chart.setOption(useTimeChart);
+        $(".csvExportTab").click(function () {
+            changeChart();
+        });
 
         //页面访问时长
         tableQuery({
@@ -131,6 +139,18 @@
                 });
             }
         });
+    }
 
+    var flag = true;
+    function changeChart() {
+        var chart = echarts.init(document.getElementById('chartDiv'),
+            'infographic');
+        if (flag) {
+            chart.setOption(useDepthChart);
+            flag = false;
+        } else {
+            chart.setOption(useTimeChart);
+            flag = true;
+        }
     }
 </script>

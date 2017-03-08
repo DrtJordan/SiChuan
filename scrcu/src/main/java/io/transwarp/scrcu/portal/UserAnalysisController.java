@@ -146,7 +146,7 @@ public class UserAnalysisController extends Controller {
     }
 
     /**
-     * 最新需求没有此功能
+     * 用户登记 最新需求没有此功能
      */
     @RequiresPermissions("/portal/userAnalysis/userLevel")
     public void userLevel() {
@@ -253,20 +253,27 @@ public class UserAnalysisController extends Controller {
                 }
             }
 
+            //定义X轴接收数据
             List<Object> xAxisList = new ArrayList<>();
+            //会员流失数
             List<Object> userLossList = new ArrayList<>();
-            Object[] nameList = new Object[]{"会员流失数"};
+            //休眠会员数
+            List<Object> userSleepList = new ArrayList<>();
+            //回访用户数
+            List<Object> userCallbackList = new ArrayList<>();
+            Object[] nameList = new Object[]{"会员流失数", "休眠会员数", "回访用户数"};
 
             for (List<String> list : dataLoss) {
-
+                //判断X轴的数据是否已存在
                 if (!xAxisList.contains(list.get(0))) {
                     xAxisList.add(list.get(0));
                 }
                 userLossList.add(list.get(1));
-
+                userSleepList.add(list.get(3));
+                userCallbackList.add(list.get(5));
             }
             //生成会员流失的折线图数据,此处传入list数据的顺序必须按照nameList中的顺序传入，否则会造成数据对应错误
-            String genUserLossChart = ChartUtils.genAppMultiLineCharts(dateType, xAxisList, nameList, userLossList);
+            String genUserLossChart = ChartUtils.genAppMultiLineCharts(dateType, xAxisList, nameList, userLossList, userSleepList, userCallbackList);
             result.put("chartOption", genUserLossChart);
 
             result.put("dataLoss", dataLoss);
@@ -330,9 +337,9 @@ public class UserAnalysisController extends Controller {
 
             for (List<String> list : dataUserOnly) {
 
-//                if (!xAxisList.contains(list.get(0))) {
+                if (!xAxisList.contains(list.get(0))) {
                     xAxisList.add(list.get(0));
-//                }
+                }
                 guestCntList.add(list.get(1));
                 loginCntList.add(list.get(2));
                 ipCntList.add(list.get(3));

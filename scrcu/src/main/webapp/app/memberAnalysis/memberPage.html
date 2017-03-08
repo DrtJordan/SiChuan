@@ -14,16 +14,16 @@
         ><i class="fa fa-cloud-download"></i>&nbsp;导出</a></span>
         </header>
         <div class="table-responsive">
-            <table id="table" class="datatables table table-striped m-b-none" data-ride="datatables">
+            <table id="table1" class="datatables table table-striped m-b-none" data-ride="datatables">
                 <thead>
                 <tr>
-                    <th>页面</th>
-                    <th>浏览量(PV)</th>
-                    <th>访问次数(VV)</th>
-                    <th>平均页面停留时长(秒)</th>
-                    <th>贡献下游浏览量</th>
-                    <th>跳出率</th>
-                    <th>退出率</th>
+                    <th class="w-3">页面</th>
+                    <th class="w-4">浏览量(PV)</th>
+                    <th class="w-5">访问次数(VV)</th>
+                    <th class="w-6">平均页面停留时长(秒)</th>
+                    <th class="w-6">贡献下游浏览量</th>
+                    <th class="w-3">跳出率</th>
+                    <th class="w-3">退出率</th>
                 </tr>
                 </thead>
             </table>
@@ -40,7 +40,10 @@
 
     function dataTableExchange(data, dateType) {
         tableQuery({
-            "aaData": data.data
+            "id": "#table1",
+            "aaData": data.data,
+            "sScrollX": true,
+            "sScrollXInner": "1000px"
         });
     }
 </script>

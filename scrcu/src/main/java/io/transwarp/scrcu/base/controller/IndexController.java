@@ -91,6 +91,7 @@ public class IndexController extends BaseController {
 
             // 得到查询条件
             String condition = InceptorUtil.getDateCondition(getRequest());
+            String condition2 = InceptorUtil.getQueryCondition(getRequest());
             // 概览
             List<Map<String, Object>> mapData = InceptorUtil
                     .mapQuery(SqlKit.propSQL(SQLConfig.portal_chart.toString()) + condition, 48);
@@ -100,15 +101,15 @@ public class IndexController extends BaseController {
             // 返回结果
             List<Object> xAxisList = new ArrayList<Object>();
             //存放之前的数据
-            List<Object> dataList_yesterday_1 = new ArrayList<Object>();
-            List<Object> dataList_yesterday_2 = new ArrayList<Object>();
-            List<Object> dataList_yesterday_3 = new ArrayList<Object>();
-            List<Object> dataList_yesterday_4 = new ArrayList<Object>();
+            List<Object> dataList_yesterday_1 = new ArrayList<>();
+            List<Object> dataList_yesterday_2 = new ArrayList<>();
+            List<Object> dataList_yesterday_3 = new ArrayList<>();
+            List<Object> dataList_yesterday_4 = new ArrayList<>();
             //存放今天的数据
-            List<Object> dataList_today_1 = new ArrayList<Object>();
-            List<Object> dataList_today_2 = new ArrayList<Object>();
-            List<Object> dataList_today_3 = new ArrayList<Object>();
-            List<Object> dataList_today_4 = new ArrayList<Object>();
+            List<Object> dataList_today_1 = new ArrayList<>();
+            List<Object> dataList_today_2 = new ArrayList<>();
+            List<Object> dataList_today_3 = new ArrayList<>();
+            List<Object> dataList_today_4 = new ArrayList<>();
             for (int i = 0; i < mapData.size(); i++) {
                 Map<String, Object> map = mapData.get(i);
                 if (i < 24) {
@@ -157,7 +158,6 @@ public class IndexController extends BaseController {
 
             // 得到查询条件
             // 概览
-            // statt_Dt,PV,UV,IP_Cnt,VV,NUV,User_Cnt,New_User_Cnt,Sleep_Mem_Cnt,Logon_User_Cnt,Run_Off_User_Cnt,
             List<List<String>> data = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_index.toString(), condition),
                     7);
             result.put("data", data);
@@ -181,13 +181,13 @@ public class IndexController extends BaseController {
 
             // 入口页面
             List<List<String>> landingPage = InceptorUtil.query(
-                    SqlKit.propSQL(SQLConfig.portal_siteAnalysis_entryPage_query_day.toString(), condition) + " limit 5",
+                    SqlKit.propSQL(SQLConfig.portal_siteAnalysis_entryPage_query_day, condition2) + " limit 5",
                     5);
             // 返回结果
             result.put("landingPage", landingPage);
             // 页面
             List<List<String>> visitPage = InceptorUtil
-                    .query(SqlKit.propSQL(SQLConfig.portal_pageRank.toString(), condition) + " limit 5", 5);
+                    .query(SqlKit.propSQL(SQLConfig.portal_pageRank_day, condition2) + " limit 5", 5);
             // 返回结果
             result.put("visitPage", visitPage);
             renderJson(result);

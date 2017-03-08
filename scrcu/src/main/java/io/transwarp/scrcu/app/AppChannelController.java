@@ -25,11 +25,14 @@ public class AppChannelController extends Controller {
 	/**
 	 * 获取app渠道列表
 	 */
+	@SuppressWarnings("unchecked")
 	@RequiresPermissions("/app/channel/list")
 	public void list() {
 		if (BaseUtils.isAjax(getRequest())) {
+
 			List<List<String>> data = new ArrayList<>();
 			JSONObject result = new JSONObject();
+
 			// 得到查询条件
 			String dateType = getPara("dateType");
 			String condition = InceptorUtil.getQueryCondition(getRequest());
@@ -50,6 +53,27 @@ public class AppChannelController extends Controller {
 					data = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_channel_list_year, condition),false);
 				}
 			}
+
+			// 返回结果
+			List<Object> xDataList = new ArrayList<>();
+			List<Object> newUserList = new ArrayList<>();
+			List<Object> startUserList = new ArrayList<>();
+			List<Object> sumCntList = new ArrayList<>();
+			List<Object> startCntList = new ArrayList<>();
+			Object[] nameList = new Object[]{"新增用户", "启动用户", "累计用户", "启动次数"};
+			for (List<String> list : data) {
+				if (!xDataList.contains(list.get(0))) {
+					xDataList.add(list.get(0));
+				}
+				newUserList.add(list.get(2));
+				startUserList.add(list.get(3));
+				sumCntList.add(list.get(4));
+				startCntList.add(list.get(6));
+			}
+
+			//生成渠道列表的数据
+			String genDetailChannel = ChartUtils.genAppMultiLineCharts(dateType, xDataList, nameList, newUserList, startUserList, sumCntList, startCntList);
+			result.put("chartOption", genDetailChannel);
 			// 返回结果
 			result.put("data", data);
 			renderJson(result);
