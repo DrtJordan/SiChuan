@@ -8,6 +8,7 @@ import io.transwarp.scrcu.base.inceptor.InceptorUtil;
 import io.transwarp.scrcu.base.util.BaseUtils;
 import io.transwarp.scrcu.base.util.ChartUtils;
 import io.transwarp.scrcu.base.util.SQLConfig;
+import io.transwarp.scrcu.common.app.GenerateAppChartsUtils;
 import io.transwarp.scrcu.sqlinxml.SqlKit;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -66,44 +67,13 @@ public class AppUserController extends BaseController {
             }
             //定义图例名称
             Object[] nameList = new Object[]{res.get("app.startUser")};
-            // 返回结果
-            List<Object> xAxisList = new ArrayList<>();
-            List<Object> dataList = new ArrayList<>();
-            for (List<String> list : dataTime) {
-                xAxisList.add(list.get(0));
-                dataList.add(list.get(1));
-            }
-            String activeUserChart = ChartUtils.genAppMultiLineCharts(type, xAxisList, nameList, dataList);
-            result.put("timeChart", activeUserChart);
 
-           /* // 返回结果
-            List<Object> phoneXAxisList = new ArrayList<>();
-            List<Object> phoneList = new ArrayList<>();
-            Object[] phoneNames = new Object[]{"Android", "IOS"};
-            for (List<String> list : dataPhone) {
-                if (!xAxisList.contains(list.get(0))) {
-                    phoneXAxisList.add(list.get(0));
-                }
-                if (list.get(1).contains("Android")) {
-                    phoneList.add(list.get(2));
-                }
-                if (list.get(1).toUpperCase().contains("IOS")) {
-                    phoneList.add(list.get(2));
-                }
-            }
-            String phoneChart = ChartUtils.genAppMultiLineCharts(type, phoneXAxisList, phoneNames, phoneList);
-            result.put("phoneChart", phoneChart);
-
-            // 返回结果
-            List<Object> channelXAxisList = new ArrayList<>();
-            List<Object> channelList = new ArrayList<>();
-            Object[] channelNames = new Object[]{"启动用户数"};
-            for (List<String> list : dataChannel) {
-                channelXAxisList.add(list.get(0));
-                channelList.add(list.get(2));
-            }
-            String channelChart = ChartUtils.genAppMultiLineCharts(type, channelXAxisList, channelNames, channelList);
-            result.put("channelChart", channelChart);*/
+            //返回根据日期生成折线图的图表数据
+            result.put("timeCharts", GenerateAppChartsUtils.genUserTimeCharts(type, dataTime, nameList));
+            //返回根据手机OS生成折线图的图表数据
+            result.put("osCharts", GenerateAppChartsUtils.genOsCharts(type, dataPhone));
+            //返回根据渠道生成折线图的图表数据
+            result.put("chlCharts", GenerateAppChartsUtils.genChannelCharts(type, dataChannel, nameList));
 
             result.put("dataTime", dataTime);
             result.put("dataPhone", dataPhone);
@@ -206,25 +176,13 @@ public class AppUserController extends BaseController {
                     dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_regUser_os_year, condition));
                 }
             }
-            // 返回结果
-            List<Object> xAxisList = new ArrayList<>();
-            List<Object> androidList = new ArrayList<>();
-            List<Object> iosList = new ArrayList<>();
-            for (List<String> list : dataPhone) {
-                if (!xAxisList.contains(list.get(0))) {
-                    xAxisList.add(list.get(0));
-                }
-                String os = list.get(1);
-                if (os.contains("Android")) {
-                    androidList.add(list.get(2));
-                }
-                if (os.toUpperCase().contains("IOS")) {
-                    iosList.add(list.get(2));
-                }
-            }
-            Object[] nameList = new Object[]{"android", "ios"};
-            String str = ChartUtils.genAppMultiLineCharts(dateType, xAxisList, nameList, androidList, iosList);
-            result.put("chartOption", str);
+
+            //返回根据手机os生成折线图的图表数据
+            result.put("osCharts", GenerateAppChartsUtils.genOsCharts(dateType, dataPhone));
+
+            Object[] chlNameList = new Object[]{res.get("app.newAddUser")};
+            result.put("chlCharts", GenerateAppChartsUtils.genChannelCharts(dateType, dataChannel, chlNameList));
+
             result.put("dataPhone", dataPhone);
             result.put("dataChannel", dataChannel);
             renderJson(result);
@@ -271,20 +229,13 @@ public class AppUserController extends BaseController {
                 }
             }
 
-            // 返回结果
-            List<Object> xAxisList = new ArrayList<>();
-            List<Object> startCntList = new ArrayList<>();
-            List<Object> loginCntList = new ArrayList<>();
-            for (List<String> list : dataTime) {
-                if (!xAxisList.contains(list.get(0))) {
-                    xAxisList.add(list.get(0));
-                }
-                startCntList.add(list.get(1));
-                loginCntList.add(list.get(2));
-            }
-            Object[] nameList = new Object[]{res.get("app.loginUser"), res.get("app.startUser")};
-            String str = ChartUtils.genAppMultiLineCharts(type, xAxisList, nameList, startCntList, loginCntList);
-            result.put("chartOption", str);
+            result.put("timeCharts", GenerateAppChartsUtils.genLoginUserTimeCharts(type, dataTime));
+
+            Object[] chlNameList = new Object[]{res.get("app.startUser"), res.get("app.loginUser")};
+            result.put("chlCharts", GenerateAppChartsUtils.genChannelCharts(type, dataChannel, chlNameList));
+
+            result.put("osCharts", GenerateAppChartsUtils.genOsCharts(type, dataPhone));
+
             result.put("dataTime", dataTime);
             result.put("dataPhone", dataPhone);
             result.put("dataChannel", dataChannel);
@@ -330,17 +281,11 @@ public class AppUserController extends BaseController {
                 }
             }
 
-            //返回结果
-            List<Object> xAxisList = new ArrayList<>();
-            List<Object> dataList = new ArrayList<>();
-            for (List<String> list : dataTime) {
-                xAxisList.add(list.get(0));
-                dataList.add(list.get(1));
-            }
+            //定义折线图图例的名称
+            Object[] nameList = new Object[]{res.get("app.newAddUser")};
+            result.put("timeCharts", GenerateAppChartsUtils.genUserTimeCharts(type, dataTime, nameList));
+            result.put("osCharts", GenerateAppChartsUtils.genOsCharts(type, dataPhone));
 
-            Object[] name = new Object[]{res.get("app.newAddUser")};
-            String str = ChartUtils.genAppMultiLineCharts(type, xAxisList, name, dataList);
-            result.put("chartOption", str);
             result.put("dataTime", dataTime);
             result.put("dataPhone", dataPhone);
             renderJson(result);

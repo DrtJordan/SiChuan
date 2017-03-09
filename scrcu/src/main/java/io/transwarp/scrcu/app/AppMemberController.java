@@ -1,12 +1,11 @@
 package io.transwarp.scrcu.app;
 
 import com.alibaba.fastjson.JSONObject;
-import io.transwarp.echarts.data.Data;
 import io.transwarp.scrcu.base.controller.BaseController;
 import io.transwarp.scrcu.base.inceptor.InceptorUtil;
 import io.transwarp.scrcu.base.util.BaseUtils;
-import io.transwarp.scrcu.base.util.ChartUtils;
 import io.transwarp.scrcu.base.util.SQLConfig;
+import io.transwarp.scrcu.common.app.GenerateAppChartsUtils;
 import io.transwarp.scrcu.sqlinxml.SqlKit;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -64,10 +63,13 @@ public class AppMemberController extends BaseController {
                 if (dateType.equals("day")) {
                     data = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_member_runoff_day, condition), false);
                 }
-                if (dateType.equals("month")) {
-                    data = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_member_runoff_month, condition), false);
+                if (dateType.equals("week")) {
+                    data = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_member_runoff_week, condition), false);
                 }
             }
+
+            //返回会员流失生成的折线图图表数据
+            result.put("memberLostCharts", GenerateAppChartsUtils.genMemberRunOffCharts(dateType, data));
 
             result.put("data", data);
             renderJson(result);

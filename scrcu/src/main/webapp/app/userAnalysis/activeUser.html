@@ -16,12 +16,15 @@
 		<header class="noborder panel-heading text-right bg-light clear">
 			<ul class="nav nav-tabs pull-left clear">
 				<li class="csvExportTab active" csvAction="app_activeUser" id="timeChart">
+					<input type="hidden" value="timeChart">
 					<a href="#date" data-toggle="tab"><i class="icon-calendar"></i>&nbsp;日期分布</a>
 				</li>
-				<li class="csvExportTab" csvAction="app_activeUser_phone" id="phoneChart">
-					<a href="#phone" data-toggle="tab"><i class="icon-screen-smartphone"></i>&nbsp;手机分布</a>
+				<li class="csvExportTab" csvAction="app_activeUser_phone" id="osChart">
+					<input type="hidden" value="osChart">
+					<a href="#phone" data-toggle="tab"><i class="icon-screen-smartphone"></i>&nbsp;手机os分布</a>
 				</li>
-				<li class="csvExportTab" csvAction="app_activeUser_channel" id="channelChart">
+				<li class="csvExportTab" csvAction="app_activeUser_channel" id="chlChart">
+					<input type="hidden" value="chlChart">
 					<a href="#channel" data-toggle="tab"><i class="icon-equalizer text-muted"></i>&nbsp;渠道分布</a>
 				</li>
 			</ul>
@@ -76,6 +79,11 @@
 
 <script>
 
+    //定义osChart,timeChart,chlChart,用来接收转换图表切换时的数据
+    var osChart;
+    var chlChart;
+    var timeChart;
+
     /**
      * 定义数据查询方法，用来转换后台传输数据
      * @param data 数据
@@ -85,27 +93,24 @@
 		//初始化echarts图表
         var chart = echarts.init(document.getElementById('chartDiv'),
             'infographic');
-        chart.setOption($.parseJSON(data.timeChart));
 
-//        var activePhoneChart = data.phoneChart;
-//        var activeChannelChart = data.channelChart;
-//        $("#timeChart").click(function () {
-//            var timeChart = echarts.init(document.getElementById('chartDiv'),
-//                'infographic');
-//            timeChart.setOption($.parseJSON(activeTimeChart));
-//        });
-//
-//        $("#phoneChart").click(function () {
-//            var chart = echarts.init(document.getElementById('chartDiv'),
-//                'infographic');
-//            chart.setOption($.parseJSON(activePhoneChart));
-//        });
-//
-//        $("#channelChart").click(function () {
-//            var channelChart = echarts.init(document.getElementById('chartDiv'),
-//                'infographic');
-//            channelChart.setOption($.parseJSON(activeChannelChart));
-//        });
+        //获取后台传过来的Echarts图表数据，转换为json数据
+        osChart = $.parseJSON(data.osCharts);
+        chlChart = $.parseJSON(data.chlCharts);
+        timeChart = $.parseJSON(data.timeCharts);
+
+        //获取tab切换标签active时的值,用来加载默认的Echarts数据
+        var chartChange = $(".csvExportTab.active input").val();
+
+        if (chartChange == "osChart") {
+            chart.setOption(osChart);
+        }
+        if (chartChange == "chlChart") {
+            chart.setOption(chlChart);
+        }
+        if (chartChange == "timeChart") {
+            chart.setOption(timeChart);
+        }
 
         tableQuery({
             "aaData" : data.dataTime,
@@ -154,5 +159,27 @@
             }
         });
     }
+
+    //设置点击事件，当点击切换表格的链接时，切换加载的echarts数据
+    $("#osChart").click(function () {
+        var chart = echarts.init(document.getElementById('chartDiv'),
+            'infographic');
+        chart.clear();
+        chart.setOption(osChart);
+    });
+
+    $("#chlChart").click(function () {
+        var chart = echarts.init(document.getElementById('chartDiv'),
+            'infographic');
+        chart.clear();
+        chart.setOption(chlChart);
+    });
+
+    $("#timeChart").click(function () {
+        var chart = echarts.init(document.getElementById('chartDiv'),
+            'infographic');
+        chart.clear();
+        chart.setOption(timeChart);
+    });
 
 </script>

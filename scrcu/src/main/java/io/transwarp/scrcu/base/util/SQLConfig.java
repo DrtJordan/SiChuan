@@ -79,8 +79,8 @@ public enum SQLConfig {
 
     //会员流失分析 按天汇总
     app_member_runoff_day,
-    //会员流失分析 按月汇总
-    app_member_runoff_month,
+    //会员流失分析 按周汇总
+    app_member_runoff_week,
 
     // 全部事件查询
     app_event_list,

@@ -83,6 +83,7 @@ public class IndexController extends BaseController {
     /**
      * 首页
      */
+    @SuppressWarnings("unchecked")
     @RequiresAuthentication
     public void index() {
 
@@ -90,13 +91,10 @@ public class IndexController extends BaseController {
             JSONObject result = new JSONObject();
 
             // 得到查询条件
-            String condition = InceptorUtil.getDateCondition(getRequest());
-            String condition2 = InceptorUtil.getQueryCondition(getRequest());
+            String condition = InceptorUtil.getQueryCondition(getRequest());
             // 概览
             List<Map<String, Object>> mapData = InceptorUtil
-                    .mapQuery(SqlKit.propSQL(SQLConfig.portal_chart.toString()) + condition, 48);
-            Date date = new Date();
-            int today = date.getYear() + date.getMonth() + date.getDay();
+                    .mapQuery(SqlKit.propSQL(SQLConfig.portal_chart, condition));
 
             // 返回结果
             List<Object> xAxisList = new ArrayList<Object>();
@@ -114,34 +112,18 @@ public class IndexController extends BaseController {
                 Map<String, Object> map = mapData.get(i);
                 if (i < 24) {
                     xAxisList.add(i);
-                    int pv = InceptorUtil.getInt("pv", map);
-                    dataList_today_1.add(pv);
+                    dataList_today_1.add(InceptorUtil.getInt("pv", map));
                     dataList_today_2.add(InceptorUtil.getInt("uv", map));
-                    dataList_today_3.add(InceptorUtil.getInt("logon_user_cnt", map));
-                    dataList_today_4.add(InceptorUtil.getInt("nuv", map));
+                    dataList_today_3.add(InceptorUtil.getInt("log_usr_num", map));
+                    dataList_today_4.add(InceptorUtil.getInt("new_vis_num", map));
                 } else {
                     dataList_yesterday_1.add(InceptorUtil.getInt("pv", map));
                     dataList_yesterday_2.add(InceptorUtil.getInt("uv", map));
-                    dataList_yesterday_3.add(InceptorUtil.getInt("logon_user_cnt", map));
-                    dataList_yesterday_4.add(InceptorUtil.getInt("nuv", map));
+                    dataList_yesterday_3.add(InceptorUtil.getInt("log_usr_num", map));
+                    dataList_yesterday_4.add(InceptorUtil.getInt("new_vis_num", map));
                 }
             }
 
-            // for (Map<String, Object> map : mapData) {
-            // String day = String.valueOf(map.get("statt_dt"));
-            // xAxisList.add(String.valueOf(map.get("statt_hr")));
-            // if (day.equals(today)) {
-            // dataList_today_1.add(Integer.valueOf(map.get("pv").toString()));
-            // dataList_today_2.add(Integer.valueOf(map.get("uv").toString()));
-            // dataList_today_3.add(Integer.valueOf(map.get("logon_user_cnt").toString()));
-            // dataList_today_4.add(Integer.valueOf(map.get("nuv").toString()));
-            // } else {
-            // dataList_yesterday_1.add(Integer.valueOf(map.get("pv").toString()));
-            // dataList_yesterday_2.add(Integer.valueOf(map.get("uv").toString()));
-            // dataList_yesterday_3.add(Integer.valueOf(map.get("logon_user_cnt").toString()));
-            // dataList_yesterday_4.add(Integer.valueOf(map.get("nuv").toString()));
-            // }
-            // }
             Object[] nameList1 = new Object[]{res.get("index.todayPV"), res.get("index.yesterdayPV")};
             String chart1 = ChartUtils.genMultiLineChart(xAxisList, nameList1, dataList_today_1, dataList_yesterday_1);
             Object[] nameList2 = new Object[]{res.get("index.todayVV"), res.get("index.yesterdayVV")};
@@ -158,15 +140,15 @@ public class IndexController extends BaseController {
 
             // 得到查询条件
             // 概览
-            List<List<String>> data = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_index.toString(), condition),
-                    7);
+            List<List<String>> data = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_index, condition));
             result.put("data", data);
 
             if (data != null && data.size() > 0) {
                 int sum_1 = Integer.valueOf(data.get(0).get(1));// pv
                 int sum_2 = Integer.valueOf(data.get(0).get(2));// uv
-                int sum_3 = Integer.valueOf(data.get(0).get(8));// Logon_User_Cnt
-                int sum_4 = Integer.valueOf(data.get(0).get(5));// nuv
+                int sum_3 = Integer.valueOf(data.get(0).get(3));// Logon_User_Cnt
+//                int sum_4 = Integer.valueOf(data.get(0).get(3) == null ? 0 : Integer.valueOf(data.get(0).get(3)));// nuv
+                int sum_4 = 0;// nuv
 
                 result.put("sum_1", sum_1);
                 result.put("sum_2", sum_2);
@@ -179,7 +161,7 @@ public class IndexController extends BaseController {
                 result.put("sum_4", 0);
             }
 
-            // 入口页面
+            /*// 入口页面
             List<List<String>> landingPage = InceptorUtil.query(
                     SqlKit.propSQL(SQLConfig.portal_siteAnalysis_entryPage_query_day, condition2) + " limit 5",
                     5);
@@ -189,7 +171,7 @@ public class IndexController extends BaseController {
             List<List<String>> visitPage = InceptorUtil
                     .query(SqlKit.propSQL(SQLConfig.portal_pageRank_day, condition2) + " limit 5", 5);
             // 返回结果
-            result.put("visitPage", visitPage);
+            result.put("visitPage", visitPage);*/
             renderJson(result);
         } else {
             setNav();

@@ -4,14 +4,12 @@
 	<sqlGroup name="portal_chart">
 		<sql id="name">首页图</sql>
 		<sql id="header"></sql>
-		<sql id="sql">select statt_dt,statt_hr,pv,uv,logon_user_cnt,nuv from hb_t88_sites_indx_hour</sql>
+		<sql id="sql">select stat_date, statt_hr, pv, uv, log_usr_num, new_vis_num from bdhbs.th_log_web_view_trend_orc_day where SQL_CONDITION cnt_type='1' order by cast(statt_hr as int) asc</sql>
 	</sqlGroup>
 	<sqlGroup name="portal_index">
 		<sql id="name">概览</sql>
 		<sql id="header"></sql>
-		<sql id="sql">select Statt_Dt,cast(sum(PV)as int),cast(sum(UV)as int),cast(sum(IP_Cnt)as int),cast(sum(VV)as int),cast(sum(NUV)as int),cast(sum(User_Cnt)as int),cast(sum(New_User_Cnt)as int),
-		cast(sum(Logon_User_Cnt)as int),cast(sum(Logon_User_Vs)as int),sum(Avg_Vist_Url_Num)/count(Avg_Vist_Url_Num),sum(Avg_Vist_Durat)/count(Avg_Vist_Durat),sum(Page_Stay_Durat)/count(Page_Stay_Durat),sum(Avg_Page_Stay_Durat)/count(Avg_Page_Stay_Durat),cast(sum(Contr_dowst_PV)as int),
-		sum(Twice_Skip_Rate)/count(Twice_Skip_Rate),sum(Bounce_Rate)/count(Bounce_Rate),cast(sum(Inst_Show_Qty)as int),cast(sum(Inst_Click_Qty)as int),cast(sum(Uniq_Inst_Click_Qty)as int),sum(Inst_Click_Rate)/count(Inst_Click_Rate),sum(Uniq_Click_Rate)/count(Uniq_Click_Rate),cast(sum(Arrv_Qty)as int) from hb_T88_SITES_INDX_DAY SQL_CONDITION group by Statt_Dt</sql>
+		<sql id="sql">select stat_date, sum(pv), sum(uv), sum(log_usr_num), sum(new_vis_num) from bdhbs.th_log_web_view_trend_orc_day where SQL_CONDITION cnt_type='1' group by stat_date</sql>
 	</sqlGroup>
 	<!-- 概览 -->
 

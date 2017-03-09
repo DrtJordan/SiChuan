@@ -70,24 +70,6 @@
 									<th>独立访客数</th>
 									<th>IP数</th>
 									<th>来访次数</th>
-									<th show="false">新独立访客</th>
-									<th show="false">注册数</th>
-									<th show="false">新注册数</th>
-									<th show="false">登录数</th>
-									<th show="false">登录比</th>
-									<th show="false">平均深度</th>
-									<th show="false">平均时长</th>
-									<th show="false">停留时长</th>
-									<th show="false">平均停留时长</th>
-									<th show="false">贡献下游浏览量</th>
-									<th show="false">二跳率</th>
-									<th show="false">跳出率</th>
-									<th show="false">展现量</th>
-									<th show="false">点击量</th>
-									<th show="false">唯一点击量</th>
-									<th>点击率</th>
-									<th>唯一点击率</th>
-									<th>到达量</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -98,7 +80,7 @@
 				</div>
 			</div>
 		</section>
-		<div class="row">
+		<!--<div class="row">
 			<div class="col-md-6">
 				<section class="panel panel-default">
 					<header class="panel-heading">
@@ -107,7 +89,8 @@
 					<table id="table1" class="datatables table table-striped" data-ride="datatables">
 						<thead>
 							<tr>
-								<th>页面</th>
+								<th class="hidden">日期</th>
+								<th class="displayTitle">页面</th>
 								<th class="w-5">访问次数</th>
 							</tr>
 						</thead>
@@ -131,7 +114,7 @@
 					<table  class="datatables table table-striped" data-ride="datatables"id="table2">
 						<thead>
 							<tr>
-								<th >页面</th>
+								<th>页面</th>
 								<th class="w-4">浏览量</th>
 							</tr>
 						</thead>
@@ -147,7 +130,7 @@
 					</table>
 				</section>
 			</div>
-		</div>
+		</div>-->
 
 	</section>
 </section>
@@ -155,7 +138,7 @@
 </@layout>
 
 <script>
-	$("#today").text("2015-11-06");
+	$("#today").text("2017-02-04");
 	var chartArray = new Array();
 
 	function changeChart(index, a) {
@@ -170,8 +153,8 @@
 
 	$(document).ready(
 			function() {
-				var start = "2015-11-05";
-				var end = "2015-11-06";
+				var start = "2017-02-04";
+				var end = "2017-02-05";
 				var ajaxOption = {
 					url : window.location.href + "?start_dt=" + start+ "&end_dt=" + end,
 					success : function(data) {
@@ -196,7 +179,7 @@
 							bFilter : false,
 							bLengthChange : false
 						});
-						$('[href="#aa"]').click(function() {
+						/*$('[href="#aa"]').click(function() {
 							var columns = $(this).attr("columns").split(",");
 							for (var i = 0; i < 24; i++) {
 								var column = table.column(i);
@@ -225,7 +208,7 @@
 							bFilter : false,
 							"fixedOrder" : false,
 							bLengthChange : false
-						});
+						});*/
 					}
 				};
 				commonAjax(ajaxOption);

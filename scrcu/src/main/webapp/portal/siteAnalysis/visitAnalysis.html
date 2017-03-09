@@ -16,11 +16,11 @@
     <div class="panel panel-default table-responsive clear">
         <header class="noborder panel-heading text-right bg-light clear">
             <ul class="nav nav-tabs pull-left clear">
-                <li class="active csvExportTab" csvAction="portal_visitAnalysis_time"><a href="#tab"
+                <li class="active csvExportTab" csvAction="portal_visitAnalysis_time" id="timeChart"><a href="#tab"
                                                                                          data-toggle="tab"><i
                         class="icon-calendar"
                 ></i>&nbsp;访客时长</a></li>
-                <li class="csvExportTab" csvAction="portal_visitAnalysis_depth"><a href="#depth_tab"
+                <li class="csvExportTab" csvAction="portal_visitAnalysis_depth"  id="depthChart"><a href="#depth_tab"
                                                                                    data-toggle="tab"><i
                         class="icon-screen-smartphone"
                 ></i>&nbsp;访问深度</a></li>
@@ -88,6 +88,9 @@
      */
     function dataTableExchange(data, dateType) {
 
+        $(".csvExportTab").removeClass("active");
+        $("#timeChart").addClass("active");
+
         var useTimeChartOption = data.useTimeChart;
         var useDepthChartOption = data.useDepthChart;
         useTimeChart = $.parseJSON(useTimeChartOption);
@@ -95,9 +98,6 @@
         var chart = echarts.init(document.getElementById('chartDiv'),
             'infographic');
         chart.setOption(useTimeChart);
-        $(".csvExportTab").click(function () {
-            changeChart();
-        });
 
         //页面访问时长
         tableQuery({
@@ -141,16 +141,17 @@
         });
     }
 
-    var flag = true;
-    function changeChart() {
+    $("#timeChart").click(function () {
         var chart = echarts.init(document.getElementById('chartDiv'),
             'infographic');
-        if (flag) {
-            chart.setOption(useDepthChart);
-            flag = false;
-        } else {
-            chart.setOption(useTimeChart);
-            flag = true;
-        }
-    }
+        chart.clear();
+        chart.setOption(useTimeChart);
+    });
+
+    $("#depthChart").click(function () {
+        var chart = echarts.init(document.getElementById('chartDiv'),
+            'infographic');
+        chart.clear();
+        chart.setOption(useDepthChart);
+    });
 </script>

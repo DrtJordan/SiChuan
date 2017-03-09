@@ -15,12 +15,16 @@
     <div class="panel panel-default table-responsive clear">
         <header class="noborder panel-heading text-right bg-light clear">
             <ul class="nav nav-tabs pull-left clear">
-                <li class="active csvExportTab" csvAction="app_regUser_os"><a
-                        href="#phone" data-toggle="tab"><i
-                        class="icon-equalizer text-muted"></i>&nbsp;按手机os注册分布</a></li>
-                <li class="csvExportTab" csvAction="app_regUser_channel"><a
-                        href="#channel" data-toggle="tab"><i
-                        class="icon-screen-smartphone"></i>&nbsp;按渠道注册分布</a></li>
+                <li class="active csvExportTab" csvAction="app_regUser_os" id="osChart">
+                    <input type="hidden" value="osChart">
+                    <a href="#phone" data-toggle="tab">
+                        <i class="icon-equalizer text-muted"></i>&nbsp;按手机os注册分布
+                    </a>
+                </li>
+                <li class="csvExportTab" csvAction="app_regUser_channel" id="chlChart">
+                    <input type="hidden" value="chlChart">
+                    <a href="#channel" data-toggle="tab">
+                    <i class="icon-screen-smartphone"></i>&nbsp;按渠道注册分布</a></li>
             </ul>
             <span class="hidden-sm"><a href="/csv/app_regUser"
                                        id="csvExport" class="btn btn-dark btn-sm" style="display: inline"><i
@@ -72,6 +76,9 @@
 </script>
 
 <script>
+    //定义osChart和chlChart,用来接收转换图表切换时的数据
+    var osChart;
+    var chlChart;
     /**
      * 定义数据查询方法，用来转换后台传输数据
      * @param data 数据
@@ -79,10 +86,23 @@
      */
     function dataTableExchange(data, dateType) {
 
+        //初始化echarts
         var chart = echarts.init(document.getElementById('chartDiv'),
             'infographic');
-        var chartOption = data.chartOption;
-        chart.setOption($.parseJSON(chartOption));
+
+        //获取后台传过来的Echarts图表数据，转换为json数据
+        osChart = $.parseJSON(data.osCharts);
+        chlChart = $.parseJSON(data.chlCharts);
+
+        //获取tab切换标签active时的值,用来加载默认的Echarts数据
+        var chartChange = $(".csvExportTab.active input").val();
+
+        if (chartChange == "osChart") {
+            chart.setOption(osChart);
+        }
+        if (chartChange == "chlChart") {
+            chart.setOption(chlChart);
+        }
 
         tableQuery({
             "aaData": data.dataChannel,
@@ -123,4 +143,19 @@
             }
         });
     }
+
+    //设置点击事件，当点击切换表格的链接时，切换加载的echarts数据
+    $("#osChart").click(function () {
+        var chart = echarts.init(document.getElementById('chartDiv'),
+            'infographic');
+        chart.clear();
+        chart.setOption(osChart);
+    });
+
+    $("#chlChart").click(function () {
+        var chart = echarts.init(document.getElementById('chartDiv'),
+            'infographic');
+        chart.clear();
+        chart.setOption(chlChart);
+    });
 </script>

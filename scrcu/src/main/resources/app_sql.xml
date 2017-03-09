@@ -1083,12 +1083,12 @@
 	<sqlGroup name="app_member_runoff_day">
 		<sql id="name">app会员流失</sql>
 		<sql id="header">日期,会员流失数,会员流失数,会员流失数,会员流失数,会员流失数,会员流失数</sql>
-		<sql id="sql">select stat_date, mem_run_off_cnt, mem_run_off_pct, sleep_mem_cnt, sleep_mem_pct, return_user_cnt, return_user_pct from bdhbs.th_log_app_usr_value_lost_orc_day where SQL_CONDITION cnt_type='99' order by stat_date asc</sql>
+		<sql id="sql">select stat_date, mem_run_off_cnt, mem_run_off_pct, sleep_mem_cnt, sleep_mem_pct, return_user_cnt, return_user_pct from bdhbs.th_log_app_member_lost_orc_day where SQL_CONDITION cnt_type='99' order by stat_date asc</sql>
 	</sqlGroup>
-	<sqlGroup name="app_member_runoff_month">
+	<sqlGroup name="app_member_runoff_week">
 		<sql id="name">app会员流失</sql>
 		<sql id="header">日期,会员流失数,会员流失数,会员流失数,会员流失数,会员流失数,会员流失数</sql>
-		<sql id="sql">select stat_date, mem_run_off_cnt, mem_run_off_pct, sleep_mem_cnt, sleep_mem_pct, return_user_cnt, return_user_pct from bdhbs.th_log_app_usr_value_lost_orc_sum_mon where SQL_CONDITION cnt_type='2' order by stat_date asc</sql>
+		<sql id="sql">select stat_date, mem_run_off_cnt, mem_run_off_pct, sleep_mem_cnt, sleep_mem_pct, return_user_cnt, return_user_pct from bdhbs.th_log_app_member_lost_orc_sum_day where SQL_CONDITION cnt_type='1' order by stat_date asc</sql>
 	</sqlGroup>
 	<!-- 会员流失end -->
 

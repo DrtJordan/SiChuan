@@ -4,8 +4,8 @@ import com.jfinal.i18n.I18n;
 import com.jfinal.i18n.Res;
 import io.transwarp.scrcu.base.inceptor.InceptorUtil;
 import io.transwarp.scrcu.base.util.BaseUtils;
-import io.transwarp.scrcu.base.util.ChartUtils;
 import io.transwarp.scrcu.base.util.SQLConfig;
+import io.transwarp.scrcu.common.app.GenerateAppChartsUtils;
 import io.transwarp.scrcu.sqlinxml.SqlKit;
 
 import java.util.ArrayList;
@@ -56,28 +56,14 @@ public class AppController extends Controller {
                     dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_startCount_channel_year, condition));
                 }
             }
-            // 返回结果
-            List<Object> xAxisList = new ArrayList<>();
-            List<Object> androidList = new ArrayList<>();
-            List<Object> iosList = new ArrayList<>();
-            for (List<String> list : dataPhone) {
-                if (!xAxisList.contains(list.get(0))) {
-                    xAxisList.add(list.get(0));
-                }
-                String os = list.get(1);
-                if (os.contains("Android")) {
-                    androidList.add(list.get(2));
-                }
-                if (os.toUpperCase().contains("IOS")) {
-                    iosList.add(list.get(2));
-                }
-            }
 
-            //定义折线图图例的名称
-            Object[] nameList = new Object[]{"android", "ios"};
-            // 生成启动次数折线图数据
-            String genLineChart = ChartUtils.genAppMultiLineCharts(dateType, xAxisList, nameList, androidList, iosList);
-            result.put("chartOption", genLineChart);
+            //生成按手机OS分布的折线图图表数据
+            result.put("osCharts", GenerateAppChartsUtils.genOsCharts(dateType, dataPhone));
+
+            Object[] nameList = new Object[]{res.get("app.startTimes")};
+            //生成按渠道分布的折线图图表数据
+            result.put("chlCharts", GenerateAppChartsUtils.genChannelCharts(dateType, dataChannel, nameList));
+
             result.put("dataPhone", dataPhone);
             result.put("dataChannel", dataChannel);
             renderJson(result);

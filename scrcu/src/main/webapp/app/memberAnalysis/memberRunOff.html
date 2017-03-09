@@ -7,6 +7,12 @@
 </div>
 <section id="content">
     <#include "/common/_dateQuery.html"/>
+
+    <div id="chartDiv" style="height: 280px;" ></div>
+    <div class="clear">
+        <hr />
+    </div>
+
     <section class="panel panel-default">
         <header class="panel-heading">
             <i class="icon-list padder-xs"></i>会员流失量 <span class="hidden-sm pull-right">
@@ -39,7 +45,7 @@
      * 隐藏按周汇总的按钮
      */
     $().ready(function () {
-        $("#weekButton").hide();
+        $("#monthButton").hide();
         $("#quarterButton").hide();
         $("#yearButton").hide();
     })
@@ -52,8 +58,15 @@
      * @param dateType 日期类型：day,week,month,quarter,year
      */
     function dataTableExchange(data, dateType) {
+
+        //初始化echarts图表
+        var chart = echarts.init(document.getElementById('chartDiv'),
+            'infographic');
+        chart.setOption($.parseJSON(data.memberLostCharts));
+
         tableQuery({
             "aaData": data.data
         });
+        csvExport("", dateType);
     }
 </script>
