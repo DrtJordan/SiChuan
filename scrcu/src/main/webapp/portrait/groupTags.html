@@ -89,7 +89,7 @@
 			</div>
 			<div class="col-sm-6">
 				<div class="panel panel-default table-responsive">
-					<header class="panel-heading clear"> 群体标签占比 </header>
+					<header class="panel-heading clear"> 单个标签 </header>
 					<div class="panel-body" style="padding: 0px">
 						<div id="educationdiv" style="height: 240px; padding: 5px"></div>
 					</div>
@@ -97,7 +97,7 @@
 			</div>
 			<div class="col-sm-6">
 				<div class="panel panel-default table-responsive">
-					<header class="panel-heading clear"> 群体比例 </header>
+					<header class="panel-heading clear"> 综合标签 </header>
 					<div class="panel-body" style="padding: 0px">
 						<div id="genderdiv" style="height: 240px;"></div>
 					</div>
@@ -140,7 +140,8 @@
 			data:{code:code.substr(0,code.length),condition:condition},
 			success : function(data) {
  				var chartOption = data.tagsRankOption;
-				var size = data.size;
+				var pie = data.pie;
+				var percent = data.percent;
 				require.config({
 				    paths:{
 				        'echarts':'/static/echarts/',
@@ -149,7 +150,7 @@
 				    }
 				});
 				//使用
-				if (size == 0){
+				if (pie == 0){
 					require(['echarts','echarts/theme/macarons','echarts/chart/bar'],function(ec,theme){
 						var myChart = ec.init(document.getElementById('educationdiv'),theme); //设置主题
 						myChart.setOption($.parseJSON(chartOption));
@@ -158,15 +159,17 @@
 					$("#genderdiv").parent().parent().parent().hide();
 					$("#word").parent().parent().parent().hide();
 					$("#groupTagsRate").parent().parent().parent().hide();
-				}else {
+				}else if (percent == 0 || percent == 1 ){
+					genGauge(data.val);
+					$("#educationdiv").parent().parent().parent().hide();
+					$("#genderdiv").parent().parent().parent().removeClass().addClass("col-sm-12");
+					$("#genderdiv").addClass("chart-site")
+				}else if (pie != 0){
 					require(['echarts','echarts/theme/macarons','echarts/chart/bar'],function(ec,theme){
 						var myChart = ec.init(document.getElementById('educationdiv'),theme); //设置主题
 						myChart.setOption($.parseJSON(chartOption));
 					});
 					genGauge(data.val);
-					$("#educationdiv").parent().parent().parent().hide();
-					$("#genderdiv").parent().parent().parent().removeClass().addClass("col-sm-12");
-					$("#genderdiv").addClass("chart-site")
 				}
 				$("#word").html(data.word);
 				if (typeof(data.groupTagsRate) != "undefined"){
@@ -198,7 +201,7 @@
 			    },
 			    series : [
 			        {
-			            name:'群体比例',
+			            name:'综合标签',
 			            type:'gauge',
 			            center : ['50%', '50%'],    // 默认全局居中
 			            radius : [0, '75%'],
@@ -275,7 +278,7 @@
 			                    fontSize : 30
 			                }
 			            },
-			            data:[{value: val, name: '群体比例'}]
+			            data:[{value: val, name: '综合标签'}]
 			        }
 			    ]
 			};
@@ -283,8 +286,6 @@
 		'macarons');
 		rateChart.setOption(option);
 	}
-
-
 
 </script>
 </@layout>

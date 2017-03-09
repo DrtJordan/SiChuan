@@ -169,9 +169,9 @@ public class PortraitController extends Controller {
                 for (Map<String, Object> m : zc_years) {
                     String[][] s = new String[][]{m.get("label_desc").toString().split("（")};
 //                    keyList.add((String) m.get("label_desc"));
-                    if (s[0].length > 1){
+                    if (s[0].length > 1) {
                         keyList.add(s[0][0] + "\n" + "（" + s[0][1]);
-                    }else {
+                    } else {
                         keyList.add(s[0][0]);
                     }
                     zc_yearList.add(InceptorUtil.getInt("total", m));
@@ -192,7 +192,7 @@ public class PortraitController extends Controller {
             result.put("year", ChartUtils.genRadar(res.get("portrait.cardAge"), keyList, yearList));*/
 
             // 使用时段
-            List<Map<String, Object>> time = tagMap.get("use_time");
+            List<Map<String, Object>> time = tagMap.get("web_use_time");
             List<Object> timeList = new ArrayList<Object>();
             xAxisList = new ArrayList<Object>();
             if (time != null) {
@@ -243,7 +243,7 @@ public class PortraitController extends Controller {
             List<Object> generationList = new ArrayList<Object>();
             if (generation != null) {
                 for (Map<String, Object> m : generation) {
-                    if (m.get("label_desc") != null){
+                    if (m.get("label_desc") != null) {
                         xAxisList.add((String) m.get("label_desc"));
                         generationList.add(InceptorUtil.getInt("total", m));
                     }
@@ -326,7 +326,7 @@ public class PortraitController extends Controller {
             final Map<String, List<Map<String, Object>>> tagMap = new TreeMap<String, List<Map<String, Object>>>();
             for (Map<String, Object> map : tagList) {
                 String key = (String) map.get("topic_desc");
-                if(key != null){
+                if (key != null) {
                     if (tagMap.get(key) == null) {
                         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
                         tagMap.put(key, list);
@@ -362,9 +362,9 @@ public class PortraitController extends Controller {
     @RequiresPermissions("/portrait/update")
     public void update() throws Exception {
         String[] keys = getParaValues("key");
-        String[][] strings = {getParaValues("start"),getParaValues("end")};
+        String[][] strings = {getParaValues("start"), getParaValues("end")};
         StringBuffer val = new StringBuffer(" ");
-        for(int i = 0; i < keys.length; i++){
+        for (int i = 0; i < keys.length; i++) {
             val = val.append("begin_use_time = '").append(strings[0][i]).append("', end_use_time = '").append(strings[1][i]).append("' where use_time = '").append(keys[i]).append("'").append(";");
             InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.use_time_label_config, val.toString()), false);
             val = val.delete(1, val.length());
@@ -382,6 +382,13 @@ public class PortraitController extends Controller {
             groupList = new ArrayList<List<Tag>>();
             CacheKit.put("inceptor", "groupList", groupList);
         }
+        /*for (int i = 0; i < groupList.size() - 1; i++) {
+            for (int j = groupList.size() - 1; j > i; j--) {
+                if (groupList.get(j).equals(groupList.get(i))) {
+                    groupList.remove(j);
+                }
+            }
+        }*/
         setAttr("groupList", groupList);
     }
 
@@ -391,6 +398,8 @@ public class PortraitController extends Controller {
     @RequiresPermissions("/portrait/groupTagList")
     public void groupTags() {
         if (BaseUtils.isAjax(getRequest())) {
+            List<Map<String, Object>> allTagList = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.label_label_wall)
+                    + getLevelCondition() + " group by topic,label_code order by topic_desc desc ", true);
             List<Map<String, Object>> tagList = new ArrayList<Map<String, Object>>();
             String[] codes = new String[]{};
             StringBuffer condition = new StringBuffer(getPara("condition"));
@@ -398,21 +407,31 @@ public class PortraitController extends Controller {
             if (StringUtils.isNotBlank(code)) {
                 codes = code.substring(0, code.length() - 1).split(",");
                 for (String c : codes) {
-                    if (allTagMap.get(c) != null ){
+                    if (allTagMap.get(c) != null) {
                         tagList.add(allTagMap.get(c));
                     }
+                    /*else {
+                        Map<String, Map<String, Object>> m = new HashMap<String, Map<String, Object>>();
+                        for (Map<String, Object> allTag : allTagList){
+                            if (allTag.get("label_only").equals(c)){
+                                allTag.put("total", "0");
+                                m.put(c, allTag);
+                                tagList.add(m.get(c));
+                            }
+                        }
+                    }*/
                 }
             }
 
             // #################是否具有标签占比######################
             List<Map<String, Object>> count = InceptorUtil.mapQuery(
-                    SqlKit.propSQL(SQLConfig.label_colony_users) + getLevelCondition() + condition.toString(), true);
+                    SqlKit.propSQL(SQLConfig.label_colony_users) + getLevelCondition() + condition.toString(), false);
             int have = 0;
             if (count.size() > 0) {
                 have = Integer.valueOf(count.get(0).get("allusers").toString());
             }
 
-            count = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.label_colony_users) + getLevelCondition(), true);
+            count = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.label_colony_users) + getLevelCondition(), false);
             int allcount = 0;
             Double val = null;
             if (count.size() > 0) {
@@ -427,15 +446,16 @@ public class PortraitController extends Controller {
             List<Object> keys = new LinkedList<Object>();
             List<Object> values = new LinkedList<Object>();
             for (Map map : tagList) {
-                if (map.get("topic").equals("job")){
+                if (map.get("topic").equals("job")) {
                     keys.add(map.get("label_desc").toString().split("（")[0]);
-                }else{
+                } else {
                     keys.add(map.get("label_desc"));
                 }
                 float v = (Float.valueOf(map.get("total").toString()) / allcount) * 100;
                 DecimalFormat decimalFormat = new DecimalFormat("0.00");
                 values.add(decimalFormat.format(v));
             }
+            result.put("percent", keys.size());
             result.put("tagsRankOption", ChartUtils.genPercentBar(res.get("portrait.groupLabelAccounting"), res.get("portrait.groupLabelAccounting"), keys, values));
 
             // #################标签占比######################
@@ -447,7 +467,7 @@ public class PortraitController extends Controller {
                     + " ) as a1 "
                     + "left join bdlbl.tl_label_all_summary as a2 on a1.user_id=a2.user_id) group by label_only,label_desc having label_desc<>'其它' and label_desc<>'未知' order by total desc;";
             List<Map<String, Object>> tags = InceptorUtil.mapQuery(sql, true);
-            result.put("size", tags.size());
+            result.put("pie", tags.size());
             if (tags != null && !tags.isEmpty()) {
                 result.put("word", genString(tags, codes, have, allcount));
 
@@ -466,7 +486,6 @@ public class PortraitController extends Controller {
                     String s = ((String) map.get("topic")).toLowerCase();
                     if (types.contains(s)) {
                         String key = (String) map.get("topic_desc");
-                        allTagMap.put((String) map.get("label_only"), map);
                         if (tagMap.get(key) == null) {
                             List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
                             tagMap.put(key, list);
@@ -736,7 +755,8 @@ public class PortraitController extends Controller {
             for (int i = 0; i < data.size(); i++) {
                 Map ration = data.get(i);
                 String value = (String) ration.get("trade_type");
-                if (focusmap.containsValue(value)) {int num = Double.valueOf((String) ration.get("trade_thirty_count")).intValue();
+                if (focusmap.containsValue(value)) {
+                    int num = Double.valueOf((String) ration.get("trade_thirty_count")).intValue();
                     int m = Double.valueOf((String) ration.get("trade_thirty_money")).intValue();
                     xAxisListCount.add(num);
                     xAxisList.add(value);
