@@ -4,7 +4,6 @@ import com.jfinal.i18n.I18n;
 import com.jfinal.i18n.Res;
 import io.transwarp.scrcu.base.inceptor.InceptorUtil;
 import io.transwarp.scrcu.base.util.BaseUtils;
-import io.transwarp.scrcu.base.util.ChartUtils;
 import io.transwarp.scrcu.base.util.SQLConfig;
 import io.transwarp.scrcu.sqlinxml.SqlKit;
 
@@ -16,6 +15,8 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 
 import com.alibaba.fastjson.JSONObject;
 import com.jfinal.core.Controller;
+
+import static io.transwarp.scrcu.common.portal.GeneratePortalChartsUtils.*;
 
 @RequiresAuthentication
 public class SiteAnalysisController extends Controller {
@@ -71,75 +72,11 @@ public class SiteAnalysisController extends Controller {
                             .queryCache(SqlKit.propSQL(SQLConfig.portal_visitAnalysis_depth_year.toString(), condition), false);
                 }
             }
-            // 返回结果
-            List<Object> xAxisList = new ArrayList<>();
-            //定义时长对应的集合用来接收对应的数据
-            List<Object> lessThanTenSecList = new ArrayList<>();
-            List<Object> elevenToSixtySecList = new ArrayList<>();
-            List<Object> oneToTenMinList = new ArrayList<>();
-            List<Object> thirtyOverMinList = new ArrayList<>();
-            List<Object> tenToThirtyMinList = new ArrayList<>();
 
-            Object[] nameList = new Object[]{"小于10秒", "11~60秒", "1~10分钟", "10~30分钟", "30分钟以上"};
-
-            for (List<String> list : timeData) {
-
-                if (!xAxisList.contains(list.get(0))) {
-                    xAxisList.add(list.get(0));
-                }
-                if (list.get(1).contains("小于10秒")) {
-                    lessThanTenSecList.add(list.get(2));
-                }
-                if (list.get(1).contains("11~60秒")) {
-                    elevenToSixtySecList.add(list.get(2));
-                }
-                if (list.get(1).contains("1~10分钟")) {
-                    oneToTenMinList.add(list.get(2));
-                }
-                if (list.get(1).contains("10~30分钟")) {
-                    tenToThirtyMinList.add(list.get(2));
-                }
-                if (list.get(1).contains("30分钟以上")) {
-                    thirtyOverMinList.add(list.get(2));
-                }
-
-            }
-            //生成使用时长的折线图数据,此处传入list数据的顺序必须按照nameList中的顺序传入，否则会造成数据对应错误
-            String genUseTime = ChartUtils.genAppMultiLineCharts(dateType, xAxisList, nameList, lessThanTenSecList, elevenToSixtySecList,
-                    oneToTenMinList, tenToThirtyMinList, thirtyOverMinList);
-            result.put("useTimeChart", genUseTime);
-
-            // 返回结果
-            List<Object> depthXAxisList = new ArrayList<>();
-            Object[] depthNames = new Object[]{"小于2", "2~4", "4~10", "10以上"};
-            List<Object> lessThanTwoList = new ArrayList<>();
-            List<Object> twoToFourList = new ArrayList<>();
-            List<Object> fourToTenList = new ArrayList<>();
-            List<Object> tenOverList = new ArrayList<>();
-
-            for (List<String> list : depthData) {
-
-                if (!depthXAxisList.contains(list.get(0))) {
-                    depthXAxisList.add(list.get(0));
-                }
-                if (list.get(1).contains("小于2")) {
-                    lessThanTwoList.add(list.get(2));
-                }
-                if (list.get(1).contains("2~4")) {
-                    twoToFourList.add(list.get(2));
-                }
-                if (list.get(1).contains("4~10")) {
-                    fourToTenList.add(list.get(2));
-                }
-                if (list.get(1).contains("10以上")) {
-                    tenOverList.add(list.get(2));
-                }
-
-            }
-            //生成使用深度的折线图数据,此处传入list数据的顺序必须按照nameList中的顺序传入，否则会造成数据对应错误
-            String genUseDepth = ChartUtils.genAppMultiLineCharts(dateType, depthXAxisList, depthNames, lessThanTwoList, twoToFourList,
-                    fourToTenList, tenOverList);
-            result.put("useDepthChart", genUseDepth);
+            //生成访问分析中访问时长的折线图图表数据
+            result.put("useTimeChart", genUseTimeCharts(dateType, timeData));
+            //生成访问分析中访问深度的折线图图表数据
+            result.put("useDepthChart", genVisitDepthCharts(dateType, depthData));
 
             result.put("timeData", timeData);
             result.put("depthData", depthData);
@@ -240,22 +177,12 @@ public class SiteAnalysisController extends Controller {
 
             // 返回结果
             JSONObject result = new JSONObject();
-            List<Object> xAxisList = new ArrayList<>();
-            List<Object> pvList = new ArrayList<>();
-            List<Object> uvList = new ArrayList<>();
-            List<Object> ipList = new ArrayList<>();
-            List<Object> loginCntList = new ArrayList<>();
-            for (List<String> list : dataFlowTrend) {
-                xAxisList.add(list.get(0));
-                pvList.add(list.get(1));
-                uvList.add(list.get(2));
-                ipList.add(list.get(3));
-                loginCntList.add(list.get(4));
-            }
-            Object[] nameList = new Object[]{res.get("portal.pageViewPV"), res.get("portal.visitorUV"), res.get("portal.IPCount"), res.get("portal.loginUser")};
-            //获取折线图数据
-            String flowTrendChart = ChartUtils.genAppMultiLineCharts(dateType, xAxisList, nameList, pvList, uvList, ipList, loginCntList);
-            result.put("chartOption", flowTrendChart);
+
+            //生成流量趋势的图表数据
+            result.put("flowTrendCharts", genFlowTrendCharts(dateType, dataFlowTrend));
+            //生成新访客的图表数据
+            result.put("newVisitorCharts", genNewVisitorCharts(dateType, dataNewVisitor));
+
             result.put("dataFlowTrend", dataFlowTrend);
             result.put("dataNewVisitor", dataNewVisitor);
             renderJson(result);

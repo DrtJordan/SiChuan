@@ -15,10 +15,12 @@
     <div class="panel panel-default table-responsive clear">
         <header class="noborder panel-heading text-right bg-light clear">
             <ul class="nav nav-tabs pull-left clear">
-                <li class="active csvExportTab" csvAction="portal_siteAnalysis_flowTrend">
+                <li class="active csvExportTab" csvAction="portal_siteAnalysis_flowTrend" id="flowTrendChart">
+                    <input type="hidden" value="flowTrendChart">
                     <a href="#flowTrend" data-toggle="tab"><i class="icon-calendar"></i>&nbsp;默认</a>
                 </li>
-                <li class="csvExportTab" csvAction="portal_siteAnalysis_flowTrend_newVisitor">
+                <li class="csvExportTab" csvAction="portal_siteAnalysis_flowTrend_newVisitor" id="newVisitorChart">
+                    <input type="hidden" value="newVisitorChart">
                     <a href="#newVisitor" data-toggle="tab"><i class="icon-screen-smartphone"></i>&nbsp;新访客指标</a>
                 </li>
             </ul>
@@ -63,6 +65,9 @@
 </section>
 </@layout>
 <script>
+
+    var flowTrendChart;
+    var newVisitorChart;
     /**
      * 定义数据查询方法，用来转换后台传输数据
      * @param data 数据
@@ -71,8 +76,19 @@
     function dataTableExchange(data, dateType) {
         var chart = echarts.init(document.getElementById('chartDiv'),
             'infographic');
-        var chartOption = data.chartOption;
-        chart.setOption($.parseJSON(chartOption));
+
+        flowTrendChart = $.parseJSON(data.flowTrendCharts);
+        newVisitorChart = $.parseJSON(data.newVisitorCharts);
+
+        //获取tab切换标签active时的值,用来加载默认的Echarts数据
+        var chartChange = $(".csvExportTab.active input").val();
+
+        if (chartChange == "flowTrendChart") {
+            chart.setOption(flowTrendChart);
+        }
+        if (chartChange == "newVisitorChart") {
+            chart.setOption(newVisitorChart);
+        }
 
         tableQuery({
             "aaData": data.dataFlowTrend,
@@ -85,6 +101,21 @@
         });
         csvExport("", dateType);
     }
+
+    $("#flowTrendChart").click(function () {
+        var chart = echarts.init(document.getElementById('chartDiv'),
+            'infographic');
+        chart.clear();
+        chart.setOption(flowTrendChart);
+    });
+
+    $("#newVisitorChart").click(function () {
+        var chart = echarts.init(document.getElementById('chartDiv'),
+            'infographic');
+        chart.clear();
+        chart.setOption(newVisitorChart);
+    });
+
 //				$('[href="#aa"]').click(function() {
 //					var columns = $(this).attr("columns").split(",");
 //					for (var i = 0; i < 22; i++) {

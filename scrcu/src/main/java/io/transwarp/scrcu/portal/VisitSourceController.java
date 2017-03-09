@@ -18,6 +18,8 @@ import io.transwarp.scrcu.base.util.ChartUtils;
 import io.transwarp.scrcu.base.util.SQLConfig;
 import io.transwarp.scrcu.sqlinxml.SqlKit;
 
+import static io.transwarp.scrcu.common.portal.GeneratePortalChartsUtils.genTerminalCharts;
+
 @RequiresAuthentication
 public class VisitSourceController extends Controller {
 
@@ -32,6 +34,8 @@ public class VisitSourceController extends Controller {
 
 			//定义集合接收搜索引擎数据
 			List<List<String>> searchEngineData = new ArrayList<>();
+			//接收返回的结果数据
+			JSONObject result = new JSONObject();
 
 			// 得到查询条件
 			String condition = InceptorUtil.getQueryCondition(getRequest());
@@ -52,17 +56,8 @@ public class VisitSourceController extends Controller {
 				}
 			}
 
-			List<Object> dataList = new ArrayList<Object>();
-			for (List<String> list : searchEngineData) {
-				Data d = new Data(list.get(1), list.get(2));
-				dataList.add(d);
-			}
-			// 返回结果
-			JSONObject result = new JSONObject();
-
-			//生成饼图数据
-			String searchEngineChart = ChartUtils.genPie(res.get("portal.visitorCount"), dataList);
-			result.put("chartOption", searchEngineChart);
+			//生成饼图数据并返回
+			result.put("chartOption", genTerminalCharts(searchEngineData));
 
 			result.put("data", searchEngineData);
 			renderJson(result);
