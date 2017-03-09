@@ -431,27 +431,27 @@
 	<sqlGroup name="portal_eventAnalysis_list_day">
 		<sql id="name">事件列表按天汇总</sql>
 		<sql id="header">日期,登录用户数,事件触发次数,触发独立用户数,事件平均持续时长,事件完成次数,完成独立用户数,占比,平均完成时长,事件中断次数,中断独立用户数,占比</sql>
-		<sql id="sql">select * from result_event_summary</sql>
+		<sql id="sql">select stat_date, online_user_cnt, event_cnt, event_usr_cnt, avg_event_time, complete_cnt, complete_usr_cnt, complete_ratio, avg_cplt_time, event_break_cnt, event_break_usr_cnt, event_break_ratio from bdhbs.th_log_app_event_info_orc_day where SQL_CONDITION cnt_type='99' order by stat_date asc</sql>
 	</sqlGroup>
 	<sqlGroup name="portal_eventAnalysis_list_week">
 		<sql id="name">事件列表按周汇总</sql>
 		<sql id="header">日期,登录用户数,事件触发次数,触发独立用户数,事件平均持续时长,事件完成次数,完成独立用户数,占比,平均完成时长,事件中断次数,中断独立用户数,占比</sql>
-		<sql id="sql">select * from result_event_summary</sql>
+		<sql id="sql">select stat_date, online_user_cnt, event_cnt, event_usr_cnt, avg_event_time, complete_cnt, complete_usr_cnt, complete_ratio, avg_cplt_time, event_break_cnt, event_break_usr_cnt, event_break_ratio from bdhbs.th_log_app_event_info_orc_day where SQL_CONDITION cnt_type='1' order by stat_date asc</sql>
 	</sqlGroup>
 	<sqlGroup name="portal_eventAnalysis_list_month">
 		<sql id="name">事件列表按月汇总</sql>
 		<sql id="header">日期,登录用户数,事件触发次数,触发独立用户数,事件平均持续时长,事件完成次数,完成独立用户数,占比,平均完成时长,事件中断次数,中断独立用户数,占比</sql>
-		<sql id="sql">select * from result_event_summary</sql>
+		<sql id="sql">select stat_date, online_user_cnt, event_cnt, event_usr_cnt, avg_event_time, complete_cnt, complete_usr_cnt, complete_ratio, avg_cplt_time, event_break_cnt, event_break_usr_cnt, event_break_ratio from bdhbs.th_log_app_event_info_orc_day where SQL_CONDITION cnt_type='2' order by stat_date asc</sql>
 	</sqlGroup>
 	<sqlGroup name="portal_eventAnalysis_list_quarter">
 		<sql id="name">事件列表按季汇总</sql>
 		<sql id="header">日期,登录用户数,事件触发次数,触发独立用户数,事件平均持续时长,事件完成次数,完成独立用户数,占比,平均完成时长,事件中断次数,中断独立用户数,占比</sql>
-		<sql id="sql">select * from result_event_summary</sql>
+		<sql id="sql">select stat_date, online_user_cnt, event_cnt, event_usr_cnt, avg_event_time, complete_cnt, complete_usr_cnt, complete_ratio, avg_cplt_time, event_break_cnt, event_break_usr_cnt, event_break_ratio from bdhbs.th_log_app_event_info_orc_day where SQL_CONDITION cnt_type='3' order by stat_date asc</sql>
 	</sqlGroup>
 	<sqlGroup name="portal_eventAnalysis_list_year">
 		<sql id="name">事件列表按年汇总</sql>
 		<sql id="header">日期,登录用户数,事件触发次数,触发独立用户数,事件平均持续时长,事件完成次数,完成独立用户数,占比,平均完成时长,事件中断次数,中断独立用户数,占比</sql>
-		<sql id="sql">select * from result_event_summary</sql>
+		<sql id="sql">select stat_date, online_user_cnt, event_cnt, event_usr_cnt, avg_event_time, complete_cnt, complete_usr_cnt, complete_ratio, avg_cplt_time, event_break_cnt, event_break_usr_cnt, event_break_ratio from bdhbs.th_log_app_event_info_orc_day where SQL_CONDITION cnt_type='4' order by stat_date asc</sql>
 	</sqlGroup>
 	<!-- 事件列表 end -->
 
