@@ -5,7 +5,7 @@ import com.jfinal.i18n.Res;
 import io.transwarp.scrcu.base.inceptor.InceptorUtil;
 import io.transwarp.scrcu.base.util.BaseUtils;
 import io.transwarp.scrcu.base.util.SQLConfig;
-import io.transwarp.scrcu.common.app.GenerateAppChartsUtils;
+import io.transwarp.scrcu.base.util.GenerateAppChartsUtils;
 import io.transwarp.scrcu.sqlinxml.SqlKit;
 
 import java.util.ArrayList;

@@ -19,7 +19,7 @@ import io.transwarp.scrcu.base.util.ChartUtils;
 import io.transwarp.scrcu.base.util.SQLConfig;
 import io.transwarp.scrcu.sqlinxml.SqlKit;
 
-import static io.transwarp.scrcu.common.app.GenerateAppChartsUtils.genMemberRunOffCharts;
+import static io.transwarp.scrcu.base.util.GenerateAppChartsUtils.genMemberRunOffCharts;
 
 @RequiresAuthentication
 public class UserAnalysisController extends Controller {

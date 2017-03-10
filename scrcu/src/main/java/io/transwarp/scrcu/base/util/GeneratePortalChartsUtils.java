@@ -1,4 +1,4 @@
-package io.transwarp.scrcu.common.portal;
+package io.transwarp.scrcu.base.util;
 
 import com.jfinal.i18n.I18n;
 import com.jfinal.i18n.Res;

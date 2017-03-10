@@ -11,14 +11,12 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import com.alibaba.fastjson.JSONObject;
 import com.jfinal.core.Controller;
 
-import io.transwarp.echarts.data.Data;
 import io.transwarp.scrcu.base.inceptor.InceptorUtil;
 import io.transwarp.scrcu.base.util.BaseUtils;
-import io.transwarp.scrcu.base.util.ChartUtils;
 import io.transwarp.scrcu.base.util.SQLConfig;
 import io.transwarp.scrcu.sqlinxml.SqlKit;
 
-import static io.transwarp.scrcu.common.portal.GeneratePortalChartsUtils.genTerminalCharts;
+import static io.transwarp.scrcu.base.util.GeneratePortalChartsUtils.genTerminalCharts;
 
 @RequiresAuthentication
 public class VisitSourceController extends Controller {

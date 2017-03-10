@@ -97,6 +97,7 @@ public class ChartUtils {
      * @param dataList 数据
      * @return
      */
+    @SuppressWarnings("unchecked")
     public static String genMutilPie(String name, List<Object>... dataList) {
         EnhancedOption option = new EnhancedOption();
         option.title().text(name).x("center").y("bottom");
@@ -120,6 +121,7 @@ public class ChartUtils {
      * @param dataList
      * @return
      */
+    @SuppressWarnings("unchecked")
     public static String genMultiLineChart(List<Object> xAxisList, Object[] nameList, List<Object>... dataList) {
         EnhancedOption option = new EnhancedOption();
         option.tooltip().trigger(Trigger.axis);
@@ -153,6 +155,7 @@ public class ChartUtils {
     /**
      * 生成使用时长的折线图
      */
+    @SuppressWarnings("unchecked")
     public static String genAppMultiLineCharts(String dateType, List<Object> xAxisList, Object[] nameList, List<Object>... dataList) {
         EnhancedOption option = new EnhancedOption();
         option.tooltip().trigger(Trigger.axis);
@@ -635,5 +638,4 @@ public class ChartUtils {
         // option.view();
         return GsonUtil.format(option);
     }
-
 }

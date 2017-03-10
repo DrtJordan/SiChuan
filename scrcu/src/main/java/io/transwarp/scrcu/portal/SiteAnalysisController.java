@@ -16,7 +16,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import com.alibaba.fastjson.JSONObject;
 import com.jfinal.core.Controller;
 
-import static io.transwarp.scrcu.common.portal.GeneratePortalChartsUtils.*;
+import static io.transwarp.scrcu.base.util.GeneratePortalChartsUtils.*;
 
 @RequiresAuthentication
 public class SiteAnalysisController extends Controller {

@@ -229,22 +229,6 @@ public enum SQLConfig {
     app_retainUser_day,
     app_retainUser_phone_day,
     app_retainUser_channel_day,
-    //app留存用户按周汇总
-    app_retainUser_week,
-    app_retainUser_phone_week,
-    app_retainUser_channel_week,
-    //app留存用户按月汇总
-    app_retainUser_month,
-    app_retainUser_phone_month,
-    app_retainUser_channel_month,
-    //app留存用户按季汇总
-    app_retainUser_quarter,
-    app_retainUser_phone_quarter,
-    app_retainUser_channel_quarter,
-    //app留存用户按年汇总
-    app_retainUser_year,
-    app_retainUser_phone_year,
-    app_retainUser_channel_year,
 
     //新增用户按天汇总
     app_newUser_day,

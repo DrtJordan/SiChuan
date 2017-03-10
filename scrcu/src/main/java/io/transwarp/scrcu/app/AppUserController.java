@@ -6,15 +6,18 @@ import com.jfinal.i18n.Res;
 import io.transwarp.scrcu.base.controller.BaseController;
 import io.transwarp.scrcu.base.inceptor.InceptorUtil;
 import io.transwarp.scrcu.base.util.BaseUtils;
-import io.transwarp.scrcu.base.util.ChartUtils;
 import io.transwarp.scrcu.base.util.SQLConfig;
-import io.transwarp.scrcu.common.app.GenerateAppChartsUtils;
+import io.transwarp.scrcu.base.util.GenerateAppChartsUtils;
 import io.transwarp.scrcu.sqlinxml.SqlKit;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static io.transwarp.scrcu.base.util.GenerateAppChartsUtils.genChannelCharts;
+import static io.transwarp.scrcu.base.util.GenerateAppChartsUtils.genOsCharts;
+import static io.transwarp.scrcu.base.util.GenerateAppChartsUtils.genUserTimeCharts;
 
 @RequiresAuthentication
 public class AppUserController extends BaseController {
@@ -69,7 +72,7 @@ public class AppUserController extends BaseController {
             Object[] nameList = new Object[]{res.get("app.startUser")};
 
             //返回根据日期生成折线图的图表数据
-            result.put("timeCharts", GenerateAppChartsUtils.genUserTimeCharts(type, dataTime, nameList));
+            result.put("timeCharts", genUserTimeCharts(type, dataTime, nameList));
             //返回根据手机OS生成折线图的图表数据
             result.put("osCharts", GenerateAppChartsUtils.genOsCharts(type, dataPhone));
             //返回根据渠道生成折线图的图表数据
@@ -91,51 +94,24 @@ public class AppUserController extends BaseController {
     public void retainUser() {
         if (BaseUtils.isAjax(getRequest())) {
 
-            List<List<String>> dataTime = new ArrayList<>();
-            List<List<String>> dataPhone = new ArrayList<>();
-            List<List<String>> dataChannel = new ArrayList<>();
             // 定义json类型结果
             JSONObject result = new JSONObject();
             // 得到查询条件
             String condition = InceptorUtil.getQueryCondition(getRequest());
-            String type = getPara("dateType");
-            if (type != null) {
-                if (type.equals("day")) {
-                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_retainUser_day, condition), false);
-                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_phone_day, condition));
-                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_channel_day, condition));
-                }
-                if (type.equals("week")) {
-                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_retainUser_week, condition), false);
-                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_phone_week, condition));
-                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_channel_week, condition));
-                }
-                if (type.equals("month")) {
-                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_retainUser_month, condition), false);
-                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_phone_month, condition));
-                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_channel_month, condition));
-                }
-                if (type.equals("quarter")) {
-                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_retainUser_quarter, condition), false);
-                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_phone_quarter, condition));
-                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_channel_quarter, condition));
-                }
-                if (type.equals("year")) {
-                    dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_retainUser_year, condition), false);
-                    dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_phone_year, condition));
-                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_channel_year, condition));
-                }
-            }
 
-            //返回结果
-            List<Object> xAxisList = new ArrayList<>();
-            List<Object> dataList = new ArrayList<>();
-            for (List<String> list : dataTime) {
-                xAxisList.add(list.get(0));
-                dataList.add(list.get(1));
-            }
-            String str = ChartUtils.genLineChart(res.get("app.newAddUser"), xAxisList, dataList);
-            result.put("chartOption", str);
+            //定义集合并获取对应数据
+            List<List<String>> dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_retainUser_day, condition), false);
+            List<List<String>> dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_phone_day, condition));
+            List<List<String>> dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_retainUser_channel_day, condition));
+
+            //生成留存用户按照日期分布的折线图
+            Object[] nameList = new Object[]{res.get("app.newAddUser")};
+            result.put("timeCharts", genUserTimeCharts("day", dataTime, nameList));
+            //生成留存用户按照手机OS分布的折线图
+            result.put("osCharts", genOsCharts("day", dataPhone));
+            //生成留存用户按照渠道分布的折线图
+            result.put("chlCharts", genChannelCharts("day", dataChannel, nameList));
+
             result.put("dataTime", dataTime);
             result.put("dataPhone", dataPhone);
             result.put("dataChannel", dataChannel);
@@ -232,7 +208,7 @@ public class AppUserController extends BaseController {
             result.put("timeCharts", GenerateAppChartsUtils.genLoginUserTimeCharts(type, dataTime));
 
             Object[] chlNameList = new Object[]{res.get("app.startUser"), res.get("app.loginUser")};
-            result.put("chlCharts", GenerateAppChartsUtils.genChannelCharts(type, dataChannel, chlNameList));
+            result.put("chlCharts", GenerateAppChartsUtils.genMultiLineChannelCharts(type, dataChannel, chlNameList));
 
             result.put("osCharts", GenerateAppChartsUtils.genOsCharts(type, dataPhone));
 
@@ -283,7 +259,7 @@ public class AppUserController extends BaseController {
 
             //定义折线图图例的名称
             Object[] nameList = new Object[]{res.get("app.newAddUser")};
-            result.put("timeCharts", GenerateAppChartsUtils.genUserTimeCharts(type, dataTime, nameList));
+            result.put("timeCharts", genUserTimeCharts(type, dataTime, nameList));
             result.put("osCharts", GenerateAppChartsUtils.genOsCharts(type, dataPhone));
 
             result.put("dataTime", dataTime);
