@@ -50,7 +50,7 @@
                 </div>
                 <div class="form-group">
                     <#list jobs as job>
-                        <input type="hidden" value="${job.job_key}" name="key${job_index}">
+                        <input type="hidden" value="${job.label_only}" name="key${job_index}">
                         <input type="hidden" value="${session['username']}" name="oper_user">
                         <input type="hidden" value="${job.job_name}" name="names">
                         <div class="col-sm-6">

@@ -89,309 +89,309 @@
 	<sqlGroup name="use_time_label">
 		<sql id="name">使用时段标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">select use_time, use_time_name, begin_use_time, end_use_time, oper_time, oper_user from test.use_time_table order by oper_time desc limit 7</sql>
+		<sql id="sql">select label_only, use_time_name, begin_use_time, end_use_time, oper_time, oper_user from bddim.tmp_web_use_time order by oper_time desc,label_only asc limit 7</sql>
 	</sqlGroup>
 	<sqlGroup name="use_time_label_config">
 		<sql id="name">配置使用时段标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">insert into test.use_time_table (use_time, use_time_name, begin_use_time, end_use_time, oper_time, oper_user) values SQL_CONDITION</sql>
+		<sql id="sql">insert into bddim.tmp_web_use_time (label_only, use_time_name, begin_use_time, end_use_time, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
 	<sqlGroup name="job_label">
 		<sql id="name">职业标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">select job_key, job_name, content_name, oper_time, oper_user from test.t_job order by oper_time desc limit 7</sql>
+		<sql id="sql">select label_only, job_name, content_name, oper_time, oper_user from bddim.tmp_job order by oper_time desc limit 7</sql>
 	</sqlGroup>
 	<sqlGroup name="job_label_config">
 		<sql id="name">配置职业标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">insert into test.t_job (job_key, job_name, content_name, oper_time, oper_user) values SQL_CONDITION</sql>
+		<sql id="sql">insert into bddim.tmp_job (label_only, job_name, content_name, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
 	<sqlGroup name="custom_hobby_label">
 		<sql id="name">产品功能消费偏好标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">select pfcp_key, pfcp_order, content_name, oper_time, oper_user from test.t_prod_func_consu_prefer order by oper_time desc limit 1</sql>
+		<sql id="sql">select label_only, pfcp_order, content_name, oper_time, oper_user from bddim.tmp_prod_func_consum_prefer order by oper_time desc limit 1</sql>
 	</sqlGroup>
 	<sqlGroup name="custom_hobby_label_config">
 		<sql id="name">配置产品功能消费偏好标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">insert into test.t_prod_func_consu_prefer (pfcp_key, pfcp_order, content_name, oper_time, oper_user) values SQL_CONDITION</sql>
+		<sql id="sql">insert into bddim.tmp_prod_func_consum_prefer (label_only, pfcp_order, content_name, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
 	<sqlGroup name="age_label">
 		<sql id="name">年龄标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">select age_key, age_name, begin_age, end_age, oper_time, oper_user from test.t_age order by oper_time desc limit 5</sql>
+		<sql id="sql">select label_only, age_name, begin_age, end_age, oper_time, oper_user from bddim.tmp_age order by oper_time desc, begin_age asc limit 5</sql>
 	</sqlGroup>
 	<sqlGroup name="age_label_config">
 		<sql id="name">配置年龄标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">insert into test.t_age (age_key,age_name,begin_age,end_age,oper_time,oper_user) values SQL_CONDITION</sql>
+		<sql id="sql">insert into bddim.tmp_age (label_only, age_name, begin_age, end_age, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
 	<sqlGroup name="reg_year_label">
 		<sql id="name">蜀信e注册年限标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">select regYear_key, regYear_name, begin_year, end_year, oper_time, oper_user from test.t_reg_year order by oper_time desc limit 3</sql>
+		<sql id="sql">select label_only, regYear_name, begin_year, end_year, oper_time, oper_user from bddim.tmp_reg_year order by oper_time desc, label_only asc limit 3</sql>
 	</sqlGroup>
 	<sqlGroup name="reg_year_label_config">
 		<sql id="name">配置蜀信e注册年限标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">insert into test.t_reg_year (regYear_key, regYear_name, begin_year, end_year, oper_time, oper_user) values SQL_CONDITION</sql>
+		<sql id="sql">insert into bddim.tmp_reg_year (label_only, regYear_name, begin_year, end_year, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
 	<sqlGroup name="pro_debt_label">
 		<sql id="name">资产负债标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">select prodebt_key, prodebt_name, begin_pro, end_pro, oper_time, oper_user from test.t_pro_debt order by oper_time desc limit 3</sql>
+		<sql id="sql">select label_only, prodebt_name, begin_pro, end_pro, oper_time, oper_user from bddim.tmp_total_assets order by oper_time desc limit 3</sql>
 	</sqlGroup>
 	<sqlGroup name="pro_debt_label_config">
 		<sql id="name">配置资产负债标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">insert into test.t_pro_debt (prodebt_key, prodebt_name, begin_pro, end_pro, oper_time, oper_user) values SQL_CONDITION</sql>
+		<sql id="sql">insert into bddim.tmp_total_assets (label_only, prodebt_name, begin_pro, end_pro, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
 	<sqlGroup name="prod_server_label">
-		<sql id="name">持有产品服务标签</sql>
+			<sql id="name">持有产品服务标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">select prodserver_key, prodserver_name, begin_cont, end_cont, oper_time, oper_user from test.t_prod_server order by oper_time desc limit 3</sql>
+		<sql id="sql">select label_only, prodserver_name, begin_cont, end_cont, oper_time, oper_user from bddim.tmp_hold_product_services order by oper_time desc, cast(begin_cont AS int) asc limit 3</sql>
 	</sqlGroup>
 	<sqlGroup name="prod_server_label_config">
 		<sql id="name">配置持有产品服务标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">insert into test.t_prod_server (prodserver_key, prodserver_name, begin_cont, end_cont, oper_time, oper_user) values SQL_CONDITION</sql>
+		<sql id="sql">insert into bddim.tmp_hold_product_services (label_only, prodserver_name, begin_cont, end_cont, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
 	<sqlGroup name="part_active_label">
 		<sql id="name">客户参与活动标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">select partactive_key, partactive_name, begin_cont, end_cont, oper_time, oper_user from test.t_part_active order by oper_time desc limit 3</sql>
+		<sql id="sql">select label_only, partactive_name, begin_cont, end_cont, oper_time, oper_user from bddim.tmp_join_activities_num order by oper_time desc, cast(begin_cont AS int) asc limit 3</sql>
 	</sqlGroup>
 	<sqlGroup name="part_active_label_config">
 		<sql id="name">配置客户参与活动标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">insert into test.t_part_active (partactive_key, partactive_name, begin_cont, end_cont, oper_time, oper_user) values SQL_CONDITION</sql>
+		<sql id="sql">insert into bddim.tmp_join_activities_num (label_only, partactive_name, begin_cont, end_cont, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
 	<sqlGroup name="tran_num_label">
 		<sql id="name">月交易次数标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">select trannum_key, trannum_name, begin_cont, end_cont, oper_time, oper_user from test.t_tran_num order by oper_time desc limit 3</sql>
+		<sql id="sql">select label_only, trannum_name, begin_cont, end_cont, oper_time, oper_user from bddim.tmp_trade_thirty_count order by oper_time desc, cast(begin_cont AS int) asc limit 3</sql>
 	</sqlGroup>
 	<sqlGroup name="tran_num_label_config">
 		<sql id="name">配置月交易次数标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">insert into test.t_tran_num (trannum_key, trannum_name, begin_cont, end_cont, oper_time, oper_user) values SQL_CONDITION</sql>
+		<sql id="sql">insert into bddim.tmp_trade_thirty_count (label_only, trannum_name, begin_cont, end_cont, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
 	<sqlGroup name="tran_money_label">
 		<sql id="name">月交易金额标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">select tranmoney_key, tranmoney_name, begin_cont, end_cont, oper_time, oper_user from test.t_tran_money order by oper_time desc limit 4</sql>
+		<sql id="sql">select label_only, tranmoney_name, begin_cont, end_cont, oper_time, oper_user from bddim.tmp_trade_thirty_money order by oper_time desc, cast(begin_cont AS int) asc limit 4</sql>
 	</sqlGroup>
 	<sqlGroup name="tran_money_label_config">
 		<sql id="name">配置月交易金额标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">insert into test.t_tran_money (tranmoney_key, tranmoney_name, begin_cont, end_cont, oper_time, oper_user) values SQL_CONDITION</sql>
+		<sql id="sql">insert into bddim.tmp_trade_thirty_money (label_only, tranmoney_name, begin_cont, end_cont, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
 	<sqlGroup name="time_hobby_label">
 		<sql id="name">时间偏好标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">select timehobby_key, timehobby_name, begin_time, end_time, oper_time, oper_user from test.t_time_hobby order by oper_time desc limit 5</sql>
+		<sql id="sql">select label_only, timehobby_name, begin_time, end_time, oper_time, oper_user from bddim.tmp_trade_date order by oper_time desc, label_only asc limit 5</sql>
 	</sqlGroup>
 	<sqlGroup name="time_hobby_label_config">
 		<sql id="name">配置时间偏好标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">insert into test.t_time_hobby (timehobby_key, timehobby_name, begin_time, end_time, oper_time, oper_user) values SQL_CONDITION</sql>
+		<sql id="sql">insert into bddim.tmp_trade_date (label_only, timehobby_name, begin_time, end_time, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
 	<sqlGroup name="group_type_label">
 		<sql id="name">用户群体类型标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">select grouptype_key, grouptype_name, begin_cont, end_cont, oper_time, oper_user from test.t_group_type order by oper_time desc limit 3</sql>
+		<sql id="sql">select label_only, grouptype_name, begin_cont, end_cont, oper_time, oper_user from bddim.tmp_colony order by oper_time desc, label_only desc limit 3</sql>
 	</sqlGroup>
 	<sqlGroup name="group_type_label_config">
 		<sql id="name">配置用户群体类型标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">insert into test.t_group_type (grouptype_key, grouptype_name, begin_cont, end_cont, oper_time, oper_user) values SQL_CONDITION</sql>
+		<sql id="sql">insert into bddim.tmp_colony (label_only, grouptype_name, begin_cont, end_cont, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
 	<sqlGroup name="sear_behaviour_label">
 		<sql id="name">网页搜索操作行为标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">select searbehaviour_key, searbehaviour_name, begin_cont, end_cont, oper_time, oper_user from test.t_sear_behaviour order by oper_time desc limit 3</sql>
+		<sql id="sql">select label_only, searbehaviour_name, begin_cont, end_cont, oper_time, oper_user from bddim.tmp_web_search order by oper_time desc limit 3</sql>
 	</sqlGroup>
 	<sqlGroup name="sear_behaviour_label_config">
 		<sql id="name">配置网页搜索操作行为标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">insert into test.t_sear_behaviour (searbehaviour_key, searbehaviour_name, begin_cont, end_cont, oper_time, oper_user) values SQL_CONDITION</sql>
+		<sql id="sql">insert into bddim.tmp_web_search (label_only, searbehaviour_name, begin_cont, end_cont, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
 	<sqlGroup name="comp_behaviour_label">
 		<sql id="name">网页投诉操作行为标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">select compbehaviour_key, compbehaviour_name, begin_cont, end_cont, oper_time, oper_user from test.t_comp_behaviour order by oper_time desc limit 3</sql>
+		<sql id="sql">select label_only, compbehaviour_name, begin_cont, end_cont, oper_time, oper_user from bddim.tmp_complain order by oper_time desc limit 3</sql>
 	</sqlGroup>
 	<sqlGroup name="comp_behaviour_label_config">
 		<sql id="name">配置网页投诉操作行为标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">insert into test.t_comp_behaviour (compbehaviour_key, compbehaviour_name, begin_cont, end_cont, oper_time, oper_user) values SQL_CONDITION</sql>
+		<sql id="sql">insert into bddim.tmp_complain (label_only, compbehaviour_name, begin_cont, end_cont, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
 	<sqlGroup name="note_behaviour_label">
 		<sql id="name">网页留言操作行为标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">select notebehaviour_key, notebehaviour_name, begin_cont, end_cont, oper_time, oper_user from test.t_note_behaviour order by oper_time desc limit 3</sql>
+		<sql id="sql">select label_only, notebehaviour_name, begin_cont, end_cont, oper_time, oper_user from bddim.tmp_message order by oper_time desc limit 3</sql>
 	</sqlGroup>
 	<sqlGroup name="note_behaviour_label_config">
 		<sql id="name">配置网页留言操作行为标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">insert into test.t_note_behaviour (notebehaviour_key, notebehaviour_name, begin_cont, end_cont, oper_time, oper_user) values SQL_CONDITION</sql>
+		<sql id="sql">insert into bddim.tmp_message (label_only, notebehaviour_name, begin_cont, end_cont, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
 	<sqlGroup name="event_behaviour_label">
 		<sql id="name">网页事件行为标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">select eventbehaviour_key, eventbehaviour_name, begin_cont, end_cont, oper_time, oper_user from test.t_event_behaviour order by oper_time desc limit 3</sql>
+		<sql id="sql">select label_only, eventbehaviour_name, begin_cont, end_cont, oper_time, oper_user from bddim.tmp_web_evt_time order by oper_time desc limit 3</sql>
 	</sqlGroup>
 	<sqlGroup name="event_behaviour_label_config">
 		<sql id="name">配置网页事件操作行为标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">insert into test.t_event_behaviour (eventbehaviour_key, eventbehaviour_name, begin_cont, end_cont, oper_time, oper_user) values SQL_CONDITION</sql>
+		<sql id="sql">insert into bddim.tmp_web_evt_time (label_only, eventbehaviour_name, begin_cont, end_cont, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
 	<sqlGroup name="soc_relation_label">
 		<sql id="name">社交关系标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">select socrelation_key, socrelation_name, begin_num, end_num, oper_time, oper_user from test.t_soc_relation order by oper_time desc limit 1</sql>
+		<sql id="sql">select label_only, socrelation_name, begin_num, end_num, oper_time, oper_user from bddim.tmp_firend_rela order by oper_time desc limit 1</sql>
 	</sqlGroup>
 	<sqlGroup name="soc_relation_label_config">
 		<sql id="name">配置社交关系标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">insert into test.t_soc_relation (socrelation_key, socrelation_name, begin_num, end_num, oper_time, oper_user) values SQL_CONDITION</sql>
+		<sql id="sql">insert into bddim.tmp_firend_rela (label_only, socrelation_name, begin_num, end_num, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
 	<sqlGroup name="cha_feature_label">
 		<sql id="name">活跃变化特征标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">select chafeature_key, chafeature_name, begin_per, end_per, oper_time, oper_user from test.t_cha_feature order by oper_time desc limit 2</sql>
+		<sql id="sql">select label_only, chafeature_name, begin_per, end_per, oper_time, oper_user from bddim.tmp_active_feature order by oper_time desc limit 2</sql>
 	</sqlGroup>
 	<sqlGroup name="cha_feature_label_config">
 		<sql id="name">配置活跃变化特征标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">insert into test.t_cha_feature (chafeature_key, chafeature_name, begin_per, end_per, oper_time, oper_user) values SQL_CONDITION</sql>
+		<sql id="sql">insert into bddim.tmp_active_feature (label_only, chafeature_name, begin_per, end_per, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
 	<sqlGroup name="sec_auth_label">
 		<sql id="name">安全认证方式标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">select secAuth_key, secAuth_name, content_name, oper_time, oper_user from test.t_sec_auth order by oper_time desc limit 3</sql>
+		<sql id="sql">select label_only, secAuth_name, content_name, oper_time, oper_user from bddim.tmp_media_mode order by oper_time desc limit 3</sql>
 	</sqlGroup>
 	<sqlGroup name="sec_auth_label_config">
 		<sql id="name">配置安全认证方式标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">insert into test.t_sec_auth (secAuth_key, secAuth_name, content_name, oper_time, oper_user) values SQL_CONDITION</sql>
+		<sql id="sql">insert into bddim.tmp_media_mode (label_only, secAuth_name, content_name, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
 	<sqlGroup name="pay_hobby_label">
 		<sql id="name">支付偏好标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">select payhobby_key, payhobby_order, content_name, oper_time, oper_user from test.t_pay_hobby order by oper_time desc limit 1</sql>
+		<sql id="sql">select label_only, payhobby_order, content_name, oper_time, oper_user from bddim.tmp_pay_prefer order by oper_time desc limit 1</sql>
 	</sqlGroup>
 	<sqlGroup name="pay_hobby_label_config">
 		<sql id="name">配置支付偏好标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">insert into test.t_pay_hobby (payhobby_key, payhobby_order, content_name, oper_time, oper_user) values SQL_CONDITION</sql>
+		<sql id="sql">insert into bddim.tmp_pay_prefer (label_only, payhobby_order, content_name, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
 	<sqlGroup name="send_eff_label">
 		<sql id="name">汇路时效标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">select sendeff_key, sendeff_order, content_name, oper_time, oper_user from test.t_send_eff order by oper_time desc limit 1</sql>
+		<sql id="sql">select label_only, sendeff_order, content_name, oper_time, oper_user from bddim.tmp_route_desc order by oper_time desc limit 1</sql>
 	</sqlGroup>
 	<sqlGroup name="send_eff_label_config">
 		<sql id="name">配置汇路时效标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">insert into test.t_send_eff (sendeff_key, sendeff_order, content_name, oper_time, oper_user) values SQL_CONDITION</sql>
+		<sql id="sql">insert into bddim.tmp_route_desc (label_only, sendeff_order, content_name, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
 	<sqlGroup name="bank_tran_label">
 		<sql id="name">行内外转账标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">select banktran_key, banktran_order, content_name, oper_time, oper_user from test.t_bank_tran order by oper_time desc limit 1</sql>
+		<sql id="sql">select label_only, banktran_order, content_name, oper_time, oper_user from bddim.tmp_bank_in_or_out order by oper_time desc limit 1</sql>
 	</sqlGroup>
 	<sqlGroup name="bank_tran_label_config">
 		<sql id="name">配置行内外转账标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">insert into test.t_bank_tran (banktran_key, banktran_order, content_name, oper_time, oper_user) values SQL_CONDITION</sql>
+		<sql id="sql">insert into bddim.tmp_bank_in_or_out (label_only, banktran_order, content_name, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
 	<sqlGroup name="tran_hobby_label">
 		<sql id="name">交易偏好标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">select tranhobby_key, tranhobby_order, content_name, oper_time, oper_user from test.t_tran_hobby order by oper_time desc limit 1</sql>
+		<sql id="sql">select label_only, tranhobby_order, content_name, oper_time, oper_user from bddim.tmp_trade_prefer order by oper_time desc limit 1</sql>
 	</sqlGroup>
 	<sqlGroup name="tran_hobby_label_config">
 		<sql id="name">配置交易偏好标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">insert into test.t_tran_hobby (tranhobby_key, tranhobby_order, content_name, oper_time, oper_user) values SQL_CONDITION</sql>
+		<sql id="sql">insert into bddim.tmp_trade_prefer (label_only, tranhobby_order, content_name, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
 	<sqlGroup name="tran_type_label">
 		<sql id="name">转账类型偏好标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">select trantype_key, trantype_order, content_name, oper_time, oper_user from test.t_tran_type order by oper_time desc limit 1</sql>
+		<sql id="sql">select label_only, trantype_order, content_name, oper_time, oper_user from bddim.tmp_transfer_prefer order by oper_time desc limit 1</sql>
 	</sqlGroup>
 	<sqlGroup name="tran_type_label_config">
 		<sql id="name">配置转账类型偏好标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">insert into test.t_tran_type (trantype_key, trantype_order, content_name, oper_time, oper_user) values SQL_CONDITION</sql>
+		<sql id="sql">insert into bddim.tmp_transfer_prefer (label_only, trantype_order, content_name, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
 	<sqlGroup name="prod_hobby_label">
 		<sql id="name">存款产品偏好标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">select prodHobby_key, prodHobby_order, content_name, oper_time, oper_user from test.t_prod_hobby order by oper_time desc limit 1</sql>
+		<sql id="sql">select label_only, prodHobby_order, content_name, oper_time, oper_user from bddim.tmp_deposit_prod_prefer order by oper_time desc limit 1</sql>
 	</sqlGroup>
 	<sqlGroup name="prod_hobby_label_config">
 		<sql id="name">配置存款产品偏好标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">insert into test.t_prod_hobby (prodHobby_key, prodHobby_order, content_name, oper_time, oper_user) values SQL_CONDITION</sql>
+		<sql id="sql">insert into bddim.tmp_deposit_prod_prefer (label_only, prodHobby_order, content_name, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
 	<sqlGroup name="search_eng_label">
 		<sql id="name">搜索引擎标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">select searcheng_key, searcheng_order, content_name, oper_time, oper_user from test.t_search_eng order by oper_time desc limit 1</sql>
+		<sql id="sql">select label_only, searcheng_order, content_name, oper_time, oper_user from bddim.tmp_search_engine order by oper_time desc limit 1</sql>
 	</sqlGroup>
 	<sqlGroup name="search_eng_label_config">
 		<sql id="name">配置搜索引擎标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">insert into test.t_search_eng (searcheng_key, searcheng_order, content_name, oper_time, oper_user) values SQL_CONDITION</sql>
+		<sql id="sql">insert into bddim.tmp_search_engine (label_only, searcheng_order, content_name, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
 	<sqlGroup name="func_feature_label">
 		<sql id="name">活跃功能特征标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">select funcfeature_key, funcfeature_order, content_name, oper_time, oper_user from test.t_func_feature order by oper_time desc limit 1</sql>
+		<sql id="sql">select label_only, funcfeature_order, content_name, oper_time, oper_user from bddim.tmp_active_func_feature order by oper_time desc limit 1</sql>
 	</sqlGroup>
 	<sqlGroup name="func_feature_label_config">
 		<sql id="name">配置活跃功能特征标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">insert into test.t_func_feature (funcfeature_key, funcfeature_order, content_name, oper_time, oper_user) values SQL_CONDITION</sql>
+		<sql id="sql">insert into bddim.tmp_active_func_feature (label_only, funcfeature_order, content_name, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
 	<sqlGroup name="terminal_label">
 		<sql id="name">终端标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">select terminal_key, terminal_order, content_name, oper_time, oper_user from test.t_terminal order by oper_time desc limit 1</sql>
+		<sql id="sql">select label_only, terminal_order, content_name, oper_time, oper_user from bddim.tmp_terminal order by oper_time desc limit 1</sql>
 	</sqlGroup>
 	<sqlGroup name="terminal_label_config">
 		<sql id="name">配置终端标签</sql>
 		<sql id="header"></sql>
-		<sql id="sql">insert into test.t_terminal (terminal_key, terminal_order, content_name, oper_time, oper_user) values SQL_CONDITION</sql>
+		<sql id="sql">insert into bddim.tmp_terminal (label_only, terminal_order, content_name, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
 	<sqlGroup name="label_colony_users">

@@ -126,39 +126,56 @@ public class PortraitController extends Controller {
                 tagMap.get(key).add(map);
             }
 
+            // 职业
+            List<Map<String, Object>> job = tagMap.get("job");
+            List<Object> jobList = new ArrayList<Object>();
+            if (job != null) {
+                for (Map<String, Object> m : job) {
+                    Data data = new Data(m.get("label_desc").toString().split("（")[0], m.get("total"));
+                    jobList.add(data);
+                }
+            }
+            result.put("job", ChartUtils.genPie(res.get("portrait.career"), jobList));
+
             // 交易类型
             List<Map<String, Object>> trades = tagMap.get("trade_prefer");
             List<Map<String, Object>> trade = tagMap.get("trade");
             List<Object> tradeList = new ArrayList<Object>();
             if (trades != null) {
                 for (Map<String, Object> m : trades) {
-                    Data data = new Data((String) m.get("label_desc"), m.get("total"));
+                    Data data = new Data(m.get("label_desc").toString(), m.get("total"));
                     tradeList.add(data);
                 }
             }
             result.put("trade", ChartUtils.genPie(res.get("portrait.transactionType"), tradeList));
 
-            // 职业
-            List<Map<String, Object>> job = tagMap.get("job");
-            List<Object> dataList = new ArrayList<Object>();
-            if (job != null) {
-                for (Map<String, Object> m : job) {
-                    Data data = new Data((String) m.get("label_desc").toString().split("（")[0], m.get("total"));
-                    dataList.add(data);
+            /*// 群体类型
+            List<Map<String, Object>> colony = tagMap.get("colony");
+            List<Object> colonyList = new ArrayList<Object>();
+            if (colony != null) {
+                for (Map<String, Object> m : colony) {
+                    if (m.get("label_desc") != null) {
+                        xAxisList.add(m.get("label_desc").toString());
+                        colonyList.add(InceptorUtil.getInt("total", m));
+                    }
                 }
             }
-            result.put("job", ChartUtils.genPie(res.get("portrait.career"), dataList));
+            result.put("colony", ChartUtils.genBar(res.get("portrait.groupType"), res.get("portrait.groupType"), xAxisList, colonyList));*/
 
             // 群体类型
             List<Map<String, Object>> colony = tagMap.get("colony");
             List<Object> colonyList = new ArrayList<Object>();
             if (colony != null) {
                 for (Map<String, Object> m : colony) {
-                    xAxisList.add((String) m.get("label_desc"));
-                    colonyList.add(InceptorUtil.getInt("total", m));
+                    if (m.get("label_desc") != null) {
+                        String[][] s = new String[][]{m.get("label_desc").toString().split("-")};
+                        String name = s[0][0] + "\n        ▪\n" + s[0][1];
+                        Data data = new Data(name, m.get("total"));
+                        colonyList.add(data);
+                    }
                 }
             }
-            result.put("colony", ChartUtils.genBar(res.get("portrait.groupType"), res.get("portrait.groupType"), xAxisList, colonyList));
+            result.put("colony", ChartUtils.genFunnel(res.get("portrait.groupType"), colonyList));
 
             // 注册年限
             List<Map<String, Object>> zc_years = tagMap.get("reg_year");
@@ -179,25 +196,13 @@ public class PortraitController extends Controller {
             }
             result.put("reg_year", ChartUtils.genRadar(res.get("portrait.registrationPeriod"), keyList, zc_yearList));
 
-           /* // 持卡年限
-            List<Map<String, Object>> year = tagMap.get("ck_year");
-            keyList = new ArrayList<String>();
-            List<Integer> yearList = new ArrayList<Integer>();
-            if (year != null) {
-                for (Map<String, Object> m : year) {
-                    keyList.add((String) m.get("label_desc"));
-                    yearList.add(InceptorUtil.getInt("total", m));
-                }
-            }
-            result.put("year", ChartUtils.genRadar(res.get("portrait.cardAge"), keyList, yearList));*/
-
             // 使用时段
             List<Map<String, Object>> time = tagMap.get("web_use_time");
             List<Object> timeList = new ArrayList<Object>();
             xAxisList = new ArrayList<Object>();
             if (time != null) {
                 for (Map<String, Object> m : time) {
-                    xAxisList.add((String) m.get("label_desc"));
+                    xAxisList.add(m.get("label_desc").toString());
                     timeList.add(InceptorUtil.getInt("total", m));
                 }
             }
@@ -208,7 +213,7 @@ public class PortraitController extends Controller {
             List<Object> searchList = new ArrayList<Object>();
             if (search != null) {
                 for (Map<String, Object> m : search) {
-                    Data data = new Data((String) m.get("label_desc"), m.get("total"));
+                    Data data = new Data(m.get("label_desc").toString(), m.get("total"));
                     searchList.add(data);
                 }
             }
@@ -220,22 +225,11 @@ public class PortraitController extends Controller {
             List<Object> cardList = new ArrayList<Object>();
             if (cards != null) {
                 for (Map<String, Object> m : cards) {
-                    Data data = new Data((String) m.get("label_desc"), m.get("total"));
+                    Data data = new Data(m.get("label_desc").toString(), m.get("total"));
                     cardList.add(data);
                 }
             }
             result.put("card_type", ChartUtils.genPie(res.get("portrait.userCardCategory"), cardList));
-
-           /* // 操作系统
-            List<Map<String, Object>> os = tagMap.get("terminal");
-            List<Object> osList = new ArrayList<Object>();
-            if (os != null) {
-                for (Map<String, Object> m : os) {
-                    Data data = new Data((String) m.get("label_desc"), m.get("total"));
-                    osList.add(data);
-                }
-            }
-            result.put("os", ChartUtils.genPie(res.get("portrait.terminal"), osList));*/
 
             // 年代
             List<Map<String, Object>> generation = tagMap.get("generation");
@@ -244,45 +238,68 @@ public class PortraitController extends Controller {
             if (generation != null) {
                 for (Map<String, Object> m : generation) {
                     if (m.get("label_desc") != null) {
-                        xAxisList.add((String) m.get("label_desc"));
+                        xAxisList.add(m.get("label_desc").toString());
                         generationList.add(InceptorUtil.getInt("total", m));
                     }
                 }
             }
             result.put("generation", ChartUtils.genBar(res.get("portrait.decade"), res.get("portrait.decade"), xAxisList, generationList));
 
-            // 性别
-            List<Map<String, Object>> sex = tagMap.get("sex");
-            List<Object> sexList = new ArrayList<Object>();
-            if (sex != null) {
-                for (Map<String, Object> m : sex) {
-                    Data data = new Data((String) m.get("label_desc"), m.get("total"));
-                    sexList.add(data);
-                }
-            }
-            result.put("sex", ChartUtils.genPie(res.get("portrait.genderTerminal"), sexList));
-
             // 教育程度
             List<Map<String, Object>> edu = tagMap.get("edu_bg");
             List<Object> eduList = new ArrayList<Object>();
             if (edu != null) {
                 for (Map<String, Object> m : edu) {
-                    Data data = new Data((String) m.get("label_desc"), m.get("total"));
+                    Data data = new Data(m.get("label_desc").toString(), m.get("total"));
                     eduList.add(data);
                 }
             }
             result.put("edu_bg", ChartUtils.genPie(res.get("portrait.educationLevel"), eduList));
 
-           /* // 终端
+            // 性别
+            List<Map<String, Object>> sex = tagMap.get("sex");
+            List<Object> sexList = new ArrayList<Object>();
+            if (sex != null) {
+                for (Map<String, Object> m : sex) {
+                    Data data = new Data(m.get("label_desc").toString(), m.get("total"));
+                    sexList.add(data);
+                }
+            }
+            result.put("sex", ChartUtils.genPie(res.get("portrait.gender"), sexList));
+
+           // 终端
             List<Map<String, Object>> terminal = tagMap.get("terminal");
             List<Object> terminalList = new ArrayList<Object>();
             if (terminal != null) {
                 for (Map<String, Object> m : terminal) {
-                    Data data = new Data((String) m.get("label_desc"), m.get("total"));
+                    Data data = new Data(m.get("label_desc").toString(), m.get("total"));
                     terminalList.add(data);
                 }
             }
-            result.put("sex", ChartUtils.genMutilPie(res.get("portrait.genderTerminal"), sexList, terminalList));*/
+            result.put("terminal", ChartUtils.genPie(res.get("portrait.terminal"), terminalList));
+
+             /*// 操作系统
+            List<Map<String, Object>> os = tagMap.get("terminal");
+            List<Object> osList = new ArrayList<Object>();
+            if (os != null) {
+                for (Map<String, Object> m : os) {
+                    Data data = new Data(m.get("label_desc").toString(), m.get("total"));
+                    osList.add(data);
+                }
+            }
+            result.put("os", ChartUtils.genPie(res.get("portrait.terminal"), osList));
+
+            // 持卡年限
+            List<Map<String, Object>> year = tagMap.get("ck_year");
+            keyList = new ArrayList<String>();
+            List<Integer> yearList = new ArrayList<Integer>();
+            if (year != null) {
+                for (Map<String, Object> m : year) {
+                    keyList.add(m.get("label_desc").toString());
+                    yearList.add(InceptorUtil.getInt("total", m));
+                }
+            }
+            result.put("year", ChartUtils.genRadar(res.get("portrait.cardAge"), keyList, yearList));*/
 
             Map<String, List<Map<String, Object>>> rateMap = new HashMap<String, List<Map<String, Object>>>();
             List<String> types = new ArrayList<String>();
@@ -293,15 +310,15 @@ public class PortraitController extends Controller {
             types.add("loan_purpose");
             types.add("ass_mode");
             for (Map<String, Object> map : tagList) {
-                String s = ((String) map.get("topic")).toLowerCase();
+                String s = (map.get("topic").toString()).toLowerCase();
                 if (types.contains(s)) {
-                    String key = (String) map.get("topic_desc");
+                    String key = map.get("topic_desc").toString();
                     if (rateMap.get(key) == null) {
                         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
                         rateMap.put(key, list);
                     }
                     if (rateMap.get(key).size() < 3) {
-                        double c = Double.valueOf((String) map.get("total"));
+                        double c = Double.valueOf(map.get("total").toString());
                         double d = c / allCount * 100;
                         BigDecimal b = new BigDecimal(d);
                         double r = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
@@ -325,7 +342,7 @@ public class PortraitController extends Controller {
                     + getLevelCondition() + " group by topic,label_code order by total desc ", true);
             final Map<String, List<Map<String, Object>>> tagMap = new TreeMap<String, List<Map<String, Object>>>();
             for (Map<String, Object> map : tagList) {
-                String key = (String) map.get("topic_desc");
+                String key = map.get("topic_desc").toString();
                 if (key != null) {
                     if (tagMap.get(key) == null) {
                         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
@@ -483,15 +500,15 @@ public class PortraitController extends Controller {
                 types.add("loan_purpose");
                 types.add("ass_mode");
                 for (Map<String, Object> map : tags) {
-                    String s = ((String) map.get("topic")).toLowerCase();
+                    String s = (map.get("topic").toString()).toLowerCase();
                     if (types.contains(s)) {
-                        String key = (String) map.get("topic_desc");
+                        String key = map.get("topic_desc").toString();
                         if (tagMap.get(key) == null) {
                             List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
                             tagMap.put(key, list);
                         }
                         if (tagMap.get(key).size() < 3) {
-                            double c = Double.valueOf((String) map.get("total"));
+                            double c = Double.valueOf(map.get("total").toString());
                             double d = c / allcount * 100;
                             BigDecimal b = new BigDecimal(d);
                             double r = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
@@ -577,13 +594,13 @@ public class PortraitController extends Controller {
         sb.append("同时具有");
         String s = "";
         for (Map<String, Object> map : tags) {
-            String key = ((String) map.get("topic")).toLowerCase();
+            String key = (map.get("topic").toString()).toLowerCase();
             if (types.contains(key)) {
                 if (tagMap.get(key) == null) {
                     tagMap.put(key, map);
                 } else {
-                    int t = Integer.valueOf((String) tagMap.get(key).get("total"));
-                    int t2 = Integer.valueOf((String) map.get("total"));
+                    int t = Integer.valueOf(tagMap.get(key).get("total").toString());
+                    int t2 = Integer.valueOf(map.get("total").toString());
                     if (t < t2) {
                         tagMap.put(key, map);
                     }
@@ -606,7 +623,7 @@ public class PortraitController extends Controller {
                 .setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue()).append("%，");
 
         sb.append("这群人主要以").append(tags.get(0).get("label_desc")).append("为主，占比")
-                .append(new BigDecimal((Double.valueOf((String) tags.get(0).get("total"))) / count * 100)
+                .append(new BigDecimal((Double.valueOf(tags.get(0).get("total").toString())) / count * 100)
                         .setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue())
                 .append("%，");
         if (tagMap.get("ass_grade") != null)
@@ -754,10 +771,10 @@ public class PortraitController extends Controller {
         if (data != null) {
             for (int i = 0; i < data.size(); i++) {
                 Map ration = data.get(i);
-                String value = (String) ration.get("trade_type");
+                String value = ration.get("trade_type").toString();
                 if (focusmap.containsValue(value)) {
-                    int num = Double.valueOf((String) ration.get("trade_thirty_count")).intValue();
-                    int m = Double.valueOf((String) ration.get("trade_thirty_money")).intValue();
+                    int num = Double.valueOf(ration.get("trade_thirty_count").toString()).intValue();
+                    int m = Double.valueOf(ration.get("trade_thirty_money").toString()).intValue();
                     xAxisListCount.add(num);
                     xAxisList.add(value);
                     radarMap.put(value, num);

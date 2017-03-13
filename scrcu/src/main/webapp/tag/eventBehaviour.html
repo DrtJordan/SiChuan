@@ -19,15 +19,15 @@
                         </div>
                     </#if>
                     <div class="form-group">
-                        <input type="hidden" value="${eventBehaviour.eventbehaviour_key}" name="key">
+                        <input type="hidden" value="${eventBehaviour.label_only}" name="key">
                         <input type="hidden" value="${session['username']}" name="oper_user">
                         <input type="hidden" value="${eventBehaviour.eventbehaviour_name}" name="name${eventBehaviour_index}">
                         <label class="col-lg-3 control-label" value="${eventBehaviour.eventbehaviour_name}" name="eventbehaviour_name${eventBehaviour_index}">${eventBehaviour.eventbehaviour_name}</label>
 
                         <div class="col-lg-8">
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" name="start${eventBehaviour_index}"
-                                       value="${eventBehaviour.begin_cont}">
+                                <input type="text" class="form-control" name="start${eventBehaviour_index}" id="start${eventBehaviour_index}"
+                                       value="${eventBehaviour.begin_cont}" onKeyUp="value=value.replace(/[^\d]/g,'')">
                             </div>
                             <div class="col-sm-1" style="margin-left: -5.3%; margin-right: -1.6%">
                                 <span class="input-group-btn">
@@ -37,8 +37,8 @@
                                 </span>
                             </div>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" name="end${eventBehaviour_index}"
-                                       value="${eventBehaviour.end_cont}">
+                                <input type="text" class="form-control" name="end${eventBehaviour_index}" id="end${eventBehaviour_index}"
+                                       value="${eventBehaviour.end_cont}" onKeyUp="value=value.replace(/[^\d]/g,'')">
                             </div>
                         </div>
                     </div>
@@ -56,6 +56,28 @@
 
 <script type="text/javascript">
     $().ready(function () {
+        <#list eventBehaviours as eventBehaviour >
+        jQuery.validator.addMethod("LimitEnd${eventBehaviour_index}", function(value, element) {
+            var returnVal = false;
+            var Start = $("#start${eventBehaviour_index}").val();
+            var End = $("#end${eventBehaviour_index}").val();
+            if(parseInt(Start) < parseInt(End)){
+                returnVal = true;
+            }
+            return returnVal;
+        },"必须大于初始时长");
+
+        jQuery.validator.addMethod("LimitStart${eventBehaviour_index+1}", function(value, element) {
+            var returnVal = false;
+            var Start = $("#start${eventBehaviour_index+1}").val();
+            var End = $("#end${eventBehaviour_index}").val();
+            if(parseInt(Start) >= parseInt(End)){
+                returnVal = true;
+            }
+            return returnVal;
+        },"必须大于【${eventBehaviour.eventbehaviour_name}】结束时长");
+        </#list>
+
         $("#inputForm").validate({
             errorPlacement: function (error, element) {
                 error.appendTo(element.parent());
@@ -63,27 +85,35 @@
             errorClass: "text-danger",
             errorElement: "span",
             rules: {
+                start0:{
+                    required: true,
+                    pattern: /^([1-9]\d{0,}|0)$/},
+                end0:{
+                    required: true,
+                    LimitEnd0:true,
+                    pattern: /^([1-9]\d{0,}|0)$/},
             <#list eventBehaviours as eventBehaviour >
-        start${eventBehaviour_index}:{
-            required: true,
-                    pattern: /^([1-9]\d{0,}|0)$/},
-        end${eventBehaviour_index}:{
-            required: true,
-                    pattern: /^([1-9]\d{0,}|0)$/},
-        </#list >
-    },
-        messages: {
-        <#list eventBehaviours as eventBehaviour >
-            start${eventBehaviour_index}:{
-                required: "必填",
-                        pattern:"必须大于0"},
-            end${eventBehaviour_index}:{
-                required: "必填",
-                        pattern:"必须大于0"},
-        </#list >
-        }
-    })
-        ;
+                start${eventBehaviour_index+1}:{
+                    required: true,
+                            LimitStart${eventBehaviour_index+1}: true,
+                            pattern: /^([1-9]\d{0,}|0)$/},
+                end${eventBehaviour_index+1}:{
+                    required: true,
+                            LimitEnd${eventBehaviour_index+1}: true,
+                            pattern: /^([1-9]\d{0,}|0)$/},
+            </#list>
+            },
+            messages: {
+            <#list eventBehaviours as eventBehaviour >
+                start${eventBehaviour_index}:{
+                    required: "必填",
+                            pattern:"格式错误！必须大于0"},
+                end${eventBehaviour_index}:{
+                    required: "必填",
+                            pattern:"格式错误！必须大于0"},
+            </#list>
+            }
+        });
     })
 </script>
 

@@ -18,15 +18,15 @@
                         </div>
                     </#if>
                     <div class="form-group">
-                        <input type="hidden" value="${timeHobby.timehobby_key}" name="key">
+                        <input type="hidden" value="${timeHobby.label_only}" name="key">
                         <input type="hidden" value="${session['username']}" name="oper_user">
                         <input type="hidden" value="${timeHobby.timehobby_name}" name="name${timeHobby_index}">
                         <label class="col-lg-3 control-label" value="${timeHobby.timehobby_name}" name="timehobby_name${timeHobby_index}">${timeHobby.timehobby_name}</label>
 
                         <div class="col-lg-8">
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" name="start${timeHobby_index}"
-                                       value="${timeHobby.begin_time}">
+                                <input type="text" class="form-control" name="start${timeHobby_index}" id="start${timeHobby_index}"
+                                       value="${timeHobby.begin_time}" onKeyUp="value=value.replace(/[^\d&:]$/g,'')">
                             </div>
                             <div class="col-sm-1" style="margin-left: -5.3%; margin-right: -1.6%">
                                 <span class="input-group-btn">
@@ -36,8 +36,8 @@
                                 </span>
                             </div>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" name="end${timeHobby_index}"
-                                       value="${timeHobby.end_time}">
+                                <input type="text" class="form-control" name="end${timeHobby_index}" id="end${timeHobby_index}"
+                                       value="${timeHobby.end_time}" onKeyUp="value=value.replace(/[^\d&:]$/g,'')">
                             </div>
                         </div>
                     </div>
@@ -55,6 +55,28 @@
 
 <script type="text/javascript">
     $().ready(function () {
+        <#list timeHobbys as timeHobby >
+            jQuery.validator.addMethod("LimitEnd${timeHobby_index}", function(value, element) {
+                var returnVal = false;
+                var Start = $("#start${timeHobby_index}").val();
+                var End = $("#end${timeHobby_index}").val();
+                if(Start < End){
+                    returnVal = true;
+                }
+                return returnVal;
+            },"必须大于开始时间");
+
+            jQuery.validator.addMethod("LimitStart${timeHobby_index+1}", function(value, element) {
+                var returnVal = false;
+                var Start = $("#start${timeHobby_index+1}").val();
+                var End = $("#end${timeHobby_index}").val();
+                if(Start >= End){
+                    returnVal = true;
+                }
+                return returnVal;
+            },"必须大于【${timeHobby.timehobby_name}】结束时间");
+        </#list>
+
         $("#inputForm").validate({
             errorPlacement: function (error, element) {
                 error.appendTo(element.parent());
@@ -62,27 +84,35 @@
             errorClass: "text-danger",
             errorElement: "span",
             rules: {
+                start0:{
+                    required: true,
+                    pattern:/^((0[0-9])|(1[0-9])|(2[0-4]))\:([0-5][0-9])$/},
+                end0:{
+                    required: true,
+                    LimitEnd0:true,
+                    pattern:/^((0[0-9])|(1[0-9])|(2[0-4]))\:([0-5][0-9])$/},
             <#list timeHobbys as timeHobby >
-        start${timeHobby_index}:{
-            required: true,
-                    pattern:/^((0[0-9])|(1[0-9])|(2[0-3]))\:([0-5][0-9])$/},
-        end${timeHobby_index}:{
-            required: true,
-                    pattern:/^((0[0-9])|(1[0-9])|(2[0-3]))\:([0-5][0-9])$/},
-        </#list >
-    },
-        messages: {
-        <#list timeHobbys as timeHobby >
-            start${timeHobby_index}:{
-                required: "必填",
-                        pattern:"格式错误！(00:00~23:59)"},
-            end${timeHobby_index}:{
-                required: "必填",
-                        pattern:"格式错误！(00:00~23:59)"},
-        </#list >
-        }
-    })
-        ;
+                start${timeHobby_index+1}:{
+                    required: true,
+                            LimitStart${timeHobby_index+1}:true,
+                            pattern:/^((0[0-9])|(1[0-9])|(2[0-4]))\:([0-5][0-9])$/},
+                end${timeHobby_index+1}:{
+                    required: true,
+                            LimitEnd${timeHobby_index+1}:true,
+                            pattern:/^((0[0-9])|(1[0-9])|(2[0-4]))\:([0-5][0-9])$/},
+            </#list>
+            },
+            messages: {
+            <#list timeHobbys as timeHobby >
+                start${timeHobby_index}:{
+                    required: "必填",
+                            pattern: "格式错误！(00:00~24:00)"},
+                end${timeHobby_index}:{
+                    required: "必填",
+                            pattern: "格式错误！(00:00~24:00)"},
+            </#list>
+            }
+        });
     })
 </script>
 

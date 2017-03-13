@@ -19,15 +19,15 @@
                         </div>
                     </#if>
                     <div class="form-group">
-                        <input type="hidden" value="${groupType.grouptype_key}" name="key">
+                        <input type="hidden" value="${groupType.label_only}" name="key">
                         <input type="hidden" value="${session['username']}" name="oper_user">
                         <input type="hidden" value="${groupType.grouptype_name}" name="name${groupType_index}">
                         <label class="col-lg-3 control-label" value="${groupType.grouptype_name}" name="grouptype_name${groupType_index}">${groupType.grouptype_name}</label>
 
                         <div class="col-lg-8">
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" name="start${groupType_index}"
-                                       value="${groupType.begin_cont}">
+                                <input type="text" class="form-control" name="start${groupType_index}" id="start${groupType_index}"
+                                       value="${groupType.begin_cont}" onKeyUp="value=value.replace(/[^\d]/g,'')">
                             </div>
                             <div class="col-sm-1" style="margin-left: -5.3%; margin-right: -1.6%">
                                 <span class="input-group-btn">
@@ -37,8 +37,8 @@
                                 </span>
                             </div>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" name="end${groupType_index}"
-                                       value="${groupType.end_cont}">
+                                <input type="text" class="form-control" name="end${groupType_index}" id="end${groupType_index}"
+                                       value="${groupType.end_cont}" onKeyUp="value=value.replace(/[^\d]/g,'')">
                             </div>
                         </div>
                     </div>
@@ -56,6 +56,28 @@
 
 <script type="text/javascript">
     $().ready(function () {
+        <#list groupTypes as groupType >
+        jQuery.validator.addMethod("LimitEnd${groupType_index}", function(value, element) {
+            var returnVal = false;
+            var Start = $("#start${groupType_index}").val();
+            var End = $("#end${groupType_index}").val();
+            if(parseInt(Start) < parseInt(End)){
+                returnVal = true;
+            }
+            return returnVal;
+        },"必须大于初始等级");
+
+        jQuery.validator.addMethod("LimitStart${groupType_index+1}", function(value, element) {
+            var returnVal = false;
+            var Start = $("#start${groupType_index+1}").val();
+            var End = $("#end${groupType_index}").val();
+            if(parseInt(Start) > parseInt(End)){
+                returnVal = true;
+            }
+            return returnVal;
+        },"必须大于【${groupType.grouptype_name}】结束等级");
+        </#list>
+
         $("#inputForm").validate({
             errorPlacement: function (error, element) {
                 error.appendTo(element.parent());
@@ -63,27 +85,35 @@
             errorClass: "text-danger",
             errorElement: "span",
             rules: {
+                start0:{
+                    required: true,
+                    pattern: /^([1-9]\d{0,}|0)$/},
+                end0:{
+                    required: true,
+                    LimitEnd0:true,
+                    pattern: /^([1-9]\d{0,}|0)$/},
             <#list groupTypes as groupType >
-        start${groupType_index}:{
-            required: true,
-                    pattern: /^([1-9]\d{0,}|0)$/},
-        end${groupType_index}:{
-            required: true,
-                    pattern: /^([1-9]\d{0,}|0)$/},
-        </#list >
-    },
-        messages: {
-        <#list groupTypes as groupType >
-            start${groupType_index}:{
-                required: "必填",
-                        pattern:"必须大于0"},
-            end${groupType_index}:{
-                required: "必填",
-                        pattern:"必须大于0"},
-        </#list >
-        }
-    })
-        ;
+                start${groupType_index+1}:{
+                    required: true,
+                            LimitStart${groupType_index+1}: true,
+                            pattern: /^([1-9]\d{0,}|0)$/},
+                end${groupType_index+1}:{
+                    required: true,
+                            LimitEnd${groupType_index+1}: true,
+                            pattern: /^([1-9]\d{0,}|0)$/},
+            </#list>
+            },
+            messages: {
+            <#list groupTypes as groupType >
+                start${groupType_index}:{
+                    required: "必填",
+                            pattern:"格式错误！必须大于0"},
+                end${groupType_index}:{
+                    required: "必填",
+                            pattern:"格式错误！必须大于0"},
+            </#list>
+            }
+        });
     })
 </script>
 

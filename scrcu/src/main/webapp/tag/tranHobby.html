@@ -12,7 +12,7 @@
         <div class="panel-body">
             <form id="inputForm" class="bs-example form-horizontal" action="/tag/tranHobbyConfig">
                 <#list tranHobbys as tranHobby>
-                    <input type="hidden" value="${tranHobby.tranhobby_key}" name="key">
+                    <input type="hidden" value="${tranHobby.label_only}" name="key">
                     <input type="hidden" value="${session['username']}" name="oper_user">
                     <div class="form-group">
                         <label class="col-sm-4 text-success text-md" name="title" value="交易偏好">交易偏好</label>

@@ -12,7 +12,7 @@
         <div class="panel-body">
             <form id="inputForm" class="bs-example form-horizontal" action="/tag/terminalConfig">
                 <#list terminals as terminal>
-                    <input type="hidden" value="${terminal.terminal_key}" name="key">
+                    <input type="hidden" value="${terminal.label_only}" name="key">
                     <input type="hidden" value="${session['username']}" name="oper_user">
                     <div class="form-group">
                         <label class="col-sm-4 text-success text-md" name="title" value="终端">终端</label>

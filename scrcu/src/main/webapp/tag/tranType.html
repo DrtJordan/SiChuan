@@ -12,7 +12,7 @@
         <div class="panel-body">
             <form id="inputForm" class="bs-example form-horizontal" action="/tag/tranTypeConfig">
                 <#list tranTypes as tranType>
-                    <input type="hidden" value="${tranType.trantype_key}" name="key">
+                    <input type="hidden" value="${tranType.label_only}" name="key">
                     <input type="hidden" value="${session['username']}" name="oper_user">
                     <div class="form-group">
                         <label class="col-sm-4 text-success text-md" name="title" value="转账类型偏好">转账类型偏好</label>

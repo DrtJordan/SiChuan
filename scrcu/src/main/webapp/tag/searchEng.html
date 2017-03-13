@@ -12,7 +12,7 @@
         <div class="panel-body">
             <form id="inputForm" class="bs-example form-horizontal" action="/tag/searchEngConfig">
                 <#list searchEngs as searchEng>
-                    <input type="hidden" value="${searchEng.searcheng_key}" name="key">
+                    <input type="hidden" value="${searchEng.label_only}" name="key">
                     <input type="hidden" value="${session['username']}" name="oper_user">
                     <div class="form-group">
                         <label class="col-sm-4 text-success text-md" name="title" value="搜索引擎">搜索引擎</label>

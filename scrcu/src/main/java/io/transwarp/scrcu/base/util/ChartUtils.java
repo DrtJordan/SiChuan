@@ -64,6 +64,24 @@ public class ChartUtils {
     }
 
     /**
+     * 生成漏斗图
+     * @param name 名称
+     * @param dataList 数据
+     * @return
+     */
+
+    public static String genFunnel(String name, List<Object> dataList){
+        EnhancedOption option = new EnhancedOption();
+        option.title().text(name).x("center").y("bottom");
+        option.tooltip().trigger(Trigger.item).formatter("{b}<br/>{a}: {c}");
+        option.calculable(false);
+        Funnel funnel = new Funnel(name);
+        funnel.sort(Sort.ascending).setData(dataList);
+        option.series(funnel);
+        return GsonUtil.format(option);
+    }
+
+    /**
      * 用户交易金额分布图形数据
      *
      * @param name

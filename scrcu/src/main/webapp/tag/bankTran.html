@@ -12,7 +12,7 @@
         <div class="panel-body">
             <form id="inputForm" class="bs-example form-horizontal" action="/tag/bankTranConfig">
                 <#list bankTrans as bankTran>
-                    <input type="hidden" value="${bankTran.banktran_key}" name="key">
+                    <input type="hidden" value="${bankTran.label_only}" name="key">
                     <input type="hidden" value="${session['username']}" name="oper_user">
                     <div class="form-group">
                         <label class="col-sm-4 text-success text-md" name="title" value="行内外转账">行内外转账</label>

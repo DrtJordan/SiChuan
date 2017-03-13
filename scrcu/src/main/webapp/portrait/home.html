@@ -16,9 +16,10 @@
 
 		<div class="col-sm-6">
 			<div class="panel panel-default table-responsive">
-				<header class="panel-heading clear"> 职业 </header>
+				<header class="panel-heading clear"> 使用时段 </header>
 				<div class="panel-body" style="padding: 0px">
-					<div id="jobDiv" style="height: 240px;"></div>
+					<div id="use_timeDiv" style="height: 240px;"></div>
+
 				</div>
 			</div>
 		</div>
@@ -34,15 +35,6 @@
 
 		<div class="col-sm-4">
 			<div class="panel panel-default table-responsive">
-				<header class="panel-heading clear">注册年限 </header>
-				<div class="panel-body" style="padding: 0px">
-					<div id="reg_yearDiv" class="col-md-12" style="height: 240px;"></div>
-				</div>
-			</div>
-		</div>
-
-		<div class="col-sm-4">
-			<div class="panel panel-default table-responsive">
 				<header class="panel-heading clear"> 教育程度 </header>
 				<div class="panel-body" style="padding: 0px">
 					<div id="edu_bgDiv" style="height: 240px;"></div>
@@ -52,28 +44,45 @@
 
 		<div class="col-sm-4">
 			<div class="panel panel-default table-responsive">
-				<header class="panel-heading clear"> 性别和终端 </header>
+				<header class="panel-heading clear">注册年限 </header>
 				<div class="panel-body" style="padding: 0px">
-					<div id="sexDiv" style="height: 240px;"></div>
+					<div id="reg_yearDiv" class="col-md-12" style="height: 240px;"></div>
 				</div>
 			</div>
 		</div>
 
-		<div class="col-sm-6">
+		<div class="col-sm-4">
 			<div class="panel panel-default table-responsive">
-				<header class="panel-heading clear"> 群体比例 </header>
+				<header class="panel-heading clear"> 群体类型 </header>
 				<div class="panel-body" style="padding: 0px">
 					<div id="colonyDiv" style="height: 240px;"></div>
 				</div>
 			</div>
 		</div>
 
-		<div class="col-sm-6">
+		<div class="col-sm-4">
 			<div class="panel panel-default table-responsive">
-				<header class="panel-heading clear"> 使用时段 </header>
+				<header class="panel-heading clear"> 性别 </header>
 				<div class="panel-body" style="padding: 0px">
-					<div id="use_timeDiv" style="height: 240px;"></div>
+					<div id="sexDiv" style="height: 240px;"></div>
+				</div>
+			</div>
+		</div>
 
+		<div class="col-sm-4">
+			<div class="panel panel-default table-responsive">
+				<header class="panel-heading clear"> 终端 </header>
+				<div class="panel-body" style="padding: 0px">
+					<div id="terminalDiv" style="height: 240px;"></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-sm-4">
+			<div class="panel panel-default table-responsive">
+				<header class="panel-heading clear"> 职业 </header>
+				<div class="panel-body" style="padding: 0px">
+					<div id="jobDiv" style="height: 240px;"></div>
 				</div>
 			</div>
 		</div>
@@ -139,6 +148,7 @@
 				setChart("edu_bgDiv", data.edu_bg);
 				setChart("generationDiv", data.generation);
 				setChart("sexDiv", data.sex);
+				setChart("terminalDiv", data.terminal);
 				
 				var tagMap=data.rateMap;
 		　　		var str ="";
