@@ -2,6 +2,7 @@ package io.transwarp.scrcu.tag;
 
 import com.jfinal.core.Controller;
 import io.transwarp.scrcu.base.inceptor.InceptorUtil;
+import io.transwarp.scrcu.base.util.ConditionUtil;
 import io.transwarp.scrcu.base.util.SQLConfig;
 import io.transwarp.scrcu.sqlinxml.SqlKit;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;

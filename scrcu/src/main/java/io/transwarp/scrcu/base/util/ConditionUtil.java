@@ -1,4 +1,4 @@
-package io.transwarp.scrcu.tag;
+package io.transwarp.scrcu.base.util;
 
 /**
  * Created by TANG_0722 on 2017-02-27.
