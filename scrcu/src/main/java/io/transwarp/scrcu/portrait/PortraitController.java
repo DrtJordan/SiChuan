@@ -13,6 +13,8 @@ import java.util.TreeMap;
 import com.alibaba.fastjson.serializer.ObjectArrayCodec;
 import com.jfinal.i18n.I18n;
 import com.jfinal.i18n.Res;
+import io.transwarp.echarts.style.ItemStyle;
+import io.transwarp.echarts.style.itemstyle.Normal;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
@@ -267,7 +269,7 @@ public class PortraitController extends Controller {
             }
             result.put("sex", ChartUtils.genPie(res.get("portrait.gender"), sexList));
 
-           // 终端
+            // 终端
             List<Map<String, Object>> terminal = tagMap.get("terminal");
             List<Object> terminalList = new ArrayList<Object>();
             if (terminal != null) {
@@ -277,6 +279,57 @@ public class PortraitController extends Controller {
                 }
             }
             result.put("terminal", ChartUtils.genPie(res.get("portrait.terminal"), terminalList));
+
+            //关键字
+//            List<Map<String, Object>> keyWord = tagMap.get("keyWord");
+            List<Map<String, Object>> keyWord = new ArrayList<>();
+            Map<String, Object> maps = new HashMap<>();
+            String[][] kv = new String[][]{
+                    {"total", "1234"},{"topic", "keyWord"},{"label_desc", "个人登录"},{"label_only", "keyWord_k1"},{"topic_desc", "关键字"},{"label_code", "k1"},
+                    {"total", "2234"},{"topic", "keyWord"},{"label_desc", "货币兑换"},{"label_only", "keyWord_k2"},{"topic_desc", "关键字"},{"label_code", "k2"},
+                    {"total", "3234"},{"topic", "keyWord"},{"label_desc", "跨行转账"},{"label_only", "keyWord_k3"},{"topic_desc", "关键字"},{"label_code", "k3"},
+                    {"total", "4232"},{"topic", "keyWord"},{"label_desc", "网银激活"},{"label_only", "keyWord_k4"},{"topic_desc", "关键字"},{"label_code", "k4"},
+                    {"total", "5234"},{"topic", "keyWord"},{"label_desc", "K宝"},{"label_only", "keyWord_k5"},{"topic_desc", "关键字"},{"label_code", "k5"},
+                    {"total", "1356"},{"topic", "keyWord"},{"label_desc", "手续费"},{"label_only", "keyWord_k6"},{"topic_desc", "关键字"},{"label_code", "k6"},
+                    {"total", "5398"},{"topic", "keyWord"},{"label_desc", "安全"},{"label_only", "keyWord_k7"},{"topic_desc", "关键字"},{"label_code", "k7"},
+                    {"total", "8754"},{"topic", "keyWord"},{"label_desc", "开户申请"},{"label_only", "keyWord_k8"},{"topic_desc", "关键字"},{"label_code", "k8"},
+                    {"total", "1562"},{"topic", "keyWord"},{"label_desc", "挂失"},{"label_only", "keyWord_k9"},{"topic_desc", "关键字"},{"label_code", "k9"},
+                    {"total", "6854"},{"topic", "keyWord"},{"label_desc", "补卡"},{"label_only", "keyWord_k10"},{"topic_desc", "关键字"},{"label_code", "k10"},
+                    {"total", "2021"},{"topic", "keyWord"},{"label_desc", "销户"},{"label_only", "keyWord_k11"},{"topic_desc", "关键字"},{"label_code", "k11"},
+                    /*{"total", "1234"},{"topic", "keyWord"},{"label_desc", "个人登录s"},{"label_only", "keyWord_k1s"},{"topic_desc", "关键字"},{"label_code", "k1s"},
+                    {"total", "2234"},{"topic", "keyWord"},{"label_desc", "货币兑换s"},{"label_only", "keyWord_k2s"},{"topic_desc", "关键字"},{"label_code", "k2s"},
+                    {"total", "3234"},{"topic", "keyWord"},{"label_desc", "跨行转账s"},{"label_only", "keyWord_k3s"},{"topic_desc", "关键字"},{"label_code", "k3s"},
+                    {"total", "4232"},{"topic", "keyWord"},{"label_desc", "网银激活s"},{"label_only", "keyWord_k4s"},{"topic_desc", "关键字"},{"label_code", "k4s"},
+                    {"total", "5234"},{"topic", "keyWord"},{"label_desc", "K宝s"},{"label_only", "keyWord_k5s"},{"topic_desc", "关键字"},{"label_code", "k5s"},
+                    {"total", "1356"},{"topic", "keyWord"},{"label_desc", "手续费s"},{"label_only", "keyWord_k6s"},{"topic_desc", "关键字"},{"label_code", "k6s"},
+                    {"total", "5398"},{"topic", "keyWord"},{"label_desc", "安全s"},{"label_only", "keyWord_k7s"},{"topic_desc", "关键字"},{"label_code", "k7s"},
+                    {"total", "8754"},{"topic", "keyWord"},{"label_desc", "开户申请s"},{"label_only", "keyWord_k8s"},{"topic_desc", "关键字"},{"label_code", "k8s"},
+                    {"total", "1562"},{"topic", "keyWord"},{"label_desc", "挂失s"},{"label_only", "keyWord_k9s"},{"topic_desc", "关键字"},{"label_code", "k9s"},
+                    {"total", "6854"},{"topic", "keyWord"},{"label_desc", "补卡s"},{"label_only", "keyWord_k10s"},{"topic_desc", "关键字"},{"label_code", "k10s"},
+                    {"total", "2021"},{"topic", "keyWord"},{"label_desc", "销户s"},{"label_only", "keyWord_k11s"},{"topic_desc", "关键字"},{"label_code", "k11s"},*/
+            };
+            for (int i = 0; i < kv.length; i++){
+                maps.put(kv[i][0], kv[i][1]);
+                if ((i+1)%6 == 0){
+                    keyWord.add(maps);
+                    maps = new HashMap<>();
+                    maps.clear();
+                }
+            }
+
+            List<Object> keyWordList = new ArrayList<>();
+            if (keyWord != null) {
+                for (Map<String, Object> m : keyWord) {
+                    ItemStyle itemStyle = new ItemStyle();
+                    Normal normal = new Normal();
+                    String color = "rgb(" + Math.round(Math.random() * 160) + "," + Math.round(Math.random() * 160) + "," + Math.round(Math.random() * 160) + ")";
+                    normal.setColor(color);
+                    itemStyle.normal(normal);
+                    Data data = new Data(m.get("label_desc").toString(), m.get("total"), itemStyle);
+                    keyWordList.add(data);
+                }
+            }
+            result.put("keyWord", ChartUtils.genWordCloud("关键字", keyWordList));
 
              /*// 操作系统
             List<Map<String, Object>> os = tagMap.get("terminal");

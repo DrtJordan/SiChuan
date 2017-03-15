@@ -40,6 +40,24 @@ import test.io.transwarp.echarts.util.EnhancedOption;
 public class ChartUtils {
 
     /**
+     * 设置字符云参数
+     * @param name
+     * @param dataList
+     * @return
+     */
+    public static String genWordCloud(String name, List<Object> dataList){
+        EnhancedOption option = new EnhancedOption();
+        option.tooltip().show();
+        WordCloud wordCloud = new WordCloud(name);
+        wordCloud.size("80%","80%");
+        wordCloud.textRotation(0, 45, 90, -45);
+        wordCloud.textPadding(0);
+        wordCloud.setData(dataList);
+        option.series(wordCloud);
+        return GsonUtil.format(option);
+    }
+
+   /**
      * 获取饼状图数据
      *
      * @param name

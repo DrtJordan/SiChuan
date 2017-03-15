@@ -17,8 +17,6 @@ import java.util.*;
 @RequiresAuthentication
 public class TagController extends Controller {
 
-    StringBuffer value = new StringBuffer(" ");
-
     //调用SQL，循环执行插入语句。
     public void rangToRangCommon(Object config) {
         String operTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.ms").format(new Date());

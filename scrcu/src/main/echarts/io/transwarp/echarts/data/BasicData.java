@@ -95,6 +95,19 @@ public abstract class BasicData<T> implements Serializable {
     }
 
     /**
+     * 构造函数,参数:name,value
+     *
+     * @param name
+     * @param value
+     * @param itemStyle
+     */
+    public BasicData(String name, Object value, ItemStyle itemStyle) {
+        this.name = name;
+        this.value = value;
+        this.itemStyle = itemStyle;
+    }
+
+    /**
      * 构造函数,参数:name,symbol,symbolSize
      *
      * @param name

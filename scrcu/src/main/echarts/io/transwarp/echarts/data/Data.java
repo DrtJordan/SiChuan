@@ -25,6 +25,7 @@
 package io.transwarp.echarts.data;
 
 import io.transwarp.echarts.Tooltip;
+import io.transwarp.echarts.style.ItemStyle;
 
 /**
  * 通用的Data对象...和Data接口同名，Data接口中的data使用的就是这里的Data..
@@ -74,6 +75,17 @@ public class Data extends BasicData<Data> {
      */
     public Data(String name, Object value) {
         super(name, value);
+    }
+
+    /**
+     * 构造函数,参数:name,value,itemStyle
+     *
+     * @param name
+     * @param value
+     * @param itemStyle
+     */
+    public Data(String name, Object value, ItemStyle itemStyle) {
+        super(name, value, itemStyle);
     }
 
     /**
