@@ -92,24 +92,23 @@ public class SqlKit {
 
 			@Override
 			public boolean accept(File pathname) {
-				if (pathname.getName().endsWith("sql.xml")) {
-					return true;
-				}
-				return false;
+				return pathname.getName().endsWith("sql.xml");
 			}
 		});
-		for (File xmlfile : files) {
-			SqlGroupList list = JaxbKit.unmarshal(xmlfile, SqlGroupList.class);
-			for (SqlGroup group : list.SqlGroups) {
-				String name = group.name;
-				if (name == null || name.trim().equals("")) {
-					name = xmlfile.getName();
-				}
-				for (SqlItem sqlItem : group.sqlItems) {
-					sqlMap.put(name + "." + sqlItem.id, sqlItem.value);
+		if (files != null) {
+			for (File xmlfile : files) {
+				SqlGroupList list = JaxbKit.unmarshal(xmlfile, SqlGroupList.class);
+				for (SqlGroup group : list.SqlGroups) {
+					String name = group.name;
+					if (name == null || name.trim().equals("")) {
+						name = xmlfile.getName();
+					}
+					for (SqlItem sqlItem : group.sqlItems) {
+						sqlMap.put(name + "." + sqlItem.id, sqlItem.value);
 //					if(sqlItem.id.equals("sql")){
 //						System.out.println(sqlItem.value);
 //					}
+					}
 				}
 			}
 		}
