@@ -21,42 +21,42 @@ public class TagController extends Controller {
 
     //调用SQL，循环执行插入语句。
     public void rangToRangCommon(Object config) {
-        String oper_time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.ms").format(new Date());
-        String oper_user = getPara("oper_user");
+        String operTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.ms").format(new Date());
+        String operUser = getPara("operUser");
         String[] keys = getParaValues("key");
         for (int i = 0; i < keys.length; i++) {
-            InceptorUtil.mapQuery(SqlKit.propSQL(config, ConditionUtil.rangToRang(keys[i], getPara("name" + i), getPara("start" + i), getPara("end" + i), oper_time, oper_user).toString()), false);
+            InceptorUtil.mapQuery(SqlKit.propSQL(config, ConditionUtil.rangToRang(keys[i], getPara("name" + i), getPara("start" + i), getPara("end" + i), operTime, operUser).toString()), false);
         }
     }
 
     public void checkCommon(Object config) {
-        String oper_time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.ms").format(new Date());
-        String oper_user = getPara("oper_user");
+        String operTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.ms").format(new Date());
+        String operUser = getPara("operUser");
         String[] names = getParaValues("names");
-        StringBuffer content_name = new StringBuffer("");
+        StringBuffer contentName = new StringBuffer("");
         for (int i = 0; i < names.length; i++) {
             String[] checked = getParaValues(names[i]);
             if (checked != null) {
                 for (int j = 0; j < checked.length; j++) {
-                    content_name.append(checked[j]).append("、");
+                    contentName.append(checked[j]).append("、");
                 }
-                content_name.delete(content_name.length() - 1, content_name.length());
+                contentName.delete(contentName.length() - 1, contentName.length());
             }
-            InceptorUtil.mapQuery(SqlKit.propSQL(config, ConditionUtil.check(getPara("key" + i), names[i], content_name.toString(), oper_time, oper_user).toString()), false);
-            content_name.delete(0, content_name.length());
+            InceptorUtil.mapQuery(SqlKit.propSQL(config, ConditionUtil.check(getPara("key" + i), names[i], contentName.toString(), operTime, operUser).toString()), false);
+            contentName.delete(0, contentName.length());
         }
     }
 
     public void selectCommon(Object config) {
-        String oper_time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.ms").format(new Date());
-        String oper_user = getPara("oper_user");
-        String[] contents = getParaValues("content_name");
-        StringBuffer content_name = new StringBuffer("");
+        String operTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.ms").format(new Date());
+        String operUser = getPara("operUser");
+        String[] contents = getParaValues("contentName");
+        StringBuffer contentName = new StringBuffer("");
         for (int i = 0; i < contents.length; i++) {
-            content_name.append(contents[i]).append("、");
+            contentName.append(contents[i]).append("、");
         }
-        content_name.delete(content_name.length() - 1, content_name.length());
-        InceptorUtil.mapQuery(SqlKit.propSQL(config, ConditionUtil.select(getPara("key"), getPara("rank"), content_name.toString(), oper_time, oper_user).toString()), false);
+        contentName.delete(contentName.length() - 1, contentName.length());
+        InceptorUtil.mapQuery(SqlKit.propSQL(config, ConditionUtil.select(getPara("key"), getPara("rank"), contentName.toString(), operTime, operUser).toString()), false);
     }
 
     //可配置标签列表页----start

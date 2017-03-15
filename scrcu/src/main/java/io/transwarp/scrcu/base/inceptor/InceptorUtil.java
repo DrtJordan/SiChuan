@@ -37,6 +37,9 @@ public class InceptorUtil {
     public static boolean devMode;
     public static boolean encache;
 
+    /**
+     * 初始化数据源信息
+     */
     public static void initDataSource() {
         dataSource = new DruidDataSource();
         dataSource.setDriverClassName(PropKit.get("inceptor.driverClass"));
@@ -49,6 +52,10 @@ public class InceptorUtil {
         dataSource.setMaxActive(10);
     }
 
+    /**
+     * 建立Collection,创建Statement
+     * @return
+     */
     public static Statement getDruidStatement() {
         try {
             if (stateMent != null && !stateMent.isClosed()) {
@@ -130,6 +137,13 @@ public class InceptorUtil {
         }
     }
 
+    /**
+     * 执行SQL语句的方法并在控制台输出执行信息
+     * @param sql
+     * @param testcount
+     * @param useTest
+     * @return
+     */
     public static List<List<String>> SQLQuery(String sql, int testcount, boolean useTest) {
         if (devMode && useTest) {
             return testQuery(sql, testcount);
@@ -156,6 +170,12 @@ public class InceptorUtil {
         return result;
     }
 
+    /**
+     * 开始执行SQL
+     * @param sql
+     * @param flag
+     * @return
+     */
     public static ResultSet execute(String sql, boolean flag) {
         Statement sm = getDruidStatement();
         ResultSet rs = null;

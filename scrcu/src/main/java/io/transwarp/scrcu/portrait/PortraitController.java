@@ -181,7 +181,7 @@ public class PortraitController extends Controller {
             List<Map<String, Object>> zc_years = tagMap.get("reg_year");
             List<Map<String, Object>> zc_year = tagMap.get("zc_year");
             List<String> keyList = new ArrayList<String>();
-            List<Integer> zc_yearList = new ArrayList<Integer>();
+            List<Integer> regYearList = new ArrayList<Integer>();
             if (zc_years != null) {
                 for (Map<String, Object> m : zc_years) {
                     String[][] s = new String[][]{m.get("label_desc").toString().split("（")};
@@ -191,10 +191,10 @@ public class PortraitController extends Controller {
                     } else {
                         keyList.add(s[0][0]);
                     }
-                    zc_yearList.add(InceptorUtil.getInt("total", m));
+                    regYearList.add(InceptorUtil.getInt("total", m));
                 }
             }
-            result.put("reg_year", ChartUtils.genRadar(res.get("portrait.registrationPeriod"), keyList, zc_yearList));
+            result.put("reg_year", ChartUtils.genRadar(res.get("portrait.registrationPeriod"), keyList, regYearList));
 
             // 使用时段
             List<Map<String, Object>> time = tagMap.get("web_use_time");
