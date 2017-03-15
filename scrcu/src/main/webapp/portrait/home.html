@@ -14,11 +14,21 @@
 <section id="content">
 	<div class="row">
 
+		<div class="col-sm-12">
+			<div class="panel panel-default table-responsive">
+				<header class="panel-heading clear"> 关键字 </header>
+				<div class="panel-body" style="padding: 0px">
+					<div id="keyWordDiv" style="height: 240px;"></div>
+
+				</div>
+			</div>
+		</div>
+
 		<div class="col-sm-6">
 			<div class="panel panel-default table-responsive">
 				<header class="panel-heading clear"> 使用时段 </header>
 				<div class="panel-body" style="padding: 0px">
-					<div id="use_timeDiv" style="height: 240px;"></div>
+					<div id="useTimeDiv" style="height: 240px;"></div>
 
 				</div>
 			</div>
@@ -37,7 +47,7 @@
 			<div class="panel panel-default table-responsive">
 				<header class="panel-heading clear"> 教育程度 </header>
 				<div class="panel-body" style="padding: 0px">
-					<div id="edu_bgDiv" style="height: 240px;"></div>
+					<div id="eduBgDiv" style="height: 240px;"></div>
 				</div>
 			</div>
 		</div>
@@ -46,7 +56,7 @@
 			<div class="panel panel-default table-responsive">
 				<header class="panel-heading clear">注册年限 </header>
 				<div class="panel-body" style="padding: 0px">
-					<div id="reg_yearDiv" class="col-md-12" style="height: 240px;"></div>
+					<div id="regYearDiv" class="col-md-12" style="height: 240px;"></div>
 				</div>
 			</div>
 		</div>
@@ -100,7 +110,7 @@
 			<div class="panel panel-default table-responsive">
 				<header class="panel-heading clear"> 用户卡类别 </header>
 				<div class="panel-body" style="padding: 0px">
-					<div id="card_typeDiv" style="height: 240px;"></div>
+					<div id="cardTypeDiv" style="height: 240px;"></div>
 				</div>
 			</div>
 		</div>
@@ -139,16 +149,17 @@
 			success : function(data) {
 				setChart("jobDiv", data.job);
 				setChart("yearDiv", data.year);
-				setChart("reg_yearDiv", data.reg_year);
+				setChart("regYearDiv", data.reg_year);
 				setChart("colonyDiv", data.colony);
-				setChart("use_timeDiv", data.use_time);
+				setChart("useTimeDiv", data.use_time);
 				setChart("searchDiv", data.search);
 				setChart("tradeDiv", data.trade);
-				setChart("card_typeDiv", data.card_type);
-				setChart("edu_bgDiv", data.edu_bg);
+				setChart("cardTypeDiv", data.card_type);
+				setChart("eduBgDiv", data.edu_bg);
 				setChart("generationDiv", data.generation);
 				setChart("sexDiv", data.sex);
 				setChart("terminalDiv", data.terminal);
+				setChart("keyWordDiv", data.keWord);
 				
 				var tagMap=data.rateMap;
 		　　		var str ="";
