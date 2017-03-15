@@ -22,7 +22,7 @@ public class TagController extends Controller {
     //调用SQL，循环执行插入语句。
     public void rangToRangCommon(Object config) {
         String operTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.ms").format(new Date());
-        String operUser = getPara("operUser");
+        String operUser = getPara("oper_user");
         String[] keys = getParaValues("key");
         for (int i = 0; i < keys.length; i++) {
             InceptorUtil.mapQuery(SqlKit.propSQL(config, ConditionUtil.rangToRang(keys[i], getPara("name" + i), getPara("start" + i), getPara("end" + i), operTime, operUser).toString()), false);
@@ -31,7 +31,7 @@ public class TagController extends Controller {
 
     public void checkCommon(Object config) {
         String operTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.ms").format(new Date());
-        String operUser = getPara("operUser");
+        String operUser = getPara("oper_user");
         String[] names = getParaValues("names");
         StringBuffer contentName = new StringBuffer("");
         for (int i = 0; i < names.length; i++) {
@@ -49,8 +49,8 @@ public class TagController extends Controller {
 
     public void selectCommon(Object config) {
         String operTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.ms").format(new Date());
-        String operUser = getPara("operUser");
-        String[] contents = getParaValues("contentName");
+        String operUser = getPara("oper_user");
+        String[] contents = getParaValues("content_name");
         StringBuffer contentName = new StringBuffer("");
         for (int i = 0; i < contents.length; i++) {
             contentName.append(contents[i]).append("、");
