@@ -47,7 +47,7 @@ public class ChartUtils {
      */
     public static String genWordCloud(String name, List<Object> dataList){
         EnhancedOption option = new EnhancedOption();
-        option.tooltip().show();
+        option.tooltip().show(true);
         WordCloud wordCloud = new WordCloud(name);
         wordCloud.size("80%","80%");
         wordCloud.textRotation(0, 45, 90, -45);
