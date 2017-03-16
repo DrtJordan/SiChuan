@@ -129,10 +129,10 @@ public class PortraitController extends Controller {
             }
 
             // 职业
-            List<Map<String, Object>> job = tagMap.get("job");
+            List<Map<String, Object>> jobs = tagMap.get("job");
             List<Object> jobList = new ArrayList<Object>();
-            if (job != null) {
-                for (Map<String, Object> m : job) {
+            if (jobs != null) {
+                for (Map<String, Object> m : jobs) {
                     Data data = new Data(m.get("label_desc").toString().split("（")[0], m.get("total"));
                     jobList.add(data);
                 }
@@ -141,7 +141,7 @@ public class PortraitController extends Controller {
 
             // 交易类型
             List<Map<String, Object>> trades = tagMap.get("trade_prefer");
-            List<Map<String, Object>> trade = tagMap.get("trade");
+//            List<Map<String, Object>> trade = tagMap.get("trade");
             List<Object> tradeList = new ArrayList<Object>();
             if (trades != null) {
                 for (Map<String, Object> m : trades) {
@@ -165,10 +165,10 @@ public class PortraitController extends Controller {
             result.put("colony", ChartUtils.genBar(res.get("portrait.groupType"), res.get("portrait.groupType"), xAxisList, colonyList));*/
 
             // 群体类型
-            List<Map<String, Object>> colony = tagMap.get("colony");
+            List<Map<String, Object>> colonys = tagMap.get("colony");
             List<Object> colonyList = new ArrayList<Object>();
-            if (colony != null) {
-                for (Map<String, Object> m : colony) {
+            if (colonys != null) {
+                for (Map<String, Object> m : colonys) {
                     if (m.get("label_desc") != null) {
                         String[][] s = new String[][]{m.get("label_desc").toString().split("-")};
                         String name = s[0][0] + "\n        ▪\n" + s[0][1];
@@ -180,12 +180,12 @@ public class PortraitController extends Controller {
             result.put("colony", ChartUtils.genFunnel(res.get("portrait.groupType"), colonyList));
 
             // 注册年限
-            List<Map<String, Object>> zc_years = tagMap.get("reg_year");
-            List<Map<String, Object>> zc_year = tagMap.get("zc_year");
+            List<Map<String, Object>> regYears = tagMap.get("reg_year");
+//            List<Map<String, Object>> zc_year = tagMap.get("zc_year");
             List<String> keyList = new ArrayList<String>();
             List<Integer> regYearList = new ArrayList<Integer>();
-            if (zc_years != null) {
-                for (Map<String, Object> m : zc_years) {
+            if (regYears != null) {
+                for (Map<String, Object> m : regYears) {
                     String[][] s = new String[][]{m.get("label_desc").toString().split("（")};
 //                    keyList.add((String) m.get("label_desc"));
                     if (s[0].length > 1) {
@@ -196,19 +196,19 @@ public class PortraitController extends Controller {
                     regYearList.add(InceptorUtil.getInt("total", m));
                 }
             }
-            result.put("reg_year", ChartUtils.genRadar(res.get("portrait.registrationPeriod"), keyList, regYearList));
+            result.put("regYear", ChartUtils.genRadar(res.get("portrait.registrationPeriod"), keyList, regYearList));
 
             // 使用时段
-            List<Map<String, Object>> time = tagMap.get("web_use_time");
+            List<Map<String, Object>> useTimes = tagMap.get("web_use_time");
             List<Object> timeList = new ArrayList<Object>();
             xAxisList = new ArrayList<Object>();
-            if (time != null) {
-                for (Map<String, Object> m : time) {
+            if (useTimes != null) {
+                for (Map<String, Object> m : useTimes) {
                     xAxisList.add(m.get("label_desc").toString());
                     timeList.add(InceptorUtil.getInt("total", m));
                 }
             }
-            result.put("use_time", ChartUtils.genBar(res.get("portrait.usePeriod"), res.get("portrait.usePeriod"), xAxisList, timeList));
+            result.put("useTime", ChartUtils.genBar(res.get("portrait.usePeriod"), res.get("portrait.usePeriod"), xAxisList, timeList));
 
             // 搜索引擎
             List<Map<String, Object>> search = tagMap.get("searchengine");
@@ -223,7 +223,7 @@ public class PortraitController extends Controller {
 
             // 用户卡类别
             List<Map<String, Object>> cards = tagMap.get("card_type");
-            List<Map<String, Object>> card = tagMap.get("card_cat_cd");
+//            List<Map<String, Object>> card = tagMap.get("card_cat_cd");
             List<Object> cardList = new ArrayList<Object>();
             if (cards != null) {
                 for (Map<String, Object> m : cards) {
@@ -231,14 +231,14 @@ public class PortraitController extends Controller {
                     cardList.add(data);
                 }
             }
-            result.put("card_type", ChartUtils.genPie(res.get("portrait.userCardCategory"), cardList));
+            result.put("cardType", ChartUtils.genPie(res.get("portrait.userCardCategory"), cardList));
 
             // 年代
-            List<Map<String, Object>> generation = tagMap.get("generation");
+            List<Map<String, Object>> generations = tagMap.get("generation");
             xAxisList = new ArrayList<Object>();
             List<Object> generationList = new ArrayList<Object>();
-            if (generation != null) {
-                for (Map<String, Object> m : generation) {
+            if (generations != null) {
+                for (Map<String, Object> m : generations) {
                     if (m.get("label_desc") != null) {
                         xAxisList.add(m.get("label_desc").toString());
                         generationList.add(InceptorUtil.getInt("total", m));
@@ -248,15 +248,15 @@ public class PortraitController extends Controller {
             result.put("generation", ChartUtils.genBar(res.get("portrait.decade"), res.get("portrait.decade"), xAxisList, generationList));
 
             // 教育程度
-            List<Map<String, Object>> edu = tagMap.get("edu_bg");
+            List<Map<String, Object>> eduBgs = tagMap.get("edu_bg");
             List<Object> eduList = new ArrayList<Object>();
-            if (edu != null) {
-                for (Map<String, Object> m : edu) {
+            if (eduBgs != null) {
+                for (Map<String, Object> m : eduBgs) {
                     Data data = new Data(m.get("label_desc").toString(), m.get("total"));
                     eduList.add(data);
                 }
             }
-            result.put("edu_bg", ChartUtils.genPie(res.get("portrait.educationLevel"), eduList));
+            result.put("eduBg", ChartUtils.genPie(res.get("portrait.educationLevel"), eduList));
 
             // 性别
             List<Map<String, Object>> sex = tagMap.get("sex");
@@ -282,7 +282,7 @@ public class PortraitController extends Controller {
 
             //关键字
 //            List<Map<String, Object>> keyWord = tagMap.get("keyWord");
-            List<Map<String, Object>> keyWord = new ArrayList<>();
+            List<Map<String, Object>> keyWords = new ArrayList<>();
             Map<String, Object> maps = new HashMap<>();
             String[][] kv = new String[][]{
                     {"total", "1234"},{"topic", "keyWord"},{"label_desc", "个人登录"},{"label_only", "keyWord_k1"},{"topic_desc", "关键字"},{"label_code", "k1"},
@@ -311,15 +311,15 @@ public class PortraitController extends Controller {
             for (int i = 0; i < kv.length; i++){
                 maps.put(kv[i][0], kv[i][1]);
                 if ((i+1)%6 == 0){
-                    keyWord.add(maps);
+                    keyWords.add(maps);
                     maps = new HashMap<>();
                     maps.clear();
                 }
             }
 
             List<Object> keyWordList = new ArrayList<>();
-            if (keyWord != null) {
-                for (Map<String, Object> m : keyWord) {
+            if (keyWords != null) {
+                for (Map<String, Object> m : keyWords) {
                     ItemStyle itemStyle = new ItemStyle();
                     Normal normal = new Normal();
                     String color = "rgb(" + Math.round(Math.random() * 160) + "," + Math.round(Math.random() * 160) + "," + Math.round(Math.random() * 160) + ")";
