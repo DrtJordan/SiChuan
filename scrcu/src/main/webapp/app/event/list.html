@@ -45,6 +45,18 @@
 
 <script>
     /**
+     * 隐藏按周、季、年汇总的按钮
+     */
+    $().ready(function () {
+        $("#weekButton").hide();
+        $("#monthButton").hide();
+        $("#quarterButton").hide();
+        $("#yearButton").hide();
+    })
+</script>
+
+<script>
+    /**
      * 定义数据查询方法，用来转换后台传输数据
      * @param data 数据
      * @param dateType 日期类型：day,week,month,quarter,year
@@ -54,8 +66,7 @@
             "aaData": data.eventData,
             "id": "#table1",
             "sScrollX": true,
-            "sScrollXInner": "1200px"
+            "sScrollXInner": "1500px"
         });
-
     }
 </script>

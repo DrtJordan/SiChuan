@@ -23,7 +23,7 @@ public class AppEventController extends Controller {
             // 得到时间查询条件
             String condition = InceptorUtil.getQueryCondition(getRequest());
             // 执行查询
-            List<List<String>> eventData = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_event_list, condition));
+            List<List<String>> eventData = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_event_list_day, condition));
             JSONObject listResult = new JSONObject();
             listResult.put("eventData", eventData);
             renderJson(listResult);
@@ -40,7 +40,7 @@ public class AppEventController extends Controller {
             // 得到时间查询条件
             String condition = InceptorUtil.getQueryCondition(getRequest());
             // 执行查询
-            List<List<String>> detailData = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_event_detail, condition));
+            List<List<String>> detailData = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_event_detail_day, condition));
             JSONObject detailResult = new JSONObject();
             detailResult.put("detailData", detailData);
             renderJson(detailResult);
@@ -56,7 +56,7 @@ public class AppEventController extends Controller {
             // 得到时间查询条件
             String condition = InceptorUtil.getQueryCondition(getRequest());
             // 执行查询
-            List<List<String>> tendencyData = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_event_tendency, condition));
+            List<List<String>> tendencyData = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_event_tendency_day, condition));
             JSONObject tendencyResult = new JSONObject();
             tendencyResult.put("tendencyData", tendencyData);
             renderJson(tendencyResult);

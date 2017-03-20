@@ -1,9 +1,7 @@
-package io.transwarp.scrcu.app;
+package test.io.transwarp.scrcu.app;
 
 import io.transwarp.scrcu.JfinalUnitTestsConfig;
 import org.junit.Test;
-import org.junit.Before;
-import org.junit.After;
 
 /**
  * AppUserController Tester.

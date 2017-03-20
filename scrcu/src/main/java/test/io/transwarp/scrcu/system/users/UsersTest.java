@@ -1,10 +1,8 @@
-package io.transwarp.scrcu.system.users;
+package test.io.transwarp.scrcu.system.users;
 
-import com.alibaba.druid.pool.DruidDataSource;
-import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.activerecord.Page;
-import com.jfinal.plugin.druid.DruidPlugin;
 import io.transwarp.scrcu.JfinalUnitTestsConfig;
+import io.transwarp.scrcu.system.users.Users;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;

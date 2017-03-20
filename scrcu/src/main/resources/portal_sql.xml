@@ -427,47 +427,48 @@
 	<!--搜索引擎分析end -->
 
 	<!--事件统计 start -->
-	<!-- 事件列表 start -->
+	<!-- 事件总表 start -->
 	<sqlGroup name="portal_eventAnalysis_list_day">
 		<sql id="name">事件列表按天汇总</sql>
 		<sql id="header">日期,登录用户数,事件触发次数,触发独立用户数,事件平均持续时长,事件完成次数,完成独立用户数,占比,平均完成时长,事件中断次数,中断独立用户数,占比</sql>
-		<sql id="sql">select stat_date, online_user_cnt, event_cnt, event_usr_cnt, avg_event_time, complete_cnt, complete_usr_cnt, complete_ratio, avg_cplt_time, event_break_cnt, event_break_usr_cnt, event_break_ratio from bdhbs.th_log_app_event_info_orc_day where SQL_CONDITION cnt_type='99' order by stat_date asc</sql>
+		<sql id="sql">select stat_date, online_user_cnt, event_cnt, event_usr_cnt, avg_event_time, complete_cnt, complete_usr, complete_ratio, avg_cplt_time, event_break_cnt, event_break_usr, break_ratio from bdhbs.th_log_web_event_info_orc_int_day where SQL_CONDITION cnt_type='99' order by stat_date asc</sql>
 	</sqlGroup>
 	<sqlGroup name="portal_eventAnalysis_list_week">
 		<sql id="name">事件列表按周汇总</sql>
 		<sql id="header">日期,登录用户数,事件触发次数,触发独立用户数,事件平均持续时长,事件完成次数,完成独立用户数,占比,平均完成时长,事件中断次数,中断独立用户数,占比</sql>
-		<sql id="sql">select stat_date, online_user_cnt, event_cnt, event_usr_cnt, avg_event_time, complete_cnt, complete_usr_cnt, complete_ratio, avg_cplt_time, event_break_cnt, event_break_usr_cnt, event_break_ratio from bdhbs.th_log_app_event_info_orc_day where SQL_CONDITION cnt_type='1' order by stat_date asc</sql>
+		<sql id="sql">select stat_date, online_user_cnt, event_cnt, event_usr_cnt, avg_event_time, complete_cnt, complete_usr, complete_ratio, avg_cplt_time, event_break_cnt, event_break_usr, break_ratio from bdhbs.th_log_web_event_info_orc_int_sum_day where SQL_CONDITION cnt_type='1' order by stat_date asc</sql>
 	</sqlGroup>
 	<sqlGroup name="portal_eventAnalysis_list_month">
 		<sql id="name">事件列表按月汇总</sql>
 		<sql id="header">日期,登录用户数,事件触发次数,触发独立用户数,事件平均持续时长,事件完成次数,完成独立用户数,占比,平均完成时长,事件中断次数,中断独立用户数,占比</sql>
-		<sql id="sql">select stat_date, online_user_cnt, event_cnt, event_usr_cnt, avg_event_time, complete_cnt, complete_usr_cnt, complete_ratio, avg_cplt_time, event_break_cnt, event_break_usr_cnt, event_break_ratio from bdhbs.th_log_app_event_info_orc_day where SQL_CONDITION cnt_type='2' order by stat_date asc</sql>
+		<sql id="sql">select stat_date, online_user_cnt, event_cnt, event_usr_cnt, avg_event_time, complete_cnt, complete_usr, complete_ratio, avg_cplt_time, event_break_cnt, event_break_usr, break_ratio from bdhbs.th_log_web_event_info_orc_int_sum_day where SQL_CONDITION cnt_type='2' order by stat_date asc</sql>
 	</sqlGroup>
 	<sqlGroup name="portal_eventAnalysis_list_quarter">
 		<sql id="name">事件列表按季汇总</sql>
 		<sql id="header">日期,登录用户数,事件触发次数,触发独立用户数,事件平均持续时长,事件完成次数,完成独立用户数,占比,平均完成时长,事件中断次数,中断独立用户数,占比</sql>
-		<sql id="sql">select stat_date, online_user_cnt, event_cnt, event_usr_cnt, avg_event_time, complete_cnt, complete_usr_cnt, complete_ratio, avg_cplt_time, event_break_cnt, event_break_usr_cnt, event_break_ratio from bdhbs.th_log_app_event_info_orc_day where SQL_CONDITION cnt_type='3' order by stat_date asc</sql>
+		<sql id="sql">select stat_date, online_user_cnt, event_cnt, event_usr_cnt, avg_event_time, complete_cnt, complete_usr, complete_ratio, avg_cplt_time, event_break_cnt, event_break_usr, break_ratio from bdhbs.th_log_web_event_info_orc_int_sum_day where SQL_CONDITION cnt_type='3' order by stat_date asc</sql>
 	</sqlGroup>
 	<sqlGroup name="portal_eventAnalysis_list_year">
 		<sql id="name">事件列表按年汇总</sql>
 		<sql id="header">日期,登录用户数,事件触发次数,触发独立用户数,事件平均持续时长,事件完成次数,完成独立用户数,占比,平均完成时长,事件中断次数,中断独立用户数,占比</sql>
-		<sql id="sql">select stat_date, online_user_cnt, event_cnt, event_usr_cnt, avg_event_time, complete_cnt, complete_usr_cnt, complete_ratio, avg_cplt_time, event_break_cnt, event_break_usr_cnt, event_break_ratio from bdhbs.th_log_app_event_info_orc_day where SQL_CONDITION cnt_type='4' order by stat_date asc</sql>
+		<sql id="sql">select stat_date, online_user_cnt, event_cnt, event_usr_cnt, avg_event_time, complete_cnt, complete_usr, complete_ratio, avg_cplt_time, event_break_cnt, event_break_usr, break_ratio from bdhbs.th_log_web_event_info_orc_int_sum_day where SQL_CONDITION cnt_type='4' order by stat_date asc</sql>
 	</sqlGroup>
 	<!-- 事件列表 end -->
 
 	<!-- 事件详情 start -->
-	<sqlGroup name="portal_eventAnalysis_detail">
-		<sql id="name">事件详情</sql>
-		<sql id="header">事件ID,事件名称,昨日完成次数,昨日完成独立用户数,今日完成次数,今日完成独立用户数</sql>
-		<sql id="sql">select * from result_event_summary</sql>
+	<sqlGroup name="portal_eventAnalysis_tendency_day">
+		<sql id="name">事件趋势</sql>
+		<sql id="header">日期,事件名称,昨日完成次数,昨日完成独立用户数,今日完成次数,今日完成独立用户数</sql>
+		<sql id="sql">select stat_date,busi_desc,complete_cnt_yes,complete_user_cnt_yes,complete_cnt_today,complete_user_cnt_today from bdhbs.th_log_web_event_trend_orc_day where SQL_CONDITION cnt_type='99'</sql>
 	</sqlGroup>
 	<!-- 事件详情 end -->
 
-
-	<sqlGroup name="portal_eventAnalysis_tendency">
-		<sql id="name">事件趋势</sql>
-		<sql id="header">日期,事件名称,登录用户数,事件触发次数,事件触发独立用户数,事件平均持续时长,事件完成次数,完成独立用户数,平均完成时长,事件中断次数,中断独立用户数,步骤1完成次数,步骤1完成独立用户数,平均完成时长,转化率,步骤2完成次数,步骤2完成独立用户数,平均完成时长,转化率,步骤n完成次数,步骤n完成独立用户数,平均完成时长,转化率</sql>
-		<sql id="sql">select * from result_event_summary</sql>
+	<sqlGroup name="portal_eventAnalysis_detail_day">
+		<sql id="name">事件详情</sql>
+		<sql id="header">日期,事件名称,登录用户数,事件触发次数,事件触发独立用户数,事件平均持续时长,事件完成次数,完成独立用户数,平均完成时长,事件中断次数,中断独立用户数,步骤1完成次数,步骤1完成独立用户数,平均完成时长,转化率,步骤2完成次数,步骤2完成独立用户数,平均完成时长,转化率,步骤3完成次数,步骤3完成独立用户数,平均完成时长,转化率,步骤4完成次数,步骤4完成独立用户数,平均完成时长,转化率,步骤5完成次数,步骤5完成独立用户数,平均完成时长,转化率,步骤6完成次数,步骤6完成独立用户数,平均完成时长,转化率步骤7完成次数,步骤7完成独立用户数,平均完成时长,转化率,步骤8完成次数,步骤8完成独立用户数,平均完成时长,转化率,步骤9完成次数,步骤9完成独立用户数,平均完成时长,转化率,步骤10完成次数,步骤10完成独立用户数,平均完成时长,转化率,步骤11完成次数,步骤11完成独立用户数,平均完成时长,转化率,步骤12完成次数,步骤12完成独立用户数,平均完成时长,转化率,步骤13完成次数,步骤13完成独立用户数,平均完成时长,转化率,步骤14完成次数,步骤14完成独立用户数,平均完成时长,转化率,步骤15完成次数,步骤15完成独立用户数,平均完成时长,转化率</sql>
+		<sql id="sql">select stat_date, busi_desc, online_user_cnt, event_cnt, event_user_cnt, event_oper_time_avg, complete_cnt, complete_user_cnt, complete_time_avg, break_cnt, break_usr_cnt, step_1_cnt, step_1_user_cnt, step_1_time, step_1_conversion_ratio, step_2_cnt, step_2_user_cnt, step_2_time, step_2_conversion_ratio, step_3_cnt, step_3_user_cnt, step_3_time, step_3_conversion_ratio, step_4_cnt, step_4_user_cnt, step_4_time, step_4_conversion_ratio, step_5_cnt, step_5_user_cnt, step_5_time, step_5_conversion_ratio, step_6_cnt, step_6_user_cnt, step_6_time, step_6_conversion_ratio,
+			step_7_cnt, step_7_user_cnt, step_7_time, step_7_conversion_ratio, step_8_cnt, step_8_user_cnt, step_8_time, step_8_conversion_ratio, step_9_cnt, step_9_user_cnt, step_9_time, step_9_conversion_ratio, step_10_cnt, step_10_user_cnt, step_10_time, step_10_conversion_ratio, step_11_cnt, step_11_user_cnt, step_11_time, step_11_conversion_ratio, step_12_cnt, step_12_user_cnt, step_12_time, step_12_conversion_ratio, step_13_cnt, step_13_user_cnt, step_13_time, step_13_conversion_ratio, step_14_cnt, step_14_user_cnt, step_14_time, step_14_conversion_ratio, step_15_cnt, step_15_user_cnt, step_15_time, step_15_conversion_ratio
+			from bdhbs.th_log_web_event_detail_info_orc_day where SQL_CONDITION cnt_type='99'</sql>
 	</sqlGroup>
 	<!--事件统计 end -->
 

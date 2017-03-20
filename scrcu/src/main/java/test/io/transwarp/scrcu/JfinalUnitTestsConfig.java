@@ -1,4 +1,4 @@
-package io.transwarp.scrcu;
+package test.io.transwarp.scrcu;
 
 import com.alibaba.druid.filter.stat.StatFilter;
 import com.alibaba.druid.wall.WallFilter;

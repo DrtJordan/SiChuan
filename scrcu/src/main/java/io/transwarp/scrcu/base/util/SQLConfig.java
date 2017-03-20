@@ -39,12 +39,10 @@ public enum SQLConfig {
     portal_siteAnalysis_flowTrend_chart,
     // 门户 用户统计 用户等级
     portal_userAnalysis_userLevel,
-    // 门户 事件统计 事件列表
-    portal_eventAnalysis_list,
     // 门户 事件统计 事件明细
-    portal_eventAnalysis_detail,
+    portal_eventAnalysis_detail_day,
     // 门户 事件统计 事件趋势
-    portal_eventAnalysis_tendency,
+    portal_eventAnalysis_tendency_day,
 
     // 门户 来源统计 活跃用户 日期纬度
     app_activeUser,
@@ -83,11 +81,11 @@ public enum SQLConfig {
     app_member_runoff_week,
 
     // 全部事件查询
-    app_event_list,
+    app_event_list_day,
     // 事件趋势
-    app_event_tendency,
+    app_event_tendency_day,
     // 事件详情
-    app_event_detail,
+    app_event_detail_day,
 
     /**
      * 门户统计按照天、月汇总统计

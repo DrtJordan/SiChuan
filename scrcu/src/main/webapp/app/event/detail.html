@@ -40,8 +40,56 @@
                     <th>步骤2完成独立用户数</th>
                     <th>平均完成时长</th>
                     <th>转化率</th>
-                    <th>步骤n完成次数</th>
-                    <th>步骤n完成独立用户数</th>
+                    <th>步骤3完成次数</th>
+                    <th>步骤3完成独立用户数</th>
+                    <th>平均完成时长</th>
+                    <th>转化率</th>
+                    <th>步骤4完成次数</th>
+                    <th>步骤4完成独立用户数</th>
+                    <th>平均完成时长</th>
+                    <th>转化率</th>
+                    <th>步骤5完成次数</th>
+                    <th>步骤5完成独立用户数</th>
+                    <th>平均完成时长</th>
+                    <th>转化率</th>
+                    <th>步骤6完成次数</th>
+                    <th>步骤6完成独立用户数</th>
+                    <th>平均完成时长</th>
+                    <th>转化率</th>
+                    <th>步骤7完成次数</th>
+                    <th>步骤7完成独立用户数</th>
+                    <th>平均完成时长</th>
+                    <th>转化率</th>
+                    <th>步骤8完成次数</th>
+                    <th>步骤8完成独立用户数</th>
+                    <th>平均完成时长</th>
+                    <th>转化率</th>
+                    <th>步骤9完成次数</th>
+                    <th>步骤9完成独立用户数</th>
+                    <th>平均完成时长</th>
+                    <th>转化率</th>
+                    <th>步骤10完成次数</th>
+                    <th>步骤10完成独立用户数</th>
+                    <th>平均完成时长</th>
+                    <th>转化率</th>
+                    <th>步骤11完成次数</th>
+                    <th>步骤11完成独立用户数</th>
+                    <th>平均完成时长</th>
+                    <th>转化率</th>
+                    <th>步骤12完成次数</th>
+                    <th>步骤12完成独立用户数</th>
+                    <th>平均完成时长</th>
+                    <th>转化率</th>
+                    <th>步骤13完成次数</th>
+                    <th>步骤13完成独立用户数</th>
+                    <th>平均完成时长</th>
+                    <th>转化率</th>
+                    <th>步骤14完成次数</th>
+                    <th>步骤14完成独立用户数</th>
+                    <th>平均完成时长</th>
+                    <th>转化率</th>
+                    <th>步骤15完成次数</th>
+                    <th>步骤15完成独立用户数</th>
                     <th>平均完成时长</th>
                     <th>转化率</th>
                 </tr>
@@ -56,6 +104,18 @@
 
 <script>
     /**
+     * 隐藏按周、季、年汇总的按钮
+     */
+    $().ready(function () {
+        $("#weekButton").hide();
+        $("#monthButton").hide();
+        $("#quarterButton").hide();
+        $("#yearButton").hide();
+    })
+</script>
+
+<script>
+    /**
      * 定义数据查询方法，用来转换后台传输数据
      * @param data 数据
      * @param dateType 日期类型：day,week,month,quarter,year
@@ -65,7 +125,7 @@
             "aaData": data.detailData,
             "id": "#table1",
             "sScrollX": true,
-            "sScrollXInner": "2800px"
+            "sScrollXInner": "8000px"
         });
     }
 </script>

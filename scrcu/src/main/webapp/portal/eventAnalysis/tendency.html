@@ -12,7 +12,7 @@
     <div class="panel panel-default table-responsive clear">
         <header class="panel-heading">
             <i class="icon-list padder-xs"></i>事件趋势
-            <span class="hidden-sm pull-right"><a href="" csvAction="/csv/app_eventAnalysis_tendency"
+            <span class="hidden-sm pull-right"><a href="" csvAction="/csv/portal_eventAnalysis_tendency"
                                                   class="csvExport btn btn-default btn-sm" style="display: inline"><i
                     class="fa fa-cloud-download"
             ></i>&nbsp;导出</a></span>
@@ -21,7 +21,7 @@
             <table id="table1" class="table table-striped b-light">
                 <thead>
                 <tr>
-                    <th>事件ID</th>
+                    <th>日期</th>
                     <th>事件名称</th>
                     <th>昨日完成次数</th>
                     <th>昨日完成独立用户数</th>
@@ -59,6 +59,5 @@
             "aaData": data.tendencyData,
             "id": "#table1"
         });
-        csvExport("", dateType);
     }
 </script>

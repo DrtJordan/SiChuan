@@ -13,7 +13,7 @@
     <div class="panel panel-default table-responsive clear">
         <header class="panel-heading">
             <i class="icon-list padder-xs"></i>事件详情
-            <span class="hidden-sm pull-right"><a href="" csvAction="/csv/app_eventAnalysis_detail"
+            <span class="hidden-sm pull-right"><a href="" csvAction="/csv/portal_eventAnalysis_detail"
                                                   class="csvExport btn btn-default btn-sm" style="display: inline"><i
                     class="fa fa-cloud-download"
             ></i>&nbsp;导出</a></span>
@@ -22,29 +22,77 @@
             <table id="table1" class="table table-striped b-light">
                 <thead>
                 <tr>
-                    <th class="w-3">日期</th>
-                    <th class="w-4">事件名称</th>
-                    <th class="w-4">登录用户数</th>
-                    <th class="w-4">事件触发次数</th>
-                    <th class="w-5">触发独立用户数</th>
-                    <th class="w-7">事件平均持续时长</th>
-                    <th class="w-3">完成次数</th>
-                    <th class="w-5">完成独立用户数</th>
-                    <th class="w-4">平均完成时长</th>
-                    <th class="w-4">中断次数</th>
-                    <th class="w-5">中断独立用户数</th>
-                    <th class="w-6">步骤1完成次数</th>
-                    <th class="w-7">步骤1完成独立用户数</th>
-                    <th class="w-5">平均完成时长</th>
-                    <th class="w-3">转化率</th>
-                    <th class="w-5">步骤2完成次数</th>
-                    <th class="w-7">步骤2完成独立用户数</th>
-                    <th class="w-4">平均完成时长</th>
-                    <th class="w-3">转化率</th>
-                    <th class="w-4">步骤n完成次数</th>
-                    <th class="w-7">步骤n完成独立用户数</th>
-                    <th class="w-5">平均完成时长</th>
-                    <th class="w-3">转化率</th>
+                    <th>日期</th>
+                    <th>事件名称</th>
+                    <th>登录用户数</th>
+                    <th>事件触发次数</th>
+                    <th>触发独立用户数</th>
+                    <th>事件平均持续时长</th>
+                    <th>完成次数</th>
+                    <th>完成独立用户数</th>
+                    <th>平均完成时长</th>
+                    <th>中断次数</th>
+                    <th>中断独立用户数</th>
+                    <th>步骤1完成次数</th>
+                    <th>步骤1完成独立用户数</th>
+                    <th>平均完成时长</th>
+                    <th>转化率</th>
+                    <th>步骤2完成次数</th>
+                    <th>步骤2完成独立用户数</th>
+                    <th>平均完成时长</th>
+                    <th>转化率</th>
+                    <th>步骤3完成次数</th>
+                    <th>步骤3完成独立用户数</th>
+                    <th>平均完成时长</th>
+                    <th>转化率</th>
+                    <th>步骤4完成次数</th>
+                    <th>步骤4完成独立用户数</th>
+                    <th>平均完成时长</th>
+                    <th>转化率</th>
+                    <th>步骤5完成次数</th>
+                    <th>步骤5完成独立用户数</th>
+                    <th>平均完成时长</th>
+                    <th>转化率</th>
+                    <th>步骤6完成次数</th>
+                    <th>步骤6完成独立用户数</th>
+                    <th>平均完成时长</th>
+                    <th>转化率</th>
+                    <th>步骤7完成次数</th>
+                    <th>步骤7完成独立用户数</th>
+                    <th>平均完成时长</th>
+                    <th>转化率</th>
+                    <th>步骤8完成次数</th>
+                    <th>步骤8完成独立用户数</th>
+                    <th>平均完成时长</th>
+                    <th>转化率</th>
+                    <th>步骤9完成次数</th>
+                    <th>步骤9完成独立用户数</th>
+                    <th>平均完成时长</th>
+                    <th>转化率</th>
+                    <th>步骤10完成次数</th>
+                    <th>步骤10完成独立用户数</th>
+                    <th>平均完成时长</th>
+                    <th>转化率</th>
+                    <th>步骤11完成次数</th>
+                    <th>步骤11完成独立用户数</th>
+                    <th>平均完成时长</th>
+                    <th>转化率</th>
+                    <th>步骤12完成次数</th>
+                    <th>步骤12完成独立用户数</th>
+                    <th>平均完成时长</th>
+                    <th>转化率</th>
+                    <th>步骤13完成次数</th>
+                    <th>步骤13完成独立用户数</th>
+                    <th>平均完成时长</th>
+                    <th>转化率</th>
+                    <th>步骤14完成次数</th>
+                    <th>步骤14完成独立用户数</th>
+                    <th>平均完成时长</th>
+                    <th>转化率</th>
+                    <th>步骤15完成次数</th>
+                    <th>步骤15完成独立用户数</th>
+                    <th>平均完成时长</th>
+                    <th>转化率</th>
                 </tr>
                 </thead>
             </table>
@@ -78,8 +126,7 @@
             "aaData": data.detailData,
             "id": "#table1",
             "sScrollX": true,
-            "sScrollXInner": "2800px"
+            "sScrollXInner": "9000px"
         });
-        csvExport("", dateType);
     }
 </script>

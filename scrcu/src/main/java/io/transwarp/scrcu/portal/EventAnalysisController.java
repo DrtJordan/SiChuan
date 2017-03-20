@@ -68,11 +68,11 @@ public class EventAnalysisController extends Controller {
     public void detail(){
         if (BaseUtils.isAjax(getRequest())) {
 
-            String condition = InceptorUtil.getDateCondition(getRequest());
+            String condition = InceptorUtil.getQueryCondition(getRequest());
 
             // 执行查询
             List<List<String>> detailData = InceptorUtil
-                    .query(SqlKit.propSQL(SQLConfig.portal_eventAnalysis_detail, condition));
+                    .query(SqlKit.propSQL(SQLConfig.portal_eventAnalysis_detail_day, condition));
 
             // 返回结果
             JSONObject result = new JSONObject();
@@ -85,9 +85,10 @@ public class EventAnalysisController extends Controller {
     public void tendency(){
         if (BaseUtils.isAjax(getRequest())) {
 
+            String condition = InceptorUtil.getQueryCondition(getRequest());
             // 执行查询
             List<List<String>> tendencyData = InceptorUtil
-                    .query(SqlKit.propSQL(SQLConfig.portal_eventAnalysis_tendency));
+                    .query(SqlKit.propSQL(SQLConfig.portal_eventAnalysis_tendency_day, condition));
 
             // 返回结果
             JSONObject result = new JSONObject();

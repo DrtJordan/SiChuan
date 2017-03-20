@@ -1,11 +1,11 @@
-package io.transwarp.scrcu.system.users;
+package test.io.transwarp.scrcu.system.users;
 
-import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
-import com.jfinal.plugin.druid.DruidPlugin;
 import io.transwarp.scrcu.JfinalUnitTestsConfig;
+import io.transwarp.scrcu.system.users.UserRoles;
 import org.junit.*;
 
 import static org.junit.Assert.assertEquals;
+
 
 /**
  * UserRoles Tester.

@@ -21,13 +21,13 @@
             <table id="table1" class="table table-striped b-light">
                 <thead>
                 <tr>
+                    <th>日期</th>
                     <th>事件ID</th>
                     <th>事件名称</th>
                     <th>昨日完成次数</th>
                     <th>昨日完成独立用户数</th>
                     <th>今日完成次数</th>
                     <th>今日完成独立用户数</th>
-                    <th>详情</th>
                 </tr>
                 </thead>
             </table>
@@ -36,6 +36,18 @@
 
 </section>
 </@layout>
+
+<script>
+    /**
+     * 隐藏按周、季、年汇总的按钮
+     */
+    $().ready(function () {
+        $("#weekButton").hide();
+        $("#monthButton").hide();
+        $("#quarterButton").hide();
+        $("#yearButton").hide();
+    })
+</script>
 
 <script>
     /**
