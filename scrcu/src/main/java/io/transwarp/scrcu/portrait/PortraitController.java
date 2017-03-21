@@ -468,7 +468,7 @@ public class PortraitController extends Controller {
     @RequiresPermissions("/portrait/groupTagList")
     public void groupTags() {
         if (BaseUtils.isAjax(getRequest())) {
-            List<Map<String, Object>> allTagList = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.label_label_wall)
+            List<Map<String, Object>> allTagList = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.label_label_grouping)
                     + getLevelCondition() + " group by topic,label_code order by topic_desc desc ", true);
             List<Map<String, Object>> tagList = new ArrayList<Map<String, Object>>();
             String[] codes = new String[]{};
@@ -628,21 +628,15 @@ public class PortraitController extends Controller {
         Map<String, Map<String, Object>> tagMap = new HashMap<String, Map<String, Object>>();
         List<String> types = new ArrayList<String>();
         types.add("colony");            //用户群体类型
-        types.add("ass_grade");         //信用评级
+        types.add("prod_func_consum_prefer");         //产品功能消费偏好
         types.add("generation");        //年代
         types.add("sex");               //性别
-        types.add("inn_org_zone_cd");   //注册地区
-        types.add("kh_year");           //开户时间
+        types.add("inn_org_zone_desc");   //注册地区
+        types.add("reg_year");           //开户时间
         types.add("industry");          //单位所属行业
         types.add("edu_bg");            //教育程度
-        types.add("interest");          //？？
-        types.add("trans_type");        //？？
-        types.add("risk_level");        //风险承受能力
-        types.add("pay_channel");       //支付转账渠道
-        types.add("trans_dept");        //？？
-        types.add("route_way");         //？？
-        types.add("loan_type");         //贷款类型
-        types.add("transfer_type");     //？？
+        types.add("card_type");          //用户卡类别
+        types.add("route_desc");         //汇路时效
         StringBuffer sb = new StringBuffer();
         sb.append("同时具有");
         String s = "";
@@ -658,8 +652,7 @@ public class PortraitController extends Controller {
                         tagMap.put(key, map);
                     }
                 }
-                tagMap.get(key).put("label_desc",
-                        "<font class='font-bold text-success'>" + tagMap.get(key).get("label_desc") + "</font>");
+                tagMap.get(key).put("label_desc", "<font class='font-bold text-success'>" + tagMap.get(key).get("label_desc") + "</font>");
             }
 
             for (String str : codes) {
@@ -670,17 +663,17 @@ public class PortraitController extends Controller {
 
         }
         if (StringUtils.isNotBlank(s)) {
-            sb.append(s.substring(0, s.lastIndexOf("、")));
+            sb.append("<font class='font-bold text-success'>" + s.substring(0, s.lastIndexOf("、")) + "</font>");
         }
         sb.append("标签的用户共").append(have).append("人，占所有用户数的").append(new BigDecimal((double) have / count * 100)
                 .setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue()).append("%，");
 
-        sb.append("这群人主要以").append(tags.get(0).get("label_desc")).append("为主，占比")
+        sb.append("这群人主要以").append("<font class='font-bold text-success'>" + tags.get(0).get("label_desc") + "</font>").append("为主，占比")
                 .append(new BigDecimal((Double.valueOf(tags.get(0).get("total").toString())) / count * 100)
                         .setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue())
                 .append("%，");
-        if (tagMap.get("ass_grade") != null)
-            sb.append("用户信用级别主要为").append(tagMap.get("ass_grade").get("label_desc") + ",");
+        if (tagMap.get("prod_func_consum_prefer") != null)
+            sb.append("产品功能消费偏好为").append(tagMap.get("prod_func_consum_prefer").get("label_desc") + ",");
 
         if (tagMap.get("generation") != null) {
             sb.append("从用户构成来看，主要以").append(tagMap.get("generation").get("label_desc"));
@@ -694,35 +687,23 @@ public class PortraitController extends Controller {
             sb.append("集中在").append(tagMap.get("inn_org_zone_cd").get("label_desc")).append("一带，");
         }
 
-        if (tagMap.get("kh_year") != null) {
-            sb.append("大部分人开户").append(tagMap.get("kh_year").get("label_desc")).append("时间，");
+        if (tagMap.get("reg_year") != null) {
+            sb.append("大部分人的注册年限偏向于").append(tagMap.get("reg_year").get("label_desc"));
         }
 
         if (tagMap.get("industry") != null) {
-            sb.append("这些人主要").append(tagMap.get("industry").get("label_desc")).append("，");
+            sb.append("，这些人主要").append(tagMap.get("industry").get("label_desc")).append("，");
         }
 
         if (tagMap.get("edu_bg") != null) {
             sb.append("且具有").append(tagMap.get("edu_bg").get("label_desc")).append("的学历，");
         }
 
-        if (tagMap.get("interest") != null) {
-            sb.append(tagMap.get("interest").get("label_desc")).append("。");
+        if (tagMap.get("card_type") != null) {
+            sb.append("用户卡类别").append(tagMap.get("card_type").get("label_desc")).append("。");
         }
-
-        if (tagMap.get("trans_type") != null) {
-            sb.append("这群人当中有").append(tagMap.get("trans_type").get("total")).append("的人有")
-                    .append(tagMap.get("trans_type").get("label_desc"));
-        }
-        if (tagMap.get("risk_level") != null) {
-            sb.append("喜欢买").append(tagMap.get("risk_level").get("label_desc")).append("的理财产品，");
-        }
-        if (tagMap.get("pay_channel") != null) {
-            sb.append("且习惯于").append(tagMap.get("pay_channel").get("label_desc")).append("，");
-        }
-
-        if (tagMap.get("route_way") != null) {
-            sb.append("他们具有").append(tagMap.get("route_way").get("label_desc")).append("的偏好。");
+        if (tagMap.get("route_desc") != null) {
+            sb.append("他们具有").append(tagMap.get("route_desc").get("label_desc")).append("的偏好。");
             return sb.toString();
         } else {
             String str = sb.toString();
@@ -859,8 +840,7 @@ public class PortraitController extends Controller {
             }
         }*/
         // 月交易次数图
-        String str = ChartUtils.genLineChart(res.get("portrait.monthlyTransactions"), xAxisList, xAxisListCount);
-        result.put("chartOption", str);
+        result.put("chartOption", ChartUtils.genBar(res.get("portrait.monthlyTransactions"), res.get("portrait.monthlyTransactions"), xAxisList, xAxisListCount));
         // 用户关注度图
         result.put("radar1", ChartUtils.genRadar(res.get("portrait.userAttention"), radarMap));
         // 月交易金额图
@@ -896,8 +876,7 @@ public class PortraitController extends Controller {
                 }
             }
         }
-        String relation = ChartUtils.getForce(name, pay, receive);
-        result.put("relationdiv", relation);
+        result.put("relation", ChartUtils.getForce(name, pay, receive));
         // 类别信息
         List<Map<String, Object>> datatransfer = InceptorUtil.mapQuery(
                 SqlKit.propSQL(SQLConfig.portrait_relation_group.toString()) + " where user_id= '" + userid + "'",

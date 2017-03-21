@@ -22,13 +22,25 @@
 							</tr>
 						</thead>
 						<tbody>
-						<tr>
-							<td>民族</td>
-							<td name="nation"></td>
-						</tr>
+							<tr>
+								<td>姓名</td>
+								<td name="name"></td>
+							</tr>
+							<tr>
+								<td>民族</td>
+								<td name="nation"></td>
+							</tr>
 							<tr>
 								<td>性别</td>
 								<td name="sex"></td>
+							</tr>
+							<tr>
+								<td>年龄</td>
+								<td name="age"></td>
+							</tr>
+							<tr>
+								<td>联系方式</td>
+								<td name="mobile"></td>
 							</tr>
 							<tr>
 								<td>婚姻情况</td>
@@ -38,14 +50,6 @@
 								<td>教育程度</td>
 								<td name="edu_bg"></td>
 							</tr>
-							<tr>
-								<td>年龄</td>
-								<td name="age"></td>
-							</tr>
-							<!--<tr>
-								<td>出生日期</td>
-								<td name="birthday"></td>
-							</tr>-->
 							<tr>
 								<td>年代</td>
 								<td name="generation"></td>
@@ -62,21 +66,13 @@
 								<td>公司行业</td>
 								<td name="industry"></td>
 							</tr>
-							<!--<tr>
-								<td>持卡年限</td>
-								<td name="ck_year"></td>
-							</tr>-->
 							<tr>
 								<td>注册年限</td>
 								<td name="reg_year"></td>
 							</tr>
 							<tr>
 								<td>注册地区</td>
-								<td name="inn_org_zone_cd"></td>
-							</tr>
-							<tr>
-								<td>用户卡类别</td>
-								<td name="card_type"></td>
+								<td name="inn_org_zone_desc"></td>
 							</tr>
 						</tbody>
 					</table>
@@ -111,6 +107,10 @@
 								<td name="trade_prefer"></td>
 							</tr>
 							<tr>
+								<td>转账类型偏好</td>
+								<td name="transfer_prefer"></td>
+							</tr>
+							<tr>
 								<td>贷款用途</td>
 								<td name="loan_purpose"></td>
 							</tr>
@@ -140,12 +140,12 @@
 								<td name="user_cert_level"></td>
 							</tr>
 							<tr>
-								<td>信用评级</td>
-								<td name="ass_grade"></td>
+								<td>用户卡类别</td>
+								<td name="card_type"></td>
 							</tr>
 							<!--<tr>
-								<td>个人风险等级</td>
-								<td name="risk_level"></td>
+								<td>信用评级</td>
+								<td name="ass_grade"></td>
 							</tr>-->
 						</tbody>
 					</table>
@@ -183,7 +183,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="panel panel-default table-responsive clear">
+		<!--<div class="panel panel-default table-responsive clear">
 			<header class=" panel-heading text-right bg-light clear" style="background-color: #fff !important">
 				<ul class="nav nav-tabs pull-left clear">
 					<li class="active "><a href="#this"><i class="icon-users text-primary"></i>&nbsp;<span
@@ -193,7 +193,7 @@
 			</header>
 			<div class="panel-body clearfix">
 				<div class="col-md-6">
-					<div id="relationdiv" style="
+					<div id="relationDiv" style="
 					height: 300px"></div>
 				</div>
 				<div class="col-md-6">
@@ -208,7 +208,7 @@
 					</ul>
 				</div>
 			</div>
-		</div>
+		</div>-->
 	</div>
 </section>
 </@layout>
@@ -221,9 +221,9 @@
 							success : function(data) {
 								userTags=data.userTags;
 								human(userTags['sex']=="女"?"bodyFemale":"bodyMale");
-								$.each(userTags, function(key, val) { 
+								$.each(userTags, function(key, val) {
 									$("[name='"+key+"']").html(userTags[key]);
-							　  　}); 
+								});
 								
 								var chart = echarts.init(document
 										.getElementById('consumechart'),
@@ -234,15 +234,12 @@
 								var cunsumediv = echarts.init(document
 										.getElementById('cunsumediv'),
 										'macarons');
-								var charelat = echarts.init(document
-										.getElementById('relationdiv'),
-										'macarons');
-								var chartOption = data.chartOption;
-								var chartOptionbq = data.chartOptionbq;
-								var relationdiv = data.relationdiv;
+								/*var charelat = echarts.init(document
+										.getElementById('relationDiv'),
+										'macarons');*/
 
-								chart.setOption($.parseJSON(chartOption));
-								charelat.setOption($.parseJSON(relationdiv));
+								chart.setOption($.parseJSON(data.chartOption));
+								/*charelat.setOption($.parseJSON(data.relation));*/
 								radar1.setOption($.parseJSON(data.radar1));
 								cunsumediv.setOption($.parseJSON(data.moneyData));
 
