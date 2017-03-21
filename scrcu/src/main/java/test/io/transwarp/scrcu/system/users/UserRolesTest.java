@@ -1,6 +1,6 @@
 package test.io.transwarp.scrcu.system.users;
 
-import io.transwarp.scrcu.JfinalUnitTestsConfig;
+import test.io.transwarp.scrcu.JfinalUnitTestsConfig;
 import io.transwarp.scrcu.system.users.UserRoles;
 import org.junit.*;
 
@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
  * @version 1.0
  * @since <pre>三月 15, 2017</pre>
  */
-public class UserRolesTest{
+public class UserRolesTest {
 
     @BeforeClass
     public static void setUp() throws Exception {

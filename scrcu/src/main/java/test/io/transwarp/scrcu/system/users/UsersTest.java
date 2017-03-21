@@ -1,7 +1,7 @@
 package test.io.transwarp.scrcu.system.users;
 
 import com.jfinal.plugin.activerecord.Page;
-import io.transwarp.scrcu.JfinalUnitTestsConfig;
+import test.io.transwarp.scrcu.JfinalUnitTestsConfig;
 import io.transwarp.scrcu.system.users.Users;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;

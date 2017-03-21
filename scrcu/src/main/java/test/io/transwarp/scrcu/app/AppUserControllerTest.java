@@ -1,6 +1,5 @@
 package test.io.transwarp.scrcu.app;
 
-import io.transwarp.scrcu.JfinalUnitTestsConfig;
 import org.junit.Test;
 
 /**
@@ -10,7 +9,7 @@ import org.junit.Test;
  * @version 1.0
  * @since <pre>三月 15, 2017</pre>
  */
-public class AppUserControllerTest extends JfinalUnitTestsConfig {
+public class AppUserControllerTest {
 
     /**
      * Method: activeUser()
