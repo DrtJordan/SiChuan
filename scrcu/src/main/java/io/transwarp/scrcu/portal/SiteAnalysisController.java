@@ -2,6 +2,7 @@ package io.transwarp.scrcu.portal;
 
 import com.jfinal.i18n.I18n;
 import com.jfinal.i18n.Res;
+import io.transwarp.scrcu.base.controller.BaseController;
 import io.transwarp.scrcu.base.inceptor.InceptorUtil;
 import io.transwarp.scrcu.base.util.BaseUtils;
 import io.transwarp.scrcu.base.util.SQLConfig;
@@ -19,7 +20,7 @@ import com.jfinal.core.Controller;
 import static io.transwarp.scrcu.base.util.GeneratePortalChartsUtils.*;
 
 @RequiresAuthentication
-public class SiteAnalysisController extends Controller {
+public class SiteAnalysisController extends BaseController {
 
     Res res = I18n.use("i18n", "zh_CN");
 

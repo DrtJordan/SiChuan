@@ -1,7 +1,7 @@
 package io.transwarp.scrcu.app;
 
 import com.alibaba.fastjson.JSONObject;
-import com.jfinal.core.Controller;
+import io.transwarp.scrcu.base.controller.BaseController;
 import io.transwarp.scrcu.base.inceptor.InceptorUtil;
 import io.transwarp.scrcu.base.util.BaseUtils;
 import io.transwarp.scrcu.base.util.SQLConfig;
@@ -12,7 +12,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import java.util.List;
 
 @RequiresAuthentication
-public class AppEventController extends Controller {
+public class AppEventController extends BaseController {
 
     /**
      * 事件列表

@@ -1,23 +1,20 @@
 package io.transwarp.scrcu.system.users;
 
+import com.jfinal.aop.Before;
+import io.transwarp.scrcu.base.controller.BaseController;
+import io.transwarp.scrcu.base.interceptor.CommonInterceptor;
+import io.transwarp.scrcu.system.role.SysRole;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.jfinal.plugin.activerecord.Config;
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-
-import com.jfinal.aop.Before;
-import com.jfinal.core.Controller;
-
-import io.transwarp.scrcu.base.interceptor.CommonInterceptor;
-import io.transwarp.scrcu.system.role.SysRole;
-
 @Before(CommonInterceptor.class)
 @RequiresAuthentication
-public class UsersController extends Controller {
+public class UsersController extends BaseController {
     @RequiresPermissions("/system/users")
     public void index() {
         setAttr("message", "hello word");

@@ -2,7 +2,7 @@ package io.transwarp.scrcu.portal;
 
 import com.alibaba.fastjson.JSONObject;
 import com.jfinal.core.ActionKey;
-import com.jfinal.core.Controller;
+import io.transwarp.scrcu.base.controller.BaseController;
 import io.transwarp.scrcu.base.inceptor.InceptorUtil;
 import io.transwarp.scrcu.base.util.BaseUtils;
 import io.transwarp.scrcu.base.util.SQLConfig;
@@ -17,7 +17,7 @@ import java.util.List;
  * Created by admin on 2017/1/10.
  */
 @RequiresAuthentication
-public class EventAnalysisController extends Controller {
+public class EventAnalysisController extends BaseController {
 
     @ActionKey("/portal/eventAnalysis")
     public void index(){}

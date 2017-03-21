@@ -1,41 +1,23 @@
 package io.transwarp.scrcu.base.util;
 
-import java.sql.Time;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-
 import io.transwarp.echarts.*;
-import io.transwarp.echarts.axis.Axis;
-import io.transwarp.echarts.axis.AxisLabel;
-import io.transwarp.echarts.axis.CategoryAxis;
-import io.transwarp.echarts.axis.SplitArea;
-import io.transwarp.echarts.axis.ValueAxis;
+import io.transwarp.echarts.axis.*;
 import io.transwarp.echarts.code.*;
 import io.transwarp.echarts.data.Data;
 import io.transwarp.echarts.data.TreeData;
 import io.transwarp.echarts.data.WordCloudData;
 import io.transwarp.echarts.json.GsonUtil;
-import io.transwarp.echarts.series.Bar;
-import io.transwarp.echarts.series.Force;
-import io.transwarp.echarts.series.Funnel;
-import io.transwarp.echarts.series.Line;
-import io.transwarp.echarts.series.Map;
-import io.transwarp.echarts.series.Pie;
-import io.transwarp.echarts.series.Radar;
-import io.transwarp.echarts.series.Tree;
-import io.transwarp.echarts.series.WordCloud;
+import io.transwarp.echarts.series.*;
 import io.transwarp.echarts.series.force.Link;
 import io.transwarp.echarts.series.force.Node;
-import io.transwarp.echarts.style.ItemStyle;
-import io.transwarp.echarts.style.LineStyle;
-import io.transwarp.echarts.style.LinkStyle;
-import io.transwarp.echarts.style.NodeStyle;
-import io.transwarp.echarts.style.TextStyle;
+import io.transwarp.echarts.style.*;
 import io.transwarp.echarts.style.itemstyle.Normal;
 import org.apache.commons.lang.StringUtils;
 import test.io.transwarp.echarts.util.EnhancedOption;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class ChartUtils {
 
@@ -196,19 +178,19 @@ public class ChartUtils {
         EnhancedOption option = new EnhancedOption();
         option.tooltip().trigger(Trigger.axis);
         if (StringUtils.equals(dateType, "day")) {
-            option.title().text("按天汇总").x("right").textStyle(new TextStyle().fontSize(15));
+            option.title().subtext("按天汇总").x("right").textStyle(new TextStyle().fontSize(15));
         }
         if (StringUtils.equals(dateType, "week")) {
-            option.title().text("按周汇总").x("right").textStyle(new TextStyle().fontSize(15));
+            option.title().subtext("按周汇总").x("right").textStyle(new TextStyle().fontSize(15));
         }
         if (StringUtils.equals(dateType, "month")) {
-            option.title().text("按月汇总").x("right").textStyle(new TextStyle().fontSize(15));
+            option.title().subtext("按月汇总").x("right").textStyle(new TextStyle().fontSize(15));
         }
         if (StringUtils.equals(dateType, "quarter")) {
-            option.title().text("按季汇总").x("right").textStyle(new TextStyle().fontSize(15));
+            option.title().subtext("按季汇总").x("right").textStyle(new TextStyle().fontSize(15));
         }
         if (StringUtils.equals(dateType, "year")) {
-            option.title().text("按年汇总").x("right").textStyle(new TextStyle().fontSize(15));
+            option.title().subtext("按年汇总").x("right").textStyle(new TextStyle().fontSize(15));
         }
 
         Legend legend = new Legend();

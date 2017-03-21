@@ -449,9 +449,6 @@ tr td:first-child,tr th:first-child{
 tr td:last-child,tr th:last-child{
 	border-right:0px !important;
 }
-table tbody tr td{
-	background: #fff !important;
-}
 .panel-default .panel-heading{
 /*     border-bottom: 1px solid #ddd !important; */
 	background: #f2f2f2 !important;

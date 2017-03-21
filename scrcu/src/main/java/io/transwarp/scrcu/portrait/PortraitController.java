@@ -1,40 +1,30 @@
 package io.transwarp.scrcu.portrait;
 
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-
-import com.alibaba.fastjson.serializer.ObjectArrayCodec;
+import com.alibaba.fastjson.JSONObject;
 import com.jfinal.i18n.I18n;
 import com.jfinal.i18n.Res;
-import io.transwarp.echarts.style.ItemStyle;
-import io.transwarp.echarts.style.itemstyle.Normal;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.math.NumberUtils;
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.jfinal.core.Controller;
 import com.jfinal.log.Logger;
 import com.jfinal.plugin.ehcache.CacheKit;
-
 import io.transwarp.echarts.data.Data;
+import io.transwarp.echarts.style.ItemStyle;
+import io.transwarp.echarts.style.itemstyle.Normal;
+import io.transwarp.scrcu.base.controller.BaseController;
 import io.transwarp.scrcu.base.inceptor.InceptorUtil;
 import io.transwarp.scrcu.base.util.BaseUtils;
 import io.transwarp.scrcu.base.util.ChartUtils;
 import io.transwarp.scrcu.base.util.SQLConfig;
 import io.transwarp.scrcu.sqlinxml.SqlKit;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.NumberUtils;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.util.*;
 
 @RequiresAuthentication
-public class PortraitController extends Controller {
+public class PortraitController extends BaseController {
 
     Logger log = Logger.getLogger(getClass());
     Res res = I18n.use("i18n", "zh_CN");
@@ -391,10 +381,10 @@ public class PortraitController extends Controller {
     @RequiresPermissions("/portrait/tags")
     public void tags() throws Exception {
         if (BaseUtils.isAjax(getRequest())) {
-            List<Map<String, Object>> tagList = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.label_label_wall)
+            List<Map<String, Object>> allTagList = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.label_label_wall)
                     + getLevelCondition() + " group by topic,label_code order by total desc ", true);
             final Map<String, List<Map<String, Object>>> tagMap = new TreeMap<String, List<Map<String, Object>>>();
-            for (Map<String, Object> map : tagList) {
+            for (Map<String, Object> map : allTagList) {
                 String key = map.get("topic_desc").toString();
                 if (key != null) {
                     if (tagMap.get(key) == null) {
@@ -468,10 +458,12 @@ public class PortraitController extends Controller {
     @RequiresPermissions("/portrait/groupTagList")
     public void groupTags() {
         if (BaseUtils.isAjax(getRequest())) {
-            List<Map<String, Object>> allTagList = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.label_label_grouping)
-                    + getLevelCondition() + " group by topic,label_code order by topic_desc desc ", true);
+            List<Map<String, Object>> allTagList = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.label_label_wall)
+                    + " group by topic,label_code order by topic_desc desc ", true);
             List<Map<String, Object>> tagList = new ArrayList<Map<String, Object>>();
             String[] codes = new String[]{};
+            List<Object> keys = new LinkedList<Object>();
+            List<Object> values = new LinkedList<Object>();
             StringBuffer condition = new StringBuffer(getPara("condition"));
             String code = getPara("code");
             if (StringUtils.isNotBlank(code)) {
@@ -479,6 +471,12 @@ public class PortraitController extends Controller {
                 for (String c : codes) {
                     if (allTagMap.get(c) != null) {
                         tagList.add(allTagMap.get(c));
+                    }else {
+                        for (Map<String, Object> map : allTagList){
+                            if (map.get("label_only").equals(c)){
+                                keys.add(map.get("label_desc"));
+                            }
+                        }
                     }
                     /*else {
                         Map<String, Map<String, Object>> m = new HashMap<String, Map<String, Object>>();
@@ -513,8 +511,6 @@ public class PortraitController extends Controller {
             result.put("val", new BigDecimal(val * 100).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
             // #################是否具有标签占比######################
             // 总数
-            List<Object> keys = new LinkedList<Object>();
-            List<Object> values = new LinkedList<Object>();
             for (Map map : tagList) {
                 if (map.get("topic").equals("job")) {
                     keys.add(map.get("label_desc").toString().split("（")[0]);
@@ -527,9 +523,7 @@ public class PortraitController extends Controller {
             }
             result.put("percent", keys.size());
             result.put("tagsRankOption", ChartUtils.genPercentBar(res.get("portrait.groupLabelAccounting"), res.get("portrait.groupLabelAccounting"), keys, values));
-
             // #################标签占比######################
-
             String sql = "select max(topic) as topic,max(topic_desc) as topic_desc,max(label_only) as label_only,"
                     + "min(label_desc) as label_desc,count(*) as total "
                     + "from(select a1.user_id,a2.topic,a2.topic_desc,a2.label_code,a2.label_desc,a2.label_only "

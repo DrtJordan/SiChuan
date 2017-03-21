@@ -1,6 +1,6 @@
 package io.transwarp.scrcu.tag;
 
-import com.jfinal.core.Controller;
+import io.transwarp.scrcu.base.controller.BaseController;
 import io.transwarp.scrcu.base.inceptor.InceptorUtil;
 import io.transwarp.scrcu.base.util.ConditionUtil;
 import io.transwarp.scrcu.base.util.SQLConfig;
@@ -9,13 +9,16 @@ import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by TANG_0722 on 2017-02-23.
  */
 @RequiresAuthentication
-public class TagController extends Controller {
+public class TagController extends BaseController {
 
     //调用SQL，循环执行插入语句。
     public void rangToRangCommon(Object config) {

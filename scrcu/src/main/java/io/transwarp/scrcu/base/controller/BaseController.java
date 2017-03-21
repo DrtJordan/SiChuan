@@ -21,9 +21,20 @@ public class BaseController extends Controller {
 	}
 
 	public void setNav() {
+		String type = this.getActionKey();
+		String[] strings = new String[]{"/portrait","/app","/portal","/system"};
 		int roleId = getSessionAttr("roleId");
 		setSessionAttr("nav", BaseUtils.getNav(roleId));
-		setSessionAttr("site_type", BaseUtils.getNav(this.getActionKey()));
+		for (int i = 0; i < strings.length; i++){
+			if (type.contains(strings[i])) {
+				type = strings[i];
+			}if (type.equals("/portal")){
+				type = "/";
+			}if (type.contains("/tag")){
+				type = strings[0];
+			}
+		}
+		setSessionAttr("site_type", BaseUtils.getNav(type));
 	}
 
 	public String getCsvFileName(String name) {

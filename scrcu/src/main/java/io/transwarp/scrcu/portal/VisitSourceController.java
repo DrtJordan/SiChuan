@@ -1,25 +1,23 @@
 package io.transwarp.scrcu.portal;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.alibaba.fastjson.JSONObject;
 import com.jfinal.i18n.I18n;
 import com.jfinal.i18n.Res;
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-
-import com.alibaba.fastjson.JSONObject;
-import com.jfinal.core.Controller;
-
+import io.transwarp.scrcu.base.controller.BaseController;
 import io.transwarp.scrcu.base.inceptor.InceptorUtil;
 import io.transwarp.scrcu.base.util.BaseUtils;
 import io.transwarp.scrcu.base.util.SQLConfig;
 import io.transwarp.scrcu.sqlinxml.SqlKit;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static io.transwarp.scrcu.base.util.GeneratePortalChartsUtils.genTerminalCharts;
 
 @RequiresAuthentication
-public class VisitSourceController extends Controller {
+public class VisitSourceController extends BaseController {
 
 	Res res = I18n.use("i18n", "zh_CN");
 

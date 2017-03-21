@@ -1,12 +1,9 @@
 package io.transwarp.scrcu.base.util;
 
-import java.util.Map;
+import io.transwarp.scrcu.system.nav.SysNav;
 
 import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.lang.StringUtils;
-
-import io.transwarp.scrcu.system.nav.SysNav;
+import java.util.Map;
 
 public class BaseUtils {
 
@@ -26,7 +23,7 @@ public class BaseUtils {
 		return navTree.get(roleId);
 	}
 
-	public static int getNav(String type) {
+	public static Integer getNav(String type) {
 		return nav.get(type);
 	}
 

@@ -2,6 +2,7 @@ package io.transwarp.scrcu.app;
 
 import com.jfinal.i18n.I18n;
 import com.jfinal.i18n.Res;
+import io.transwarp.scrcu.base.controller.BaseController;
 import io.transwarp.scrcu.base.inceptor.InceptorUtil;
 import io.transwarp.scrcu.base.util.BaseUtils;
 import io.transwarp.scrcu.base.util.SQLConfig;
@@ -18,7 +19,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.jfinal.core.Controller;
 
 @RequiresAuthentication
-public class AppController extends Controller {
+public class AppController extends BaseController {
 
     Res res = I18n.use("i18n", "zh_CN");
 

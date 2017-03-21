@@ -1,15 +1,12 @@
 package io.transwarp.scrcu.system.role;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
-
 import com.jfinal.kit.JsonKit;
-
 import io.transwarp.scrcu.base.controller.BaseController;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RequiresAuthentication
 public class RoleController extends BaseController {
