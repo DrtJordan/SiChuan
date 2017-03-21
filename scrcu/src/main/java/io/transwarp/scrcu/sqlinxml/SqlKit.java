@@ -105,9 +105,6 @@ public class SqlKit {
 					}
 					for (SqlItem sqlItem : group.sqlItems) {
 						sqlMap.put(name + "." + sqlItem.id, sqlItem.value);
-//					if(sqlItem.id.equals("sql")){
-//						System.out.println(sqlItem.value);
-//					}
 					}
 				}
 			}

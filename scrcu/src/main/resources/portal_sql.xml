@@ -80,14 +80,14 @@
 	<sqlGroup name="portal_pageRank_day">
 		<sql id="name">页面排行按天汇总</sql>
 		<sql id="header">网址,排名,浏览量,访客数,访问次数,IP数,平均停留时长,贡献浏览量,跳出率,退出率</sql>
-		<sql id="sql">select url, ranking, pv, uv, vv, ip_num, avg_page_stay_durat, contr_dowst_pv, bounce_rate, exit_rate from bdhbs.th_log_web_page_veiw_rank_orc_day where SQL_CONDITION cnt_type='99' order by ranking asc
+		<sql id="sql">select stat_date, url, ranking, pv, uv, vv, ip_num, avg_page_stay_durat, contr_dowst_pv, bounce_rate, exit_rate from bdhbs.th_log_web_page_veiw_rank_orc_day where SQL_CONDITION cnt_type='99' order by ranking asc
 		</sql>
 	</sqlGroup>
 
 	<sqlGroup name="portal_pageRank_month">
 		<sql id="name">页面排行按月汇总</sql>
 		<sql id="header">网址,排名,浏览量,访客数,访问次数,IP数,平均停留时长,贡献浏览量,跳出率,退出率</sql>
-		<sql id="sql">select url, ranking, pv, uv, vv, ip_num, avg_page_stay_durat, contr_dowst_pv, bounce_rate, exit_rate from bdhbs.th_log_web_page_veiw_rank_orc_sum_day where SQL_CONDITION cnt_type='2' order by ranking asc</sql>
+		<sql id="sql">select stat_date, url, ranking, pv, uv, vv, ip_num, avg_page_stay_durat, contr_dowst_pv, bounce_rate, exit_rate from bdhbs.th_log_web_page_veiw_rank_orc_sum_day where SQL_CONDITION cnt_type='2' order by ranking asc</sql>
 	</sqlGroup>
 	<!--页面排行end -->
 	

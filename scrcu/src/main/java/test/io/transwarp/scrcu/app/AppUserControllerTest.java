@@ -1,6 +1,8 @@
 package test.io.transwarp.scrcu.app;
 
 import org.junit.Test;
+import test.io.transwarp.scrcu.JFinalConfigTest;
+import test.io.transwarp.scrcu.conf.ControllerTestCase;
 
 /**
  * AppUserController Tester.
@@ -9,14 +11,17 @@ import org.junit.Test;
  * @version 1.0
  * @since <pre>三月 15, 2017</pre>
  */
-public class AppUserControllerTest {
+public class AppUserControllerTest extends ControllerTestCase<JFinalConfigTest> {
 
     /**
      * Method: activeUser()
      */
     @Test
     public void testActiveUser() throws Exception {
-//TODO: Test goes here... 
+        String result = use("/app/userAnalysis/activeUser?start_dt=2015-11-01&end_dt=2017-01-01&dateType=day").invoke();
+        System.out.println(result);
+
+
     }
 
     /**
@@ -24,7 +29,8 @@ public class AppUserControllerTest {
      */
     @Test
     public void testRetainUser() throws Exception {
-//TODO: Test goes here... 
+        String result = use("/app/userAnalysis/retainUser").invoke();
+        System.out.println(result);
     }
 
     /**
@@ -32,15 +38,16 @@ public class AppUserControllerTest {
      */
     @Test
     public void testRegUser() throws Exception {
-//TODO: Test goes here... 
-    }
+        String result = use("/app/userAnalysis/regUser").invoke();
+        System.out.println(result);    }
 
     /**
      * Method: loginUser()
      */
     @Test
     public void testLoginUser() throws Exception {
-//TODO: Test goes here... 
+        String result = use("/app/userAnalysis/loginUser").invoke();
+        System.out.println(result);
     }
 
     /**
@@ -48,7 +55,8 @@ public class AppUserControllerTest {
      */
     @Test
     public void testNewUser() throws Exception {
-//TODO: Test goes here... 
+        String result = use("/app/userAnalysis/newUser").invoke();
+        System.out.println(result);
     }
 
 

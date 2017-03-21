@@ -11,15 +11,11 @@ import io.transwarp.scrcu.system.nav.SysNav;
 public class BaseUtils {
 
 	public static boolean isAjax(HttpServletRequest request) {
-		//放行测试的url
-		String test = (String) request.getAttribute("X-Requested-With");
+		//获取request中的attribute的值
+		String requestAttribute = (String) request.getAttribute("X-Requested-With");
 		//判断是否为Ajax请求
-		String str = request.getHeader("X-Requested-With");
-		if ((test != null && test.equals("XMLHttpRequest")) || (str != null && str.equals("XMLHttpRequest"))){
-			return true;
-		}else {
-			return false;
-		}
+		String isAjax = request.getHeader("X-Requested-With");
+		return (requestAttribute != null && requestAttribute.equals("XMLHttpRequest")) || (isAjax != null && isAjax.equals("XMLHttpRequest"));
 	}
 
 	public static Map<Integer, Map<Integer, SysNav>> navTree;

@@ -8,7 +8,6 @@ import com.jfinal.core.JFinal;
 public class CommonInterceptor implements Interceptor {
 
 	public void intercept(Invocation ai) {
-//		System.out.println(ai.getController().getRequest().getSession().getId());
 		Controller ctrl = ai.getController();
 		String cp = JFinal.me().getContextPath();
 		ctrl.setAttr("root", ("".equals(cp) || "/".equals(cp)) ? "" : cp);

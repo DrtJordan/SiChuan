@@ -214,13 +214,6 @@
       <version>1.7.21</version>
     </dependency>
 
-    <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12 -->
-    <!--<dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-      <version>1.7.21</version>
-    </dependency>-->
-
     <!-- https://mvnrepository.com/artifact/junit/junit -->
     <dependency>
       <groupId>junit</groupId>
@@ -228,13 +221,6 @@
       <version>4.12</version>
     </dependency>
 
-   <!-- &lt;!&ndash; https://mvnrepository.com/artifact/com.jfinal/jfinal-ext &ndash;&gt;
-    <dependency>
-      <groupId>com.jfinal</groupId>
-      <artifactId>jfinal-ext</artifactId>
-      <version>3.1.4</version>
-    </dependency>
--->
   </dependencies>
   <build>
     <finalName>scrcu</finalName>
