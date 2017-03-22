@@ -44,7 +44,7 @@
 			</ul>
 			<div class="navbar-right">
 				<ul class="nav navbar-nav m-n hidden-xs nav-user user">
-					<li class="dropdown"><a href="#" class="dropdown-toggle bg clear" 
+					<li class="dropdown"><a href="#" class="dropdown-toggle bg clear"
 						data-toggle="dropdown"
 					> <i class="fa-user fa"></i>&nbsp;${session["username"]} <b class="caret"></b>
 					</a>
@@ -59,49 +59,60 @@
 			</div>
 		</div>
 	</header>
-
 	<section class="container main">
-			<section class="hbox stretch">
-				<!-- .aside -->
-				<aside class="bg-gray aside hidden-print" id="nav">
-					<section class="vbox">
-						<section class="w-f-md">
-							<div data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="10px" data-railOpacity="0.2">
-								<!-- nav -->
-								<nav class="nav-primary hidden-xs">
-									<ul class="nav bg clearfix" data-ride="collapse">
-									<#if session["nav"]??>
-									<#list session["nav"].keySet() as kk>
-										<#if session["site_type"] == kk>
-											<#list session["nav"].get(kk).childNav as nav>
-											    <li class="hidden-nav-xs padder  text-xs text-muted" style="margin:8px auto;">${nav.title}</li>
-											    <#if nav.childNav??>
-											    <#list nav.childNav as child>
-													<#if child.ak??><li><a href="${root}${child.ak}"><i class="${child.icon}"></i><span>${child.title}</span></a></li></#if>
-											    </#list>
-											    </#if>
-											</#list>
-										</#if>
-									</#list>
+		<section class="hbox stretch">
+			<!-- .aside -->
+			<aside class="bg-gray aside hidden-print" id="nav">
+				<section class="vbox">
+					<section class="w-f-md">
+						<div data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="10px"
+							 data-railOpacity="0.2">
+							<#if session["nav"]??>
+								<#list session["nav"].keySet() as kk>
+									<#if session["site_type"] == kk>
+										<#list session["nav"].get(kk).childNav as nav>
+											<div style="padding-top: 0px; padding-bottom: 0px" class="panel-heading" id="${nav.id}" data-toggle="collapse"
+												 data-target="#${nav.id}_1" role="tab">
+												<label>
+													<h6 class="text-primary">
+														<span class="fa fa-chevron-down"></span>&nbsp;&nbsp;<b>${nav.title}</b>
+													</h6>
+												</label>
+											</div>
+											<#if nav.childNav??>
+												<div id="${nav.id}_1" class="panel-collapse collapse in" role="tabpanel"
+													 aria-labelledby="${nav.id}">
+													<ul class="nav bg">
+														<#list nav.childNav as child>
+															<#if child.ak??>
+																<li class="hidden-nav-xs padder  text-xs text-muted"><a
+																		href="${root}${child.ak}"><i
+																		class="${child.icon}"></i>&nbsp;&nbsp;<span>${child.title}</span></a>
+																</li>
+															</#if>
+														</#list>
+													</ul>
+												</div>
+											</#if>
+										</#list>
 									</#if>
-
-									</ul>
-								</nav>
-							</div>
-						</section>
-
+								</#list>
+							</#if>
+						</div>
 					</section>
-				</aside>
-				<section style="background-color: #fff;"><#nested></section>
-			</section>
-			<div class="footer clear"><small style="padding-left:15px">©2015 四川省农村信用社联合社</small></div>
+
+				</section>
+			</aside>
+			<section style="background-color: #fff;"><#nested></section>
+		</section>
+		<div class="footer clear"><small style="padding-left:15px">©2015 四川省农村信用社联合社</small></div>
 		<div class="backdrop fade bg-white" id="backdrop">
 			<div class="spinner">
-			  <div class="rect1"></div>
-			  <div class="rect2"></div>
-			  <div class="rect3"></div>
-			  <div class="rect4"></div>
-			  <div class="rect5"></div>
+				<div class="rect1"></div>
+				<div class="rect2"></div>
+				<div class="rect3"></div>
+				<div class="rect4"></div>
+				<div class="rect5"></div>
 			</div>
 		</div>
 	</section>
@@ -117,6 +128,17 @@
 	<script src="/static/js/datepicker/bootstrap-datepicker.js"></script>
 	<script src="/static/waves/waves.js"></script>
 	<script src="/static/js/common.js"></script>
+
+	<script>
+		$(function(){
+			$(".panel-heading").click(function(e){
+				/*切换折叠指示图标*/
+				$(this).find("span").toggleClass("fa-chevron-down");
+				$(this).find("span").toggleClass("fa-chevron-right");
+			});
+		});
+	</script>
+
 </body>
 </html>
 </#macro>
