@@ -71,21 +71,21 @@
 								<#list session["nav"].keySet() as kk>
 									<#if session["site_type"] == kk>
 										<#list session["nav"].get(kk).childNav as nav>
-											<div style="padding-top: 0px; padding-bottom: 0px" class="panel-heading" id="${nav.id}" data-toggle="collapse"
-												 data-target="#${nav.id}_1" role="tab">
+											<div style="padding-top: 0px; padding-bottom: 0px" class="panel-heading"  data-toggle="collapse"
+												  role="tab">
 												<label>
 													<h6 class="text-primary">
-														<span class="fa fa-chevron-down"></span>&nbsp;&nbsp;<b>${nav.title}</b>
+														<span class="fa fa-chevron-right"></span>&nbsp;&nbsp;${nav.title}
 													</h6>
 												</label>
 											</div>
 											<#if nav.childNav??>
-												<div id="${nav.id}_1" class="panel-collapse collapse in" role="tabpanel"
+												<div class="panel-collapse collapse" role="tabpanel"
 													 aria-labelledby="${nav.id}">
 													<ul class="nav bg">
 														<#list nav.childNav as child>
 															<#if child.ak??>
-																<li class="hidden-nav-xs padder  text-xs text-muted"><a
+																<li class="hidden-nav-xs padder text-xs text-muted"><a
 																		href="${root}${child.ak}"><i
 																		class="${child.icon}"></i>&nbsp;&nbsp;<span>${child.title}</span></a>
 																</li>
@@ -132,10 +132,14 @@
 	<script>
 		$(function(){
 			$(".panel-heading").click(function(e){
-				/*切换折叠指示图标*/
+				$("*[class='panel-collapse collapse in']").removeClass("in");
+				$("*[class='fa fa-chevron-right fa-chevron-down']").removeClass("fa-chevron-down");
 				$(this).find("span").toggleClass("fa-chevron-down");
-				$(this).find("span").toggleClass("fa-chevron-right");
+				$(this).next().addClass("in");
 			});
+
+			$(".hidden-nav-xs.active").parent().parent().addClass("in");
+			$(".hidden-nav-xs.active").parent().parent().prev().find("span").toggleClass("fa-chevron-down");
 		});
 	</script>
 

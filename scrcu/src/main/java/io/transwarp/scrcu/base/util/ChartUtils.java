@@ -57,7 +57,6 @@ public class ChartUtils {
         Pie p1 = new Pie(name);
         //设置饼图的内半径、外半径
         p1.radius(30, 60).setData(dataList);
-        p1.roseType(RoseType.radius);
         option.series(p1);
         return GsonUtil.format(option);
 
