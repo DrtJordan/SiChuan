@@ -230,7 +230,7 @@
 	<sqlGroup name="portal_siteAnalysis_max_uv">
 		<sql id="name">地域分布访客数最大值</sql>
 		<sql id="header"></sql>
-		<sql id="sql">select max(maxUv) from (select cast(sum(uv) as int) as maxUv from hb_Result_visitor_area_Info group by city)
+		<sql id="sql">select max(maxUv) from (select cast(sum(uv) as int) as maxUv from bdhbs.th_log_web_usr_area_orc_day where city != '四川' group by city)
 		</sql>
 	</sqlGroup>
 	<!--地域分布  end -->
