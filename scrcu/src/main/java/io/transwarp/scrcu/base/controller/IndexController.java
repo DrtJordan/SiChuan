@@ -147,8 +147,7 @@ public class IndexController extends BaseController {
                 int sum_1 = Integer.valueOf(data.get(0).get(1));// pv
                 int sum_2 = Integer.valueOf(data.get(0).get(2));// uv
                 int sum_3 = Integer.valueOf(data.get(0).get(3));// Logon_User_Cnt
-//                int sum_4 = Integer.valueOf(data.get(0).get(3) == null ? 0 : Integer.valueOf(data.get(0).get(3)));// nuv
-                int sum_4 = 0;// nuv
+                int sum_4 = Integer.valueOf(data.get(0).get(4));// nuv
 
                 result.put("sum_1", sum_1);
                 result.put("sum_2", sum_2);
