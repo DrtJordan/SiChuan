@@ -1,202 +1,205 @@
 <#include "/common/_layout.html"/> <@layout>
 <div class="top">
-	<ul class="breadcrumb">
-		<li><a href="#"><i class="fa fa-home"></i> 首页</a></li>
-		<li>用户画像</li>
-	</ul>
+    <ul class="breadcrumb">
+        <li><a href="#"><i class="fa fa-home"></i> 首页</a></li>
+        <li>用户画像</li>
+    </ul>
 </div>
 <style>
 
-.userTags li {
-	height: 65px !important;
-}
+    .userTags li {
+        height: 65px !important;
+    }
 </style>
 <section id="content">
-	<div class="row">
+    <div class="row">
 
-		<div class="col-sm-12">
-			<div class="panel panel-default table-responsive">
-				<header class="panel-heading clear"> 关键字 </header>
-				<div class="panel-body" style="padding: 0px">
-					<div id="keyWordDiv" style="height: 240px;"></div>
+        <div class="col-sm-6">
+            <div class="panel panel-default table-responsive">
+                <header class="panel-heading clear"> 使用时段</header>
+                <div class="panel-body" style="padding: 0px">
+                    <div id="useTimeDiv" style="height: 240px;"></div>
 
-				</div>
-			</div>
-		</div>
+                </div>
+            </div>
+        </div>
 
-		<div class="col-sm-6">
-			<div class="panel panel-default table-responsive">
-				<header class="panel-heading clear"> 使用时段 </header>
-				<div class="panel-body" style="padding: 0px">
-					<div id="useTimeDiv" style="height: 240px;"></div>
+        <div class="col-sm-6">
+            <div class="panel panel-default table-responsive">
+                <header class="panel-heading clear"> 年代</header>
+                <div class="panel-body" style="padding: 0px">
+                    <div id="generationDiv" style="height: 240px;"></div>
+                </div>
+            </div>
+        </div>
 
-				</div>
-			</div>
-		</div>
+        <div class="col-sm-4">
+            <div class="panel panel-default table-responsive">
+                <header class="panel-heading clear"> 教育程度</header>
+                <div class="panel-body" style="padding: 0px">
+                    <div id="eduBgDiv" style="height: 240px;"></div>
+                </div>
+            </div>
+        </div>
 
-		<div class="col-sm-6">
-			<div class="panel panel-default table-responsive">
-				<header class="panel-heading clear"> 年代 </header>
-				<div class="panel-body" style="padding: 0px">
-					<div id="generationDiv" style="height: 240px;"></div>
-				</div>
-			</div>
-		</div>
+        <div class="col-sm-4">
+            <div class="panel panel-default table-responsive">
+                <header class="panel-heading clear">注册年限</header>
+                <div class="panel-body" style="padding: 0px">
+                    <div id="regYearDiv" class="col-md-12" style="height: 240px;"></div>
+                </div>
+            </div>
+        </div>
 
-		<div class="col-sm-4">
-			<div class="panel panel-default table-responsive">
-				<header class="panel-heading clear"> 教育程度 </header>
-				<div class="panel-body" style="padding: 0px">
-					<div id="eduBgDiv" style="height: 240px;"></div>
-				</div>
-			</div>
-		</div>
+        <div class="col-sm-4">
+            <div class="panel panel-default table-responsive">
+                <header class="panel-heading clear"> 群体类型</header>
+                <div class="panel-body" style="padding: 0px">
+                    <div id="colonyDiv" style="height: 240px;"></div>
+                </div>
+            </div>
+        </div>
 
-		<div class="col-sm-4">
-			<div class="panel panel-default table-responsive">
-				<header class="panel-heading clear">注册年限 </header>
-				<div class="panel-body" style="padding: 0px">
-					<div id="regYearDiv" class="col-md-12" style="height: 240px;"></div>
-				</div>
-			</div>
-		</div>
+        <div class="col-sm-4">
+            <div class="panel panel-default table-responsive">
+                <header class="panel-heading clear"> 性别</header>
+                <div class="panel-body" style="padding: 0px">
+                    <div id="sexDiv" style="height: 240px;"></div>
+                </div>
+            </div>
+        </div>
 
-		<div class="col-sm-4">
-			<div class="panel panel-default table-responsive">
-				<header class="panel-heading clear"> 群体类型 </header>
-				<div class="panel-body" style="padding: 0px">
-					<div id="colonyDiv" style="height: 240px;"></div>
-				</div>
-			</div>
-		</div>
+        <div class="col-sm-4">
+            <div class="panel panel-default table-responsive">
+                <header class="panel-heading clear"> 终端</header>
+                <div class="panel-body" style="padding: 0px">
+                    <div id="terminalDiv" style="height: 240px;"></div>
+                </div>
+            </div>
+        </div>
 
-		<div class="col-sm-4">
-			<div class="panel panel-default table-responsive">
-				<header class="panel-heading clear"> 性别 </header>
-				<div class="panel-body" style="padding: 0px">
-					<div id="sexDiv" style="height: 240px;"></div>
-				</div>
-			</div>
-		</div>
+        <div class="col-sm-4">
+            <div class="panel panel-default table-responsive">
+                <header class="panel-heading clear"> 职业</header>
+                <div class="panel-body" style="padding: 0px">
+                    <div id="jobDiv" style="height: 240px;"></div>
+                </div>
+            </div>
+        </div>
 
-		<div class="col-sm-4">
-			<div class="panel panel-default table-responsive">
-				<header class="panel-heading clear"> 终端 </header>
-				<div class="panel-body" style="padding: 0px">
-					<div id="terminalDiv" style="height: 240px;"></div>
-				</div>
-			</div>
-		</div>
+        <div class="col-sm-4">
+            <div class="panel panel-default table-responsive">
+                <header class="panel-heading clear"> 搜索引擎</header>
+                <div class="panel-body" style="padding: 0px">
+                    <div id="searchDiv" style="height: 240px;"></div>
+                </div>
+            </div>
+        </div>
 
-		<div class="col-sm-4">
-			<div class="panel panel-default table-responsive">
-				<header class="panel-heading clear"> 职业 </header>
-				<div class="panel-body" style="padding: 0px">
-					<div id="jobDiv" style="height: 240px;"></div>
-				</div>
-			</div>
-		</div>
+        <div class="col-sm-4">
+            <div class="panel panel-default table-responsive">
+                <header class="panel-heading clear"> 用户卡类别</header>
+                <div class="panel-body" style="padding: 0px">
+                    <div id="cardTypeDiv" style="height: 240px;"></div>
+                </div>
+            </div>
+        </div>
 
-		<div class="col-sm-4" >
-			<div class="panel panel-default table-responsive">
-				<header class="panel-heading clear"> 搜索引擎 </header>
-				<div class="panel-body" style="padding: 0px">
-					<div id="searchDiv" style="height: 240px;"></div>
-				</div>
-			</div>
-		</div>
+        <div class="col-sm-4">
+            <div class="panel panel-default table-responsive">
+                <header class="panel-heading clear"> 交易类型</header>
+                <div class="panel-body" style="padding: 0px">
+                    <div id="tradeDiv" style="height: 240px;"></div>
 
-		<div class="col-sm-4">
-			<div class="panel panel-default table-responsive">
-				<header class="panel-heading clear"> 用户卡类别 </header>
-				<div class="panel-body" style="padding: 0px">
-					<div id="cardTypeDiv" style="height: 240px;"></div>
-				</div>
-			</div>
-		</div>
-		<div class="col-sm-4">
-			<div class="panel panel-default table-responsive">
-				<header class="panel-heading clear"> 交易类型 </header>
-				<div class="panel-body" style="padding: 0px">
-					<div id="tradeDiv" style="height: 240px;"></div>
+                </div>
+            </div>
+        </div>
 
-				</div>
-			</div>
-		</div>
+        <div class="clear">
+            <hr/>
+        </div>
 
-		<div class="clear">
-		<hr />
-	</div>
-	<div class="col-sm-12">
-			<div class="panel panel-default table-responsive">
-				<header class="panel-heading clear"> 标签 </header>
-				<div class="panel-body" >
-		<ul class="userTags clear" id="rateMap" style="width: 100%">
-		</ul>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	
+        <div class="col-sm-12">
+            <div class="panel panel-default table-responsive">
+                <header class="panel-heading clear"> 标签</header>
+                <div class="panel-body">
+                    <ul class="userTags clear" id="rateMap" style="width: 100%">
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="clear">
+        </div>
+
+        <div class="col-sm-12">
+            <div class="panel panel-default table-responsive">
+                <header class="panel-heading clear"> 关键字</header>
+                <div class="panel-body" style="padding: 0px">
+                    <div id="keyWordDiv" style="height: 240px; width: 100%"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 </@layout>
 <script style="javascript" src="/static/echarts/echarts.js"></script>
 <script>
-	$(document).ready(function() {
-		var ajaxOption = {
-			url : window.location.href,
-			success : function(data) {
-				setChart("jobDiv", data.job);
-				setChart("yearDiv", data.year);
-				setChart("regYearDiv", data.regYear);
-				setChart("colonyDiv", data.colony);
-				setChart("useTimeDiv", data.useTime);
-				setChart("searchDiv", data.search);
-				setChart("tradeDiv", data.trade);
-				setChart("cardTypeDiv", data.cardType);
-				setChart("eduBgDiv", data.eduBg);
-				setChart("generationDiv", data.generation);
-				setChart("sexDiv", data.sex);
-				setChart("terminalDiv", data.terminal);
-				setChart("keyWordDiv", data.keyWord);
-				
-				var tagMap=data.rateMap;
-		　　		var str ="";
-				$.each(tagMap, function(key, val) { 
-					str = str + '<div class="tagtype col-sm-3"><div>'+key+'</div><ul class="userTags">';
-			　　		var tags=tagMap[key]; 
-			　　		$.each(tags,function(i,tag){
-			　　			str = str + '<li name="'+tag["label_only"]+'">'+tag["label_desc"]+'<br>占比:'+tag["rate"]+'%</li>';
-			　　		});
-			　　		str = str + '</ul></div>'
-			　　	}); 
-				$("#rateMap").append(str);
-			}
-		};
-		commonAjax(ajaxOption);
-	});
+    $(document).ready(function () {
+        var ajaxOption = {
+            url: window.location.href,
+            success: function (data) {
+                setChart("jobDiv", data.job);
+                setChart("yearDiv", data.year);
+                setChart("regYearDiv", data.regYear);
+                setChart("colonyDiv", data.colony);
+                setChart("useTimeDiv", data.useTime);
+                setChart("searchDiv", data.search);
+                setChart("tradeDiv", data.trade);
+                setChart("cardTypeDiv", data.cardType);
+                setChart("eduBgDiv", data.eduBg);
+                setChart("generationDiv", data.generation);
+                setChart("sexDiv", data.sex);
+                setChart("terminalDiv", data.terminal);
+                setChart("keyWordDiv", data.keyWord);
 
-	function setChart(div, data) {
-		if (data != null) {
+                var tagMap = data.rateMap;
+                var str = "";
+                $.each(tagMap, function (key, val) {
+                    str = str + '<div class="tagtype col-sm-3"><div>' + key + '</div><ul class="userTags">';
+                    var tags = tagMap[key];
+                    $.each(tags, function (i, tag) {
+                        str = str + '<li name="' + tag["label_only"] + '">' + tag["label_desc"] + '<br>占比:' + tag["rate"] + '%</li>';
+                    });
+                    str = str + '</ul></div>'
+                });
+                $("#rateMap").append(str);
+            }
+        };
+        commonAjax(ajaxOption);
+    });
 
-			require.config({
-				paths : {
-					'echarts' : '/static/echarts/',
-					'echarts/chart/bar' : '/static/echarts/chart/bar', //bar
-					'echarts/theme/shine' : '/static/echarts/theme/macarons' //主题
-				}
-			});
-			//使用
-			require([ 'echarts', 'echarts/theme/shine', 'echarts/chart/bar' ],
-					function(ec, theme) {
+    function setChart(div, data) {
+        if (data != null) {
 
-						chart = echarts.init(document.getElementById(div),
-								theme);
-						chart.setOption($.parseJSON(data));
-					});
-		} else {
-			$("#" + div).remove();
-		}
-	}
+            require.config({
+                paths: {
+                    'echarts': '/static/echarts/',
+                    'echarts/chart/bar': '/static/echarts/chart/bar', //bar
+                    'echarts/theme/shine': '/static/echarts/theme/macarons' //主题
+                }
+            });
+            //使用
+            require(['echarts', 'echarts/theme/shine', 'echarts/chart/bar'],
+                    function (ec, theme) {
+
+                        chart = echarts.init(document.getElementById(div),
+                                theme);
+                        chart.setOption($.parseJSON(data));
+                    });
+        } else {
+            $("#" + div).remove();
+        }
+    }
 </script>

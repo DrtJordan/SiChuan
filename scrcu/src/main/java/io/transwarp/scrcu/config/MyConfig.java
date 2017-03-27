@@ -74,14 +74,17 @@ public class MyConfig extends JFinalConfig {
 
 		this.routes = me;
 		me.add("/", IndexController.class, "index");
+
 		//用户画像
 		me.add("/portrait", PortraitController.class);
 		me.add("/tag", TagController.class);
+
 		//系统设置
 		me.add("/system/users", UsersController.class, "system/users");
 		me.add("/system/role", RoleController.class, "system/role");
 		me.add("/system/Resource", ResourceController.class, "system/Resource");
 		me.add("/system/nav", NavController.class, "system/nav");
+
 		// 门户
 		me.add("/portal/userAnalysis", UserAnalysisController.class, "portal/userAnalysis");
 		me.add("/portal/visitSource", VisitSourceController.class, "portal/visitSource");

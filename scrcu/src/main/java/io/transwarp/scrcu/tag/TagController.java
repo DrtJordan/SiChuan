@@ -1,7 +1,9 @@
 package io.transwarp.scrcu.tag;
 
+import com.alibaba.fastjson.JSONObject;
 import io.transwarp.scrcu.base.controller.BaseController;
 import io.transwarp.scrcu.base.inceptor.InceptorUtil;
+import io.transwarp.scrcu.base.util.BaseUtils;
 import io.transwarp.scrcu.base.util.ConditionUtil;
 import io.transwarp.scrcu.base.util.SQLConfig;
 import io.transwarp.scrcu.sqlinxml.SqlKit;
@@ -552,4 +554,21 @@ public class TagController extends BaseController {
 
     }
     //网银搜索关键字----end
+
+    @RequiresPermissions("/tag/activeLevel")
+    public void activeLevel(){
+        if (BaseUtils.isAjax(getRequest())) {
+            // 得到时间查询条件
+            String condition = InceptorUtil.getQueryCondition(getRequest());
+            String param = getPara("param");
+            if (param != null && !param.isEmpty()){
+                condition = condition + "where user_id = '" + param + "'";
+            }
+            // 执行查询
+            List<List<String>> activeLevelData = InceptorUtil.query(SqlKit.propSQL(SQLConfig.active_level_day, condition));
+            JSONObject listResult = new JSONObject();
+            listResult.put("activeLevelData", activeLevelData);
+            renderJson(listResult);
+        }
+    }
 }

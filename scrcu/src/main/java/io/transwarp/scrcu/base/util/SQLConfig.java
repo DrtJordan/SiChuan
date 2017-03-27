@@ -620,6 +620,9 @@ public enum SQLConfig {
     cha_feature_label,
     cha_feature_label_config,
 
+    //用户活跃等级
+    active_level_day,
+
     // 画像 家庭关系
     portrait_family,
     // 画像 转账关系

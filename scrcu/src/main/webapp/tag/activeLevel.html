@@ -1,0 +1,104 @@
+<#include "/common/_layout.html"/> <@layout>
+<div class="top">
+    <ul class="breadcrumb">
+        <li><i class="fa fa-home"></i>&nbsp;用户活跃等级</li>
+        <li>活跃度</li>
+    </ul>
+</div>
+
+<section id="content">
+    <!-- 引入日期查询  -->
+    <#include "/common/_dateQuery.html"/>
+
+    <div class="panel panel-default table-responsive clear">
+        <header class="panel-heading">
+            <i class="icon-list padder-xs"></i>用户活跃等级列表
+            <span class="hidden-sm pull-right"><a href="" csvAction="/csv/active_level"
+                                                  class="csvExport btn btn-default btn-sm" style="display: inline"><i
+                    class="fa fa-cloud-download"
+            ></i>&nbsp;导出</a></span>
+        </header>
+        <div class="panel-body" style="padding: 0px">
+
+            <div class="col-sm-9" style="z-index: 1; margin-top: 15px">
+                <label class="w-1">用户ID</label>
+                <input type='text' class="form-control" id='search'
+                       style="width: 150px; height: 30px; display: inline"/>
+                <button id='searchBtn' class='btn btn-primary fa-search fa'
+                        style='margin-top: -4px; height: 30px'></button>
+            </div>
+
+            <table id="table1" class="table table-striped b-light">
+                <thead>
+                <tr>
+                    <th class="w-6">用户ID</th>
+                    <th>动账积分</th>
+                    <th>任务积分</th>
+                    <th>查询积分</th>
+                    <th>管理积分</th>
+                    <th>收藏积分</th>
+                    <th>添加好友积分</th>
+                    <th>用户认证积分</th>
+                    <th>登录积分</th>
+                    <th>在线积分</th>
+                    <th>评论积分</th>
+                    <th>总积分</th>
+                    <th>用户等级</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+
+</section>
+</@layout>
+
+<script>
+    /**
+     * 隐藏按周、季、年汇总的按钮
+     */
+    $().ready(function () {
+        $("#weekButton").hide();
+        $("#monthButton").hide();
+        $("#quarterButton").hide();
+        $("#yearButton").hide();
+    })
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#searchBtn").click(function () {
+            $.ajax({
+                type: "GET",
+                url: window.location.href,
+                data: {param: $("#search").val()},
+                dataType: "json",
+                success: function (datas) {
+                    dataTableExchange(datas, "day");
+                }
+            });
+        });
+    })
+
+    /**
+     * 定义数据查询方法，用来转换后台传输数据
+     * @param data 数据
+     * @param dateType 日期类型：day,week,month,quarter,year
+     */
+    function dataTableExchange(data, dateType) {
+        tableQuery({
+            "aaData": data.activeLevelData,
+            "id": "#table1",
+            "filterWord": "用户ID",
+            "aoColumnDefs": [{
+                targets: [0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+                searchable: false,
+            }],
+            "sDom": "<'row'<'col-sm-3'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
+            "sScrollX": true,
+            "sScrollXInner": "1500px",
+        });
+        csvExport("", dateType);
+    }
+
+</script>
