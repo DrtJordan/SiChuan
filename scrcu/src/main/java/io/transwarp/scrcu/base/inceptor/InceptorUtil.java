@@ -54,6 +54,7 @@ public class InceptorUtil {
 
     /**
      * 建立Collection,创建Statement
+     *
      * @return
      */
     public static Statement getDruidStatement() {
@@ -139,6 +140,7 @@ public class InceptorUtil {
 
     /**
      * 执行SQL语句的方法并在控制台输出执行信息
+     *
      * @param sql
      * @param testcount
      * @param useTest
@@ -172,6 +174,7 @@ public class InceptorUtil {
 
     /**
      * 开始执行SQL
+     *
      * @param sql
      * @param flag
      * @return
@@ -457,34 +460,7 @@ public class InceptorUtil {
 
         StringBuffer stringBuffer = new StringBuffer();
         if (StringUtils.isNotBlank(queryType) && queryType.split(":").length == 2) {
-
-            if (queryType.equals("时长")) {
-                stringBuffer.append("online_time ='" + queryType.split(":")[1] + "' and ");
-            }
-            if (queryType.equals("版本")) {
-                stringBuffer.append("app_version ='" + queryType.split(":")[1] + "' and ");
-            }
-            if (queryType.equals("os") || queryType.equals("OS")) {
-                stringBuffer.append("term_os ='" + queryType.split(":")[1] + "' and ");
-            }
-            if (queryType.equals("渠道")) {
-                stringBuffer.append("chl_id ='" + queryType.split(":")[1] + "' and ");
-            }
-            if (queryType.contains("启动次数")) {
-                stringBuffer.append("startup_cnt ='" + queryType.split(":")[1] + "' and ");
-            }
-            if (queryType.contains("使用间隔")) {
-                stringBuffer.append("use_interval ='" + queryType.split(":")[1] + "' and ");
-            }
-            if (queryType.contains("访问页面")) {
-                stringBuffer.append("pv_cnt ='" + queryType.split(":")[1] + "' and ");
-            }
-            if (queryType.equals("访问时长")) {
-                stringBuffer.append("pv_cnt ='" + queryType.split(":")[1] + "' and ");
-            }
-            if (queryType.equals("访问深度")) {
-                stringBuffer.append("pv_cnt ='" + queryType.split(":")[1] + "' and ");
-            }
+            stringBuffer.append(queryType.split(":")[0] + "= '" + queryType.split(":")[1] + "' and ");
         }
         return stringBuffer.toString();
     }

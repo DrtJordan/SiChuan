@@ -138,7 +138,7 @@
     <sqlGroup name="app_retainUser_channel_day">
         <sql id="name">app留存用户_渠道维度按天汇总</sql>
         <sql id="header">日期,渠道名,新增用户数,次日留存,7日留存,30日留存数,60天后,90天后,180天后,360天后</sql>
-        <sql id="sql">select stat_date, chl_name, his_stat_new_cnt, last_1_1day, last_2_7day, last_3_30day,
+        <sql id="sql">select stat_date, chl_id, his_stat_new_cnt, last_1_1day, last_2_7day, last_3_30day,
             last_4_60day, last_5_90day, last_6_180day, last_7_360day from bdhbs.th_busi_user_remain_chl_ort_day where
             SQL_CONDITION cnt_type = '1'
         </sql>

@@ -118,7 +118,7 @@
                 api.columns().indexes().flatten().each(function (i) {
                     if (i == 2) {
                         var column = api.column(i);
-                        conditionSearch(i, "os", 2, selectValues, column, dateType);
+                        conditionSearch(i, "os", "term_os", 2, selectValues, column, dateType);
                     }
                 });
             }

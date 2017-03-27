@@ -117,10 +117,9 @@
                 var api = this.api();
                 var selectValues = new Array();
                 api.columns().indexes().flatten().each(function (i) {
-                    var name = "使用间隔";
                     if (i == 2) {
                         var column = api.column(i);
-                        conditionSearch(i, name, 1, selectValues, column, dateType);
+                        conditionSearch(i, "使用间隔", "use_interval", 1, selectValues, column, dateType);
                     }
                 });
             }
@@ -137,13 +136,15 @@
                 var api = this.api();
                 var selectValues = new Array();
                 api.columns().indexes().flatten().each(function (i) {
-                    var name = "使用间隔";
+                    var filterName = "使用间隔";
+                    var name = "use_interval";
                     if (i == 2 || i == 3) {
                         if (i == 2) {
-                            name = "版本";
+                            filterName = "版本";
+                            name = "app_version";
                         }
                         var column = api.column(i);
-                        conditionSearch(i, name, 2, selectValues, column, dateType);
+                        conditionSearch(i, filterName, name, 2, selectValues, column, dateType);
                     }
                 });
             }
@@ -160,13 +161,15 @@
                 var api = this.api();
                 var selectValues = new Array();
                 api.columns().indexes().flatten().each(function (i) {
-                    var name = "使用间隔";
+                    var filterName = "使用间隔";
+                    var name = "use_interval";
                     if (i == 2 || i == 3) {
                         if (i == 2) {
-                            name = "渠道";
+                            filterName = "渠道";
+                            name = "chl_id";
                         }
                         var column = api.column(i);
-                        conditionSearch(i, name, 3, selectValues, column, dateType);
+                        conditionSearch(i, filterName, name, 3, selectValues, column, dateType);
                     }
                 });
             }
@@ -183,13 +186,15 @@
                 var api = this.api();
                 var selectValues = new Array();
                 api.columns().indexes().flatten().each(function (i) {
-                    var name = "使用间隔";
+                    var filterName = "使用间隔";
+                    var name = "use_interval";
                     if (i == 2 || i == 3) {
                         if (i == 2) {
-                            name = "os";
+                            filterName = "os";
+                            name = "term_os";
                         }
                         var column = api.column(i);
-                        conditionSearch(i, name, 4, selectValues, column, dateType);
+                        conditionSearch(i, filterName, name, 4, selectValues, column, dateType);
                     }
                 });
             }

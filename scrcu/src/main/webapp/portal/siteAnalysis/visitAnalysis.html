@@ -116,7 +116,7 @@
                 api.columns().indexes().flatten().each(function (i) {
                     if (i == 2) {
                         var column = api.column(i);
-                        conditionSearch(i, "访问时长", 1, selectValues, column, dateType);
+                        conditionSearch(i, "访问时长", "pv_cnt", 1, selectValues, column, dateType);
                     }
                 });
             }
@@ -136,7 +136,7 @@
                 api.columns().indexes().flatten().each(function (i) {
                     if (i == 2) {
                         var column = api.column(i);
-                        conditionSearch(i, "访问深度", 2, selectValues, column, dateType);
+                        conditionSearch(i, "访问深度", "pv_cnt", 2, selectValues, column, dateType);
                     }
                 });
             }

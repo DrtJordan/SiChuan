@@ -122,7 +122,7 @@
 							column
 									.search(val ? '^' + val + '$' : '', true, false)
 									.draw();
-							selectValues.push("城市:" + val);
+							selectValues.push("city_id:" + val);
 							csvExport(selectValues, dateType);
 						});
 				column.data().unique().sort().each(function (d, j) {
@@ -139,13 +139,15 @@
 				var api = this.api();
 				var selectValues = new Array();
 				api.columns().indexes().flatten().each(function (i) {
-					var name = "城市";
+					var filterName = "城市";
+					var name = "city_id";
 					if (i == 1 || i == 3) {
 						if (i == 3) {
-							name = "版本";
+                            filterName = "版本";
+							name = "app_version";
 						}
 						var column = api.column(i);
-						conditionSearch(i, name, 2, selectValues, column, dateType);
+						conditionSearch(i, filterName, name, 2, selectValues, column, dateType);
 					}
 				});
 			}
@@ -159,13 +161,15 @@
 				var api = this.api();
 				var selectValues = new Array();
 				api.columns().indexes().flatten().each(function (i) {
-					var name = "城市";
+					var filterName = "城市";
+                    var name = "city_id";
 					if (i == 1 || i == 3) {
 						if (i == 3) {
-							name = "渠道";
+                            filterName = "渠道";
+                            name = "07";
 						}
 						var column = api.column(i);
-						conditionSearch(i, name, 3, selectValues, column, dateType);
+						conditionSearch(i, filterName, name, 3, selectValues, column, dateType);
 					}
 				});
 			}

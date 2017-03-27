@@ -82,7 +82,7 @@
                 api.columns().indexes().flatten().each(function (i) {
                     if (i == 2) {
                         var column = api.column(i);
-                        conditionSearch(i, "渠道", 1, selectValues, column, dateType);
+                        conditionSearch(i, "渠道", "chl_id", 1, selectValues, column, dateType);
                     }
                 });
             }

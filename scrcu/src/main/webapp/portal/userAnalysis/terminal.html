@@ -111,7 +111,7 @@
                 api.columns().indexes().flatten().each(function (i) {
                     if (i == 1) {
                         var column = api.column(i);
-                        conditionSearch(i, "操作系统", 1, selectValues, column, dateType);
+                        conditionSearch(i, "操作系统", "os", 1, selectValues, column, dateType);
                     }
                 });
             }
@@ -126,7 +126,7 @@
                 api.columns().indexes().flatten().each(function (i) {
                     if (i == 1) {
                         var column = api.column(i);
-                        conditionSearch(i, "浏览器", 2, selectValues, column, dateType);
+                        conditionSearch(i, "浏览器", "browser", 2, selectValues, column, dateType);
                     }
                 });
             }

@@ -56,7 +56,7 @@
 							column
 									.search(val ? '^' + val + '$' : '', true, false)
 									.draw();
-							selectValues.push("版本:" + val);
+							selectValues.push("app_version:" + val);
 							csvExport(selectValues, dateType);
 						});
 				column.data().unique().sort().each(function (d, j) {

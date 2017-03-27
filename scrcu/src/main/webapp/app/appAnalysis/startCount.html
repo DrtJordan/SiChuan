@@ -115,7 +115,7 @@
                 api.columns().indexes().flatten().each(function (i) {
                     if (i == 2) {
                         var column = api.column(i);
-                        conditionSearch(i, "os", 1, selectValues, column, dateType);
+                        conditionSearch(i, "os", "term_os", 1, selectValues, column, dateType);
                     }
                 });
             }
@@ -136,7 +136,7 @@
                 api.columns().indexes().flatten().each(function (i) {
                     if (i == 2) {
                         var column = api.column(i);
-                        conditionSearch(i, "渠道", 2, selectValues, column, dateType);
+                        conditionSearch(i, "渠道", "chl_id", 2, selectValues, column, dateType);
                     }
                 });
             }

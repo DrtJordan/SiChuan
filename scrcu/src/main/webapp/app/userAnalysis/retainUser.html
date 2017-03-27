@@ -162,7 +162,7 @@
 							column
 									.search(val ? '^' + val + '$' : '', true, false)
 									.draw();
-							selectValues.push("OS:" + val);
+							selectValues.push("term_os:" + val);
 							csvExport(selectValues, dateType);
 						});
 				column.data().unique().sort().each(function (d, j) {
@@ -188,7 +188,7 @@
 							column
 									.search(val ? '^' + val + '$' : '', true, false)
 									.draw();
-							selectValues.push("渠道:" + val);
+							selectValues.push("chl_id:" + val);
 							csvExport(selectValues, dateType);
 						});
 				column.data().unique().sort().each(function (d, j) {

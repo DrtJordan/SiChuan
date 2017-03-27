@@ -71,7 +71,7 @@
 								<#list session["nav"].keySet() as kk>
 									<#if session["site_type"] == kk>
 										<#list session["nav"].get(kk).childNav as nav>
-											<div style="padding-top: 0px; padding-bottom: 0px" class="panel-heading"  data-toggle="collapse"
+											<div style="padding-top: 0px; padding-bottom: 0px" class="panel-heading title-card"  data-toggle="collapse"
 												  role="tab">
 												<label>
 													<h6 class="text-primary">
@@ -131,7 +131,7 @@
 
 	<script>
 		$(function(){
-			$(".panel-heading").click(function(e){
+			$(".panel-heading.title-card").click(function(e){
 				$("*[class='panel-collapse collapse in']").removeClass("in");
 				$("*[class='fa fa-chevron-right fa-chevron-down']").removeClass("fa-chevron-down");
 				$(this).find("span").toggleClass("fa-chevron-down");

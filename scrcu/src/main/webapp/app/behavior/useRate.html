@@ -118,7 +118,7 @@
                 api.columns().indexes().flatten().each(function (i) {
                     if (i == 2) {
                         var column = api.column(i);
-                        conditionSearch(i, "启动次数", 1, selectValues, column, dateType);
+                        conditionSearch(i, "启动次数", "startup_cnt", 1, selectValues, column, dateType);
                     }
                 });
             }
@@ -136,13 +136,15 @@
                 var api = this.api();
                 var selectValues = new Array();
                 api.columns().indexes().flatten().each(function (i) {
-                    var name = "启动次数";
+                    var filterName = "启动次数";
+                    var name = "startup_cnt";
                     if (i == 2 || i == 3) {
                         if (i == 2) {
-                            name = "版本";
+                            filterName = "版本";
+                            name = "app_version";
                         }
                         var column = api.column(i);
-                        conditionSearch(i, name, 2, selectValues, column, dateType);
+                        conditionSearch(i, filterName, name, 2, selectValues, column, dateType);
                     }
                 });
             }
@@ -160,13 +162,15 @@
                 var api = this.api();
                 var selectValues = new Array();
                 api.columns().indexes().flatten().each(function (i) {
-                    var name = "启动次数";
+                    var filterName = "启动次数";
+                    var name = "startup_cnt";
                     if (i == 2 || i == 3) {
                         if (i == 2) {
-                            name = "渠道";
+                            filterName = "渠道";
+                            name = "chl_id";
                         }
                         var column = api.column(i);
-                        conditionSearch(i, name, 3, selectValues, column, dateType);
+                        conditionSearch(i, filterName, name, 3, selectValues, column, dateType);
                     }
                 });
             }
@@ -185,13 +189,15 @@
                 //定义数组，用来接收选择的查询条件
                 var selectValues = new Array();
                 api.columns().indexes().flatten().each(function (i) {
-                    var name = "启动次数";
+                    var filterName = "启动次数";
+                    var name = "startup_cnt";
                     if (i == 2 || i == 3) {
                         if (i == 2) {
-                            name = "os";
+                            filterName = "os";
+                            name = "term_os";
                         }
                         var column = api.column(i);
-                        conditionSearch(i, name, 4, selectValues, column, dateType);
+                        conditionSearch(i, filterName, name, 4, selectValues, column, dateType);
                     }
                 });
             }

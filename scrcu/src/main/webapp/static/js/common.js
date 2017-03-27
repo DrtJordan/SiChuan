@@ -6,43 +6,6 @@ function todayQuery() {
 	$("#end_dt").val(getDateStr(0));
 	$("#dateQuery").click();
 }
-/**
- * 计算一周的日期间隔
- */
-function sevendayQuery() {
-	$("#start_dt").val(getDateStr(-7));
-	$("#end_dt").val(getDateStr(0));
-	$("#dateQuery").click();
-}
-/**
- * 计算一个月的日期间隔
- */
-function thirtydayQuery() {
-	$("#start_dt").val(getDateStr(-30));
-	$("#end_dt").val(getDateStr(0));
-	$("#dateQuery").click();
-}
-
-/**
- * 计算一年的日期间隔
- */
-function yearQuery() {
-    $("#start_dt").val(getYear(-365));
-    $("#end_dt").val(getYear(0));
-    $("#dateQuery").click();
-}
-
-function dateDiff(day1,day2){
-	var dayArray1=day1.split("-");
-	var d1=new Date();
-	d1.setFullYear(dayArray1[0],dayArray1[1],dayArray1[2]);
-	
-	var dayArray2=day2.split("-");
-	var d2=new Date();
-	d2.setFullYear(dayArray2[0],dayArray2[1],dayArray2[2]);
-	
-	return (d1.getTime()-d2.getTime())/(24*60*60*1000);
-}
 
 /**
  * 比例转换
@@ -75,15 +38,6 @@ function getDateStr(AddDayCount) {
 	var y = dd.getFullYear();
 	var m = dd.getMonth() + 1;// 获取当前月份的日期
 	var d = dd.getDate();
-	return y + "-" + (m < 10 ? "0" + m : m) + "-" + (d < 10 ? "0" + d : d);
-}
-
-function getYear(addYearCount) {
-	var year = new Date();
-    year.setDate(year.getDate() + addYearCount);
-	var y = year.getFullYear();
-    var m = year.getMonth() + 1;// 获取当前月份的日期
-    var d = year.getDate();
 	return y + "-" + (m < 10 ? "0" + m : m) + "-" + (d < 10 ? "0" + d : d);
 }
 
@@ -222,17 +176,18 @@ function endBackdrop() {
  * 表格查询选择的条件址
  *
  * @param i 循环的列的索引
- * @param name 查询的名称
+ * @param filterName 查询的名称
+ * @param name 查询选择值的key
  * @param num 表格的索引
  * @param selectValues 选择的列的值
  * @param column 列
  * @param dateType 日期类型
  */
-function conditionSearch(i, name, num, selectValues, column, dateType){
+function conditionSearch(i, filterName, name, num, selectValues, column, dateType){
 	var value = "#table" + num + "_wrapper div:first div#select" + i + " select";
 	var selectValue = "#table" + num + "_wrapper div#select" + i + " select";
 	var tableName = "#table" + num + "_wrapper div:first";
-	var select = $('<div id="select' + i + '" class="col-sm-4"><div class="dataTables_filter"><label><i class="fa fa-search">&nbsp;' + name + '&nbsp;</i><select style="width: 100px"><option value="">-请选择-</option></select></label></div></div>')
+	var select = $('<div id="select' + i + '" class="col-sm-4"><div class="dataTables_filter"><label><i class="fa fa-search">&nbsp;' + filterName + '&nbsp;</i><select style="width: 100px"><option value="">-请选择-</option></select></label></div></div>')
 			.appendTo($(tableName))
 			.on('change', function () {
 				var val = $.fn.dataTable.util.escapeRegex(
