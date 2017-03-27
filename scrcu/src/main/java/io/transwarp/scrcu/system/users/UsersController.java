@@ -74,7 +74,7 @@ public class UsersController extends BaseController {
     public void save() {
         Users users = getModel(Users.class);
         users.save();
-        UserRoles.dao.deleteByUserId("druid", users.getInt("id"));
+        UserRoles.dao.deleteByUserId(users.getInt("id"));
         int roleid = getParaToInt("role_id");
         UserRoles ur = new UserRoles();
         ur.set("user_id", users.get("id"));
@@ -88,7 +88,7 @@ public class UsersController extends BaseController {
     @RequiresPermissions("/system/users/update")
     public void update() {
         Users users = getModel(Users.class);
-        UserRoles.dao.deleteByUserId("druid", users.getInt("id"));
+        UserRoles.dao.deleteByUserId(users.getInt("id"));
         int roleid = getParaToInt("role_id");
         UserRoles ur = new UserRoles();
         ur.set("user_id", users.get("id"));

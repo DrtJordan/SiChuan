@@ -19,9 +19,9 @@ public class UserRoles extends BaseModel<UserRoles> {
      *
      * @param userId 用户userId
      */
-    public void deleteByUserId(String configName, int userId) {
+    public void deleteByUserId(int userId) {
 
-        Db.use(configName).update("delete from sys_user_roles where user_id = ?", userId);
+        Db.update("delete from sys_user_roles where user_id = ?", userId);
 
     }
 

@@ -169,8 +169,8 @@ public class AppBehaviorController extends BaseController {
                 if (dateType.equals("day")) {
                     dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_depth_day, condition), false);
                     dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_depth_phone_day, condition));
-                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_depth_channel_week, condition));
-                    dataOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_depth_os_week, condition));
+                    dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_depth_channel_day, condition));
+                    dataOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_depth_os_day, condition));
                 }
                 if (dateType.equals("week")) {
                     dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_depth_week, condition), false);
@@ -280,6 +280,7 @@ public class AppBehaviorController extends BaseController {
     @RequiresPermissions("/app/behavior/area")
     public void area() {
         if (BaseUtils.isAjax(getRequest())) {
+            List<List<String>> dataCharts = new ArrayList<>();
             List<List<String>> dataArea = new ArrayList<>();
             List<List<String>> dataAreaPhone = new ArrayList<>();
             List<List<String>> dataAreaChannel = new ArrayList<>();
@@ -290,48 +291,58 @@ public class AppBehaviorController extends BaseController {
             String condition = InceptorUtil.getQueryCondition(getRequest());
             if (dateType != null) {
                 if (dateType.equals("day")) {
+                    dataCharts = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_area_day_chart, condition), false);
                     dataArea = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_area_query_day, condition), false);
                     dataAreaPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_phone_day, condition));
                     dataAreaChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_chanel_day, condition));
                     dataAreaOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_os_day, condition));
                 }
                 if (dateType.equals("week")) {
+                    dataCharts = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_area_week_chart, condition), false);
                     dataArea = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_area_query_week, condition), false);
                     dataAreaPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_phone_week, condition));
                     dataAreaChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_chanel_week, condition));
                     dataAreaOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_os_week, condition));
                 }
                 if (dateType.equals("month")) {
+                    dataCharts = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_area_month_chart, condition), false);
                     dataArea = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_area_query_month, condition), false);
                     dataAreaPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_phone_month, condition));
                     dataAreaChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_chanel_month, condition));
                     dataAreaOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_os_month, condition));
                 }
                 if (dateType.equals("quarter")) {
+                    dataCharts = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_area_quarter_chart, condition), false);
                     dataArea = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_area_query_quarter, condition), false);
                     dataAreaPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_phone_quarter, condition));
                     dataAreaChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_chanel_quarter, condition));
                     dataAreaOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_os_quarter, condition));
                 }
                 if (dateType.equals("year")) {
+                    dataCharts = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_area_year_chart, condition), false);
                     dataArea = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_area_query_year, condition), false);
                     dataAreaPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_phone_year, condition));
                     dataAreaChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_chanel_year, condition));
                     dataAreaOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_os_year, condition));
                 }
             }
-            //查询新增用户数的最大值
-            List<List<String>> MaxUvValue = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_max_uv));
+
             // 返回结果
             List<Object> dataList = new ArrayList<Object>();
-            for (List<String> list : dataArea) {
+            for (List<String> list : dataCharts) {
+
                 String name = list.get(0).replace("甘孜州", "甘孜藏族自治州").replace("阿坝州", "阿坝藏族羌族自治州").replace("凉山州", "凉山彝族自治州");
-                //获取新增用户数
-                Data newUserCount = new Data(name, list.get(2));
-                dataList.add(newUserCount);
+                    //获取新增用户数
+                    Data newUserCount = new Data(name, list.get(1));
+                    dataList.add(newUserCount);
+            }
+
+            Integer maxValue = 0;
+            if (dataCharts.size() != 0) {
+                maxValue = Integer.valueOf(dataCharts.get(0).get(1));
             }
             //生成手机移动地域分布数据图
-            String areaMap = ChartUtils.genMapChart(res.get("app.newAddUser"), dataList, MaxUvValue);
+            String areaMap = ChartUtils.genMapChart(res.get("app.newAddUser"), dataList, maxValue);
             result.put("chartOption", areaMap);
             result.put("data", dataArea);
             result.put("dataAreaChannel", dataAreaChannel);

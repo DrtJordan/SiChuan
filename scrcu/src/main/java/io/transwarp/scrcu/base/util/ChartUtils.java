@@ -260,7 +260,7 @@ public class ChartUtils {
      * @param maxValue 最大值
      * @return
      */
-    public static String genMapChart(String name, List<Object> dataList, List<List<String>> maxValue) {
+    public static String genMapChart(String name, List<Object> dataList, Integer maxValue) {
         Map map = new Map("Map");
         for (int i = 0; i < dataList.size(); i++) {
             Data ts = (Data) dataList.get(i);
@@ -283,7 +283,7 @@ public class ChartUtils {
         dr.calculable(true);
         dr.min(0);
         //设置访客数最大值
-        dr.max(Integer.valueOf(maxValue.get(0).get(0)));
+        dr.max(maxValue);
         dr.x("left");
         dr.y("bottom");
         dr.text("高, 低");

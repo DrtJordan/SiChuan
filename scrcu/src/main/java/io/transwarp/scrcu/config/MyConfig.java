@@ -1,7 +1,5 @@
 package io.transwarp.scrcu.config;
 
-import java.util.Map;
-
 import com.alibaba.druid.wall.WallFilter;
 import com.jfinal.config.Constants;
 import com.jfinal.config.Handlers;
@@ -16,7 +14,6 @@ import com.jfinal.kit.PropKit;
 import com.jfinal.log.Logger;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.activerecord.dialect.MysqlDialect;
-import com.jfinal.plugin.activerecord.dialect.OracleDialect;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.ehcache.EhCachePlugin;
 import com.jfinal.render.FreeMarkerRender;
@@ -30,7 +27,6 @@ import io.transwarp.scrcu.authority.tags.ShiroTags;
 import io.transwarp.scrcu.base.controller.IndexController;
 import io.transwarp.scrcu.base.inceptor.InceptorUtil;
 import io.transwarp.scrcu.base.interceptor.CommonInterceptor;
-import io.transwarp.scrcu.base.util.BaseUtils;
 import io.transwarp.scrcu.custom.Custom;
 import io.transwarp.scrcu.custom.CustomController;
 import io.transwarp.scrcu.portal.EventAnalysisController;
@@ -70,17 +66,6 @@ public class MyConfig extends JFinalConfig {
 
 		InceptorUtil.devMode = PropKit.getBoolean("inceptor.devMode");
 		InceptorUtil.encache = PropKit.getBoolean("inceptor.encache");
-
-	}
-
-	@Override
-	public void afterJFinalStart() {
-		super.afterJFinalStart();
-		Map<Integer, Map<Integer, SysNav>> navTree = SysNav.dao.tree();
-		BaseUtils.navTree = navTree;
-
-		Map<String, Integer> nav = SysNav.dao.nav();
-		BaseUtils.nav = nav;
 
 	}
 
@@ -129,12 +114,10 @@ public class MyConfig extends JFinalConfig {
 		WallFilter wallFilter = new WallFilter();
 		wallFilter.setDbType(getProperty("dbType"));
 		druidPlugin.addFilter(wallFilter);
-//		druidPlugin.setValidationQuery("select 1 from dual");
 		me.add(druidPlugin);
 
 		// ActiveRecord插件
 		ActiveRecordPlugin arp = new ActiveRecordPlugin("druid", druidPlugin);
-//		arp.setDialect(new OracleDialect());
 		arp.setDialect(new MysqlDialect());
 		arp.addMapping("sys_users", Users.class);
 		arp.addMapping("sys_user_roles", UserRoles.class);

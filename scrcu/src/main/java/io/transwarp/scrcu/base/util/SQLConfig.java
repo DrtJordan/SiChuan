@@ -72,7 +72,7 @@ public enum SQLConfig {
     app_regUser_phone,
 
     // 移动 渠道明细
-    app_channel_detail,
+    app_channel_detail_day,
 
 
     //会员流失分析 按天汇总
@@ -434,31 +434,38 @@ public enum SQLConfig {
     // 移动 版本分布按年汇总
     app_version_year,
 
-    // //移动地域按天汇总
+    //移动地域按天汇总
     app_area_query_day,
     app_area_phone_day,
     app_area_chanel_day,
     app_area_os_day,
-    // //移动地域按周汇总
+    //移动地域按周汇总
     app_area_query_week,
     app_area_phone_week,
     app_area_chanel_week,
     app_area_os_week,
-    // //移动地域按月汇总
+    //移动地域按月汇总
     app_area_query_month,
     app_area_phone_month,
     app_area_chanel_month,
     app_area_os_month,
-    // //移动地域按季汇总
+    //移动地域按季汇总
     app_area_query_quarter,
     app_area_phone_quarter,
     app_area_chanel_quarter,
     app_area_os_quarter,
-    // //移动地域按年汇总
+    //移动地域按年汇总
     app_area_query_year,
     app_area_phone_year,
     app_area_chanel_year,
     app_area_os_year,
+
+    // app地域分布汇总地图数据
+    app_area_day_chart,
+    app_area_week_chart,
+    app_area_month_chart,
+    app_area_quarter_chart,
+    app_area_year_chart,
     // app地域分布访客数最大值
     app_area_max_uv,
 

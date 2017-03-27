@@ -3,7 +3,8 @@ package test.io.transwarp.scrcu.system.nav;
 import com.jfinal.plugin.activerecord.Page;
 import io.transwarp.scrcu.system.nav.SysNav;
 import org.junit.*;
-import test.io.transwarp.scrcu.JfinalUnitTestsConfig;
+import test.io.transwarp.scrcu.JFinalConfigTest;
+import test.io.transwarp.scrcu.conf.ControllerTestCase;
 
 import java.util.List;
 
@@ -16,17 +17,7 @@ import static org.junit.Assert.assertEquals;
  * @version 1.0
  * @since <pre>三月 20, 2017</pre>
  */
-public class SysNavTest {
-
-    @BeforeClass
-    public static void setUp() throws Exception {
-        JfinalUnitTestsConfig.setDataSourceBeforeClass("sysNavDataSourceConfig");
-    }
-
-    @AfterClass
-    public static void closeDataSource() throws Exception {
-        JfinalUnitTestsConfig.closeDataSource();
-    }
+public class SysNavTest extends ControllerTestCase<JFinalConfigTest> {
 
     /**
      * Method: paginate(int pageNumber, int pageSize)

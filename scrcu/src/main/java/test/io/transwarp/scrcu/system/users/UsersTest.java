@@ -1,11 +1,10 @@
 package test.io.transwarp.scrcu.system.users;
 
 import com.jfinal.plugin.activerecord.Page;
-import test.io.transwarp.scrcu.JfinalUnitTestsConfig;
+import test.io.transwarp.scrcu.JFinalConfigTest;
 import io.transwarp.scrcu.system.users.Users;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
+import test.io.transwarp.scrcu.conf.ControllerTestCase;
 
 import static org.junit.Assert.assertEquals;
 
@@ -16,12 +15,7 @@ import static org.junit.Assert.assertEquals;
  * @version 1.0
  * @since <pre>三月 15, 2017</pre>
  */
-public class UsersTest{
-
-    @BeforeClass
-    public static void setUp() throws Exception {
-        JfinalUnitTestsConfig.setDataSourceBeforeClass("usersDataSourceConfig");
-    }
+public class UsersTest extends ControllerTestCase<JFinalConfigTest> {
 
     /**
      * Method: paginate(int pageNumber, int pageSize)
@@ -55,8 +49,4 @@ public class UsersTest{
         assertEquals(4, user.get("id"));
     }
 
-    @AfterClass
-    public static void closeDataSource() throws Exception {
-        JfinalUnitTestsConfig.closeDataSource();
-    }
-} 
+}

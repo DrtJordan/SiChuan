@@ -3,7 +3,8 @@ package test.io.transwarp.scrcu.system.role;
 import com.jfinal.plugin.activerecord.Page;
 import io.transwarp.scrcu.system.role.SysRole;
 import org.junit.*;
-import test.io.transwarp.scrcu.JfinalUnitTestsConfig;
+import test.io.transwarp.scrcu.JFinalConfigTest;
+import test.io.transwarp.scrcu.conf.ControllerTestCase;
 
 import static org.junit.Assert.assertEquals;
 
@@ -14,17 +15,7 @@ import static org.junit.Assert.assertEquals;
  * @version 1.0
  * @since <pre>三月 20, 2017</pre>
  */
-public class SysRoleTest {
-
-    @BeforeClass
-    public static void setUp() throws Exception {
-        JfinalUnitTestsConfig.setDataSourceBeforeClass("sysRoleDataSourceConfig");
-    }
-
-    @AfterClass
-    public static void closeDataSource() throws Exception {
-        JfinalUnitTestsConfig.closeDataSource();
-    }
+public class SysRoleTest extends ControllerTestCase<JFinalConfigTest> {
 
     /**
      * Method: paginate(int pageNumber, int pageSize)

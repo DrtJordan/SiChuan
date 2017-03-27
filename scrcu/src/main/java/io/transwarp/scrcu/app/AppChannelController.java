@@ -90,7 +90,7 @@ public class AppChannelController extends BaseController {
             // 得到查询条件
             String condition = InceptorUtil.getQueryCondition(getRequest());
             // 执行查询
-            List<List<String>> dataChannel = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_channel_detail, condition), false);
+            List<List<String>> dataChannel = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_channel_detail_day, condition), false);
 
             JSONObject result = new JSONObject();
             // 返回结果

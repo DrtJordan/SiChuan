@@ -77,8 +77,13 @@ public class UserAnalysisController extends BaseController {
                 Data uvValue = new Data(name, list.get(1));
                 dataList.add(uvValue);
             }
+
+            Integer maxValue = 0;
+            if (maxUv.size() != 0) {
+                maxValue = Integer.valueOf(maxUv.get(0).get(0));
+            }
             //生成四川省地域分布图
-            String areaMap = ChartUtils.genMapChart(res.get("portal.visitor"), dataList, maxUv);
+            String areaMap = ChartUtils.genMapChart(res.get("portal.visitor"), dataList, maxValue);
             result.put("chartOption", areaMap);
             result.put("areaData", areaData);
             renderJson(result);

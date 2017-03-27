@@ -1,11 +1,16 @@
 package test.io.transwarp.scrcu;
 
+import com.alibaba.druid.wall.WallFilter;
 import com.jfinal.config.*;
 import com.jfinal.core.JFinal;
 import com.jfinal.kit.PropKit;
+import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
+import com.jfinal.plugin.activerecord.dialect.MysqlDialect;
+import com.jfinal.plugin.druid.DruidPlugin;
 import io.transwarp.scrcu.app.*;
 import io.transwarp.scrcu.base.controller.IndexController;
 import io.transwarp.scrcu.base.inceptor.InceptorUtil;
+import io.transwarp.scrcu.custom.Custom;
 import io.transwarp.scrcu.portal.EventAnalysisController;
 import io.transwarp.scrcu.portal.SiteAnalysisController;
 import io.transwarp.scrcu.portal.UserAnalysisController;
@@ -13,8 +18,14 @@ import io.transwarp.scrcu.portal.VisitSourceController;
 import io.transwarp.scrcu.portrait.PortraitController;
 import io.transwarp.scrcu.sqlinxml.SqlInXmlPlugin;
 import io.transwarp.scrcu.system.nav.NavController;
+import io.transwarp.scrcu.system.nav.SysNav;
 import io.transwarp.scrcu.system.resource.ResourceController;
+import io.transwarp.scrcu.system.resource.SysRes;
 import io.transwarp.scrcu.system.role.RoleController;
+import io.transwarp.scrcu.system.role.SysRole;
+import io.transwarp.scrcu.system.role.SysRoleRes;
+import io.transwarp.scrcu.system.users.UserRoles;
+import io.transwarp.scrcu.system.users.Users;
 import io.transwarp.scrcu.system.users.UsersController;
 import io.transwarp.scrcu.tag.TagController;
 
@@ -61,6 +72,32 @@ public class JFinalConfigTest extends JFinalConfig {
 
     @Override
     public void configPlugin(Plugins me) {
+
+        //获取数据库的配置
+        String jdbcUrl = getProperty("jdbcUrl");
+        String driver = getProperty("driverClass");
+        String username = getProperty("username");
+        String password = getProperty("password");
+
+        // Druid
+        DruidPlugin druidPlugin = new DruidPlugin(jdbcUrl, username, password, driver);
+        WallFilter wallFilter = new WallFilter();
+        wallFilter.setDbType(getProperty("dbType"));
+        druidPlugin.addFilter(wallFilter);
+        me.add(druidPlugin);
+
+        // ActiveRecord插件
+        ActiveRecordPlugin arp = new ActiveRecordPlugin("testDruid", druidPlugin);
+        arp.setDialect(new MysqlDialect());
+        arp.addMapping("sys_users", Users.class);
+        arp.addMapping("sys_user_roles", UserRoles.class);
+        arp.addMapping("custom", Custom.class);
+        arp.addMapping("sys_res", SysRes.class);
+        arp.addMapping("sys_role", SysRole.class);
+        arp.addMapping("sys_nav", SysNav.class);
+        arp.addMapping("sys_role_res", SysRoleRes.class);
+        me.add(arp);
+
         me.add(new SqlInXmlPlugin());
     }
 

@@ -67,7 +67,7 @@ public class InceptorUtil {
             }
             stateMent = collection.createStatement();
             //TODO set ngmr.exec.mode=local 用户画像根据标签进行检索时，执行自定义的SQL时，会抛出异常，提示把ngmr.exec.mode设置为cluster
-            stateMent.execute("set ngmr.exec.mode=cluster");
+            stateMent.execute("set ngmr.exec.mode=LOCAL");
         } catch (SQLException e) {
             logger.error(e.getMessage());
         }

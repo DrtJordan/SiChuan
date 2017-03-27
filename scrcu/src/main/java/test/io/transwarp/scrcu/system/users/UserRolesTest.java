@@ -1,8 +1,9 @@
 package test.io.transwarp.scrcu.system.users;
 
-import test.io.transwarp.scrcu.JfinalUnitTestsConfig;
+import test.io.transwarp.scrcu.JFinalConfigTest;
 import io.transwarp.scrcu.system.users.UserRoles;
 import org.junit.*;
+import test.io.transwarp.scrcu.conf.ControllerTestCase;
 
 import static org.junit.Assert.assertEquals;
 
@@ -14,12 +15,7 @@ import static org.junit.Assert.assertEquals;
  * @version 1.0
  * @since <pre>三月 15, 2017</pre>
  */
-public class UserRolesTest {
-
-    @BeforeClass
-    public static void setUp() throws Exception {
-        JfinalUnitTestsConfig.setDataSourceBeforeClass("userRolesDataSourceConfig");
-    }
+public class UserRolesTest extends ControllerTestCase<JFinalConfigTest> {
 
     /**
      * Method: deleteByUserId(int userId)
@@ -27,7 +23,7 @@ public class UserRolesTest {
     @Test
     public void testDeleteByUserId() throws Exception {
 
-        UserRoles.dao.deleteByUserId("userRolesDataSourceConfig", 999);
+        UserRoles.dao.deleteByUserId(999);
 
         System.out.println("删除成功");
     }
@@ -43,8 +39,4 @@ public class UserRolesTest {
         assertEquals(10, userRoles.get("role_id"));
     }
 
-    @AfterClass
-    public static void closeDataSource() throws Exception {
-        JfinalUnitTestsConfig.closeDataSource();
-    }
 } 
