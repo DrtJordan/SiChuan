@@ -26,11 +26,22 @@ public class AppUserControllerTest extends ControllerTestCase<JFinalConfigTest> 
 
         JSONObject jsonResultDay = JSONObject.parseObject(resultDay);
         JSONArray dataTime = jsonResultDay.getJSONArray("dataTime");
+        JSONArray dataPhone = jsonResultDay.getJSONArray("dataPhone");
+        JSONArray dataChannel = jsonResultDay.getJSONArray("dataChannel");
+
+        assertEquals(6, jsonResultDay.size());
 
         assertEquals(2, dataTime.size());
-        assertEquals(6, jsonResultDay.size());
         assertEquals("2015-11-01", dataTime.getJSONArray(0).get(0));
         assertEquals("55592", dataTime.getJSONArray(0).get(1));
+
+        assertEquals(2, dataPhone.size());
+        assertEquals("Android", dataPhone.getJSONArray(0).get(1));
+        assertEquals("55592", dataPhone.getJSONArray(0).get(2));
+
+        assertEquals(2, dataChannel.size());
+        assertEquals("07", dataChannel.getJSONArray(0).get(1));
+        assertEquals("55592", dataChannel.getJSONArray(0).get(2));
 
     }
 
@@ -44,11 +55,22 @@ public class AppUserControllerTest extends ControllerTestCase<JFinalConfigTest> 
 
         JSONObject jsonResultDay = JSONObject.parseObject(resultDay);
         JSONArray dataTime = jsonResultDay.getJSONArray("dataTime");
+        JSONArray dataPhone = jsonResultDay.getJSONArray("dataPhone");
+        JSONArray dataChannel = jsonResultDay.getJSONArray("dataChannel");
 
-        assertEquals(1, dataTime.size());
         assertEquals(6, jsonResultDay.size());
+
+        assertEquals(2, dataTime.size());
         assertEquals("2016-12-31", dataTime.getJSONArray(0).get(0));
         assertEquals("4250", dataTime.getJSONArray(0).get(1));
+
+        assertEquals(0, dataPhone.size());
+//        assertEquals("Android", dataPhone.getJSONArray(0).get(0));
+//        assertEquals("4250", dataPhone.getJSONArray(0).get(1));
+
+        assertEquals(3, dataChannel.size());
+        assertEquals("01", dataChannel.getJSONArray(0).get(1));
+        assertEquals("1295", dataChannel.getJSONArray(0).get(2));
     }
 
     /**
@@ -60,12 +82,18 @@ public class AppUserControllerTest extends ControllerTestCase<JFinalConfigTest> 
 
         JSONObject jsonResultDay = JSONObject.parseObject(resultDay);
         JSONArray dataPhone = jsonResultDay.getJSONArray("dataPhone");
+        JSONArray dataChannel = jsonResultDay.getJSONArray("dataChannel");
+
+        assertEquals(4, jsonResultDay.size());
 
         assertEquals(1, dataPhone.size());
-        assertEquals(4, jsonResultDay.size());
         assertEquals("2015-11-01", dataPhone.getJSONArray(0).get(0));
         assertEquals("Android", dataPhone.getJSONArray(0).get(1));
         assertEquals("54136", dataPhone.getJSONArray(0).get(2));
+
+        assertEquals(0, dataChannel.size());
+//        assertEquals("07", dataChannel.getJSONArray(0).get(1));
+//        assertEquals("54136", dataChannel.getJSONArray(0).get(2));
     }
 
     /**
@@ -77,12 +105,24 @@ public class AppUserControllerTest extends ControllerTestCase<JFinalConfigTest> 
 
         JSONObject jsonResultDay = JSONObject.parseObject(resultDay);
         JSONArray dataTime = jsonResultDay.getJSONArray("dataTime");
+        JSONArray dataPhone = jsonResultDay.getJSONArray("dataPhone");
+        JSONArray dataChannel = jsonResultDay.getJSONArray("dataChannel");
+
+        assertEquals(6, jsonResultDay.size());
 
         assertEquals(2, dataTime.size());
-        assertEquals(6, jsonResultDay.size());
         assertEquals("2015-11-01", dataTime.getJSONArray(0).get(0));
         assertEquals("55592", dataTime.getJSONArray(0).get(1));
         assertEquals("15", dataTime.getJSONArray(0).get(2));
+
+        assertEquals(2, dataPhone.size());
+        assertEquals("Android", dataPhone.getJSONArray(0).get(1));
+        assertEquals("55592", dataPhone.getJSONArray(0).get(2));
+
+        assertEquals(2, dataChannel.size());
+        assertEquals("07", dataChannel.getJSONArray(0).get(1));
+        assertEquals("55592", dataChannel.getJSONArray(0).get(2));
+
     }
 
     /**
@@ -94,13 +134,18 @@ public class AppUserControllerTest extends ControllerTestCase<JFinalConfigTest> 
 
         JSONObject jsonResultDay = JSONObject.parseObject(resultDay);
         JSONArray dataTime = jsonResultDay.getJSONArray("dataTime");
+        JSONArray dataPhone = jsonResultDay.getJSONArray("dataPhone");
+
+        assertEquals(4, jsonResultDay.size());
 
         assertEquals(1, dataTime.size());
-        assertEquals(4, jsonResultDay.size());
         assertEquals("2015-11-01", dataTime.getJSONArray(0).get(0));
         assertEquals("54136", dataTime.getJSONArray(0).get(1));
         assertEquals("1.9141", dataTime.getJSONArray(0).get(2));
-    }
 
+        assertEquals(1, dataPhone.size());
+        assertEquals("Android", dataPhone.getJSONArray(0).get(1));
+        assertEquals("54136", dataPhone.getJSONArray(0).get(2));
+    }
 
 } 

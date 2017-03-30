@@ -51,7 +51,7 @@ function tableQuery(option, callback) {
 		"destroy" : true,
 		"fixedOrder" : true,
 		"aoColumnDefs": [],
-		"order" : [ [ 1, 'asc' ] ],
+		"order" : [ [ 1, 'desc' ] ],
 		"bAutoWidth" : false,
 		"bProcessing" : true,
 		"sDom" : "<'row'<'col-sm-6'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",

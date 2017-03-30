@@ -8,72 +8,18 @@ public enum SQLConfig {
     // 门户网站分析 页面排行
     //实时
     portal_siteAnalysis_real,
-    portal_pageRank,
-    // 门户网站分析 页面分析
-    portal_pageAnalysis,
-    // 门户 网站统计 访问分析1 时长
-    portal_visitAnalysis_time,
-    // 门户 网站统计 访问分析2 深度
-    portal_visitAnalysis_depth,
-    // 门户 网站分析 会员页面
-    portal_siteAnalysis_userVisitPage_query,
-    // 用户统计 地域分布
-    portal_siteAnalysis_area_query,
     // 用户统计，地域分布 访客数最大值
     portal_siteAnalysis_max_uv,
-    // 用户统计 流失统计
-    portal_siteAnalysis_userLoss_query,
-    // 用户统计 唯一用户分析
-    portal_userAnalysis_userOnly,
-    // 门户 来源统计 来源
-    portal_sourceAnalysis_source,
-    // 门户 来源统计 搜索引擎
-    portal_sourceAnalysis_searchEngine,
-    // 门户 来源统计 入口页面
-    portal_siteAnalysis_entryPage_query,
-    // 门户 网站统计 广告趋势
-    portal_siteAnalysis_adTrend_query,
-    // 门户 网站统计 流量趋势
-    portal_siteAnalysis_flowTrend,
-    //门户 网站统计 流量趋势 chart图表 
-    portal_siteAnalysis_flowTrend_chart,
-    // 门户 用户统计 用户等级
-    portal_userAnalysis_userLevel,
     // 门户 事件统计 事件明细
     portal_eventAnalysis_detail_day,
     // 门户 事件统计 事件趋势
     portal_eventAnalysis_tendency_day,
 
-    // 门户 来源统计 活跃用户 日期纬度
-    app_activeUser,
-    // 门户 来源统计 活跃用户 手机纬度
-    app_activeUser_phone,
-    // 门户 来源统计 活跃用户 渠道纬度
-    app_activeUser_channel,
-
-    // 门户 终端类型 操作系统占比
-    portal_terminal_os,
-    // 门户 终端类型 浏览器占比
-    portal_terminal_browserDiv,
     //业务分析
     business_analysis,
 
-    // 移动 留存用户分布
-    app_retainUser,
-    // 移动 手机留存用户分布
-    app_retainUser_phone,
-    // 移动 渠道留存用户分布
-    app_retainUser_channel,
-    // 移动 注册用户分析
-    app_regUser,
-    // 移动 渠道注册分布
-    app_regUser_channel,
-    // 移动 手机注册分布
-    app_regUser_phone,
-
     // 移动 渠道明细
     app_channel_detail_day,
-
 
     //会员流失分析 按天汇总
     app_member_runoff_day,
@@ -94,11 +40,6 @@ public enum SQLConfig {
     portal_pageRank_day,
     //页面排行 按月汇总
     portal_pageRank_month,
-
-    //页面排行 按天汇总
-    portal_siteAnalysis_userVisitPage_query_day,
-    //页面排行 按月汇总
-    portal_siteAnalysis_userVisitPage_query_month,
 
     //访问时长 按天汇总
     portal_visitAnalysis_time_day,
@@ -433,6 +374,12 @@ public enum SQLConfig {
     app_version_quarter,
     // 移动 版本分布按年汇总
     app_version_year,
+
+    //app版本 Echarts图表查询
+    app_version_day_chart,
+    app_version_month_chart,
+    app_version_quarter_chart,
+    app_version_year_chart,
 
     //移动地域按天汇总
     app_area_query_day,

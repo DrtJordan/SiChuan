@@ -67,29 +67,6 @@
 		<sql id="sql">select stat_date, access_depth, log_usr_num, ratio, pv, pv_ratio from bdhbs.th_log_web_usr_page_view_depth_orc_sum_day where SQL_CONDITION cnt_type='4'</sql>
 	</sqlGroup>
 	<!-- 访问页面深度end -->
-
-	<!-- 页面分析 start -->
-	<sqlGroup name="portal_pageAnalysis">
-		<sql id="name">页面分析</sql>
-		<sql id="header">浏览量(PV),访客数(VV),跳出率,退出率</sql>
-		<sql id="sql">select url,pv,uv,Bounce_Rate,Exit_rate from hb_Result_Page_analysis_Info</sql>
-	</sqlGroup>
-	<!--访页面分析 end -->
-
-	<!-- 页面排行start -->
-	<sqlGroup name="portal_pageRank_day">
-		<sql id="name">页面排行按天汇总</sql>
-		<sql id="header">网址,排名,浏览量,访客数,访问次数,IP数,平均停留时长,贡献浏览量,跳出率,退出率</sql>
-		<sql id="sql">select stat_date, url, ranking, pv, uv, vv, ip_num, avg_page_stay_durat, contr_dowst_pv, bounce_rate, exit_rate from bdhbs.th_log_web_page_veiw_rank_orc_day where SQL_CONDITION cnt_type='99' order by ranking asc
-		</sql>
-	</sqlGroup>
-
-	<sqlGroup name="portal_pageRank_month">
-		<sql id="name">页面排行按月汇总</sql>
-		<sql id="header">网址,排名,浏览量,访客数,访问次数,IP数,平均停留时长,贡献浏览量,跳出率,退出率</sql>
-		<sql id="sql">select stat_date, url, ranking, pv, uv, vv, ip_num, avg_page_stay_durat, contr_dowst_pv, bounce_rate, exit_rate from bdhbs.th_log_web_page_veiw_rank_orc_sum_day where SQL_CONDITION cnt_type='2' order by ranking asc</sql>
-	</sqlGroup>
-	<!--页面排行end -->
 	
 	<!-- 广告趋势 start -->
 	<sqlGroup name="portal_siteAnalysis_adTrend_query_day">
@@ -247,52 +224,44 @@
 	<!-- 终端操作系统按天汇总 -->
 	<sqlGroup name="portal_terminal_os_day">
 		<sql id="name">操作系统占比</sql>
-		<sql id="header">操作系统,访问次数VV,浏览量,浏览量占比,访客数UV,UV占比,IP数</sql>
-		<sql id="sql">select os, vv, pv, bro_vol_ratio,uv, uv_ratio, ip_num from bdhbs.th_log_web_usr_terminal_detail_orc_day where SQL_CONDITION cnt_type='1'</sql>
+		<sql id="header">日期,操作系统,访问次数VV,浏览量,浏览量占比,访客数UV,UV占比,IP数</sql>
+		<sql id="sql">select stat_date, os, vv, pv, bro_vol_ratio,uv, uv_ratio, ip_num from bdhbs.th_log_web_usr_terminal_detail_orc_day where SQL_CONDITION cnt_type='1'</sql>
 	</sqlGroup>
 
 	<!-- 终端操作系统按月汇总 -->
 	<sqlGroup name="portal_terminal_os_month">
 		<sql id="name">操作系统占比按月汇总</sql>
-		<sql id="header">操作系统,访问次数VV,浏览量,浏览量占比,访客数UV,UV占比,IP数</sql>
-		<sql id="sql">select os, vv, pv, bro_vol_ratio,uv, uv_ratio, ip_num from bdhbs.th_log_web_usr_terminal_detail_os_orc_sum_day where SQL_CONDITION cnt_type='2'</sql>
+		<sql id="header">日期,操作系统,访问次数VV,浏览量,浏览量占比,访客数UV,UV占比,IP数</sql>
+		<sql id="sql">select stat_date, os, vv, pv, bro_vol_ratio,uv, uv_ratio, ip_num from bdhbs.th_log_web_usr_terminal_detail_os_orc_sum_day where SQL_CONDITION cnt_type='2'</sql>
 	</sqlGroup>
 
 	<!-- 终端浏览器按天汇总 -->
 	<sqlGroup name="portal_terminal_browserDiv_day">
 		<sql id="name">浏览器占比</sql>
-		<sql id="header">浏览器,访问次数VV,浏览量,浏览量占比,访客数UV,UV占比,IP数</sql>
-		<sql id="sql">select browser, vv, pv, bro_vol_ratio,uv, uv_ratio, ip_num from bdhbs.th_log_web_usr_terminal_detail_orc_day where SQL_CONDITION cnt_type='2'</sql>
+		<sql id="header">日期,浏览器,访问次数VV,浏览量,浏览量占比,访客数UV,UV占比,IP数</sql>
+		<sql id="sql">select stat_date, browser, vv, pv, bro_vol_ratio,uv, uv_ratio, ip_num from bdhbs.th_log_web_usr_terminal_detail_orc_day where SQL_CONDITION cnt_type='2'</sql>
 	</sqlGroup>
 
 	<!-- 终端浏览器按月汇总 -->
 	<sqlGroup name="portal_terminal_browserDiv_month">
 		<sql id="name">浏览器占比</sql>
-		<sql id="header">浏览器,访问次数VV,浏览量,浏览量占比,访客数UV,UV占比,IP数</sql>
-		<sql id="sql">select browser, vv, pv, bro_vol_ratio,uv, uv_ratio, ip_num from bdhbs.th_log_web_usr_terminal_detail_browser_orc_sum_day where SQL_CONDITION cnt_type='2'</sql>
+		<sql id="header">日期,浏览器,访问次数VV,浏览量,浏览量占比,访客数UV,UV占比,IP数</sql>
+		<sql id="sql">select stat_date, browser, vv, pv, bro_vol_ratio,uv, uv_ratio, ip_num from bdhbs.th_log_web_usr_terminal_detail_browser_orc_sum_day where SQL_CONDITION cnt_type='2'</sql>
 	</sqlGroup>
 	<!-- 终端类型end -->
-	
-	<!--页面排行start -->
-	<sqlGroup name="portal_siteAnalysis_userVisitPage_query">
-		<sql id="name">会员页面</sql>
-		<sql id="header">页面,浏览量(PV),访问次数(VV),平均页面停留时长(秒),贡献下游浏览量,跳出率,退出率</sql>
-		<sql id="sql">select url,cast(sum(PV) as int) as pvcount,cast(sum(VV) as int),cast(sum(avg_page_stay_durat)/count(avg_page_stay_durat) as int),cast(sum(contr_dowst_pv) as int),sum(Bounce_Rate)/count(Bounce_Rate),sum(Exit_rate)/count(Exit_rate) from hb_result_Mem_Page_Analy_Info SQL_CONDITION group by url order by pvcount desc
+
+	<!-- 页面排行start -->
+	<sqlGroup name="portal_pageRank_day">
+		<sql id="name">页面排行按天汇总</sql>
+		<sql id="header">日期,网址,排名,浏览量,访客数,访问次数,IP数,平均停留时长,贡献浏览量,跳出率,退出率</sql>
+		<sql id="sql">select stat_date, url, ranking, pv, uv, vv, ip_num, avg_page_stay_durat, contr_dowst_pv, bounce_rate, exit_rate from bdhbs.th_log_web_page_veiw_rank_orc_day where SQL_CONDITION cnt_type='99' order by ranking asc
 		</sql>
 	</sqlGroup>
 
-	<sqlGroup name="portal_siteAnalysis_userVisitPage_query_day">
-		<sql id="name">会员页面</sql>
-		<sql id="header">页面,浏览量(PV),访问次数(VV),平均页面停留时长(秒),贡献下游浏览量,跳出率,退出率</sql>
-		<sql id="sql">select url,cast(sum(PV) as int) as pvcount,cast(sum(VV) as int),cast(sum(avg_page_stay_durat)/count(avg_page_stay_durat) as int),cast(sum(contr_dowst_pv) as int),sum(Bounce_Rate)/count(Bounce_Rate),sum(Exit_rate)/count(Exit_rate) from hb_result_Mem_Page_Analy_Info SQL_CONDITION group by url order by pvcount desc
-		</sql>
-	</sqlGroup>
-
-	<sqlGroup name="portal_siteAnalysis_userVisitPage_query_month">
-		<sql id="name">会员页面</sql>
-		<sql id="header">页面,浏览量(PV),访问次数(VV),平均页面停留时长(秒),贡献下游浏览量,跳出率,退出率</sql>
-		<sql id="sql">select url,cast(sum(PV) as int) as pvcount,cast(sum(VV) as int),cast(sum(avg_page_stay_durat)/count(avg_page_stay_durat) as int),cast(sum(contr_dowst_pv) as int),sum(Bounce_Rate)/count(Bounce_Rate),sum(Exit_rate)/count(Exit_rate) from hb_result_Mem_Page_Analy_Info SQL_CONDITION group by url order by pvcount desc
-		</sql>
+	<sqlGroup name="portal_pageRank_month">
+		<sql id="name">页面排行按月汇总</sql>
+		<sql id="header">日期,网址,排名,浏览量,访客数,访问次数,IP数,平均停留时长,贡献浏览量,跳出率,退出率</sql>
+		<sql id="sql">select stat_date, url, ranking, pv, uv, vv, ip_num, avg_page_stay_durat, contr_dowst_pv, bounce_rate, exit_rate from bdhbs.th_log_web_page_veiw_rank_orc_sum_day where SQL_CONDITION cnt_type='2' order by ranking asc</sql>
 	</sqlGroup>
 	<!--页面排行end -->
 
@@ -327,15 +296,15 @@
 	<!-- 会员页面分析start -->
 	<sqlGroup name="portal_siteAnalysis_userPage_query_day">
 		<sql id="name">会员页面分析按天汇总</sql>
-		<sql id="header">网址,浏览量(PV),访问次数(VV),平均页面停留时长(秒),贡献下游浏览量,跳出率,退出率</sql>
-		<sql id="sql">select url, pv, vv, avg_page_stay_durat, contr_dowst_pv, bounce_rate, exit_rate from bdhbs.th_log_web_member_page_orc_day where SQL_CONDITION cnt_type='99'
+		<sql id="header">日期,网址,浏览量(PV),访问次数(VV),平均页面停留时长(秒),贡献下游浏览量,跳出率,退出率</sql>
+		<sql id="sql">select stat_date, url, pv, vv, avg_page_stay_durat, contr_dowst_pv, bounce_rate, exit_rate from bdhbs.th_log_web_member_page_orc_day where SQL_CONDITION cnt_type='99'
 		</sql>
 	</sqlGroup>
 
 	<sqlGroup name="portal_siteAnalysis_userPage_query_month">
 		<sql id="name">会员页面分析按月汇总</sql>
-		<sql id="header">网址,浏览量(PV),访问次数(VV),平均页面停留时长(秒),贡献下游浏览量,跳出率,退出率</sql>
-		<sql id="sql">select url, pv, vv, avg_page_stay_durat, contr_dowst_pv, bounce_rate, exit_rate from bdhbs.th_log_web_member_page_orc_sum_day where SQL_CONDITION cnt_type='2'
+		<sql id="header">日期,网址,浏览量(PV),访问次数(VV),平均页面停留时长(秒),贡献下游浏览量,跳出率,退出率</sql>
+		<sql id="sql">select stat_date, url, pv, vv, avg_page_stay_durat, contr_dowst_pv, bounce_rate, exit_rate from bdhbs.th_log_web_member_page_orc_sum_day where SQL_CONDITION cnt_type='2'
 		</sql>
 	</sqlGroup>
 	<!-- 会员页面分析end -->

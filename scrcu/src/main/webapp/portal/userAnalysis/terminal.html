@@ -29,6 +29,7 @@
                     <table id="table1" class="datatables table table-striped " data-ride="datatables">
                         <thead>
                         <tr>
+                            <th>日期</th>
                             <th class="aglin-center">操作系统</th>
                             <th class="aglin-center">访问次数VV</th>
                             <th class="aglin-center">浏览量</th>
@@ -44,6 +45,7 @@
                     <table id="table2" class="datatables table table-striped " data-ride="datatables">
                         <thead>
                         <tr>
+                            <th>日期</th>
                             <th class="aglin-center">浏览器</th>
                             <th class="aglin-center">访问次数VV</th>
                             <th class="aglin-center">浏览量</th>
@@ -109,7 +111,7 @@
                 var api = this.api();
                 var selectValues = new Array();
                 api.columns().indexes().flatten().each(function (i) {
-                    if (i == 1) {
+                    if (i == 2) {
                         var column = api.column(i);
                         conditionSearch(i, "操作系统", "os", 1, selectValues, column, dateType);
                     }
@@ -124,7 +126,7 @@
                 var api = this.api();
                 var selectValues = new Array();
                 api.columns().indexes().flatten().each(function (i) {
-                    if (i == 1) {
+                    if (i == 2) {
                         var column = api.column(i);
                         conditionSearch(i, "浏览器", "browser", 2, selectValues, column, dateType);
                     }

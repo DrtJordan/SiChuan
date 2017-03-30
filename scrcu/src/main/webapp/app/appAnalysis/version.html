@@ -7,6 +7,12 @@
 </div>
 <section id="content">
 	<#include "/common/_dateQuery.html"/>
+
+	<div id="chartDiv" style="height: 280px;"></div>
+	<div class="clear">
+		<hr/>
+	</div>
+
 	<div class="panel panel-default table-responsive clear">
 		<div class="col-sm-12 panel panel-default" style="padding: 0px; margin-bottom: 0px; border: 0px;">
 			<header class="panel-heading">
@@ -39,6 +45,12 @@
 	$("#weekButton").hide();
 
 	function dataTableExchange(data, dateType) {
+
+        var chart = echarts.init(document.getElementById('chartDiv'),
+            'infographic');
+        var chartOption = data.appVersionCharts;
+        chart.setOption($.parseJSON(chartOption));
+
 		tableQuery({
 			"aaData": data.data,
 			"id": "#table1",

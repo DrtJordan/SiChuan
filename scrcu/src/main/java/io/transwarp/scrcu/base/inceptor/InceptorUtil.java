@@ -142,13 +142,13 @@ public class InceptorUtil {
      * 执行SQL语句的方法并在控制台输出执行信息
      *
      * @param sql
-     * @param testcount
+     * @param testCount
      * @param useTest
      * @return
      */
-    public static List<List<String>> SQLQuery(String sql, int testcount, boolean useTest) {
+    public static List<List<String>> SQLQuery(String sql, int testCount, boolean useTest) {
         if (devMode && useTest) {
-            return testQuery(sql, testcount);
+            return testQuery(sql, testCount);
         }
         logger.fatal("Running: " + sql);
         long start = System.currentTimeMillis();
@@ -183,7 +183,6 @@ public class InceptorUtil {
         Statement sm = getDruidStatement();
         ResultSet rs = null;
         try {
-//			sql = sql.replaceAll("as int", "as signed");
             rs = sm.executeQuery(sql);
         } catch (SQLException e) {
             if (stateMent != null) {
@@ -212,7 +211,7 @@ public class InceptorUtil {
         return rs;
     }
 
-    public static List<Map<String, Object>> SQLQuerylabel(String sql) {
+    /*public static List<Map<String, Object>> SQLQuerylabel(String sql) {
         logger.fatal("Running: " + sql);
         long start = System.currentTimeMillis();
         // 得到字段数目
@@ -249,7 +248,7 @@ public class InceptorUtil {
         } else {
             return tagQuery(sql, isStatic);
         }
-    }
+    }*/
 
     /**
      * 测试模式
@@ -257,7 +256,7 @@ public class InceptorUtil {
      * @param sql
      * @return
      */
-    public static List<Map<String, Object>> testMapQuery(String sql, int testcount) {
+    /*public static List<Map<String, Object>> testMapQuery(String sql, int testcount) {
         logger.fatal("Running: " + sql);
         try {
             Thread.sleep(100);
@@ -291,10 +290,10 @@ public class InceptorUtil {
         } else {
             return mapQuery(sql);
         }
-    }
+    }*/
 
-    public static final List<Map<String, Object>> mapQuery(String sql, boolean usecache) {
-        if (encache && usecache) {
+    public static final List<Map<String, Object>> mapQuery(String sql, boolean useCache) {
+        if (encache && useCache) {
             List<Map<String, Object>> list = CacheKit.get("inceptor", sql);
             if (list == null) {
                 list = mapQuery(sql);
@@ -311,8 +310,7 @@ public class InceptorUtil {
         logger.fatal("Running: " + sql);
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
         try {
-            ResultSet rs = null;
-            rs = execute(sql, false);
+            ResultSet rs = execute(sql, true);
             ResultSetMetaData rsmd = rs.getMetaData();
             int columnCount = rsmd.getColumnCount();
             while (rs.next()) {
@@ -375,7 +373,7 @@ public class InceptorUtil {
         return result;
     }
 
-    public static void druidTest() {
+    /*public static void druidTest() {
         String sql = "show tables ";
         dataSource = new DruidDataSource();
         dataSource.setDriverClassName("org.apache.hive.jdbc.HiveDriver");
@@ -393,7 +391,7 @@ public class InceptorUtil {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     public static double getDouble(Object object) {
         if (object != null && StringUtils.isNotBlank(object.toString())) {
@@ -441,11 +439,11 @@ public class InceptorUtil {
         String end_dt = request.getParameter("end_dt");
         StringBuffer sb = new StringBuffer();
         if (StringUtils.isNotBlank(end_dt) && StringUtils.isNotBlank(start_dt)) {
-            sb.append(" stat_date >= '" + start_dt + "' and stat_date <= '" + end_dt + "' and ");
+            sb.append(" stat_date >= '" + start_dt + "' and stat_date < '" + end_dt + "' and ");
         } else if (StringUtils.isNotBlank(end_dt) && StringUtils.isBlank(start_dt)) {
-            sb.append(" stat_date <= '" + end_dt + "' and ");
+            sb.append(" stat_date < '" + end_dt + "' and ");
         } else if (StringUtils.isNotBlank(start_dt)) {
-            sb.append(" stat_date = '" + start_dt + "' and ");
+            sb.append(" stat_date >= '" + start_dt + "' and ");
         }
         return sb.toString();
     }
@@ -465,7 +463,7 @@ public class InceptorUtil {
         return stringBuffer.toString();
     }
 
-    public static Statement getOriginalStatement() {
+    /*public static Statement getOriginalStatement() {
         Statement stmt = null;
         try {
             Class.forName(PropKit.get("inceptor.driverClass"));
@@ -608,10 +606,10 @@ public class InceptorUtil {
                 + "principal=weisx/bigdata04@TDH;" + "kuser=weisx;" + "keytab=D:/transwarp/kerberos/weisx.keytab;"
                 + "authentication=kerberos;" + "krb5conf=D:/transwarp/kerberos/krb5.conf");
 
-		/*
+		*//*
          * Connection con = DriverManager.getConnection(
 		 * "jdbc:hive2://10.129.32.18:10000/wsx_label1109;", "weisx", "123456");
-		 */
+		 *//*
 
         Statement druidStmt;
         String sql = "select * from tcs_pty_agmt_rel_h limit 10";
@@ -633,6 +631,6 @@ public class InceptorUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
 }

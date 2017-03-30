@@ -24,10 +24,11 @@
 				<table id="table1" class="datatables table table-striped m-b-none" data-ride="datatables">
 					<thead>
 						<tr>
+							<th class="w-4">日期</th>
 							<th class="displayTitle">网址</th>
 							<th class="w-7">浏览量（PV）</th>
 							<th class="w-7">访问次数(VV)</th>
-							<th class="w-9">平均页面停留时长(秒)</th>
+							<th class="w-8">平均页面停留时长(秒)</th>
 							<th class="w-7">贡献下游浏览量</th>
 							<th class="w-5">跳出率</th>
 							<th class="w-5">退出率</th>
@@ -68,7 +69,9 @@
             "aoColumnDefs": [{
                 "targets": [1, 2, 3, 4, 5, 6, 7], // 目标列位置，下标从0开始
                 "searchable": false
-            }]
+            }],
+			"sScrollX": true,
+            "sScrollXInner": "1000px"
         });
 
         csvExport("", dateType);

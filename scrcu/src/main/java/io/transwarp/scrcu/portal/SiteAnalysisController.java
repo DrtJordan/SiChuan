@@ -89,7 +89,7 @@ public class SiteAnalysisController extends BaseController {
      * 页面分析 现在功能暂时没有用到该方法
      */
     // @RequiresPermissions("/portal/siteAnalysis/pageAnalysis")
-    @Deprecated
+    /*@Deprecated
     public void pageAnalysis() {
         if (BaseUtils.isAjax(getRequest())) {
             // 得到查询条件
@@ -103,7 +103,7 @@ public class SiteAnalysisController extends BaseController {
             renderJson(result);
         }
 
-    }
+    }*/
 
     /**
      * 页面排行

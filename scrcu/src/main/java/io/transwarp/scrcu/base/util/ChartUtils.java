@@ -176,6 +176,14 @@ public class ChartUtils {
     public static String genAppMultiLineCharts(String dateType, List<Object> xAxisList, Object[] nameList, List<Object>... dataList) {
         EnhancedOption option = new EnhancedOption();
         option.tooltip().trigger(Trigger.axis);
+        //设置值域的选择范围以及样式
+        DataZoom dataZoom = new DataZoom();
+        dataZoom.setStart(0);
+        dataZoom.setEnd(30);
+        dataZoom.y(226);
+        dataZoom.show(true);
+        option.setDataZoom(dataZoom);
+
         if (StringUtils.equals(dateType, "day")) {
             option.title().subtext("按天汇总").x("right").textStyle(new TextStyle().fontSize(15));
         }
@@ -214,7 +222,8 @@ public class ChartUtils {
         }
         Grid grid = new Grid();
         //设置x，y轴的位置
-        grid.x("60").x2("30").y("10").y2("60");
+        grid.x("60").x2("30").y("5").y2("60");
+        grid.setHeight("70%");
         option.grid(grid);
 
         return GsonUtil.format(option);

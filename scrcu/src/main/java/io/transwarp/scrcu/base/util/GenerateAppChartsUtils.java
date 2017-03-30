@@ -71,7 +71,7 @@ public class GenerateAppChartsUtils {
     }
 
     /**
-     * 生成渠道的Echarts图表数据
+     * 生成多条渠道的Echarts图表数据
      *
      * @param dateType    日期类型：day,week,month,quarter,year
      * @param dataChannel 渠道数据
@@ -143,6 +143,32 @@ public class GenerateAppChartsUtils {
             newUserCntList.add(list.get(1));
         }
         return ChartUtils.genAppMultiLineCharts(dateType, xAxisList, nameList, newUserCntList);
+
+    }
+
+    /**
+     * 生成app版本根据日期分布的折线图数据
+     *
+     * @param dateType 日期类型：day,week,month,quarter,year
+     * @param data     数据
+     * @return 折线图数据
+     */
+    @SuppressWarnings("unchecked")
+    public static String genAppVersionCharts(String dateType, List<List<String>> data) {
+
+        // 返回结果
+        List<Object> xAxisList = new ArrayList<>();
+        List<Object> newUserCntList = new ArrayList<>();
+        List<Object> userCntList = new ArrayList<>();
+        List<Object> startCntList = new ArrayList<>();
+        Object[] nameList = new Object[]{"用户数", "新增用户数", "启动用户数"};
+        for (List<String> list : data) {
+            xAxisList.add(list.get(0));
+            userCntList.add(list.get(1));
+            newUserCntList.add(list.get(2));
+            startCntList.add(list.get(3));
+        }
+        return ChartUtils.genAppMultiLineCharts(dateType, xAxisList, nameList, userCntList, newUserCntList, startCntList);
 
     }
 

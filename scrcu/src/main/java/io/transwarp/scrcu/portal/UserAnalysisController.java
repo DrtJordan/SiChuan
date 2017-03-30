@@ -128,14 +128,14 @@ public class UserAnalysisController extends BaseController {
             List<Object> osChartList = new ArrayList<Object>();
             List<Object> browserChartList = new ArrayList<Object>();
             for (List<String> list : terminalOsData) {
-                Data d = new Data(list.get(0), InceptorUtil.getDouble(list.get(1)));
-                if (!list.get(0).equals("999")){
+                Data d = new Data(list.get(1), InceptorUtil.getDouble(list.get(2)));
+                if (!list.get(1).equals("999")){
                     osChartList.add(d);
                 }
             }
             for (List<String> list : terminalBrowserData) {
-                Data d = new Data(list.get(0), InceptorUtil.getDouble(list.get(1)));
-                if (!list.get(0).equals("999")){
+                Data d = new Data(list.get(1), InceptorUtil.getDouble(list.get(2)));
+                if (!list.get(1).equals("999")){
                     browserChartList.add(d);
                 }
             }
@@ -157,7 +157,7 @@ public class UserAnalysisController extends BaseController {
     /**
      * 用户登记 最新需求没有此功能
      */
-    @RequiresPermissions("/portal/userAnalysis/userLevel")
+    /*@RequiresPermissions("/portal/userAnalysis/userLevel")
     public void userLevel() {
         if (BaseUtils.isAjax(getRequest())) {
             // 得到查询条件
@@ -180,7 +180,7 @@ public class UserAnalysisController extends BaseController {
             renderJson(result);
         }
 
-    }
+    }*/
 
     /**
      * 会员页面分析
