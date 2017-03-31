@@ -23,6 +23,42 @@
         </sql>
     </sqlGroup>
 
+    <sqlGroup name="app_activeUser_day_chart">
+        <sql id="name">app活跃用户渠道维度</sql>
+        <sql id="header">日期,渠道名,启动用户数</sql>
+        <sql id="sql">select chl_id, sum(user_cnt) as user_cnt from bdhbs.th_log_app_usr_startup_orc_day where SQL_CONDITION
+            cnt_type='1' group by chl_id
+        </sql>
+    </sqlGroup>
+    <sqlGroup name="app_activeUser_week_chart">
+        <sql id="name">app活跃用户渠道图表数据</sql>
+        <sql id="header">渠道名,启动用户数</sql>
+        <sql id="sql">select chl_id, sum(user_cnt) as user_cnt from bdhbs.th_log_app_usr_startup_chl_orc_sum_day where SQL_CONDITION
+            cnt_type='1' and chl_id!='999' group by chl_id
+        </sql>
+    </sqlGroup>
+    <sqlGroup name="app_activeUser_month_chart">
+        <sql id="name">app活跃用户渠道图表数据</sql>
+        <sql id="header">渠道名,启动用户数</sql>
+        <sql id="sql">select chl_id, sum(user_cnt) as user_cnt from bdhbs.th_log_app_usr_startup_chl_orc_sum_day where SQL_CONDITION
+            cnt_type='2' and chl_id!='999' group by chl_id
+        </sql>
+    </sqlGroup>
+    <sqlGroup name="app_activeUser_quarter_chart">
+        <sql id="name">app活跃用户渠道图表数据</sql>
+        <sql id="header">渠道名,启动用户数</sql>
+        <sql id="sql">select chl_id, sum(user_cnt) as user_cnt from bdhbs.th_log_app_usr_startup_chl_orc_sum_day where SQL_CONDITION
+            cnt_type='3' and chl_id!='999' group by chl_id
+        </sql>
+    </sqlGroup>
+    <sqlGroup name="app_activeUser_year_chart">
+        <sql id="name">app活跃用户渠道图表数据</sql>
+        <sql id="header">渠道名,启动用户数</sql>
+        <sql id="sql">select chl_id, sum(user_cnt) as user_cnt from bdhbs.th_log_app_usr_startup_chl_orc_sum_day where SQL_CONDITION
+            cnt_type='4' and chl_id!='999' group by chl_id
+        </sql>
+    </sqlGroup>
+
     <!-- 活跃用户按周汇总 -->
     <sqlGroup name="app_activeUser_week">
         <sql id="name">app活跃用户_按周汇总</sql>
@@ -143,6 +179,14 @@
             SQL_CONDITION cnt_type = '1'
         </sql>
     </sqlGroup>
+
+    <sqlGroup name="app_retainUser_channel_day_chart">
+        <sql id="name">app留存用户_渠道图表数据</sql>
+        <sql id="header">渠道名,新增用户数</sql>
+        <sql id="sql">select chl_id, sum(his_stat_new_cnt) as his_stat_new_cnt from bdhbs.th_busi_user_remain_chl_ort_day where
+            SQL_CONDITION cnt_type = '1' group by chl_id
+        </sql>
+    </sqlGroup>
     <!-- 留存用户end -->
 
 
@@ -163,6 +207,14 @@
         </sql>
     </sqlGroup>
 
+    <sqlGroup name="app_regUser_channel_day_chart">
+        <sql id="name">app注册用户_渠道图表数据</sql>
+        <sql id="header">渠道名,新增用户数</sql>
+        <sql id="sql">select chl_id, sum(new_token_cnt) as new_token_cnt from
+            bdhbs.th_log_app_usr_registered_orc_day where SQL_CONDITION cnt_type='1' group by chl_id
+        </sql>
+    </sqlGroup>
+
     <!-- 按月汇总-->
     <sqlGroup name="app_regUser_channel_month">
         <sql id="name">app注册用户_渠道维度</sql>
@@ -171,6 +223,15 @@
             bdhbs.th_log_app_usr_registered_chl_orc_sum_day where SQL_CONDITION cnt_type='2' order by stat_date desc
         </sql>
     </sqlGroup>
+
+    <sqlGroup name="app_regUser_channel_month_chart">
+        <sql id="name">app注册用户_渠道图表数据</sql>
+        <sql id="header">渠道名,新增用户数</sql>
+        <sql id="sql">select chl_id, sum(new_token_cnt) as new_token_cnt from
+            bdhbs.th_log_app_usr_registered_chl_orc_sum_day where SQL_CONDITION cnt_type='2' and chl_id != '999' group by chl_id
+        </sql>
+    </sqlGroup>
+
     <sqlGroup name="app_regUser_os_month">
         <sql id="name">app注册用户_手机os维度</sql>
         <sql id="header">日期,手机os,新增用户数,注册量,占比(注册量/新增用户数)</sql>
@@ -187,6 +248,15 @@
             bdhbs.th_log_app_usr_registered_chl_orc_sum_day where SQL_CONDITION cnt_type='3' order by stat_date desc
         </sql>
     </sqlGroup>
+
+    <sqlGroup name="app_regUser_channel_quarter_chart">
+        <sql id="name">app注册用户_渠道图表数据</sql>
+        <sql id="header">渠道名,新增用户数</sql>
+        <sql id="sql">select chl_id, sum(new_token_cnt) as new_token_cnt from
+            bdhbs.th_log_app_usr_registered_chl_orc_sum_day where SQL_CONDITION cnt_type='3' and chl_id != '999' group by chl_id
+        </sql>
+    </sqlGroup>
+
     <sqlGroup name="app_regUser_os_quarter">
         <sql id="name">app注册用户_手机os维度</sql>
         <sql id="header">日期,手机os,新增用户数,注册量,占比(注册量/新增用户数)</sql>
@@ -203,6 +273,15 @@
             bdhbs.th_log_app_usr_registered_chl_orc_sum_day where SQL_CONDITION cnt_type='4' order by stat_date desc
         </sql>
     </sqlGroup>
+
+    <sqlGroup name="app_regUser_channel_year_chart">
+        <sql id="name">app注册用户_渠道图表数据</sql>
+        <sql id="header">渠道名,新增用户数</sql>
+        <sql id="sql">select chl_id, sum(new_token_cnt) as new_token_cnt from
+            bdhbs.th_log_app_usr_registered_chl_orc_sum_day where SQL_CONDITION cnt_type='4' and chl_id != '999' group by chl_id
+        </sql>
+    </sqlGroup>
+
     <sqlGroup name="app_regUser_os_year">
         <sql id="name">app注册用户_手机os维度</sql>
         <sql id="header">日期,手机os,新增用户数,注册量,占比(注册量/新增用户数)</sql>
@@ -234,6 +313,35 @@
         <sql id="header">日期,手机os,启动用户数量,登录用户数,占比(登录用户数/启动用户数)</sql>
         <sql id="sql">select stat_date, term_os, startup_cnt, login_cnt, login_ratio from
             bdhbs.th_log_app_usr_login_orc_day where SQL_CONDITION cnt_type='2' order by stat_date desc
+        </sql>
+    </sqlGroup>
+
+    <sqlGroup name="app_loginUser_channel_day_chart">
+        <sql id="name">app登录用户渠道图表数据</sql>
+        <sql id="header">渠道名,登录用户数</sql>
+        <sql id="sql">select chl_id, sum(login_cnt) as login_cnt from bdhbs.th_log_app_usr_login_orc_day
+            where SQL_CONDITION cnt_type='1' group by chl_id
+        </sql>
+    </sqlGroup>
+    <sqlGroup name="app_loginUser_channel_month_chart">
+        <sql id="name">app登录用户渠道图表数据</sql>
+        <sql id="header">渠道名,登录用户数</sql>
+        <sql id="sql">select chl_id, sum(login_cnt) as login_cnt from bdhbs.th_log_app_usr_login_chl_orc_sum_day
+            where SQL_CONDITION cnt_type='2' and chl_id != '999' group by chl_id
+        </sql>
+    </sqlGroup>
+    <sqlGroup name="app_loginUser_channel_quarter_chart">
+        <sql id="name">app登录用户渠道图表数据</sql>
+        <sql id="header">渠道名,登录用户数</sql>
+        <sql id="sql">select chl_id, sum(login_cnt) as login_cnt from bdhbs.th_log_app_usr_login_chl_orc_sum_day
+            where SQL_CONDITION cnt_type='3' and chl_id != '999' group by chl_id
+        </sql>
+    </sqlGroup>
+    <sqlGroup name="app_loginUser_channel_year_chart">
+        <sql id="name">app登录用户渠道图表数据</sql>
+        <sql id="header">渠道名,登录用户数</sql>
+        <sql id="sql">select chl_id, sum(login_cnt) as login_cnt from bdhbs.th_log_app_usr_login_chl_orc_sum_day
+            where SQL_CONDITION cnt_type='4' and chl_id != '999' group by chl_id
         </sql>
     </sqlGroup>
 
@@ -1053,6 +1161,37 @@
         <sql id="header">日期,渠道名,启动次数,启动次数占比</sql>
         <sql id="sql">select stat_date, chl_id, startup_cnt, startup_ratio from bdhbs.th_log_app_usr_startup_cnt_orc_day
             where SQL_CONDITION cnt_type='1' order by stat_date desc
+        </sql>
+    </sqlGroup>
+
+    <sqlGroup name="app_startCount_channel_day_chart">
+        <sql id="name">app启动次数_渠道图表数据</sql>
+        <sql id="header">渠道名,启动次数</sql>
+        <sql id="sql">select chl_id, sum(startup_cnt) as startup_cnt from bdhbs.th_log_app_usr_startup_cnt_orc_day
+            where SQL_CONDITION cnt_type='1' group by chl_id
+        </sql>
+    </sqlGroup>
+
+    <sqlGroup name="app_startCount_channel_month_chart">
+        <sql id="name">app启动次数_渠道图表数据</sql>
+        <sql id="header">渠道名,启动次数</sql>
+        <sql id="sql">select chl_id, sum(startup_cnt) as startup_cnt from bdhbs.th_log_app_usr_startup_cnt_chl_orc_sum_day
+            where SQL_CONDITION cnt_type='2' and chl_id != '999' group by chl_id
+        </sql>
+    </sqlGroup>
+
+    <sqlGroup name="app_startCount_channel_quarter_chart">
+        <sql id="name">app启动次数_渠道图表数据</sql>
+        <sql id="header">渠道名,启动次数</sql>
+        <sql id="sql">select chl_id, sum(startup_cnt) as startup_cnt from bdhbs.th_log_app_usr_startup_cnt_chl_orc_sum_day
+            where SQL_CONDITION cnt_type='3' and chl_id != '999' group by chl_id
+        </sql>
+    </sqlGroup>
+    <sqlGroup name="app_startCount_channel_year_chart">
+        <sql id="name">app启动次数_渠道图表数据</sql>
+        <sql id="header">渠道名,启动次数</sql>
+        <sql id="sql">select chl_id, sum(startup_cnt) as startup_cnt from bdhbs.th_log_app_usr_startup_cnt_chl_orc_sum_day
+            where SQL_CONDITION cnt_type='4' and chl_id != '999' group by chl_id
         </sql>
     </sqlGroup>
 

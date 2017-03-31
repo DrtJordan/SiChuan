@@ -168,6 +168,8 @@ public enum SQLConfig {
     app_retainUser_day,
     app_retainUser_phone_day,
     app_retainUser_channel_day,
+    //app留存用户 渠道图表数据
+    app_retainUser_channel_day_chart,
 
     //新增用户按天汇总
     app_newUser_day,
@@ -191,6 +193,7 @@ public enum SQLConfig {
     app_activeUser_phone_day,
     //活跃用户 渠道纬度
     app_activeUser_channel_day,
+
     //活跃用户按周汇总
     app_activeUser_week,
     //活跃用户 手机纬度
@@ -217,20 +220,31 @@ public enum SQLConfig {
     //活跃用户 渠道纬度
     app_activeUser_channel_year,
 
+    //活跃用户 渠道纬度生成图表数据
+    app_activeUser_day_chart,
+    app_activeUser_week_chart,
+    app_activeUser_month_chart,
+    app_activeUser_quarter_chart,
+    app_activeUser_year_chart,
+
     //注册用户 渠道注册按天汇总
     app_regUser_channel_day,
+    app_regUser_channel_day_chart,
     //注册用户 手机os注册按天汇总
     app_regUser_os_day,
     //注册用户 渠道注册按月汇总
     app_regUser_channel_month,
+    app_regUser_channel_month_chart,
     //注册用户 手机os注册按月汇总
     app_regUser_os_month,
     //注册用户 渠道注册按季汇总
     app_regUser_channel_quarter,
+    app_regUser_channel_quarter_chart,
     //注册用户 手机os注册按季汇总
     app_regUser_os_quarter,
     //注册用户 渠道注册按年汇总
     app_regUser_channel_year,
+    app_regUser_channel_year_chart,
     //注册用户 手机os注册按年汇总
     app_regUser_os_year,
 
@@ -240,6 +254,11 @@ public enum SQLConfig {
     app_loginUser_channel_day,
     //登陆用户 手机登录按天汇总
     app_loginUser_os_day,
+
+    app_loginUser_channel_day_chart,
+    app_loginUser_channel_month_chart,
+    app_loginUser_channel_quarter_chart,
+    app_loginUser_channel_year_chart,
 
     //登陆用户按月汇总
     app_loginUser_month,
@@ -432,6 +451,11 @@ public enum SQLConfig {
     app_startCount_channel_year,
     // 移动 手机启动次数按年汇总
     app_startCount_phone_year,
+
+    app_startCount_channel_day_chart,
+    app_startCount_channel_month_chart,
+    app_startCount_channel_quarter_chart,
+    app_startCount_channel_year_chart,
 
     // 移动 渠道列表按天汇总
     app_channel_list_day,

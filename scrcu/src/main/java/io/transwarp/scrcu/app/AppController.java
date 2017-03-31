@@ -34,6 +34,7 @@ public class AppController extends BaseController {
 
             List<List<String>> dataPhone = new ArrayList<>();
             List<List<String>> dataChannel = new ArrayList<>();
+            List<List<String>> dataChart = new ArrayList<>();
             // 定义json类型结果
             JSONObject result = new JSONObject();
 
@@ -44,27 +45,30 @@ public class AppController extends BaseController {
                 if (dateType.equals("day")) {
                     dataPhone = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_startCount_phone_day, condition), false);
                     dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_startCount_channel_day, condition));
+                    dataChart = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_startCount_channel_day_chart, condition));
                 }
                 if (dateType.equals("month")) {
                     dataPhone = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_startCount_phone_month, condition), false);
                     dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_startCount_channel_month, condition));
+                    dataChart = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_startCount_channel_month_chart, condition));
                 }
                 if (dateType.equals("quarter")) {
                     dataPhone = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_startCount_phone_quarter, condition),false);
                     dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_startCount_channel_quarter, condition));
+                    dataChart = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_startCount_channel_quarter_chart, condition));
                 }
                 if (dateType.equals("year")) {
                     dataPhone = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_startCount_phone_year, condition),false);
                     dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_startCount_channel_year, condition));
+                    dataChart = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_startCount_channel_year_chart, condition));
                 }
             }
 
             //生成按手机OS分布的折线图图表数据
             result.put("osCharts", GenerateAppChartsUtils.genOsCharts(dateType, dataPhone));
 
-            Object[] nameList = new Object[]{res.get("app.startTimes")};
             //生成按渠道分布的折线图图表数据
-            result.put("chlCharts", GenerateAppChartsUtils.genChannelCharts(dateType, dataChannel, nameList));
+            result.put("chlCharts", GenerateAppChartsUtils.genChannelCharts(dateType, dataChart, res.get("app.startTimes")));
 
             result.put("dataPhone", dataPhone);
             result.put("dataChannel", dataChannel);

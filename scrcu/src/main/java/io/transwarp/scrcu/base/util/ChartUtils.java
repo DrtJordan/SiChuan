@@ -23,15 +23,16 @@ public class ChartUtils {
 
     /**
      * 设置字符云参数
+     *
      * @param name
      * @param dataList
      * @return
      */
-    public static String genWordCloud(String name, List<Object> dataList){
+    public static String genWordCloud(String name, List<Object> dataList) {
         EnhancedOption option = new EnhancedOption();
         option.tooltip().show(true);
         WordCloud wordCloud = new WordCloud(name);
-        wordCloud.size("80%","80%");
+        wordCloud.size("80%", "80%");
         wordCloud.textRotation(0, 45, 90, -45);
         wordCloud.textPadding(0);
         wordCloud.setData(dataList);
@@ -39,7 +40,7 @@ public class ChartUtils {
         return GsonUtil.format(option);
     }
 
-   /**
+    /**
      * 获取饼状图数据
      *
      * @param name
@@ -63,13 +64,55 @@ public class ChartUtils {
     }
 
     /**
+     * 生成按照渠道分布统计的饼图数据
+     *
+     * @param dateType 日期类型
+     * @param name     饼图名称
+     * @param dataList 数据
+     * @return 饼图json数据
+     */
+    public static String genPie(String dateType, String name, List<Object> dataList) {
+
+        EnhancedOption option = new EnhancedOption();
+
+        if (StringUtils.equals(dateType, "day")) {
+            option.title().subtext("按天汇总").textStyle(new TextStyle().fontSize(15));
+        }
+        if (StringUtils.equals(dateType, "week")) {
+            option.title().subtext("按周汇总").textStyle(new TextStyle().fontSize(15));
+        }
+        if (StringUtils.equals(dateType, "month")) {
+            option.title().subtext("按月汇总").textStyle(new TextStyle().fontSize(15));
+        }
+        if (StringUtils.equals(dateType, "quarter")) {
+            option.title().subtext("按季汇总").textStyle(new TextStyle().fontSize(15));
+        }
+        if (StringUtils.equals(dateType, "year")) {
+            option.title().subtext("按年汇总").textStyle(new TextStyle().fontSize(15));
+        }
+
+        //设置标题的显示位置
+        option.title().text(name).x("center").y("bottom");
+        //设置触发类型
+        option.tooltip().trigger(Trigger.item).formatter("{b}<br/>{a}: {c} ({d}%)");
+        option.calculable(false);
+        Pie p1 = new Pie(name);
+        //设置饼图的内半径、外半径
+        p1.radius(0, 70).setData(dataList);
+        option.series(p1);
+        return GsonUtil.format(option);
+
+    }
+
+    /**
      * 生成漏斗图
-     * @param name 名称
+     *
+     * @param name     名称
      * @param dataList 数据
      * @return
      */
 
-    public static String genFunnel(String name, List<Object> dataList){
+    public static String genFunnel(String name, List<Object> dataList) {
         EnhancedOption option = new EnhancedOption();
         option.title().text(name).x("center").y("bottom");
         option.tooltip().trigger(Trigger.item).formatter("{b}<br/>{a}: {c}");

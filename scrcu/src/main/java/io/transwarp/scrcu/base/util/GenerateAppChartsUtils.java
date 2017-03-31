@@ -2,6 +2,7 @@ package io.transwarp.scrcu.base.util;
 
 import com.jfinal.i18n.I18n;
 import com.jfinal.i18n.Res;
+import io.transwarp.echarts.data.Data;
 import io.transwarp.scrcu.base.util.ChartUtils;
 
 import java.util.ArrayList;
@@ -47,51 +48,22 @@ public class GenerateAppChartsUtils {
     }
 
     /**
-     * 生成渠道的Echarts图表数据
+     * 生成渠道的Echarts饼图数据
      *
      * @param dateType    日期类型：day,week,month,quarter,year
      * @param dataChannel 渠道数据
      * @return 折线图数据
      */
     @SuppressWarnings("unchecked")
-    public static String genChannelCharts(String dateType, List<List<String>> dataChannel, Object[] names) {
+    public static String genChannelCharts(String dateType, List<List<String>> dataChannel, String name) {
         // 返回结果
-        List<Object> chlXAxisList = new ArrayList<>();
         List<Object> chlCntList = new ArrayList<>();
         for (List<String> list : dataChannel) {
-            if (!chlXAxisList.contains(list.get(0))) {
-                chlXAxisList.add(list.get(0));
-            }
-//            if (list.get(1).equals("07")) {
-            chlCntList.add(list.get(2));
-//            }
+            Data d = new Data(list.get(0), list.get(1));
+            chlCntList.add(d);
         }
 
-        return ChartUtils.genAppMultiLineCharts(dateType, chlXAxisList, names, chlCntList);
-    }
-
-    /**
-     * 生成多条渠道的Echarts图表数据
-     *
-     * @param dateType    日期类型：day,week,month,quarter,year
-     * @param dataChannel 渠道数据
-     * @return 折线图数据
-     */
-    @SuppressWarnings("unchecked")
-    public static String genMultiLineChannelCharts(String dateType, List<List<String>> dataChannel, Object[] names) {
-        // 返回结果
-        List<Object> chlXAxisList = new ArrayList<>();
-        List<Object> chlUserCntList1 = new ArrayList<>();
-        List<Object> chlUserCntList2 = new ArrayList<>();
-        for (List<String> list : dataChannel) {
-            if (!chlXAxisList.contains(list.get(0))) {
-                chlXAxisList.add(list.get(0));
-            }
-            chlUserCntList1.add(list.get(2));
-            chlUserCntList2.add(list.get(3));
-        }
-
-        return ChartUtils.genAppMultiLineCharts(dateType, chlXAxisList, names, chlUserCntList1, chlUserCntList2);
+        return ChartUtils.genPie(dateType, name, chlCntList);
     }
 
     /**
