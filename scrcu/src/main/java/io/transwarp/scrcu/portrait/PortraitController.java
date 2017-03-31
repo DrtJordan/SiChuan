@@ -509,7 +509,7 @@ public class PortraitController extends BaseController {
                     + "from(select a1.user_id,a2.topic,a2.topic_desc,a2.label_code,a2.label_desc,a2.label_only "
                     + "from (select user_id from bdhbs.th_label_user_result " + getLevelCondition() + condition.toString()
                     + " ) as a1 "
-                    + "left join bdhbs.th_label_all_summary as a2 on a1.user_id=a2.user_id) group by label_only,label_desc having label_desc<>'其它' and label_desc<>'未知' order by total desc;";
+                    + "left join bdlbl.tl_label_all_summary as a2 on a1.user_id=a2.user_id) group by label_only,label_desc having label_desc<>'其它' and label_desc<>'未知' order by total desc;";
             List<Map<String, Object>> tags = InceptorUtil.mapQuery(sql, true);
             result.put("pie", tags.size());
             if (tags != null && !tags.isEmpty()) {
