@@ -412,26 +412,6 @@ public class PortraitController extends BaseController {
         }
     }
 
-    @RequiresPermissions("/portrait/config")
-    public void config() throws Exception {
-        List<Map<String, Object>> useTime = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.use_time_label), false);
-        Map<String, Object> map = new HashMap<>();
-        setAttr("tagMap", useTime);
-    }
-
-    @RequiresPermissions("/portrait/update")
-    public void update() throws Exception {
-        String[] keys = getParaValues("key");
-        String[][] strings = {getParaValues("start"), getParaValues("end")};
-        StringBuffer val = new StringBuffer(" ");
-        for (int i = 0; i < keys.length; i++) {
-            val = val.append("begin_use_time = '").append(strings[0][i]).append("', end_use_time = '").append(strings[1][i]).append("' where use_time = '").append(keys[i]).append("'").append(";");
-            InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.use_time_label_config, val.toString()), false);
-            val = val.delete(1, val.length());
-        }
-        redirect("/portrait/tags");
-    }
-
     /**
      * 获取检索标签的列表
      */
@@ -527,9 +507,9 @@ public class PortraitController extends BaseController {
             String sql = "select max(topic) as topic,max(topic_desc) as topic_desc,max(label_only) as label_only,"
                     + "min(label_desc) as label_desc,count(*) as total "
                     + "from(select a1.user_id,a2.topic,a2.topic_desc,a2.label_code,a2.label_desc,a2.label_only "
-                    + "from (select user_id from bdlbl.tl_label_user_result " + getLevelCondition() + condition.toString()
+                    + "from (select user_id from bdhbs.th_label_user_result " + getLevelCondition() + condition.toString()
                     + " ) as a1 "
-                    + "left join bdlbl.tl_label_all_summary as a2 on a1.user_id=a2.user_id) group by label_only,label_desc having label_desc<>'其它' and label_desc<>'未知' order by total desc;";
+                    + "left join bdhbs.th_label_all_summary as a2 on a1.user_id=a2.user_id) group by label_only,label_desc having label_desc<>'其它' and label_desc<>'未知' order by total desc;";
             List<Map<String, Object>> tags = InceptorUtil.mapQuery(sql, true);
             result.put("pie", tags.size());
             if (tags != null && !tags.isEmpty()) {
@@ -750,7 +730,7 @@ public class PortraitController extends BaseController {
             // 调用交易偏好
             tradepreference(userid, result);
             // 调用人际关系
-            relation(userid, result);
+//            relation(userid, result);
             renderJson(result);
 
         }
