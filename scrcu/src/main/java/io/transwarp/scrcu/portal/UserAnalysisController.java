@@ -263,7 +263,7 @@ public class UserAnalysisController extends BaseController {
             }
 
             //返回会员流失生成的折线图图表数据
-            result.put("chartOption", genMemberRunOffCharts(dateType, dataLoss));
+            result.put("chartOption", genMemberRunOffCharts(dateType,"line",  dataLoss));
 
             result.put("dataLoss", dataLoss);
             renderJson(result);
@@ -335,7 +335,7 @@ public class UserAnalysisController extends BaseController {
 
             }
             //生成会员流失的折线图数据,此处传入list数据的顺序必须按照nameList中的顺序传入，否则会造成数据对应错误
-            String genUserLossChart = ChartUtils.genAppMultiLineCharts(dateType, xAxisList, nameList, guestCntList, loginCntList, ipCntList);
+            String genUserLossChart = ChartUtils.genAppMultiLineCharts(dateType, "line", xAxisList, nameList, guestCntList, loginCntList, ipCntList);
             result.put("chartOption", genUserLossChart);
 
             result.put("dataUserOnly", dataUserOnly);

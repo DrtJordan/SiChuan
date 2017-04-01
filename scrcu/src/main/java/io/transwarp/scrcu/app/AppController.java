@@ -65,7 +65,7 @@ public class AppController extends BaseController {
             }
 
             //生成按手机OS分布的折线图图表数据
-            result.put("osCharts", GenerateAppChartsUtils.genOsCharts(dateType, dataPhone));
+            result.put("osCharts", GenerateAppChartsUtils.genOsCharts(dateType, "line", dataPhone));
 
             //生成按渠道分布的折线图图表数据
             result.put("chlCharts", GenerateAppChartsUtils.genChannelCharts(dateType, dataChart, res.get("app.startTimes")));
@@ -110,7 +110,7 @@ public class AppController extends BaseController {
             }
 
             //生成版本的数据
-            String genAppVersion = GenerateAppChartsUtils.genAppVersionCharts(type, dataCharts);
+            String genAppVersion = GenerateAppChartsUtils.genAppVersionCharts(type, "line", dataCharts);
             result.put("appVersionCharts", genAppVersion);
 
             //返回结果

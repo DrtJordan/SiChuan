@@ -19,14 +19,14 @@ public class GenerateAppChartsUtils {
     public static final Res res = I18n.use("i18n", "zh_CN");
 
     /**
-     * 生成app统计-登陆用户日期分布的折线图数据
+     * 生成app统计登陆用户-日期分布的折线图数据
      *
      * @param dateType 日期类型：day,week,month,quarter,year
      * @param dataTime 登陆用户日期数据
      * @return 折线图数据
      */
     @SuppressWarnings("unchecked")
-    public static String genLoginUserTimeCharts(String dateType, List<List<String>> dataTime) {
+    public static String genLoginUserTimeCharts(String dateType, String chartType, List<List<String>> dataTime) {
 
         // 返回结果
         List<Object> xAxisList = new ArrayList<>();
@@ -43,7 +43,7 @@ public class GenerateAppChartsUtils {
         //图例名称
         Object[] nameList = new Object[]{res.get("app.startUser"), res.get("app.loginUser")};
 
-        return ChartUtils.genAppMultiLineCharts(dateType, xAxisList, nameList, startCntList, loginCntList);
+        return ChartUtils.genAppMultiLineCharts(dateType, chartType, xAxisList, nameList, startCntList, loginCntList);
 
     }
 
@@ -74,7 +74,7 @@ public class GenerateAppChartsUtils {
      * @return 折线图数据
      */
     @SuppressWarnings("unchecked")
-    public static String genOsCharts(String dateType, List<List<String>> dataOs) {
+    public static String genOsCharts(String dateType, String chartType, List<List<String>> dataOs) {
         // 返回结果
         List<Object> xAxisList = new ArrayList<>();
         List<Object> androidList = new ArrayList<>();
@@ -92,18 +92,19 @@ public class GenerateAppChartsUtils {
         }
         Object[] osNameList = new Object[]{"Android", "IOS"};
 
-        return ChartUtils.genAppMultiLineCharts(dateType, xAxisList, osNameList, androidList, iosList);
+        return ChartUtils.genAppMultiLineCharts(dateType, chartType, xAxisList, osNameList, androidList, iosList);
     }
 
     /**
      * 生成app统计-用户根据日期分布的折线图数据
+     * 功能：活跃用户，留存用户，新增用户
      *
      * @param dateType 日期类型：day,week,month,quarter,year
      * @param dataTime 数据
      * @return 折线图数据
      */
     @SuppressWarnings("unchecked")
-    public static String genUserTimeCharts(String dateType, List<List<String>> dataTime, Object[] nameList) {
+    public static String genUserTimeCharts(String dateType, String chartType, List<List<String>> dataTime, Object[] nameList) {
 
         // 返回结果
         List<Object> xAxisList = new ArrayList<>();
@@ -114,7 +115,7 @@ public class GenerateAppChartsUtils {
             }
             newUserCntList.add(list.get(1));
         }
-        return ChartUtils.genAppMultiLineCharts(dateType, xAxisList, nameList, newUserCntList);
+        return ChartUtils.genAppMultiLineCharts(dateType, chartType, xAxisList, nameList, newUserCntList);
 
     }
 
@@ -126,7 +127,7 @@ public class GenerateAppChartsUtils {
      * @return 折线图数据
      */
     @SuppressWarnings("unchecked")
-    public static String genAppVersionCharts(String dateType, List<List<String>> data) {
+    public static String genAppVersionCharts(String dateType, String chartType, List<List<String>> data) {
 
         // 返回结果
         List<Object> xAxisList = new ArrayList<>();
@@ -140,7 +141,7 @@ public class GenerateAppChartsUtils {
             newUserCntList.add(list.get(2));
             startCntList.add(list.get(3));
         }
-        return ChartUtils.genAppMultiLineCharts(dateType, xAxisList, nameList, userCntList, newUserCntList, startCntList);
+        return ChartUtils.genAppMultiLineCharts(dateType, chartType, xAxisList, nameList, userCntList, newUserCntList, startCntList);
 
     }
 
@@ -152,7 +153,7 @@ public class GenerateAppChartsUtils {
      * @return 折线图数据
      */
     @SuppressWarnings("unchecked")
-    public static String genMemberRunOffCharts(String dateType, List<List<String>> data) {
+    public static String genMemberRunOffCharts(String dateType, String chartType, List<List<String>> data) {
 
         //定义X轴接收数据
         List<Object> xAxisList = new ArrayList<>();
@@ -173,19 +174,19 @@ public class GenerateAppChartsUtils {
             memberCallbackCntList.add(list.get(5));
         }
         //生成会员流失的折线图数据并返回,此处传入list数据的顺序必须按照nameList中的顺序传入，否则会造成数据对应错误
-        return ChartUtils.genAppMultiLineCharts(dateType, xAxisList, nameList, memberRunOffCntList, memberSleepCntList, memberCallbackCntList);
+        return ChartUtils.genAppMultiLineCharts(dateType, chartType, xAxisList, nameList, memberRunOffCntList, memberSleepCntList, memberCallbackCntList);
 
     }
 
     /**
-     * 生成APP使用时长的折线图数据
+     * 生成APP使用时长-根据日期分布的折线图数据
      *
      * @param dateType 日期类型：day,week,month,quarter,year
-     * @param dataTime 数据
+     * @param data     数据
      * @return 折线图数据
      */
     @SuppressWarnings("unchecked")
-    public static String genAppUseTimeCharts(String dateType, List<List<String>> dataTime) {
+    public static String genAppBehaviorCharts(String dateType, String chartType, List<List<String>> data) {
 
         // 返回结果
         List<Object> xAxisList = new ArrayList<>();
@@ -199,9 +200,9 @@ public class GenerateAppChartsUtils {
         List<Object> thirtyFirstToSixtySecList = new ArrayList<Object>();
         List<Object> oneToThreeSecList = new ArrayList<Object>();
         //图例名称
-        Object[] nameList = new Object[]{"4-10秒", "3-10分", "30分以上", "11-30秒", "10-30分", "1-3分", "31-60秒", "1-3秒"};
+        Object[] nameList = new Object[]{"1-3秒", "4-10秒", "11-30秒", "31-60秒", "1-3分", "3-10分", "10-30分", "30分以上"};
 
-        for (List<String> list : dataTime) {
+        for (List<String> list : data) {
 
             if (!xAxisList.contains(list.get(0))) {
                 xAxisList.add(list.get(0));
@@ -232,34 +233,36 @@ public class GenerateAppChartsUtils {
                     oneToThreeSecList.add(0);
                 }
             }
+
+            if (list.get(1).equals("1-3秒")) {
+                oneToThreeSecList.add(list.get(2));
+            }
             if (list.get(1).equals("4-10秒")) {
                 fourToTenSecondsList.add(list.get(2));
-            }
-            if (list.get(1).equals("3-10分")) {
-                threeToTenMinList.add(list.get(2));
-            }
-            if (list.get(1).equals("30分以上")) {
-                thirtyMinList.add(list.get(2));
             }
             if (list.get(1).equals("11-30秒")) {
                 elevenToThirtySecondsList.add(list.get(2));
             }
-            if (list.get(1).equals("10-30分")) {
-                tenToThirtyMinList.add(list.get(2));
+            if (list.get(1).equals("31-60秒")) {
+                thirtyFirstToSixtySecList.add(list.get(2));
             }
             if (list.get(1).equals("1-3分")) {
                 oneToThreeMinList.add(list.get(2));
             }
-            if (list.get(1).equals("31-60秒")) {
-                thirtyFirstToSixtySecList.add(list.get(2));
+            if (list.get(1).equals("3-10分")) {
+                threeToTenMinList.add(list.get(2));
             }
-            if (list.get(1).equals("1-3秒")) {
-                oneToThreeSecList.add(list.get(2));
+            if (list.get(1).equals("10-30分")) {
+                tenToThirtyMinList.add(list.get(2));
             }
+            if (list.get(1).equals("30分以上")) {
+                thirtyMinList.add(list.get(2));
+            }
+
         }
         //生成APP使用时长的折线图数据并返回,此处传入list数据的顺序必须按照nameList中的顺序传入，否则会造成数据对应错误
-        return ChartUtils.genAppMultiLineCharts(dateType, xAxisList, nameList, fourToTenSecondsList, threeToTenMinList,
-                thirtyMinList, elevenToThirtySecondsList, tenToThirtyMinList, oneToThreeMinList, thirtyFirstToSixtySecList, oneToThreeSecList);
+        return ChartUtils.genAppMultiLineCharts(dateType, chartType, xAxisList, nameList, oneToThreeSecList, fourToTenSecondsList, elevenToThirtySecondsList
+                , thirtyFirstToSixtySecList, oneToThreeMinList, threeToTenMinList, tenToThirtyMinList, thirtyMinList);
     }
 
     /**
@@ -270,7 +273,7 @@ public class GenerateAppChartsUtils {
      * @return 折线图数据
      */
     @SuppressWarnings("unchecked")
-    public static String genAppUseRateCharts(String dateType, List<List<String>> dataTime) {
+    public static String genAppUseRateCharts(String dateType, String chartType, List<List<String>> dataTime) {
 
         // 返回结果
         List<Object> xAxisList = new ArrayList<Object>();
@@ -327,7 +330,7 @@ public class GenerateAppChartsUtils {
             }
         }
         //生成使用频率的折线图数据
-        return ChartUtils.genAppMultiLineCharts(dateType, xAxisList, nameList,
+        return ChartUtils.genAppMultiLineCharts(dateType, chartType, xAxisList, nameList,
                 oneToTwqTimes, threeToFiveTimes, sixToNineTimes, tenToNineteenTimes, twentyToFourtyNineTimes, fiftyOverTimes);
     }
 
@@ -339,7 +342,7 @@ public class GenerateAppChartsUtils {
      * @return 折线图数据
      */
     @SuppressWarnings("unchecked")
-    public static String genAppDepthCharts(String dateType, List<List<String>> dataTime) {
+    public static String genAppDepthCharts(String dateType, String chartType, List<List<String>> dataTime) {
         // 返回结果
         List<Object> xAxisList = new ArrayList<>();
         //定义时长对应的集合用来接收对应的数据
@@ -388,7 +391,7 @@ public class GenerateAppChartsUtils {
             }
 
         }
-        return ChartUtils.genAppMultiLineCharts(dateType, xAxisList, nameList, oneToTwoPageList, threeToFivePageList,
+        return ChartUtils.genAppMultiLineCharts(dateType, chartType, xAxisList, nameList, oneToTwoPageList, threeToFivePageList,
                 sixToNinePageList, tenToTwNinePageList, thirtyToMorePageList);
     }
 
@@ -400,7 +403,7 @@ public class GenerateAppChartsUtils {
      * @return 折线图数据
      */
     @SuppressWarnings("unchecked")
-    public static String genAppIntervalCharts(String dateType, List<List<String>> dataTime) {
+    public static String genAppIntervalCharts(String dateType, String chartType, List<List<String>> dataTime) {
         // 返回结果
         List<Object> xAxisList = new ArrayList<>();
         List<Object> timeList = new ArrayList<>();
@@ -469,7 +472,7 @@ public class GenerateAppChartsUtils {
             }
         }
 
-        return ChartUtils.genAppMultiLineCharts(dateType, xAxisList, nameList, firstList, zeroToTwentyFourHours,
+        return ChartUtils.genAppMultiLineCharts(dateType, chartType, xAxisList, nameList, firstList, zeroToTwentyFourHours,
                 oneToTwoDays, twoToFourDays, fiveToSevenDay, eightToFourteenDays, fifteenToThirtyDays);
     }
 }

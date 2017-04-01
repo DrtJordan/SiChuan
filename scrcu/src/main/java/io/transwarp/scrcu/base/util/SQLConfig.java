@@ -307,6 +307,26 @@ public enum SQLConfig {
     app_useTime_phone_year,
     app_useTime_os_year,
 
+    app_useTime_phone_day_chart,
+    app_useTime_channel_day_chart,
+    app_useTime_os_day_chart,
+
+    app_useTime_phone_week_chart,
+    app_useTime_channel_week_chart,
+    app_useTime_os_week_chart,
+
+    app_useTime_phone_month_chart,
+    app_useTime_channel_month_chart,
+    app_useTime_os_month_chart,
+
+    app_useTime_phone_quarter_chart,
+    app_useTime_channel_quarter_chart,
+    app_useTime_os_quarter_chart,
+
+    app_useTime_phone_year_chart,
+    app_useTime_channel_year_chart,
+    app_useTime_os_year_chart,
+
     // 移动 访问深度按天分布
     app_depth_day,
     app_depth_phone_day,

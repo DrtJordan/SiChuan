@@ -78,9 +78,9 @@ public class AppUserController extends BaseController {
             Object[] nameList = new Object[]{res.get("app.newAddUser")};
 
             //返回根据日期生成折线图的图表数据
-            result.put("timeCharts", genUserTimeCharts(type, dataTime, nameList));
+            result.put("timeCharts", genUserTimeCharts(type,"line",  dataTime, nameList));
             //返回根据手机OS生成折线图的图表数据
-            result.put("osCharts", GenerateAppChartsUtils.genOsCharts(type, dataPhone));
+            result.put("osCharts", GenerateAppChartsUtils.genOsCharts(type, "line", dataPhone));
             //返回根据渠道生成折线图的图表数据
             result.put("chlCharts", GenerateAppChartsUtils.genChannelCharts(type, dataChartByChl, res.get("app.startUser")));
 
@@ -113,9 +113,9 @@ public class AppUserController extends BaseController {
 
             //生成留存用户按照日期分布的折线图
             Object[] nameList = new Object[]{res.get("app.newAddUser")};
-            result.put("timeCharts", genUserTimeCharts("day", dataTime, nameList));
+            result.put("timeCharts", genUserTimeCharts("day","line",  dataTime, nameList));
             //生成留存用户按照手机OS分布的折线图
-            result.put("osCharts", genOsCharts("day", dataPhone));
+            result.put("osCharts", genOsCharts("day","line",  dataPhone));
             //生成留存用户按照渠道分布的折线图
             result.put("chlCharts", genChannelCharts("day", dataChart, res.get("app.newAddUser")));
 
@@ -166,7 +166,7 @@ public class AppUserController extends BaseController {
             }
 
             //返回根据手机os生成折线图的图表数据
-            result.put("osCharts", GenerateAppChartsUtils.genOsCharts(dateType, dataPhone));
+            result.put("osCharts", GenerateAppChartsUtils.genOsCharts(dateType,"line",  dataPhone));
 
             result.put("chlCharts", GenerateAppChartsUtils.genChannelCharts(dateType, dataChart, res.get("app.newAddUser")));
 
@@ -221,11 +221,11 @@ public class AppUserController extends BaseController {
                 }
             }
 
-            result.put("timeCharts", GenerateAppChartsUtils.genLoginUserTimeCharts(type, dataTime));
+            result.put("timeCharts", GenerateAppChartsUtils.genLoginUserTimeCharts(type,"line",  dataTime));
 
             result.put("chlCharts", GenerateAppChartsUtils.genChannelCharts(type, dataChart, res.get("app.loginUser")));
 
-            result.put("osCharts", GenerateAppChartsUtils.genOsCharts(type, dataPhone));
+            result.put("osCharts", GenerateAppChartsUtils.genOsCharts(type,"line",  dataPhone));
 
             result.put("dataTime", dataTime);
             result.put("dataPhone", dataPhone);
@@ -274,8 +274,8 @@ public class AppUserController extends BaseController {
 
             //定义折线图图例的名称
             Object[] nameList = new Object[]{res.get("app.newAddUser")};
-            result.put("timeCharts", genUserTimeCharts(type, dataTime, nameList));
-            result.put("osCharts", GenerateAppChartsUtils.genOsCharts(type, dataPhone));
+            result.put("timeCharts", genUserTimeCharts(type, "line", dataTime, nameList));
+            result.put("osCharts", GenerateAppChartsUtils.genOsCharts(type, "line", dataPhone));
 
             result.put("dataTime", dataTime);
             result.put("dataPhone", dataPhone);

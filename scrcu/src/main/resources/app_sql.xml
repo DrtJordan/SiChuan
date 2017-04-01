@@ -26,35 +26,40 @@
     <sqlGroup name="app_activeUser_day_chart">
         <sql id="name">app活跃用户渠道维度</sql>
         <sql id="header">日期,渠道名,启动用户数</sql>
-        <sql id="sql">select chl_id, sum(user_cnt) as user_cnt from bdhbs.th_log_app_usr_startup_orc_day where SQL_CONDITION
+        <sql id="sql">select chl_id, sum(user_cnt) as user_cnt from bdhbs.th_log_app_usr_startup_orc_day where
+            SQL_CONDITION
             cnt_type='1' group by chl_id
         </sql>
     </sqlGroup>
     <sqlGroup name="app_activeUser_week_chart">
         <sql id="name">app活跃用户渠道图表数据</sql>
         <sql id="header">渠道名,启动用户数</sql>
-        <sql id="sql">select chl_id, sum(user_cnt) as user_cnt from bdhbs.th_log_app_usr_startup_chl_orc_sum_day where SQL_CONDITION
+        <sql id="sql">select chl_id, sum(user_cnt) as user_cnt from bdhbs.th_log_app_usr_startup_chl_orc_sum_day where
+            SQL_CONDITION
             cnt_type='1' and chl_id!='999' group by chl_id
         </sql>
     </sqlGroup>
     <sqlGroup name="app_activeUser_month_chart">
         <sql id="name">app活跃用户渠道图表数据</sql>
         <sql id="header">渠道名,启动用户数</sql>
-        <sql id="sql">select chl_id, sum(user_cnt) as user_cnt from bdhbs.th_log_app_usr_startup_chl_orc_sum_day where SQL_CONDITION
+        <sql id="sql">select chl_id, sum(user_cnt) as user_cnt from bdhbs.th_log_app_usr_startup_chl_orc_sum_day where
+            SQL_CONDITION
             cnt_type='2' and chl_id!='999' group by chl_id
         </sql>
     </sqlGroup>
     <sqlGroup name="app_activeUser_quarter_chart">
         <sql id="name">app活跃用户渠道图表数据</sql>
         <sql id="header">渠道名,启动用户数</sql>
-        <sql id="sql">select chl_id, sum(user_cnt) as user_cnt from bdhbs.th_log_app_usr_startup_chl_orc_sum_day where SQL_CONDITION
+        <sql id="sql">select chl_id, sum(user_cnt) as user_cnt from bdhbs.th_log_app_usr_startup_chl_orc_sum_day where
+            SQL_CONDITION
             cnt_type='3' and chl_id!='999' group by chl_id
         </sql>
     </sqlGroup>
     <sqlGroup name="app_activeUser_year_chart">
         <sql id="name">app活跃用户渠道图表数据</sql>
         <sql id="header">渠道名,启动用户数</sql>
-        <sql id="sql">select chl_id, sum(user_cnt) as user_cnt from bdhbs.th_log_app_usr_startup_chl_orc_sum_day where SQL_CONDITION
+        <sql id="sql">select chl_id, sum(user_cnt) as user_cnt from bdhbs.th_log_app_usr_startup_chl_orc_sum_day where
+            SQL_CONDITION
             cnt_type='4' and chl_id!='999' group by chl_id
         </sql>
     </sqlGroup>
@@ -183,7 +188,8 @@
     <sqlGroup name="app_retainUser_channel_day_chart">
         <sql id="name">app留存用户_渠道图表数据</sql>
         <sql id="header">渠道名,新增用户数</sql>
-        <sql id="sql">select chl_id, sum(his_stat_new_cnt) as his_stat_new_cnt from bdhbs.th_busi_user_remain_chl_ort_day where
+        <sql id="sql">select chl_id, sum(his_stat_new_cnt) as his_stat_new_cnt from
+            bdhbs.th_busi_user_remain_chl_ort_day where
             SQL_CONDITION cnt_type = '1' group by chl_id
         </sql>
     </sqlGroup>
@@ -228,7 +234,8 @@
         <sql id="name">app注册用户_渠道图表数据</sql>
         <sql id="header">渠道名,新增用户数</sql>
         <sql id="sql">select chl_id, sum(new_token_cnt) as new_token_cnt from
-            bdhbs.th_log_app_usr_registered_chl_orc_sum_day where SQL_CONDITION cnt_type='2' and chl_id != '999' group by chl_id
+            bdhbs.th_log_app_usr_registered_chl_orc_sum_day where SQL_CONDITION cnt_type='2' and chl_id != '999' group
+            by chl_id
         </sql>
     </sqlGroup>
 
@@ -253,7 +260,8 @@
         <sql id="name">app注册用户_渠道图表数据</sql>
         <sql id="header">渠道名,新增用户数</sql>
         <sql id="sql">select chl_id, sum(new_token_cnt) as new_token_cnt from
-            bdhbs.th_log_app_usr_registered_chl_orc_sum_day where SQL_CONDITION cnt_type='3' and chl_id != '999' group by chl_id
+            bdhbs.th_log_app_usr_registered_chl_orc_sum_day where SQL_CONDITION cnt_type='3' and chl_id != '999' group
+            by chl_id
         </sql>
     </sqlGroup>
 
@@ -278,7 +286,8 @@
         <sql id="name">app注册用户_渠道图表数据</sql>
         <sql id="header">渠道名,新增用户数</sql>
         <sql id="sql">select chl_id, sum(new_token_cnt) as new_token_cnt from
-            bdhbs.th_log_app_usr_registered_chl_orc_sum_day where SQL_CONDITION cnt_type='4' and chl_id != '999' group by chl_id
+            bdhbs.th_log_app_usr_registered_chl_orc_sum_day where SQL_CONDITION cnt_type='4' and chl_id != '999' group
+            by chl_id
         </sql>
     </sqlGroup>
 
@@ -508,6 +517,7 @@
             by stat_date desc
         </sql>
     </sqlGroup>
+
     <sqlGroup name="app_useTime_phone_day">
         <sql id="name">app使用时长_手机维度按天汇总</sql>
         <sql id="header">日期,版本号,时长,启动次数,启动次数占比</sql>
@@ -516,6 +526,15 @@
             stat_date desc
         </sql>
     </sqlGroup>
+    <sqlGroup name="app_useTime_phone_day_chart">
+        <sql id="name">app使用时长_手机图表数据</sql>
+        <sql id="header">版本号,时长,启动次数</sql>
+        <sql id="sql">select app_version, online_time, sum(startup_cnt) as startup_cnt from
+            bdhbs.th_log_app_usr_online_time_orc_day where SQL_CONDITION cnt_type ='3' and online_time != '999' and
+            online_time != 'other' group by app_version, online_time order by app_version desc
+        </sql>
+    </sqlGroup>
+
     <sqlGroup name="app_useTime_channel_day">
         <sql id="name">app使用时长_渠道维度按天汇总</sql>
         <sql id="header">日期,渠道名,时长,启动次数,启动次数占比</sql>
@@ -524,12 +543,29 @@
             stat_date desc
         </sql>
     </sqlGroup>
+    <sqlGroup name="app_useTime_channel_day_chart">
+        <sql id="name">app使用时长_渠道图表数据</sql>
+        <sql id="header">渠道,时长,启动次数</sql>
+        <sql id="sql">select chl_id, online_time, sum(startup_cnt) as startup_cnt from
+            bdhbs.th_log_app_usr_online_time_orc_day where SQL_CONDITION cnt_type ='1' and online_time != '999' and
+            online_time != 'other' group by chl_id, online_time order by chl_id desc
+        </sql>
+    </sqlGroup>
+
     <sqlGroup name="app_useTime_os_day">
         <sql id="name">手机os使用时长按天汇总</sql>
         <sql id="header">日期,手机os,时长,启动次数,启动次数占比</sql>
         <sql id="sql">select stat_date, term_os, online_time, startup_cnt, startup_ratio from
             bdhbs.th_log_app_usr_online_time_orc_day where SQL_CONDITION cnt_type ='2' and online_time != '999' order by
             stat_date desc
+        </sql>
+    </sqlGroup>
+    <sqlGroup name="app_useTime_os_day_chart">
+        <sql id="name">app使用时长_os图表数据</sql>
+        <sql id="header">os,时长,启动次数</sql>
+        <sql id="sql">select term_os, online_time, sum(startup_cnt) as startup_cnt from
+            bdhbs.th_log_app_usr_online_time_orc_day where SQL_CONDITION cnt_type ='2' and online_time != '999' and
+            online_time != 'other' group by term_os, online_time order by term_os desc
         </sql>
     </sqlGroup>
 
@@ -542,6 +578,8 @@
             by stat_date,online_time desc
         </sql>
     </sqlGroup>
+
+
     <sqlGroup name="app_useTime_phone_week">
         <sql id="name">app使用时长_手机维度按周汇总</sql>
         <sql id="header">日期,版本号,时长,启动次数,启动次数占比</sql>
@@ -550,6 +588,16 @@
             order by stat_date desc
         </sql>
     </sqlGroup>
+    <sqlGroup name="app_useTime_phone_week_chart">
+        <sql id="name">app使用时长_版本图表数据</sql>
+        <sql id="header">版本,时长,启动次数</sql>
+        <sql id="sql">select app_version, online_time, sum(startup_cnt) as startup_cnt from
+            bdhbs.th_log_app_usr_online_time_appv_orc_sum_day where SQL_CONDITION cnt_type ='1' and online_time != '999' and
+            online_time != 'other' group by app_version, online_time order by app_version desc
+        </sql>
+    </sqlGroup>
+
+
     <sqlGroup name="app_useTime_channel_week">
         <sql id="name">app使用时长_渠道维度按周汇总</sql>
         <sql id="header">日期,渠道名,时长,启动次数,启动次数占比</sql>
@@ -558,12 +606,30 @@
             order by stat_date desc
         </sql>
     </sqlGroup>
+    <sqlGroup name="app_useTime_channel_week_chart">
+        <sql id="name">app使用时长_渠道图表数据</sql>
+        <sql id="header">渠道,时长,启动次数</sql>
+        <sql id="sql">select chl_id, online_time, sum(startup_cnt) as startup_cnt from
+            bdhbs.th_log_app_usr_online_time_chl_orc_sum_day where SQL_CONDITION cnt_type ='1' and online_time != '999' and
+            online_time != 'other' group by chl_id, online_time order by chl_id desc
+        </sql>
+    </sqlGroup>
+
+
     <sqlGroup name="app_useTime_os_week">
         <sql id="name">手机os使用时长按周汇总</sql>
         <sql id="header">日期,手机os,时长,启动次数,启动次数占比</sql>
         <sql id="sql">select stat_date, term_os, online_time, startup_cnt, startup_ratio from
             bdhbs.th_log_app_usr_online_time_os_orc_sum_day where SQL_CONDITION cnt_type = 1 and online_time != '999'
             order by stat_date desc
+        </sql>
+    </sqlGroup>
+    <sqlGroup name="app_useTime_os_week_chart">
+        <sql id="name">app使用时长_os图表数据</sql>
+        <sql id="header">os,时长,启动次数</sql>
+        <sql id="sql">select term_os, online_time, sum(startup_cnt) as startup_cnt from
+            bdhbs.th_log_app_usr_online_time_os_orc_sum_day where SQL_CONDITION cnt_type ='1' and online_time != '999' and
+            online_time != 'other' group by term_os, online_time order by term_os desc
         </sql>
     </sqlGroup>
 
@@ -576,6 +642,7 @@
             by stat_date desc
         </sql>
     </sqlGroup>
+
     <sqlGroup name="app_useTime_phone_month">
         <sql id="name">app使用时长_手机维度按月汇总</sql>
         <sql id="header">日期,版本号,时长,启动次数,启动次数占比</sql>
@@ -584,6 +651,15 @@
             order by stat_date desc
         </sql>
     </sqlGroup>
+    <sqlGroup name="app_useTime_phone_month_chart">
+        <sql id="name">app使用时长_版本图表数据</sql>
+        <sql id="header">版本,时长,启动次数</sql>
+        <sql id="sql">select app_version, online_time, sum(startup_cnt) as startup_cnt from
+            bdhbs.th_log_app_usr_online_time_appv_orc_sum_day where SQL_CONDITION cnt_type ='2' and online_time != '999' and
+            online_time != 'other' group by app_version, online_time order by app_version desc
+        </sql>
+    </sqlGroup>
+
     <sqlGroup name="app_useTime_channel_month">
         <sql id="name">app使用时长_渠道维度按月汇总</sql>
         <sql id="header">日期,渠道名,时长,启动次数,启动次数占比</sql>
@@ -592,12 +668,29 @@
             order by stat_date desc
         </sql>
     </sqlGroup>
+    <sqlGroup name="app_useTime_channel_month_chart">
+        <sql id="name">app使用时长_渠道图表数据</sql>
+        <sql id="header">渠道,时长,启动次数</sql>
+        <sql id="sql">select chl_id, online_time, sum(startup_cnt) as startup_cnt from
+            bdhbs.th_log_app_usr_online_time_chl_orc_sum_day where SQL_CONDITION cnt_type ='2' and online_time != '999' and
+            online_time != 'other' group by chl_id, online_time order by chl_id desc
+        </sql>
+    </sqlGroup>
+
     <sqlGroup name="app_useTime_os_month">
         <sql id="name">手机os使用时长按月汇总</sql>
         <sql id="header">日期,手机os,时长,启动次数,启动次数占比</sql>
         <sql id="sql">select stat_date, term_os, online_time, startup_cnt, startup_ratio from
             bdhbs.th_log_app_usr_online_time_os_orc_sum_day where SQL_CONDITION cnt_type = 2 and online_time != '999'
             order by stat_date desc
+        </sql>
+    </sqlGroup>
+    <sqlGroup name="app_useTime_os_month_chart">
+        <sql id="name">app使用时长_os图表数据</sql>
+        <sql id="header">os,时长,启动次数</sql>
+        <sql id="sql">select term_os, online_time, sum(startup_cnt) as startup_cnt from
+            bdhbs.th_log_app_usr_online_time_os_orc_sum_day where SQL_CONDITION cnt_type ='2' and online_time != '999' and
+            online_time != 'other' group by term_os, online_time order by term_os desc
         </sql>
     </sqlGroup>
 
@@ -610,6 +703,7 @@
             by stat_date desc
         </sql>
     </sqlGroup>
+
     <sqlGroup name="app_useTime_phone_quarter">
         <sql id="name">app使用时长_手机维度按季汇总</sql>
         <sql id="header">日期,版本号,时长,启动次数,启动次数占比</sql>
@@ -618,6 +712,15 @@
             order by stat_date desc
         </sql>
     </sqlGroup>
+    <sqlGroup name="app_useTime_phone_quarter_chart">
+        <sql id="name">app使用时长_版本图表数据</sql>
+        <sql id="header">版本,时长,启动次数</sql>
+        <sql id="sql">select app_version, online_time, sum(startup_cnt) as startup_cnt from
+            bdhbs.th_log_app_usr_online_time_appv_orc_sum_day where SQL_CONDITION cnt_type ='3' and online_time != '999' and
+            online_time != 'other' group by app_version, online_time order by app_version desc
+        </sql>
+    </sqlGroup>
+
     <sqlGroup name="app_useTime_channel_quarter">
         <sql id="name">app使用时长_渠道维度按季汇总</sql>
         <sql id="header">日期,渠道名,时长,启动次数,启动次数占比</sql>
@@ -626,12 +729,29 @@
             order by stat_date desc
         </sql>
     </sqlGroup>
+    <sqlGroup name="app_useTime_channel_quarter_chart">
+        <sql id="name">app使用时长_渠道图表数据</sql>
+        <sql id="header">渠道,时长,启动次数</sql>
+        <sql id="sql">select chl_id, online_time, sum(startup_cnt) as startup_cnt from
+            bdhbs.th_log_app_usr_online_time_chl_orc_sum_day where SQL_CONDITION cnt_type ='3' and online_time != '999' and
+            online_time != 'other' group by chl_id, online_time order by chl_id desc
+        </sql>
+    </sqlGroup>
+
     <sqlGroup name="app_useTime_os_quarter">
         <sql id="name">手机os使用时长按季汇总</sql>
         <sql id="header">日期,手机os,时长,启动次数,启动次数占比</sql>
         <sql id="sql">select stat_date, term_os, online_time, startup_cnt, startup_ratio from
             bdhbs.th_log_app_usr_online_time_os_orc_sum_day where SQL_CONDITION cnt_type = 3 and online_time != '999'
             order by stat_date desc
+        </sql>
+    </sqlGroup>
+    <sqlGroup name="app_useTime_os_quarter_chart">
+        <sql id="name">app使用时长_os图表数据</sql>
+        <sql id="header">os,时长,启动次数</sql>
+        <sql id="sql">select term_os, online_time, sum(startup_cnt) as startup_cnt from
+            bdhbs.th_log_app_usr_online_time_os_orc_sum_day where SQL_CONDITION cnt_type ='3' and online_time != '999' and
+            online_time != 'other' group by term_os, online_time order by term_os desc
         </sql>
     </sqlGroup>
 
@@ -644,6 +764,7 @@
             by stat_date desc
         </sql>
     </sqlGroup>
+
     <sqlGroup name="app_useTime_phone_year">
         <sql id="name">app使用时长_手机维度按年汇总</sql>
         <sql id="header">日期,版本号,时长,启动次数,启动次数占比</sql>
@@ -652,6 +773,15 @@
             order by stat_date desc
         </sql>
     </sqlGroup>
+    <sqlGroup name="app_useTime_phone_year_chart">
+        <sql id="name">app使用时长_版本图表数据</sql>
+        <sql id="header">版本,时长,启动次数</sql>
+        <sql id="sql">select app_version, online_time, sum(startup_cnt) as startup_cnt from
+            bdhbs.th_log_app_usr_online_time_appv_orc_sum_day where SQL_CONDITION cnt_type ='4' and online_time != '999' and
+            online_time != 'other' group by app_version, online_time order by app_version desc
+        </sql>
+    </sqlGroup>
+
     <sqlGroup name="app_useTime_channel_year">
         <sql id="name">app使用时长_渠道维度按年汇总</sql>
         <sql id="header">日期,渠道名,时长,启动次数,启动次数占比</sql>
@@ -660,6 +790,15 @@
             order by stat_date desc
         </sql>
     </sqlGroup>
+    <sqlGroup name="app_useTime_channel_year_chart">
+        <sql id="name">app使用时长_渠道图表数据</sql>
+        <sql id="header">渠道,时长,启动次数</sql>
+        <sql id="sql">select chl_id, online_time, sum(startup_cnt) as startup_cnt from
+            bdhbs.th_log_app_usr_online_time_chl_orc_sum_day where SQL_CONDITION cnt_type ='4' and online_time != '999' and
+            online_time != 'other' group by chl_id, online_time order by chl_id desc
+        </sql>
+    </sqlGroup>
+
     <sqlGroup name="app_useTime_os_year">
         <sql id="name">手机os使用时长按年汇总</sql>
         <sql id="header">日期,手机os,时长,启动次数,启动次数占比</sql>
@@ -668,6 +807,15 @@
             order by stat_date desc
         </sql>
     </sqlGroup>
+    <sqlGroup name="app_useTime_os_year_chart">
+        <sql id="name">app使用时长_os图表数据</sql>
+        <sql id="header">os,时长,启动次数</sql>
+        <sql id="sql">select term_os, online_time, sum(startup_cnt) as startup_cnt from
+            bdhbs.th_log_app_usr_online_time_os_orc_sum_day where SQL_CONDITION cnt_type ='4' and online_time != '999' and
+            online_time != 'other' group by term_os, online_time order by term_os desc
+        </sql>
+    </sqlGroup>
+
     <!-- ######################################### 使用时长 ######################################### -->
 
 
@@ -868,7 +1016,8 @@
         <sql id="name">app访问深度_手机维度按周汇总</sql>
         <sql id="header">日期,版本号,访问页面,启动次数,启动次数占比</sql>
         <sql id="sql">select stat_date, app_version, pv_cnt, startup_usr_cnt, startup_usr_ratio from
-            bdhbs.th_log_app_usr_interview_cnt_appv_orc_sum_day where SQL_CONDITION cnt_type ='1' order by stat_date desc
+            bdhbs.th_log_app_usr_interview_cnt_appv_orc_sum_day where SQL_CONDITION cnt_type ='1' order by stat_date
+            desc
         </sql>
     </sqlGroup>
     <sqlGroup name="app_depth_channel_week">
@@ -900,7 +1049,8 @@
         <sql id="name">app访问深度_手机维度按月汇总</sql>
         <sql id="header">日期,版本号,访问页面,启动次数,启动次数占比</sql>
         <sql id="sql">select stat_date, app_version, pv_cnt, startup_usr_cnt, startup_usr_ratio from
-            bdhbs.th_log_app_usr_interview_cnt_appv_orc_sum_day where SQL_CONDITION cnt_type ='2' order by stat_date desc
+            bdhbs.th_log_app_usr_interview_cnt_appv_orc_sum_day where SQL_CONDITION cnt_type ='2' order by stat_date
+            desc
         </sql>
     </sqlGroup>
     <sqlGroup name="app_depth_channel_month">
@@ -932,7 +1082,8 @@
         <sql id="name">app访问深度_手机维度按季汇总</sql>
         <sql id="header">日期,版本号,访问页面,启动次数,启动次数占比</sql>
         <sql id="sql">select stat_date, app_version, pv_cnt, startup_usr_cnt, startup_usr_ratio from
-            bdhbs.th_log_app_usr_interview_cnt_appv_orc_sum_day where SQL_CONDITION cnt_type ='3' order by stat_date desc
+            bdhbs.th_log_app_usr_interview_cnt_appv_orc_sum_day where SQL_CONDITION cnt_type ='3' order by stat_date
+            desc
         </sql>
     </sqlGroup>
     <sqlGroup name="app_depth_channel_quarter">
@@ -964,7 +1115,8 @@
         <sql id="name">app访问深度_手机维度按年汇总</sql>
         <sql id="header">日期,版本号,访问页面,启动次数,启动次数占比</sql>
         <sql id="sql">select stat_date, app_version, pv_cnt, startup_usr_cnt, startup_usr_ratio from
-            bdhbs.th_log_app_usr_interview_cnt_appv_orc_sum_day where SQL_CONDITION cnt_type ='4' order by stat_date desc
+            bdhbs.th_log_app_usr_interview_cnt_appv_orc_sum_day where SQL_CONDITION cnt_type ='4' order by stat_date
+            desc
         </sql>
     </sqlGroup>
     <sqlGroup name="app_depth_channel_year">
@@ -1045,7 +1197,8 @@
         <sql id="name">app间隔分布_OS按周汇总</sql>
         <sql id="header">日期,手机os,使用间隔,启动次数,启动次数占比</sql>
         <sql id="sql">select stat_date, term_os, use_interval, startup_usr_cnt, startup_usr_ratio from
-            bdhbs.th_log_app_usr_startup_interval_os_orc_sum_day where SQL_CONDITION cnt_type='1' order by stat_date desc
+            bdhbs.th_log_app_usr_startup_interval_os_orc_sum_day where SQL_CONDITION cnt_type='1' order by stat_date
+            desc
         </sql>
     </sqlGroup>
 
@@ -1077,7 +1230,8 @@
         <sql id="name">app间隔分布_OS按月汇总</sql>
         <sql id="header">日期,手机os,使用间隔,启动次数,启动次数占比</sql>
         <sql id="sql">select stat_date, term_os, use_interval, startup_usr_cnt, startup_usr_ratio from
-            bdhbs.th_log_app_usr_startup_interval_os_orc_sum_day where SQL_CONDITION cnt_type='2' order by stat_date desc
+            bdhbs.th_log_app_usr_startup_interval_os_orc_sum_day where SQL_CONDITION cnt_type='2' order by stat_date
+            desc
         </sql>
     </sqlGroup>
 
@@ -1109,7 +1263,8 @@
         <sql id="name">app间隔分布_OS按季汇总</sql>
         <sql id="header">日期,手机os,使用间隔,启动次数,启动次数占比</sql>
         <sql id="sql">select stat_date, term_os, use_interval, startup_usr_cnt, startup_usr_ratio from
-            bdhbs.th_log_app_usr_startup_interval_os_orc_sum_day where SQL_CONDITION cnt_type='3' order by stat_date desc
+            bdhbs.th_log_app_usr_startup_interval_os_orc_sum_day where SQL_CONDITION cnt_type='3' order by stat_date
+            desc
         </sql>
     </sqlGroup>
 
@@ -1141,7 +1296,8 @@
         <sql id="name">app间隔分布_OS按年汇总</sql>
         <sql id="header">日期,手机os,使用间隔,启动次数,启动次数占比</sql>
         <sql id="sql">select stat_date, term_os, use_interval, startup_usr_cnt, startup_usr_ratio from
-            bdhbs.th_log_app_usr_startup_interval_os_orc_sum_day where SQL_CONDITION cnt_type='4' order by stat_date desc
+            bdhbs.th_log_app_usr_startup_interval_os_orc_sum_day where SQL_CONDITION cnt_type='4' order by stat_date
+            desc
         </sql>
     </sqlGroup>
     <!-- ######################################### 访问间隔end ######################################### -->
@@ -1175,7 +1331,8 @@
     <sqlGroup name="app_startCount_channel_month_chart">
         <sql id="name">app启动次数_渠道图表数据</sql>
         <sql id="header">渠道名,启动次数</sql>
-        <sql id="sql">select chl_id, sum(startup_cnt) as startup_cnt from bdhbs.th_log_app_usr_startup_cnt_chl_orc_sum_day
+        <sql id="sql">select chl_id, sum(startup_cnt) as startup_cnt from
+            bdhbs.th_log_app_usr_startup_cnt_chl_orc_sum_day
             where SQL_CONDITION cnt_type='2' and chl_id != '999' group by chl_id
         </sql>
     </sqlGroup>
@@ -1183,14 +1340,16 @@
     <sqlGroup name="app_startCount_channel_quarter_chart">
         <sql id="name">app启动次数_渠道图表数据</sql>
         <sql id="header">渠道名,启动次数</sql>
-        <sql id="sql">select chl_id, sum(startup_cnt) as startup_cnt from bdhbs.th_log_app_usr_startup_cnt_chl_orc_sum_day
+        <sql id="sql">select chl_id, sum(startup_cnt) as startup_cnt from
+            bdhbs.th_log_app_usr_startup_cnt_chl_orc_sum_day
             where SQL_CONDITION cnt_type='3' and chl_id != '999' group by chl_id
         </sql>
     </sqlGroup>
     <sqlGroup name="app_startCount_channel_year_chart">
         <sql id="name">app启动次数_渠道图表数据</sql>
         <sql id="header">渠道名,启动次数</sql>
-        <sql id="sql">select chl_id, sum(startup_cnt) as startup_cnt from bdhbs.th_log_app_usr_startup_cnt_chl_orc_sum_day
+        <sql id="sql">select chl_id, sum(startup_cnt) as startup_cnt from
+            bdhbs.th_log_app_usr_startup_cnt_chl_orc_sum_day
             where SQL_CONDITION cnt_type='4' and chl_id != '999' group by chl_id
         </sql>
     </sqlGroup>
@@ -1327,28 +1486,32 @@
         <sql id="name">手机版本按天查询echarts数据</sql>
         <sql id="header">日期,用户数,新增用户,启动用户</sql>
         <sql id="sql">select app_version, sum(user_cnt) as user_cnt, sum(new_token_cnt), sum(startover_user_cnt)
-            from bdhbs.th_log_app_version_orc_day where SQL_CONDITION cnt_type = '99' group by app_version order by app_version asc
+            from bdhbs.th_log_app_version_orc_day where SQL_CONDITION cnt_type = '99' group by app_version order by
+            app_version asc
         </sql>
     </sqlGroup>
     <sqlGroup name="app_version_month_chart">
         <sql id="name">手机版本按天查询echarts数据</sql>
         <sql id="header">日期,用户数,新增用户,启动用户</sql>
         <sql id="sql">select app_version, sum(user_cnt) as user_cnt, sum(new_token_cnt), sum(startover_user_cnt)
-            from bdhbs.th_log_app_version_orc_sum_day where SQL_CONDITION cnt_type = '2' group by app_version order by app_version asc
+            from bdhbs.th_log_app_version_orc_sum_day where SQL_CONDITION cnt_type = '2' group by app_version order by
+            app_version asc
         </sql>
     </sqlGroup>
     <sqlGroup name="app_version_quarter_chart">
         <sql id="name">手机版本按天查询echarts数据</sql>
         <sql id="header">日期,用户数,新增用户,启动用户</sql>
         <sql id="sql">select app_version, sum(user_cnt) as user_cnt, sum(new_token_cnt), sum(startover_user_cnt)
-            from bdhbs.th_log_app_version_orc_sum_day where SQL_CONDITION cnt_type = '3' group by app_version order by app_version asc
+            from bdhbs.th_log_app_version_orc_sum_day where SQL_CONDITION cnt_type = '3' group by app_version order by
+            app_version asc
         </sql>
     </sqlGroup>
     <sqlGroup name="app_version_year_chart">
         <sql id="name">手机版本按天查询echarts数据</sql>
         <sql id="header">日期,用户数,新增用户,启动用户</sql>
         <sql id="sql">select app_version, sum(user_cnt) as user_cnt, sum(new_token_cnt), sum(startover_user_cnt)
-            from bdhbs.th_log_app_version_orc_sum_day where SQL_CONDITION cnt_type = '4' group by app_version order by app_version asc
+            from bdhbs.th_log_app_version_orc_sum_day where SQL_CONDITION cnt_type = '4' group by app_version order by
+            app_version asc
         </sql>
     </sqlGroup>
 
@@ -1537,7 +1700,8 @@
         <sql id="name">地域分布按天汇总地图数据</sql>
         <sql id="header">城市,访客</sql>
         <sql id="sql">select city_id, sum(new_usr_cnt) as new_usr_cnt from
-            bdhbs.th_log_app_usr_area_orc_day where SQL_CONDITION city_id!='四川' and city_id!='未知' AND cnt_type='99' group by city_id order by new_usr_cnt desc
+            bdhbs.th_log_app_usr_area_orc_day where SQL_CONDITION city_id!='四川' and city_id!='未知' AND cnt_type='99'
+            group by city_id order by new_usr_cnt desc
         </sql>
     </sqlGroup>
 
@@ -1545,7 +1709,8 @@
         <sql id="name">地域分布按周汇总地图数据</sql>
         <sql id="header">城市,访客</sql>
         <sql id="sql">select city_id, sum(new_usr_cnt) as new_usr_cnt from
-            bdhbs.th_log_app_usr_area_chl_orc_sum_day where SQL_CONDITION city_id!='四川' and city_id!='未知' AND city_id != '999' AND cnt_type='1' group by city_id order by new_usr_cnt desc
+            bdhbs.th_log_app_usr_area_chl_orc_sum_day where SQL_CONDITION city_id!='四川' and city_id!='未知' AND city_id !=
+            '999' AND cnt_type='1' group by city_id order by new_usr_cnt desc
         </sql>
     </sqlGroup>
 
@@ -1553,7 +1718,8 @@
         <sql id="name">地域分布按月汇总地图数据</sql>
         <sql id="header">城市,访客</sql>
         <sql id="sql">select city_id, sum(new_usr_cnt) as new_usr_cnt from
-            bdhbs.th_log_app_usr_area_chl_orc_sum_day where SQL_CONDITION city_id!='四川' and city_id!='未知' AND city_id != '999' AND cnt_type='2' group by city_id order by new_usr_cnt desc
+            bdhbs.th_log_app_usr_area_chl_orc_sum_day where SQL_CONDITION city_id!='四川' and city_id!='未知' AND city_id !=
+            '999' AND cnt_type='2' group by city_id order by new_usr_cnt desc
         </sql>
     </sqlGroup>
 
@@ -1561,7 +1727,8 @@
         <sql id="name">地域分布按季汇总地图数据</sql>
         <sql id="header">城市,访客</sql>
         <sql id="sql">select city_id, sum(new_usr_cnt) as new_usr_cnt from
-            bdhbs.th_log_app_usr_area_chl_orc_sum_day where SQL_CONDITION city_id!='四川' and city_id!='未知' AND city_id != '999' AND cnt_type='3' group by city_id order by new_usr_cnt desc
+            bdhbs.th_log_app_usr_area_chl_orc_sum_day where SQL_CONDITION city_id!='四川' and city_id!='未知' AND city_id !=
+            '999' AND cnt_type='3' group by city_id order by new_usr_cnt desc
         </sql>
     </sqlGroup>
 
@@ -1569,7 +1736,8 @@
         <sql id="name">地域分布按年汇总地图数据</sql>
         <sql id="header">城市,访客</sql>
         <sql id="sql">select city_id, sum(new_usr_cnt) as new_usr_cnt from
-            bdhbs.th_log_app_usr_area_chl_orc_sum_day where SQL_CONDITION city_id!='四川' and city_id!='未知' AND city_id != '999' AND cnt_type='4' group by city_id order by new_usr_cnt desc
+            bdhbs.th_log_app_usr_area_chl_orc_sum_day where SQL_CONDITION city_id!='四川' and city_id!='未知' AND city_id !=
+            '999' AND cnt_type='4' group by city_id order by new_usr_cnt desc
         </sql>
     </sqlGroup>
 

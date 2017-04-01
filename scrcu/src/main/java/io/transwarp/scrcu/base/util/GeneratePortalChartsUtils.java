@@ -24,7 +24,7 @@ public class GeneratePortalChartsUtils {
      * @return 折线图数据
      */
     @SuppressWarnings("unchecked")
-    public static String genUseTimeCharts(String dateType, List<List<String>> timeData) {
+    public static String genUseTimeCharts(String dateType, String chartType, List<List<String>> timeData) {
 
         // 返回结果
         List<Object> xAxisList = new ArrayList<>();
@@ -60,7 +60,7 @@ public class GeneratePortalChartsUtils {
 
         }
         //生成使用时长的折线图数据,此处传入list数据的顺序必须按照nameList中的顺序传入，否则会造成数据对应错误
-        return ChartUtils.genAppMultiLineCharts(dateType, xAxisList, nameList, lessThanTenSecList, elevenToSixtySecList,
+        return ChartUtils.genAppMultiLineCharts(dateType, chartType, xAxisList, nameList, lessThanTenSecList, elevenToSixtySecList,
                 oneToTenMinList, tenToThirtyMinList, thirtyOverMinList);
     }
 
@@ -72,7 +72,7 @@ public class GeneratePortalChartsUtils {
      * @return 折线图数据
      */
     @SuppressWarnings("unchecked")
-    public static String genVisitDepthCharts(String dateType, List<List<String>> depthData) {
+    public static String genVisitDepthCharts(String dateType, String chartType, List<List<String>> depthData) {
 
         // 返回结果
         List<Object> depthXAxisList = new ArrayList<>();
@@ -102,7 +102,7 @@ public class GeneratePortalChartsUtils {
 
         }
         //生成使用深度的折线图数据,此处传入list数据的顺序必须按照nameList中的顺序传入，否则会造成数据对应错误
-        return ChartUtils.genAppMultiLineCharts(dateType, depthXAxisList, depthNames, lessThanTwoList, twoToFourList,
+        return ChartUtils.genAppMultiLineCharts(dateType, chartType, depthXAxisList, depthNames, lessThanTwoList, twoToFourList,
                 fourToTenList, tenOverList);
     }
 
@@ -114,7 +114,7 @@ public class GeneratePortalChartsUtils {
      * @return 流量趋势的折线图数据
      */
     @SuppressWarnings("unchecked")
-    public static String genFlowTrendCharts(String dateType, List<List<String>> dataFlowTrend) {
+    public static String genFlowTrendCharts(String dateType, String chartType, List<List<String>> dataFlowTrend) {
 
         List<Object> xAxisList = new ArrayList<>();
         List<Object> pvList = new ArrayList<>();
@@ -131,7 +131,7 @@ public class GeneratePortalChartsUtils {
         }
         Object[] nameList = new Object[]{res.get("portal.pageViewPV"), res.get("portal.visitorUV"), res.get("portal.IPCount"), res.get("portal.loginUser")};
         //获取折线图数据
-        return ChartUtils.genAppMultiLineCharts(dateType, xAxisList, nameList, pvList, uvList, ipList, loginCntList);
+        return ChartUtils.genAppMultiLineCharts(dateType, chartType, xAxisList, nameList, pvList, uvList, ipList, loginCntList);
 
     }
 
@@ -142,7 +142,7 @@ public class GeneratePortalChartsUtils {
      * @return 新访客的折线图数据
      */
     @SuppressWarnings("unchecked")
-    public static String genNewVisitorCharts(String dateType, List<List<String>> dataNewVisitor) {
+    public static String genNewVisitorCharts(String dateType,String chartType, List<List<String>> dataNewVisitor) {
 
         List<Object> xAxisList = new ArrayList<>();
         List<Object> newVisitorList = new ArrayList<>();
@@ -153,7 +153,7 @@ public class GeneratePortalChartsUtils {
         }
         Object[] nameList = new Object[]{"新访客"};
         //获取折线图数据
-        return ChartUtils.genAppMultiLineCharts(dateType, xAxisList, nameList, newVisitorList);
+        return ChartUtils.genAppMultiLineCharts(dateType, chartType, xAxisList, nameList, newVisitorList);
 
     }
 

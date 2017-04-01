@@ -36,6 +36,9 @@ public class AppBehaviorController extends BaseController {
             List<List<String>> dataPhone = new ArrayList<>();
             List<List<String>> dataChannel = new ArrayList<>();
             List<List<String>> dataOs = new ArrayList<>();
+            List<List<String>> dataPhoneChart = new ArrayList<>();
+            List<List<String>> dataChlChart = new ArrayList<>();
+            List<List<String>> dataOsChart = new ArrayList<>();
             JSONObject result = new JSONObject();
 
             // 得到查询条件
@@ -48,35 +51,59 @@ public class AppBehaviorController extends BaseController {
                     dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_phone_day, condition));
                     dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_channel_day, condition));
                     dataOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_os_day, condition));
+
+                    dataPhoneChart = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_phone_day_chart, condition));
+                    dataChlChart = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_channel_day_chart, condition));
+                    dataOsChart = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_os_day_chart, condition));
                 }
                 if (dateType.equals("week")) {
                     dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_useTime_week, condition), false);
                     dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_phone_week, condition));
                     dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_channel_week, condition));
                     dataOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_os_week, condition));
+
+                    dataPhoneChart = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_phone_week_chart, condition));
+                    dataChlChart = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_channel_week_chart, condition));
+                    dataOsChart = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_os_week_chart, condition));
                 }
                 if (dateType.equals("month")) {
                     dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_useTime_month, condition), false);
                     dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_phone_month, condition));
                     dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_channel_month, condition));
                     dataOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_os_month, condition));
+
+                    dataPhoneChart = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_phone_month_chart, condition));
+                    dataChlChart = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_channel_month_chart, condition));
+                    dataOsChart = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_os_month_chart, condition));
                 }
                 if (dateType.equals("quarter")) {
                     dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_useTime_quarter, condition), false);
                     dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_phone_quarter, condition));
                     dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_channel_quarter, condition));
                     dataOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_os_quarter, condition));
+
+                    dataPhoneChart = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_phone_quarter_chart, condition));
+                    dataChlChart = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_channel_quarter_chart, condition));
+                    dataOsChart = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_os_quarter_chart, condition));
                 }
                 if (dateType.equals("year")) {
+
                     dataTime = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_useTime_year, condition), false);
                     dataPhone = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_phone_year, condition));
                     dataChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_channel_year, condition));
                     dataOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_os_year, condition));
+
+                    dataPhoneChart = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_phone_year_chart, condition));
+                    dataChlChart = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_channel_year_chart, condition));
+                    dataOsChart = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_useTime_os_year_chart, condition));
                 }
             }
 
             //生成app使用时长的折线图
-            result.put("chartOption", GenerateAppChartsUtils.genAppUseTimeCharts(dateType, dataTime));
+            result.put("timeChart", GenerateAppChartsUtils.genAppBehaviorCharts(dateType, "line", dataTime));
+            result.put("phoneChart", GenerateAppChartsUtils.genAppBehaviorCharts(dateType, "line", dataPhoneChart));
+            result.put("osChart", GenerateAppChartsUtils.genAppBehaviorCharts(dateType, "bar", dataOsChart));
+            result.put("chlChart", GenerateAppChartsUtils.genAppBehaviorCharts(dateType, "bar", dataChlChart));
 
             result.put("dataTime", dataTime);
             result.put("dataPhone", dataPhone);
@@ -139,7 +166,7 @@ public class AppBehaviorController extends BaseController {
             }
 
             //生成使用频率折线图数据
-            result.put("chartOption", genAppUseRateCharts(dateType, dataTime));
+            result.put("chartOption", genAppUseRateCharts(dateType, "line", dataTime));
 
             result.put("dataTime", dataTime);
             result.put("dataPhone", dataPhone);
@@ -199,7 +226,7 @@ public class AppBehaviorController extends BaseController {
             }
 
             //app访问深度的折线图数据
-            result.put("chartOption", genAppDepthCharts(dateType, dataTime));
+            result.put("chartOption", genAppDepthCharts(dateType, "line", dataTime));
 
             result.put("dataTime", dataTime);
             result.put("dataPhone", dataPhone);
@@ -262,7 +289,7 @@ public class AppBehaviorController extends BaseController {
             }
 
             //app访问间隔折线图数据
-            result.put("chartOption", genAppIntervalCharts(dateType, dataTime));
+            result.put("chartOption", genAppIntervalCharts(dateType, "line", dataTime));
 
             result.put("dataTime", dataTime);
             result.put("dataPhone", dataPhone);
@@ -332,9 +359,9 @@ public class AppBehaviorController extends BaseController {
             for (List<String> list : dataCharts) {
 
                 String name = list.get(0).replace("甘孜州", "甘孜藏族自治州").replace("阿坝州", "阿坝藏族羌族自治州").replace("凉山州", "凉山彝族自治州");
-                    //获取新增用户数
-                    Data newUserCount = new Data(name, list.get(1));
-                    dataList.add(newUserCount);
+                //获取新增用户数
+                Data newUserCount = new Data(name, list.get(1));
+                dataList.add(newUserCount);
             }
 
             Integer maxValue = 0;

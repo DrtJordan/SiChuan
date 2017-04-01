@@ -174,7 +174,7 @@ public class ChartUtils {
     }
 
     /**
-     * 生成多条折线图型数据
+     * 生成首页中多条折线图型数据
      *
      * @param xAxisList
      * @param nameList
@@ -213,19 +213,13 @@ public class ChartUtils {
     }
 
     /**
-     * 生成使用时长的折线图
+     * 生成app统计的折线图
      */
     @SuppressWarnings("unchecked")
-    public static String genAppMultiLineCharts(String dateType, List<Object> xAxisList, Object[] nameList, List<Object>... dataList) {
+    public static String genAppMultiLineCharts(String dateType, String chartType, List<Object> xAxisList, Object[] nameList, List<Object>... dataList) {
+
         EnhancedOption option = new EnhancedOption();
         option.tooltip().trigger(Trigger.axis);
-        //设置值域的选择范围以及样式
-        DataZoom dataZoom = new DataZoom();
-        dataZoom.setStart(0);
-        dataZoom.setEnd(30);
-        dataZoom.y(226);
-        dataZoom.show(true);
-        option.setDataZoom(dataZoom);
 
         if (StringUtils.equals(dateType, "day")) {
             option.title().subtext("按天汇总").x("right").textStyle(new TextStyle().fontSize(15));
@@ -248,25 +242,54 @@ public class ChartUtils {
         legend.y("bottom").data(nameList);
         option.legend(legend);
         option.toolbox().show(true);
-        option.calculable(false);
         //设置类目起始和结束两端空白策略，true：留空，false：顶头
         CategoryAxis axis = new CategoryAxis().boundaryGap(false);
+
+        //判断是否为柱状图，若是，则设置空白策略以及坐标轴指示器样式
+        if (chartType.equals("bar")) {
+            axis.boundaryGap(true);
+            option.tooltip().axisPointer().setType(PointerType.shadow);
+        }
         //给x轴添加数据
         axis.setData(xAxisList);
         option.xAxis(axis);
         option.yAxis(new ValueAxis());
+
         for (int i = 0; i < dataList.length; i++) {
             List<Object> list = dataList[i];
-            Line line = new Line().smooth(true).name(String.valueOf(nameList[i]));
-            //设置折线的样式(width表示线条粗细)
-            line.itemStyle().normal().setLineStyle(new LineStyle().width(1));
-            line.setData(list);
-            option.series(line);
+            if (chartType.equals("line")) {
+                Line line = new Line().smooth(true).name(String.valueOf(nameList[i]));
+                //设置折线的样式(width表示线条粗细)
+                line.itemStyle().normal().setLineStyle(new LineStyle().width(1));
+                line.setData(list);
+                option.series(line);
+            }
+            if (chartType.equals("bar")) {
+                Bar bar = new Bar().name(String.valueOf(nameList[i]));
+                if (xAxisList.size() != 0 && !xAxisList.get(0).equals("Android")) {
+                    bar.setStack("bar");
+                }
+                bar.setData(list);
+                option.series(bar);
+            }
+
         }
         Grid grid = new Grid();
         //设置x，y轴的位置
         grid.x("60").x2("30").y("5").y2("60");
-        grid.setHeight("70%");
+
+        //判断是否为折线图，若是，则设置折线图的值域范围以及显示位置
+        if (chartType.equals("line")) {
+            //设置值域的选择范围以及样式
+            DataZoom dataZoom = new DataZoom();
+            dataZoom.setStart(0);
+            dataZoom.setEnd(30);
+            dataZoom.y(226);
+            dataZoom.show(true);
+            option.setDataZoom(dataZoom);
+            grid.setHeight("70%");
+        }
+
         option.grid(grid);
 
         return GsonUtil.format(option);
@@ -274,7 +297,7 @@ public class ChartUtils {
     }
 
     /**
-     * 活跃用户分析生成折线图
+     * 业务分析生成折线图
      *
      * @param name
      * @param xAxisList
@@ -352,7 +375,7 @@ public class ChartUtils {
 
     }
 
-    public static void main(String[] args) {
+  /*  public static void main(String[] args) {
         // List<Object> xAxisListMoney = new ArrayList<Object>();
         // xAxisListMoney.add("历史1");
         // xAxisListMoney.add("历史2");
@@ -371,7 +394,7 @@ public class ChartUtils {
         dataList.add("王五");
         genTree("张三", dataList);
 
-    }
+    }*/
 
     /**
      * 生成人际关系图表
@@ -474,6 +497,14 @@ public class ChartUtils {
         return GsonUtil.format(option);
     }
 
+    /**
+     * 生成注册年限的图表json数据
+     *
+     * @param name  图表名称
+     * @param key   key
+     * @param value value
+     * @return
+     */
     public static String genRadar(String name, List<String> key, List<Integer> value) {
         EnhancedOption option = new EnhancedOption();
         option.title().text(name).x("center").y("bottom");
@@ -561,20 +592,6 @@ public class ChartUtils {
             }
         }
 
-		/*
-         * List<TreeData> children3 = new LinkedList<TreeData>();
-		 * children3.add(new TreeData("子节点3", 3).symbolSize(size));
-		 * children3.add(new TreeData("子节点4", 2).symbolSize(size));
-		 * children3.add(new TreeData("子节点5", 1).symbolSize(size));
-		 * sub1.setChildren(children3);
-		 * 
-		 * List<TreeData> children2 = new LinkedList<TreeData>();
-		 * children2.add(new TreeData("子节点3", 3).symbolSize(size));
-		 * children2.add(new TreeData("子节点4", 2).symbolSize(size));
-		 * children2.add(new TreeData("子节点5", 1).symbolSize(size));
-		 * sub2.setChildren(children2);
-		 */
-
         root.setChildren(children1);
 
         tree.data(root);
@@ -605,14 +622,9 @@ public class ChartUtils {
                 .normal(new Normal().label(new Label().show(true).position(Position.inside).formatter("{c}%"))));
         bar.setData(values);
         option.series(bar);
-        // option.exportToHtml("bar1.html");
-        // option.view();
+
         return GsonUtil.format(option);
     }
-
-	/*
-     * public static void main(String[] args) { String str = genTree(); }
-	 */
 
     public static String genBar(String title, String name, List<Object> key, List<Object> values) {
         EnhancedOption option = new EnhancedOption();
@@ -634,77 +646,6 @@ public class ChartUtils {
         Bar bar = new Bar(name);
         bar.setData(values);
         option.series(bar);
-        return GsonUtil.format(option);
-    }
-
-    public static String genFunnel(String title, List<Object> key, List<Integer> values) {
-        // 地址：http://echarts.baidu.com/doc/example/funnel.html
-        EnhancedOption option = new EnhancedOption();
-        option.title().text(title);
-        // Grid grid = new Grid();
-        // grid.x("40").x2("10").y("10").y2("60");
-        // option.grid(grid);
-        option.tooltip().trigger(Trigger.item).formatter("{a} <br/>{b} : {c}%");
-        option.toolbox().show(false);
-        option.calculable(true);
-
-        Funnel funnel = new Funnel(title);
-        funnel.x("10%").y(60).width("80%").min(0).max(100).minSize("0%").maxSize("100%").sort(Sort.descending).gap(10);
-        funnel.itemStyle().normal().borderColor("#fff").borderWidth(1)
-                .label(new Label().show(true).position(Position.inside)).labelLine(new LabelLine().show(false)
-                .length(10).lineStyle(new LineStyle().width(1).type(LineType.solid)));
-        funnel.itemStyle().emphasis().borderColor("red").borderWidth(5)
-                .label(new Label().show(true).formatter("{b}:{c}%").textStyle(new TextStyle().fontSize(20)))
-                .labelLine(new LabelLine().show(true));
-        for (int i = 0; i < key.size(); i++) {
-            Data data = new Data();
-            data.value(values.get(i));
-            data.name(key.get(i).toString());
-            funnel.data(data);
-        }
-
-        // funnel.data(new Data().value(60).name("访问"),
-        // new Data().value(40).name("咨询"),
-        // new Data().value(20).name("订单"),
-        // new Data().value(80).name("点击"),
-        // new Data().value(100).name("展现")
-        // );
-
-        option.series(funnel);
-        // option.exportToHtml("funnel.html");
-        // option.view();
-        return GsonUtil.format(option);
-    }
-
-    public static String genBar9(String title, List<Object> yAxisList, List<Object> dataList) {
-        EnhancedOption option = new EnhancedOption();
-        Grid grid = new Grid();
-        grid.x("40").x2("10").y("10").y2("60");
-        option.grid(grid);
-        option.title().text(title);
-        option.legend(new Legend().show(false));
-        option.toolbox().show(false);
-        Axis axis = new ValueAxis();
-        axis.type(AxisType.value);
-        axis.position("top");
-        axis.splitArea(new SplitArea().show(false));
-        axis.axisLabel(new AxisLabel().show(false));
-        option.xAxis(axis);
-
-        Axis yaxis = new CategoryAxis();
-        yaxis.type(AxisType.category);
-        yaxis.splitArea(new SplitArea().show(false));
-        yaxis.setData(yAxisList);
-        option.yAxis(yaxis);
-
-        Bar bar = new Bar("标签比例");
-        bar.stack("标签比例");
-        bar.itemStyle(new ItemStyle()
-                .normal(new Normal().label(new Label().show(true).position(Position.insideLeft).formatter("{c}%"))));
-        bar.setData(dataList);
-        option.series(bar);
-        // option.exportToHtml("bar9.html");
-        // option.view();
         return GsonUtil.format(option);
     }
 }

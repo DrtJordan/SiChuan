@@ -70,7 +70,7 @@ public class AppChannelController extends BaseController {
 			}
 
 			//生成渠道列表的数据
-			String genDetailChannel = ChartUtils.genAppMultiLineCharts(dateType, xDataList, nameList, newUserList, startUserList, sumCntList, startCntList);
+			String genDetailChannel = ChartUtils.genAppMultiLineCharts(dateType,"line",  xDataList, nameList, newUserList, startUserList, sumCntList, startCntList);
 			result.put("chartOption", genDetailChannel);
 			// 返回结果
 			result.put("data", data);
@@ -109,7 +109,7 @@ public class AppChannelController extends BaseController {
             }
 
             //生成渠道详情的数据
-            String genDetailChannel = ChartUtils.genAppMultiLineCharts("", xDataList, nameList, newUserList, startUserList, startCntList);
+            String genDetailChannel = ChartUtils.genAppMultiLineCharts("","line",  xDataList, nameList, newUserList, startUserList, startCntList);
             result.put("chartOption", genDetailChannel);
             result.put("data", dataChannel);
             renderJson(result);

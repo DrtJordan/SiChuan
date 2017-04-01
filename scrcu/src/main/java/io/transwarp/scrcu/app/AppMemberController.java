@@ -69,7 +69,7 @@ public class AppMemberController extends BaseController {
             }
 
             //返回会员流失生成的折线图图表数据
-            result.put("memberLostCharts", GenerateAppChartsUtils.genMemberRunOffCharts(dateType, data));
+            result.put("memberLostCharts", GenerateAppChartsUtils.genMemberRunOffCharts(dateType,"line",  data));
 
             result.put("data", data);
             renderJson(result);

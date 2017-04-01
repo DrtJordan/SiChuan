@@ -75,9 +75,9 @@ public class SiteAnalysisController extends BaseController {
             }
 
             //生成访问分析中访问时长的折线图图表数据
-            result.put("useTimeChart", genUseTimeCharts(dateType, timeData));
+            result.put("useTimeChart", genUseTimeCharts(dateType, "line", timeData));
             //生成访问分析中访问深度的折线图图表数据
-            result.put("useDepthChart", genVisitDepthCharts(dateType, depthData));
+            result.put("useDepthChart", genVisitDepthCharts(dateType,"line",  depthData));
 
             result.put("timeData", timeData);
             result.put("depthData", depthData);
@@ -180,9 +180,9 @@ public class SiteAnalysisController extends BaseController {
             JSONObject result = new JSONObject();
 
             //生成流量趋势的图表数据
-            result.put("flowTrendCharts", genFlowTrendCharts(dateType, dataFlowTrend));
+            result.put("flowTrendCharts", genFlowTrendCharts(dateType,"line",  dataFlowTrend));
             //生成新访客的图表数据
-            result.put("newVisitorCharts", genNewVisitorCharts(dateType, dataNewVisitor));
+            result.put("newVisitorCharts", genNewVisitorCharts(dateType, "line", dataNewVisitor));
 
             result.put("dataFlowTrend", dataFlowTrend);
             result.put("dataNewVisitor", dataNewVisitor);
