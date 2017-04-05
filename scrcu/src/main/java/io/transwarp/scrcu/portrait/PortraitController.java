@@ -507,7 +507,7 @@ public class PortraitController extends BaseController {
             String sql = "select max(topic) as topic,max(topic_desc) as topic_desc,max(label_only) as label_only,"
                     + "min(label_desc) as label_desc,count(*) as total "
                     + "from(select a1.user_id,a2.topic,a2.topic_desc,a2.label_code,a2.label_desc,a2.label_only "
-                    + "from (select user_id from bdhbs.th_label_user_result " + getLevelCondition() + condition.toString()
+                    + "from (select user_id from bdlbl.tl_label_user_result " + getLevelCondition() + condition.toString()
                     + " ) as a1 "
                     + "left join bdlbl.tl_label_all_summary as a2 on a1.user_id=a2.user_id) group by label_only,label_desc having label_desc<>'其它' and label_desc<>'未知' order by total desc;";
             List<Map<String, Object>> tags = InceptorUtil.mapQuery(sql, true);
@@ -550,24 +550,24 @@ public class PortraitController extends BaseController {
 
         } else {
             StringBuffer condition = new StringBuffer("");
-            String assets_from = getPara("assets_from");
-            String assets_to = getPara("assets_to");
-            String debt_from = getPara("debt_from");
-            String debt_to = getPara("debt_to");
-            if (StringUtils.isNotBlank(assets_from) && NumberUtils.isNumber(assets_from)) {
-                condition.append(" and assets > " + assets_from);
-            }
-            if (StringUtils.isNotBlank(assets_to) && NumberUtils.isNumber(assets_from)) {
-                condition.append(" and assets < " + assets_to);
-            }
-            if (StringUtils.isNotBlank(debt_from) && NumberUtils.isNumber(assets_from)) {
-                condition.append(" and debt > " + debt_from);
-            }
-            if (StringUtils.isNotBlank(debt_to) && NumberUtils.isNumber(assets_from)) {
-                condition.append(" and debt < " + debt_to);
-            }
-            keepPara("code", "assets_from", "assets_to", "debt_from", "debt_to");
             String code = getPara("code");
+            String total_assets_from = getPara("total_assets_from");
+            String total_assets_to = getPara("total_assets_to");
+            String total_debt_from = getPara("total_debt_from");
+            String total_debt_to = getPara("total_debt_to");
+            if (StringUtils.isNotBlank(total_assets_from) && NumberUtils.isNumber(total_assets_from)) {
+                condition.append(" and total_assets > " + total_assets_from);
+            }
+            if (StringUtils.isNotBlank(total_assets_to) && NumberUtils.isNumber(total_assets_from)) {
+                condition.append(" and total_assets < " + total_assets_to);
+            }
+            if (StringUtils.isNotBlank(total_debt_from) && NumberUtils.isNumber(total_assets_from)) {
+                condition.append(" and debt > " + total_debt_from);
+            }
+            if (StringUtils.isNotBlank(total_debt_to) && NumberUtils.isNumber(total_assets_from)) {
+                condition.append(" and debt < " + total_debt_to);
+            }
+            keepPara("code", "total_assets_from", "total_assets_to", "total_debt_from", "total_debt_to");
             if (StringUtils.isNotBlank(code)) {
                 String[] codes = code.substring(0, code.length() - 1).split(",");
                 List<Map<String, Object>> tagList = new ArrayList<Map<String, Object>>();
@@ -700,7 +700,7 @@ public class PortraitController extends BaseController {
         } else {
             List<Map<String, Object>> userLable = InceptorUtil
                     .mapQuery(SqlKit.propSQL(SQLConfig.portal_userLabel.toString()) + getLevelCondition()
-                            + " and  user_id ='" + userid + "'", true);
+                            + " and  user_id ='" + userid + "'", false);
             if (userLable != null && userLable.size() > 0) {
                 user = userLable.get(0);
             } else {
@@ -730,7 +730,7 @@ public class PortraitController extends BaseController {
             // 调用交易偏好
             tradepreference(userid, result);
             // 调用人际关系
-//            relation(userid, result);
+            relation(userid, result);
             renderJson(result);
 
         }

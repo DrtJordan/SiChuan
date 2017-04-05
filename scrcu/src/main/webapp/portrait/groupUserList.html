@@ -59,28 +59,28 @@
 			<label class="col-lg-3 control-label">资产总额</label>
 			<div class="col-lg-9">
 				<div class="input-group">
-					<input type="text" name="assets_from" class="form-control">
+					<input type="text" name="total_assets_from" class="form-control">
 					<span class="input-group-btn"> <label class="btn btn-default"
 							style="box-shadow: none; border-left: 0px; border-right: 0px; border-color: #cbd5dd;"
 						>到</label>
 					</span>
-					<input type="text" name="assets_to" class="form-control">
+					<input type="text" name="total_assets_to" class="form-control">
 				</div>
 			</div>
 		</div>
-		<!--<div class="form-group col-sm-4">-->
-			<!--<label class="col-lg-3 control-label">负债总额</label>-->
-			<!--<div class="col-sm-9">-->
-				<!--<div class="input-group">-->
-					<!--<input type="text" name="debt_from" class="form-control">-->
-					<!--<span class="input-group-btn"> <label class="btn btn-default"-->
-							<!--style="box-shadow: none; border-left: 0px; border-right: 0px; border-color: #cbd5dd;"-->
-						<!--&gt;到</label>-->
-					<!--</span>-->
-					<!--<input type="text" name="debt_to" class="form-control">-->
-				<!--</div>-->
-			<!--</div>-->
-		<!--</div>-->
+		<div class="form-group col-sm-4">
+			<label class="col-lg-3 control-label">负债总额</label>
+			<div class="col-sm-9">
+				<div class="input-group">
+					<input type="text" name="total_debt_from" class="form-control">
+					<span class="input-group-btn"> <label class="btn btn-default"
+							style="box-shadow: none; border-left: 0px; border-right: 0px; border-color: #cbd5dd;"
+					>到</label>
+					</span>
+					<input type="text" name="total_debt_to" class="form-control">
+				</div>
+			</div>
+		</div>
 		<input type="hidden" name="code" id="code" value="${code!}">
 		<div class="col-sm-12">
 			<label class="col-sm-1 control-label" >标签</label>
@@ -134,15 +134,15 @@
 		$("#dateQueryForm").find('input').each(
 				function() {
 					if (this.value != null && this.value != '') {
-						if (this.name == 'assets_from'
-								|| this.name == 'debt_from') {
-							var c = " and " + this.name.replace("_from", "")
-									+ ">" + this.value + "";
+						if (this.name == 'total_assets_from'
+								|| this.name == 'total_debt_from') {
+							var c = " and trim(cast(" + this.name.replace("_from", "")
+									+ " as string))>=" + this.value + "";
 							str = str + c;
-						} else if (this.name == 'assets_to'
-								|| this.name == 'debt_to') {
-							var c = " and " + this.name.replace("_to", "")
-									+ "<" + this.value + "";
+						} else if (this.name == 'total_assets_to'
+								|| this.name == 'total_debt_to') {
+							var c = " and trim(cast(" + this.name.replace("_to", "")
+									+ " as string))<=" + this.value + "";
 							str = str + c;
 						} else if (this.name == 'code') {
 							codes = this.value.split(",");
@@ -153,8 +153,7 @@
 								}
 							}
 						} else {
-							var c = " and " + this.name + "='" + this.value
-									+ "'";
+							var c = " and trim(" + this.name + ")='" + this.value + "'";
 							str = str + c;
 						}
 					}

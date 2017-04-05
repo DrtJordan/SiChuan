@@ -327,20 +327,6 @@
 		<sql id="sql">select user_id,pay_name,pay_sex,receive_id,receive_name,receive_sex,trans_time,daily_date from hb_LABEL_TRANS_RELATION_RESULT</sql>
 	</sqlGroup>
 
-	<!-- 人际关系明显-->
-	<sqlGroup name="portrait_relation_group">
-		<sql id="name">类别信息</sql>
-		<sql id="header"></sql>
-		<sql id="sql">select user_id,recent_trans_name,recent_trans_time,closed_name,update_time from hb_label_trans_result</sql>
-	</sqlGroup>
-
-	<!-- 用户画像 人际关系支出-->
-	<sqlGroup name="portrait_relation">
-		<sql id="name">人际关系</sql>
-		<sql id="header"></sql>
-		<sql id="sql">select user_id,pay_name,receive_id,receive_name,total_amt,total_count,update_date from hb_label_trans_graph</sql>
-	</sqlGroup>
-
 	<!-- 用户画像 交易曲线 -->
 	<sqlGroup name="portrait_30_trading">
 		<sql id="name">交易</sql>
@@ -383,49 +369,57 @@
 	<sqlGroup name="label_label_wall">
 		<sql id="name">所有标签表</sql>
 		<sql id="header"></sql>
-		<!--<sql id="sql">select max(topic_desc) as topic_desc ,topic,max(label_desc) as label_desc,label_code as label_code,max(label_only) as label_only,sum(total) as total from hb_label_labelwall_result</sql>-->
-		<sql id="sql">select max(topic_desc) as topic_desc ,topic,max(label_desc) as label_desc,label_code as label_code,max(label_only) as label_only,sum(total) as total from bdhbs.th_label_labelwall_all_result</sql>
+		<sql id="sql">select max(topic_desc) as topic_desc ,topic,max(label_desc) as label_desc,label_code as label_code,max(label_only) as label_only,sum(total) as total from bdlbl.tl_label_labelwall_all_result</sql>
 	</sqlGroup>
 
 	<!--用户画像home首页 图表数据来源-->
 	<sqlGroup name="label_label_grouping">
 		<sql id="name">用户标签表</sql>
 		<sql id="header"></sql>
-		<!--<sql id="sql">select max(topic_desc) as topic_desc ,topic,max(label_desc) as label_desc,label_code as label_code,max(label_only) as label_only,sum(total) as total from hb_label_labelwall_result</sql>-->
-		<sql id="sql">select max(topic_desc) as topic_desc ,topic,max(label_desc) as label_desc,label_code as label_code,max(label_only) as label_only,sum(total) as total from bdhbs.th_label_labelwall_result</sql>
+		<sql id="sql">select max(topic_desc) as topic_desc ,topic,max(label_desc) as label_desc,label_code as label_code,max(label_only) as label_only,sum(total) as total from bdlbl.tl_label_labelwall_result</sql>
 	</sqlGroup>
 
 	<!--用户画像 群体标签计算比例-->
 	<sqlGroup name="label_colony_users">
 		<sql id="name">具有标签用户总数</sql>
 		<sql id="header"></sql>
-		<!--<sql id="sql">select count(*) as allusers from hb_label_user_result</sql>-->
-		<sql id="sql">select count(*) as allusers from bdhbs.th_label_user_result</sql>
+		<sql id="sql">select count(*) as allusers from bdlbl.tl_label_user_result</sql>
 	</sqlGroup>
 
 	<!--用户画像 个人画像查询-->
 	<sqlGroup name="users">
 		<sql id="name">个人用户画像列表</sql>
 		<sql id="header"></sql>
-		<!--<sql id="sql">select user_id,ecif_cust_no,name,inn_org_zone_desc,inn_org_nm,assets,debt from hb_label_user_result</sql>-->
-		<sql id="sql">select user_id,ecif_cust_no,name,inn_org_zone_desc,inn_org_nm,total_assets,total_debt from bdhbs.th_label_user_result</sql>
+		<sql id="sql">select user_id,ecif_cust_no,name,inn_org_zone_desc,inn_org_nm,total_assets,total_debt from bdlbl.tl_label_user_result</sql>
 	</sqlGroup>
 
 	<!-- 个人用户画像  用户标签-->
 	<sqlGroup name="portal_userLabel">
 		<sql id="name">个人画像</sql>
 		<sql id="header"></sql>
-		<!--<sql id="sql">SELECT ecif_cust_no,mobile,branch_id,inn_org_nm,inn_org_sht_nm,inn_org_zone_cd,inn_org_lvl_cd,org_lvl_nm,cert_no,name,acct_no,industry,total_debt,sex,marriage,age,generation,constellation,positions,job,smb_flag,ortsal_flag,onselfbank_flag,religion,nation,inn_org_zone_desc,common_area,migrant_workers,travel_mode,reg_year,total_assets,user_cert_level,edu_bg,loan_purpose,ass_mode,travel_crowd,trade_area,hold_product_services,fund_use,join_activities_num,pay_transfer_channel,prod_func_consum_prefer,consum_prefer,trade_thirty_count,trade_thirty_money,trade_date,card_type,media_mode,pay_prefer,route_desc,bank_in_or_out,trade_prefer,transfer_prefer,deposit_prod_prefer,other_card,colony,firend_rela,web_evt_time,web_search,complain,message,web_use_time,searchengine,terminal,help,ad,active_feature,active_func_feature,search_keyword,liushi_keyword,user_id,daily_date,date_year,date_week,smb_flag_unkown,constellation_unkown,hold_product_services_high_v_user,positions_others,age_young_age,constellation_mojie,generation_50b,user_cert_level_2,transfer_prefer_3,constellation_tianping,trade_date_6,edu_bg_1,bank_in_or_out_out,total_assets_lower,card_type_golden_card,deposit_prod_prefer_1,nation_minority,religion_yes,marriage_unkown FROM bdlbl.tl_label_user_result</sql>-->
-		<sql id="sql">SELECT ecif_cust_no ,mobile ,branch_id ,inn_org_nm ,inn_org_sht_nm ,inn_org_zone_cd ,inn_org_lvl_cd ,org_lvl_nm ,cert_no ,name ,acct_no ,industry ,total_debt ,sex ,marriage ,age ,generation ,constellation ,positions ,job ,smb_flag ,ortsal_flag ,onselfbank_flag ,religion ,nation ,inn_org_zone_desc ,common_area ,migrant_workers ,travel_mode ,reg_year ,total_assets ,user_cert_level ,edu_bg ,loan_purpose ,ass_mode ,travel_crowd ,trade_area ,hold_product_services ,fund_use ,join_activities_num ,pay_transfer_channel ,prod_func_consum_prefer ,consum_prefer ,trade_thirty_count ,trade_thirty_money ,trade_date ,card_type ,media_mode ,pay_prefer ,route_desc ,bank_in_or_out ,trade_prefer ,transfer_prefer ,deposit_prod_prefer ,other_card ,colony ,firend_rela ,web_evt_time ,web_search ,complain ,message ,web_use_time ,searchEngine ,terminal ,help ,ad ,active_feature ,active_func_feature ,search_keyword ,liushi_keyword ,risk_level ,user_id ,daily_date ,date_year ,date_week FROM bdhbs.th_label_user_result</sql>
+		<sql id="sql">SELECT ecif_cust_no ,mobile ,branch_id ,inn_org_nm ,inn_org_sht_nm ,inn_org_zone_cd ,inn_org_lvl_cd ,org_lvl_nm ,cert_no ,name ,acct_no ,industry ,total_debt ,sex ,marriage ,age ,generation ,constellation ,positions ,job ,smb_flag ,ortsal_flag ,onselfbank_flag ,religion ,nation ,inn_org_zone_desc ,common_area ,migrant_workers ,travel_mode ,reg_year ,total_assets ,user_cert_level ,edu_bg ,loan_purpose ,ass_mode ,travel_crowd ,trade_area ,hold_product_services ,fund_use ,join_activities_num ,pay_transfer_channel ,prod_func_consum_prefer ,consum_prefer ,trade_thirty_count ,trade_thirty_money ,trade_date ,card_type ,media_mode ,pay_prefer ,route_desc ,bank_in_or_out ,trade_prefer ,transfer_prefer ,deposit_prod_prefer ,other_card ,colony ,firend_rela ,web_evt_time ,web_search ,complain ,message ,web_use_time ,searchEngine ,terminal ,help ,ad ,active_feature ,active_func_feature ,search_keyword ,liushi_keyword ,risk_level ,user_id ,daily_date ,date_year ,date_week FROM bdlbl.tl_label_user_result</sql>
 	</sqlGroup>
 
 	<!-- 个人用户画像 交易偏好 -->
 	<sqlGroup name="portrait_trading">
 		<sql id="name">交易偏好</sql>
 		<sql id="header"></sql>
-		<!--<sql id="sql">select daily_date,trade_thirty_count,trade_thirty_money,trade_type from hb_label_thirty_trade_summary </sql>-->
-		<sql id="sql">select daily_date,trade_thirty_count,trade_thirty_money,trade_type from bdhbs.th_usr_month_trade_summary_info_orc_int_day
+		<sql id="sql">select daily_date,trade_thirty_count,trade_thirty_money,trade_type from bdlbl.tl_usr_month_trade_summary_info_orc_int_day
 		</sql>
 	</sqlGroup>
-	
+
+	<!-- 用户画像 人际关系-->
+	<sqlGroup name="portrait_relation">
+		<sql id="name">人际关系</sql>
+		<sql id="header"></sql>
+		<sql id="sql">select user_id,pay_name,receive_id,receive_name,total_amt,total_count,update_date from bdapp.tp_trans_graph_info_orc_day</sql>
+	</sqlGroup>
+
+	<!-- 人际关系明显-->
+	<sqlGroup name="portrait_relation_group">
+		<sql id="name">类别信息</sql>
+		<sql id="header"></sql>
+		<sql id="sql">select user_id,recent_trans_name,recent_trans_time,closed_name,update_time from bdapp.tp_trans_result_info_orc_day</sql>
+	</sqlGroup>
+
 </sqlGroupList>

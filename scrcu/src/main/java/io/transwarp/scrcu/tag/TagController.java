@@ -559,10 +559,10 @@ public class TagController extends BaseController {
     public void activeLevel(){
         if (BaseUtils.isAjax(getRequest())) {
             // 得到时间查询条件
-            String condition = InceptorUtil.getQueryCondition(getRequest());
+            String condition = InceptorUtil.getDateCondition(getRequest());
             String param = getPara("param");
             if (param != null && !param.isEmpty()){
-                condition = condition + "where user_id = '" + param + "'";
+                condition = condition + " and user_id = '" + param + "'";
             }
             // 执行查询
             List<List<String>> activeLevelData = InceptorUtil.query(SqlKit.propSQL(SQLConfig.active_level_day, condition));

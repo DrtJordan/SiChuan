@@ -420,11 +420,13 @@ public class InceptorUtil {
         String end_dt = request.getParameter("end_dt");
         StringBuffer sb = new StringBuffer();
         if (StringUtils.isNotBlank(end_dt) && StringUtils.isNotBlank(start_dt)) {
-            sb.append(" where statt_dt >= '" + start_dt + "' and statt_dt <= '" + end_dt + "'");
+            sb.append(" where stat_date >= '" + start_dt + "' and stat_date <= '" + end_dt + "'");
         } else if (StringUtils.isNotBlank(end_dt) && StringUtils.isBlank(start_dt)) {
-            sb.append(" where statt_dt <= '" + end_dt + "'");
+            sb.append(" where stat_date <= '" + end_dt + "'");
         } else if (StringUtils.isNotBlank(start_dt)) {
-            sb.append(" where statt_dt = '" + start_dt + "'");
+            sb.append(" where stat_date = '" + start_dt + "'");
+        }else {
+            sb.append(" where stat_date = (select max(stat_date) from bdapp.tp_usr_all_day_grade_orc_int_day)");
         }
 
         return sb.toString();

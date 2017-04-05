@@ -183,7 +183,7 @@
 				</div>
 			</div>
 		</div>
-		<!--<div class="panel panel-default table-responsive clear">
+		<div class="panel panel-default table-responsive clear">
 			<header class=" panel-heading text-right bg-light clear" style="background-color: #fff !important">
 				<ul class="nav nav-tabs pull-left clear">
 					<li class="active "><a href="#this"><i class="icon-users text-primary"></i>&nbsp;<span
@@ -208,7 +208,7 @@
 					</ul>
 				</div>
 			</div>
-		</div>-->
+		</div>
 	</div>
 </section>
 </@layout>
@@ -234,12 +234,12 @@
 								var cunsumediv = echarts.init(document
 										.getElementById('cunsumediv'),
 										'macarons');
-								/*var charelat = echarts.init(document
+								var charelat = echarts.init(document
 										.getElementById('relationDiv'),
-										'macarons');*/
+										'macarons');
 
 								chart.setOption($.parseJSON(data.chartOption));
-								/*charelat.setOption($.parseJSON(data.relation));*/
+								charelat.setOption($.parseJSON(data.relation));
 								radar1.setOption($.parseJSON(data.radar1));
 								cunsumediv.setOption($.parseJSON(data.moneyData));
 
