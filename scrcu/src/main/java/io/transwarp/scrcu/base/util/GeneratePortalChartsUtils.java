@@ -19,12 +19,13 @@ public class GeneratePortalChartsUtils {
     /**
      * 生成访问时长的折线图数据
      *
-     * @param dateType 日期类型 day,week,month,quarter,year
-     * @param timeData 访问深度数据
+     * @param dateType  日期类型 day,week,month,quarter,year
+     * @param chartType 图表类型： LINE--折线图, BAR--柱状图
+     * @param timeData  访问深度数据
      * @return 折线图数据
      */
     @SuppressWarnings("unchecked")
-    public static String genUseTimeCharts(String dateType, String chartType, List<List<String>> timeData) {
+    public static String genUseTimeCharts(String dateType, ChartType chartType, List<List<String>> timeData) {
 
         // 返回结果
         List<Object> xAxisList = new ArrayList<>();
@@ -68,11 +69,12 @@ public class GeneratePortalChartsUtils {
      * 生成访问深度的折线图数据
      *
      * @param dateType  日期类型 day,week,month,quarter,year
+     * @param chartType 图表类型： LINE--折线图, BAR--柱状图
      * @param depthData 访问深度数据
      * @return 折线图数据
      */
     @SuppressWarnings("unchecked")
-    public static String genVisitDepthCharts(String dateType, String chartType, List<List<String>> depthData) {
+    public static String genVisitDepthCharts(String dateType, ChartType chartType, List<List<String>> depthData) {
 
         // 返回结果
         List<Object> depthXAxisList = new ArrayList<>();
@@ -110,11 +112,12 @@ public class GeneratePortalChartsUtils {
      * 生成流量趋势的折线图数据
      *
      * @param dateType      日期类型 day,week,month,quarter,year
+     * @param chartType     图表类型： LINE--折线图, BAR--柱状图
      * @param dataFlowTrend 流量趋势的数据
      * @return 流量趋势的折线图数据
      */
     @SuppressWarnings("unchecked")
-    public static String genFlowTrendCharts(String dateType, String chartType, List<List<String>> dataFlowTrend) {
+    public static String genFlowTrendCharts(String dateType, ChartType chartType, List<List<String>> dataFlowTrend) {
 
         List<Object> xAxisList = new ArrayList<>();
         List<Object> pvList = new ArrayList<>();
@@ -137,12 +140,14 @@ public class GeneratePortalChartsUtils {
 
     /**
      * 生成新访客的折线图数据
-     * @param dateType 日期类型 day,week,month,quarter,year
+     *
+     * @param dateType       日期类型 day,week,month,quarter,year
+     * @param chartType      图表类型： LINE--折线图, BAR--柱状图
      * @param dataNewVisitor 新访客的数据
      * @return 新访客的折线图数据
      */
     @SuppressWarnings("unchecked")
-    public static String genNewVisitorCharts(String dateType,String chartType, List<List<String>> dataNewVisitor) {
+    public static String genNewVisitorCharts(String dateType, ChartType chartType, List<List<String>> dataNewVisitor) {
 
         List<Object> xAxisList = new ArrayList<>();
         List<Object> newVisitorList = new ArrayList<>();

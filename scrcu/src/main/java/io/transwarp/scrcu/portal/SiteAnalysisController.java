@@ -5,6 +5,7 @@ import com.jfinal.i18n.Res;
 import io.transwarp.scrcu.base.controller.BaseController;
 import io.transwarp.scrcu.base.inceptor.InceptorUtil;
 import io.transwarp.scrcu.base.util.BaseUtils;
+import io.transwarp.scrcu.base.util.ChartType;
 import io.transwarp.scrcu.base.util.SQLConfig;
 import io.transwarp.scrcu.sqlinxml.SqlKit;
 
@@ -75,9 +76,9 @@ public class SiteAnalysisController extends BaseController {
             }
 
             //生成访问分析中访问时长的折线图图表数据
-            result.put("useTimeChart", genUseTimeCharts(dateType, "line", timeData));
+            result.put("useTimeChart", genUseTimeCharts(dateType, ChartType.LINE, timeData));
             //生成访问分析中访问深度的折线图图表数据
-            result.put("useDepthChart", genVisitDepthCharts(dateType,"line",  depthData));
+            result.put("useDepthChart", genVisitDepthCharts(dateType, ChartType.LINE, depthData));
 
             result.put("timeData", timeData);
             result.put("depthData", depthData);
@@ -180,9 +181,9 @@ public class SiteAnalysisController extends BaseController {
             JSONObject result = new JSONObject();
 
             //生成流量趋势的图表数据
-            result.put("flowTrendCharts", genFlowTrendCharts(dateType,"line",  dataFlowTrend));
+            result.put("flowTrendCharts", genFlowTrendCharts(dateType, ChartType.LINE, dataFlowTrend));
             //生成新访客的图表数据
-            result.put("newVisitorCharts", genNewVisitorCharts(dateType, "line", dataNewVisitor));
+            result.put("newVisitorCharts", genNewVisitorCharts(dateType, ChartType.LINE, dataNewVisitor));
 
             result.put("dataFlowTrend", dataFlowTrend);
             result.put("dataNewVisitor", dataNewVisitor);

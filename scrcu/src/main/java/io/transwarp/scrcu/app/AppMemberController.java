@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import io.transwarp.scrcu.base.controller.BaseController;
 import io.transwarp.scrcu.base.inceptor.InceptorUtil;
 import io.transwarp.scrcu.base.util.BaseUtils;
+import io.transwarp.scrcu.base.util.ChartType;
 import io.transwarp.scrcu.base.util.SQLConfig;
 import io.transwarp.scrcu.base.util.GenerateAppChartsUtils;
 import io.transwarp.scrcu.sqlinxml.SqlKit;
@@ -69,7 +70,7 @@ public class AppMemberController extends BaseController {
             }
 
             //返回会员流失生成的折线图图表数据
-            result.put("memberLostCharts", GenerateAppChartsUtils.genMemberRunOffCharts(dateType,"line",  data));
+            result.put("memberLostCharts", GenerateAppChartsUtils.genMemberRunOffCharts(dateType, ChartType.LINE,  data));
 
             result.put("data", data);
             renderJson(result);

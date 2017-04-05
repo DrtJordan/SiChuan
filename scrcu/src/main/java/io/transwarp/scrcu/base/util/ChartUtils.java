@@ -214,9 +214,16 @@ public class ChartUtils {
 
     /**
      * 生成app统计的折线图
+     *
+     * @param dateType 日期类型：day,week,month,quarter,year
+     * @param chartType 图表类型： LINE--折线图, BAR--柱状图
+     * @param xAxisList X周数据
+     * @param nameList 图例名称
+     * @param dataList 数据列表
+     * @return
      */
     @SuppressWarnings("unchecked")
-    public static String genAppMultiLineCharts(String dateType, String chartType, List<Object> xAxisList, Object[] nameList, List<Object>... dataList) {
+    public static String genAppMultiLineCharts(String dateType, ChartType chartType, List<Object> xAxisList, Object[] nameList, List<Object>... dataList) {
 
         EnhancedOption option = new EnhancedOption();
         option.tooltip().trigger(Trigger.axis);
@@ -246,7 +253,7 @@ public class ChartUtils {
         CategoryAxis axis = new CategoryAxis().boundaryGap(false);
 
         //判断是否为柱状图，若是，则设置空白策略以及坐标轴指示器样式
-        if (chartType.equals("bar")) {
+        if (chartType.equals(ChartType.BAR)) {
             axis.boundaryGap(true);
             option.tooltip().axisPointer().setType(PointerType.shadow);
         }
@@ -257,14 +264,14 @@ public class ChartUtils {
 
         for (int i = 0; i < dataList.length; i++) {
             List<Object> list = dataList[i];
-            if (chartType.equals("line")) {
+            if (chartType.equals(ChartType.LINE)) {
                 Line line = new Line().smooth(true).name(String.valueOf(nameList[i]));
                 //设置折线的样式(width表示线条粗细)
                 line.itemStyle().normal().setLineStyle(new LineStyle().width(1));
                 line.setData(list);
                 option.series(line);
             }
-            if (chartType.equals("bar")) {
+            if (chartType.equals(ChartType.BAR)) {
                 Bar bar = new Bar().name(String.valueOf(nameList[i]));
                 if (xAxisList.size() != 0 && !xAxisList.get(0).equals("Android")) {
                     bar.setStack("bar");
@@ -279,7 +286,7 @@ public class ChartUtils {
         grid.x("60").x2("30").y("5").y2("60");
 
         //判断是否为折线图，若是，则设置折线图的值域范围以及显示位置
-        if (chartType.equals("line")) {
+        if (chartType.equals(ChartType.LINE)) {
             //设置值域的选择范围以及样式
             DataZoom dataZoom = new DataZoom();
             dataZoom.setStart(0);
