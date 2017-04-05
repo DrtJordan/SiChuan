@@ -311,14 +311,16 @@ public class InceptorUtil {
         List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
         try {
             ResultSet rs = execute(sql, true);
-            ResultSetMetaData rsmd = rs.getMetaData();
-            int columnCount = rsmd.getColumnCount();
-            while (rs.next()) {
-                Map<String, Object> map = new HashMap<String, Object>();
-                for (int i = 1; i <= columnCount; i++) {
-                    map.put(rsmd.getColumnLabel(i), rs.getString(i));
+            if (rs != null) {
+                ResultSetMetaData rsmd = rs.getMetaData();
+                int columnCount = rsmd.getColumnCount();
+                while (rs.next()) {
+                    Map<String, Object> map = new HashMap<String, Object>();
+                    for (int i = 1; i <= columnCount; i++) {
+                        map.put(rsmd.getColumnLabel(i), rs.getString(i));
+                    }
+                    result.add(map);
                 }
-                result.add(map);
             }
         } catch (Exception e) {
             logger.error(e.getMessage(), e);

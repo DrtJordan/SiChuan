@@ -379,6 +379,26 @@ public enum SQLConfig {
     app_useRate_phone_year,
     app_useRate_os_year,
 
+    app_useRate_phone_day_chart,
+    app_useRate_channel_day_chart,
+    app_useRate_os_day_chart,
+
+    app_useRate_phone_week_chart,
+    app_useRate_channel_week_chart,
+    app_useRate_os_week_chart,
+
+    app_useRate_phone_month_chart,
+    app_useRate_channel_month_chart,
+    app_useRate_os_month_chart,
+
+    app_useRate_phone_quarter_chart,
+    app_useRate_channel_quarter_chart,
+    app_useRate_os_quarter_chart,
+
+    app_useRate_phone_year_chart,
+    app_useRate_channel_year_chart,
+    app_useRate_os_year_chart,
+
     //使用间隔按天汇总
     app_interval_day,
     app_interval_channel_day,

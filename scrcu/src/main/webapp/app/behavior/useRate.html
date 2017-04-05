@@ -15,17 +15,21 @@
     <div class="panel panel-default table-responsive clear">
         <header class="noborder panel-heading text-right bg-light clear">
             <ul class="nav nav-tabs pull-left clear">
-                <li class="active csvExportTab" csvAction="app_useRate"><a
-                        href="#date" data-toggle="tab"><i class="icon-calendar"></i>&nbsp;使用频率分布</a>
+                <li class="active csvExportTab" csvAction="app_useRate" id="timeChart">
+                    <input type="hidden" value="timeChart">
+                    <a href="#date" data-toggle="tab"><i class="icon-calendar"></i>&nbsp;使用频率分布</a>
                 </li>
-                <li class="csvExportTab" csvAction="app_useRate_phone"><a
-                        href="#phone" data-toggle="tab"><i
+                <li class="csvExportTab" csvAction="app_useRate_phone" id="phoneChart">
+                    <input type="hidden" value="phoneChart">
+                    <a href="#phone" data-toggle="tab"><i
                         class="icon-screen-smartphone"></i>&nbsp;按版本频率分布</a></li>
-                <li class="csvExportTab" csvAction="app_useRate_channel"><a
-                        href="#channel" data-toggle="tab"><i
+                <li class="csvExportTab" csvAction="app_useRate_channel" id="chlChart">
+                    <input type="hidden" value="chlChart">
+                    <a href="#channel" data-toggle="tab"><i
                         class="icon-equalizer text-muted"></i>&nbsp;按渠道频率分布</a></li>
-                <li class="csvExportTab" csvAction="app_useRate_os"><a
-                        href="#os" data-toggle="tab"><i
+                <li class="csvExportTab" csvAction="app_useRate_os" id="osChart">
+                    <input type="hidden" value="osChart">
+                    <a href="#os" data-toggle="tab"><i
                         class="icon-screen-smartphone"></i>&nbsp;按手机os频率分布</a></li>
             </ul>
             <span class="hidden-sm"><a href="/csv/app_useRate"
@@ -93,6 +97,13 @@
 </@layout>
 
 <script>
+
+    //定义osChart,timeChart,chlChart,phoneChart,用来接收转换图表切换时的数据
+    var osChart;
+    var chlChart;
+    var timeChart;
+    var phoneChart;
+
     /**
      * 定义数据查询方法，用来转换后台传输数据
      * @param data 数据
@@ -101,8 +112,29 @@
     function dataTableExchange(data, dateType) {
         var chart = echarts.init(document.getElementById('chartDiv'),
             'infographic');
-        var chartOption = data.chartOption;
-        chart.setOption($.parseJSON(chartOption));
+
+        //获取后台传过来的Echarts图表数据，转换为json数据
+        osChart = $.parseJSON(data.osChart);
+        phoneChart = $.parseJSON(data.phoneChart);
+        timeChart = $.parseJSON(data.timeChart);
+        chlChart = $.parseJSON(data.chlChart);
+
+        //获取tab切换标签active时的值,用来加载默认的Echarts数据
+        var chartChange = $(".csvExportTab.active input").val();
+
+        if (chartChange == "osChart") {
+            chart.setOption(osChart);
+        }
+        if (chartChange == "chlChart") {
+            chart.setOption(chlChart);
+        }
+        if (chartChange == "timeChart") {
+            chart.setOption(timeChart);
+        }
+        if (chartChange == "phoneChart") {
+            chart.setOption(phoneChart);
+        }
+
         //根据日期、启动次数获取数据
         tableQuery({
             "aaData": data.dataTime,
@@ -204,4 +236,32 @@
         });
         csvExport("", dateType);
     }
+
+    //设置点击事件，当点击切换表格的链接时，切换加载的echarts数据
+    $("#osChart").click(function () {
+        var chart = echarts.init(document.getElementById('chartDiv'),
+            'infographic');
+        chart.clear();
+        chart.setOption(osChart);
+    });
+
+    $("#chlChart").click(function () {
+        var chart = echarts.init(document.getElementById('chartDiv'),
+            'infographic');
+        chart.clear();
+        chart.setOption(chlChart);
+    });
+
+    $("#timeChart").click(function () {
+        var chart = echarts.init(document.getElementById('chartDiv'),
+            'infographic');
+        chart.clear();
+        chart.setOption(timeChart);
+    });
+    $("#phoneChart").click(function () {
+        var chart = echarts.init(document.getElementById('chartDiv'),
+            'infographic');
+        chart.clear();
+        chart.setOption(phoneChart);
+    });
 </script>
