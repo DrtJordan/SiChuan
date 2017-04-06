@@ -21,12 +21,13 @@ public class GenerateAppChartsUtils {
     /**
      * 生成app统计登陆用户-日期分布的折线图数据
      *
-     * @param dateType 日期类型：day,week,month,quarter,year
-     * @param dataTime 登陆用户日期数据
+     * @param dateType  日期类型：day,week,month,quarter,year
+     * @param chartType 图表类型： LINE--折线图, BAR--柱状图
+     * @param dataTime  登陆用户日期数据
      * @return 折线图数据
      */
     @SuppressWarnings("unchecked")
-    public static String genLoginUserTimeCharts(String dateType, String chartType, List<List<String>> dataTime) {
+    public static String genLoginUserTimeCharts(String dateType, ChartType chartType, List<List<String>> dataTime) {
 
         // 返回结果
         List<Object> xAxisList = new ArrayList<>();
@@ -52,7 +53,8 @@ public class GenerateAppChartsUtils {
      *
      * @param dateType    日期类型：day,week,month,quarter,year
      * @param dataChannel 渠道数据
-     * @return 折线图数据
+     * @param name        饼图名称
+     * @return 饼图数据
      */
     @SuppressWarnings("unchecked")
     public static String genChannelCharts(String dateType, List<List<String>> dataChannel, String name) {
@@ -69,12 +71,13 @@ public class GenerateAppChartsUtils {
     /**
      * 生成os的Echarts图表数据
      *
-     * @param dateType 日期类型：day,week,month,quarter,year
-     * @param dataOs   手机OS数据
+     * @param dateType  日期类型：day,week,month,quarter,year
+     * @param chartType 图表类型： LINE--折线图, BAR--柱状图
+     * @param dataOs    手机OS数据
      * @return 折线图数据
      */
     @SuppressWarnings("unchecked")
-    public static String genOsCharts(String dateType, String chartType, List<List<String>> dataOs) {
+    public static String genOsCharts(String dateType, ChartType chartType, List<List<String>> dataOs) {
         // 返回结果
         List<Object> xAxisList = new ArrayList<>();
         List<Object> androidList = new ArrayList<>();
@@ -99,12 +102,13 @@ public class GenerateAppChartsUtils {
      * 生成app统计-用户根据日期分布的折线图数据
      * 功能：活跃用户，留存用户，新增用户
      *
-     * @param dateType 日期类型：day,week,month,quarter,year
-     * @param dataTime 数据
+     * @param dateType  日期类型：day,week,month,quarter,year
+     * @param chartType 图表类型： LINE--折线图, BAR--柱状图
+     * @param dataTime  数据
      * @return 折线图数据
      */
     @SuppressWarnings("unchecked")
-    public static String genUserTimeCharts(String dateType, String chartType, List<List<String>> dataTime, Object[] nameList) {
+    public static String genUserTimeCharts(String dateType, ChartType chartType, List<List<String>> dataTime, Object[] nameList) {
 
         // 返回结果
         List<Object> xAxisList = new ArrayList<>();
@@ -122,12 +126,13 @@ public class GenerateAppChartsUtils {
     /**
      * 生成app版本根据日期分布的折线图数据
      *
-     * @param dateType 日期类型：day,week,month,quarter,year
-     * @param data     数据
+     * @param dateType  日期类型：day,week,month,quarter,year
+     * @param chartType 图表类型： LINE--折线图, BAR--柱状图
+     * @param data      数据
      * @return 折线图数据
      */
     @SuppressWarnings("unchecked")
-    public static String genAppVersionCharts(String dateType, String chartType, List<List<String>> data) {
+    public static String genAppVersionCharts(String dateType, ChartType chartType, List<List<String>> data) {
 
         // 返回结果
         List<Object> xAxisList = new ArrayList<>();
@@ -148,12 +153,13 @@ public class GenerateAppChartsUtils {
     /**
      * 生成会员流失分布的折线图数据
      *
-     * @param dateType 日期类型：day,week,month,quarter,year
-     * @param data     数据
+     * @param dateType  日期类型：day,week,month,quarter,year
+     * @param chartType 图表类型： LINE--折线图, BAR--柱状图
+     * @param data      数据
      * @return 折线图数据
      */
     @SuppressWarnings("unchecked")
-    public static String genMemberRunOffCharts(String dateType, String chartType, List<List<String>> data) {
+    public static String genMemberRunOffCharts(String dateType, ChartType chartType, List<List<String>> data) {
 
         //定义X轴接收数据
         List<Object> xAxisList = new ArrayList<>();
@@ -181,12 +187,13 @@ public class GenerateAppChartsUtils {
     /**
      * 生成APP使用时长-根据日期分布的折线图数据
      *
-     * @param dateType 日期类型：day,week,month,quarter,year
-     * @param data     数据
-     * @return 折线图数据
+     * @param dateType  日期类型：day,week,month,quarter,year
+     * @param chartType 图表类型： LINE--折线图, BAR--柱状图
+     * @param data      数据
+     * @return 图表数据
      */
     @SuppressWarnings("unchecked")
-    public static String genAppBehaviorCharts(String dateType, String chartType, List<List<String>> data) {
+    public static String genAppBehaviorCharts(String dateType, ChartType chartType, List<List<String>> data) {
 
         // 返回结果
         List<Object> xAxisList = new ArrayList<>();
@@ -199,6 +206,7 @@ public class GenerateAppChartsUtils {
         List<Object> oneToThreeMinList = new ArrayList<Object>();
         List<Object> thirtyFirstToSixtySecList = new ArrayList<Object>();
         List<Object> oneToThreeSecList = new ArrayList<Object>();
+
         //图例名称
         Object[] nameList = new Object[]{"1-3秒", "4-10秒", "11-30秒", "31-60秒", "1-3分", "3-10分", "10-30分", "30分以上"};
 
@@ -268,12 +276,13 @@ public class GenerateAppChartsUtils {
     /**
      * 生成APP使用频率的折线图数据
      *
-     * @param dateType 日期类型：day,week,month,quarter,year
-     * @param dataTime 数据
-     * @return 折线图数据
+     * @param dateType  日期类型：day,week,month,quarter,year
+     * @param chartType 图表类型： LINE--折线图, BAR--柱状图
+     * @param data  数据
+     * @return 图表数据
      */
     @SuppressWarnings("unchecked")
-    public static String genAppUseRateCharts(String dateType, String chartType, List<List<String>> dataTime) {
+    public static String genAppUseRateCharts(String dateType, ChartType chartType, List<List<String>> data) {
 
         // 返回结果
         List<Object> xAxisList = new ArrayList<Object>();
@@ -287,7 +296,7 @@ public class GenerateAppChartsUtils {
         //定义图例的name名称
         Object[] nameList = new Object[]{"1-2次", "3-5次", "6-9次", "10-19次", "20-49次", "50次及以上"};
 
-        for (List<String> list : dataTime) {
+        for (List<String> list : data) {
             if (!xAxisList.contains(list.get(0))) {
                 xAxisList.add(list.get(0));
                 int max = max(oneToTwqTimes.size(), threeToFiveTimes.size(), sixToNineTimes.size(), tenToNineteenTimes.size(), twentyToFourtyNineTimes.size(), fiftyOverTimes.size());
@@ -337,12 +346,13 @@ public class GenerateAppChartsUtils {
     /**
      * 生成APP访问深度的折线图数据
      *
-     * @param dateType 日期类型：day,week,month,quarter,year
-     * @param dataTime 数据
-     * @return 折线图数据
+     * @param dateType  日期类型：day,week,month,quarter,year
+     * @param chartType 图表类型： LINE--折线图, BAR--柱状图
+     * @param data  数据
+     * @return 图表数据
      */
     @SuppressWarnings("unchecked")
-    public static String genAppDepthCharts(String dateType, String chartType, List<List<String>> dataTime) {
+    public static String genAppDepthCharts(String dateType, ChartType chartType, List<List<String>> data) {
         // 返回结果
         List<Object> xAxisList = new ArrayList<>();
         //定义时长对应的集合用来接收对应的数据
@@ -353,7 +363,7 @@ public class GenerateAppChartsUtils {
         List<Object> thirtyToMorePageList = new ArrayList<Object>();
         Object[] nameList = new Object[]{"1-2页面", "3-5页面", "6-9页面", "10-29页面", "30个页面及以上"};
 
-        for (List<String> list : dataTime) {
+        for (List<String> list : data) {
 
             if (!xAxisList.contains(list.get(0))) {
                 xAxisList.add(list.get(0));
@@ -398,15 +408,15 @@ public class GenerateAppChartsUtils {
     /**
      * 生成APP访问间隔的折线图数据
      *
-     * @param dateType 日期类型：day,week,month,quarter,year
-     * @param dataTime 数据
+     * @param dateType  日期类型：day,week,month,quarter,year
+     * @param chartType 图表类型： LINE--折线图, BAR--柱状图
+     * @param dataTime  数据
      * @return 折线图数据
      */
     @SuppressWarnings("unchecked")
-    public static String genAppIntervalCharts(String dateType, String chartType, List<List<String>> dataTime) {
+    public static String genAppIntervalCharts(String dateType, ChartType chartType, List<List<String>> dataTime) {
         // 返回结果
         List<Object> xAxisList = new ArrayList<>();
-        List<Object> timeList = new ArrayList<>();
         //定义时长对应的集合用来接收对应的数据
         List<Object> firstList = new ArrayList<>();
         List<Object> zeroToTwentyFourHours = new ArrayList<>();
@@ -415,6 +425,7 @@ public class GenerateAppChartsUtils {
         List<Object> fiveToSevenDay = new ArrayList<>();
         List<Object> eightToFourteenDays = new ArrayList<>();
         List<Object> fifteenToThirtyDays = new ArrayList<>();
+
         //定义图例的name名称
         Object[] nameList = new Object[]{"首次", "0-24h", "1-2天", "2-4天", "5-7天", "8-14天", "15-30天"};
         for (List<String> list : dataTime) {
@@ -442,6 +453,7 @@ public class GenerateAppChartsUtils {
                 if (fifteenToThirtyDays.size() < max) {
                     fifteenToThirtyDays.add(0);
                 }
+
             }
             if (list.get(1).contains("首次")) {
                 firstList.add(list.get(2));
@@ -470,6 +482,7 @@ public class GenerateAppChartsUtils {
             if (list.get(1).contains("15-30天")) {
                 fifteenToThirtyDays.add(list.get(2));
             }
+
         }
 
         return ChartUtils.genAppMultiLineCharts(dateType, chartType, xAxisList, nameList, firstList, zeroToTwentyFourHours,

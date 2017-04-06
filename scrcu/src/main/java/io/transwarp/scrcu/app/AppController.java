@@ -4,10 +4,7 @@ import com.jfinal.i18n.I18n;
 import com.jfinal.i18n.Res;
 import io.transwarp.scrcu.base.controller.BaseController;
 import io.transwarp.scrcu.base.inceptor.InceptorUtil;
-import io.transwarp.scrcu.base.util.BaseUtils;
-import io.transwarp.scrcu.base.util.ChartUtils;
-import io.transwarp.scrcu.base.util.SQLConfig;
-import io.transwarp.scrcu.base.util.GenerateAppChartsUtils;
+import io.transwarp.scrcu.base.util.*;
 import io.transwarp.scrcu.sqlinxml.SqlKit;
 
 import java.util.ArrayList;
@@ -65,7 +62,7 @@ public class AppController extends BaseController {
             }
 
             //生成按手机OS分布的折线图图表数据
-            result.put("osCharts", GenerateAppChartsUtils.genOsCharts(dateType, "line", dataPhone));
+            result.put("osCharts", GenerateAppChartsUtils.genOsCharts(dateType, ChartType.LINE, dataPhone));
 
             //生成按渠道分布的折线图图表数据
             result.put("chlCharts", GenerateAppChartsUtils.genChannelCharts(dateType, dataChart, res.get("app.startTimes")));
@@ -110,7 +107,7 @@ public class AppController extends BaseController {
             }
 
             //生成版本的数据
-            String genAppVersion = GenerateAppChartsUtils.genAppVersionCharts(type, "line", dataCharts);
+            String genAppVersion = GenerateAppChartsUtils.genAppVersionCharts(type, ChartType.LINE, dataCharts);
             result.put("appVersionCharts", genAppVersion);
 
             //返回结果
