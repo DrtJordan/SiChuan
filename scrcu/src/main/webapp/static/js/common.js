@@ -162,12 +162,15 @@ function commonAjax(option) {
 
 var backdrop = $("#backdrop");
 
+//加载动画效果
 function startBackdrop() {
 	var back = $(".main");
 	back.css('position', 'relative');
 	backdrop.addClass('in');
 	backdrop.show();
 }
+
+//取消动画效果
 function endBackdrop() {
 	backdrop.hide();
 }

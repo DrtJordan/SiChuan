@@ -73,6 +73,8 @@
                 url: window.location.href,
                 data: {param: $("#search").val()},
                 dataType: "json",
+                beforeSend : startBackdrop,
+                complete : endBackdrop,
                 success: function (datas) {
                     dataTableExchange(datas, "day");
                 }
