@@ -95,13 +95,13 @@
 			　　		});
 			　　		$("#tagList").append(str + "</ul></div>");
 			　　}); 
-			$("#tagList").on("click","li:not(.disable)",function() { 
-				$(this).addClass("disable");
+			$("#tagList").on("click","li:not(.disable)",function() {
+				$(this).parent().find("li").addClass("disable")
 				$("#tags").append($(this).prop("outerHTML"));
 			});
 			$("#tags").on("click","li",function() {
 				var name= $(this).attr("name");
-				$("#tagList li[name='"+name+"']").removeClass("disable");
+				$("#tagList li[name='"+name+"']").parent().find("li").removeClass("disable");
 				$(this).remove();
 			});
 			

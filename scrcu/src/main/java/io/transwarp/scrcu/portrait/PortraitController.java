@@ -749,7 +749,7 @@ public class PortraitController extends BaseController {
         focusmap.put("trans_dept", res.get("portrait.deposit"));
         focusmap.put("trans_fin", res.get("portrait.financialManagement"));
         focusmap.put("trans_loan", res.get("portrait.loan"));
-        focusmap.put("trans_addedservice", res.get("portrait.valueAddService"));
+        focusmap.put("trans_addservice", res.get("portrait.valueAddService"));
         focusmap.put("trans_transfer", res.get("portrait.transfer"));
         Map<String, Integer> radarMap = new HashMap<String, Integer>();
         radarMap.put(res.get("portrait.deposit"), 0);
