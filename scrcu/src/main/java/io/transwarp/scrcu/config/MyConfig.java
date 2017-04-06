@@ -27,8 +27,7 @@ import io.transwarp.scrcu.authority.tags.ShiroTags;
 import io.transwarp.scrcu.base.controller.IndexController;
 import io.transwarp.scrcu.base.inceptor.InceptorUtil;
 import io.transwarp.scrcu.base.interceptor.CommonInterceptor;
-import io.transwarp.scrcu.custom.Custom;
-import io.transwarp.scrcu.custom.CustomController;
+
 import io.transwarp.scrcu.portal.EventAnalysisController;
 import io.transwarp.scrcu.portal.SiteAnalysisController;
 import io.transwarp.scrcu.portal.UserAnalysisController;
@@ -99,7 +98,6 @@ public class MyConfig extends JFinalConfig {
 		me.add("/app/memberAnalysis", AppMemberController.class, "app/memberAnalysis");
 		me.add("/app/event", AppEventController.class, "app/event");
 
-		me.add("/custom", CustomController.class, "custom");
 
 	}
 
@@ -124,7 +122,7 @@ public class MyConfig extends JFinalConfig {
 		arp.setDialect(new MysqlDialect());
 		arp.addMapping("sys_users", Users.class);
 		arp.addMapping("sys_user_roles", UserRoles.class);
-		arp.addMapping("custom", Custom.class);
+
 		arp.addMapping("sys_res", SysRes.class);
 		arp.addMapping("sys_role", SysRole.class);
 		arp.addMapping("sys_nav", SysNav.class);

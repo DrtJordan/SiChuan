@@ -172,8 +172,6 @@ public class IndexController extends BaseController {
             // 返回结果
             result.put("visitPage", visitPage);*/
             renderJson(result);
-        } else {
-            setNav();
         }
     }
 
@@ -196,24 +194,20 @@ public class IndexController extends BaseController {
             result.put("chartOption", str);
             renderJson(result);
         }
-
     }
 
     @RequiresAuthentication
     public void app() {
-        setNav();
         redirect("/app/userAnalysis/activeUser");
     }
 
     @RequiresAuthentication
     public void system() {
-        setNav();
         redirect("/system/users");
     }
 
     @RequiresAuthentication
     public void portrait() {
-        setNav();
         redirect("/portrait/home");
     }
 

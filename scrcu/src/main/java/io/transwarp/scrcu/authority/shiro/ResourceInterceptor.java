@@ -21,7 +21,7 @@ public class ResourceInterceptor implements Interceptor {
 		Map<String, Integer> nav = SysNav.dao.nav();
 		BaseUtils.nav = nav;
 		String action = inv.getActionKey();
-		if (!action.equals("/login") && !action.equals("/signin")){
+		if (!action.equals("/login") && !action.equals("/signin") && !action.equals("/unauthorized")){
 			BaseController baseController = (BaseController) inv.getController();
 			baseController.setNav();
 		}
