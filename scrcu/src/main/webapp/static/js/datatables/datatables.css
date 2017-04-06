@@ -18,7 +18,6 @@
 }
 .dataTables_wrapper .table {
   border: 1px solid #eee;
-  border-width: 1px 0;
 }
 .dataTables_wrapper .row {
   margin-left: -15px;
