@@ -57,6 +57,7 @@ public class PortraitController extends BaseController {
             if (StringUtils.isNotBlank(query)) {
                 condition.append(" and " + query);
             }
+            condition.append(" limit 1000");
             // 执行查询
             List<List<String>> data = InceptorUtil
                     .query(SqlKit.propSQL(SQLConfig.users) + getLevelCondition() + condition, 20, false);
@@ -131,7 +132,6 @@ public class PortraitController extends BaseController {
 
             // 交易类型
             List<Map<String, Object>> trades = tagMap.get("trade_prefer");
-//            List<Map<String, Object>> trade = tagMap.get("trade");
             List<Object> tradeList = new ArrayList<Object>();
             if (trades != null) {
                 for (Map<String, Object> m : trades) {
@@ -141,20 +141,18 @@ public class PortraitController extends BaseController {
             }
             result.put("trade", ChartUtils.genPie(res.get("portrait.transactionType"), tradeList));
 
-            /*// 群体类型
+            // 群体类型
             List<Map<String, Object>> colony = tagMap.get("colony");
             List<Object> colonyList = new ArrayList<Object>();
             if (colony != null) {
                 for (Map<String, Object> m : colony) {
-                    if (m.get("label_desc") != null) {
-                        xAxisList.add(m.get("label_desc").toString());
-                        colonyList.add(InceptorUtil.getInt("total", m));
-                    }
+                    Data data = new Data(m.get("label_desc").toString(), m.get("total"));
+                    colonyList.add(data);
                 }
             }
-            result.put("colony", ChartUtils.genBar(res.get("portrait.groupType"), res.get("portrait.groupType"), xAxisList, colonyList));*/
+            result.put("colony", ChartUtils.genPie(res.get("portrait.groupType"), colonyList));
 
-            // 群体类型
+           /* // 群体类型
             List<Map<String, Object>> colonys = tagMap.get("colony");
             List<Object> colonyList = new ArrayList<Object>();
             if (colonys != null) {
@@ -167,17 +165,15 @@ public class PortraitController extends BaseController {
                     }
                 }
             }
-            result.put("colony", ChartUtils.genFunnel(res.get("portrait.groupType"), colonyList));
+            result.put("colony", ChartUtils.genFunnel(res.get("portrait.groupType"), colonyList));*/
 
             // 注册年限
             List<Map<String, Object>> regYears = tagMap.get("reg_year");
-//            List<Map<String, Object>> zc_year = tagMap.get("zc_year");
             List<String> keyList = new ArrayList<String>();
             List<Integer> regYearList = new ArrayList<Integer>();
             if (regYears != null) {
                 for (Map<String, Object> m : regYears) {
                     String[][] s = new String[][]{m.get("label_desc").toString().split("（")};
-//                    keyList.add((String) m.get("label_desc"));
                     if (s[0].length > 1) {
                         keyList.add(s[0][0] + "\n" + "（" + s[0][1]);
                     } else {
@@ -213,7 +209,6 @@ public class PortraitController extends BaseController {
 
             // 用户卡类别
             List<Map<String, Object>> cards = tagMap.get("card_type");
-//            List<Map<String, Object>> card = tagMap.get("card_cat_cd");
             List<Object> cardList = new ArrayList<Object>();
             if (cards != null) {
                 for (Map<String, Object> m : cards) {
@@ -601,7 +596,6 @@ public class PortraitController extends BaseController {
 
         Map<String, Map<String, Object>> tagMap = new HashMap<String, Map<String, Object>>();
         List<String> types = new ArrayList<String>();
-        types.add("colony");            //用户群体类型
         types.add("prod_func_consum_prefer");         //产品功能消费偏好
         types.add("generation");        //年代
         types.add("sex");               //性别
