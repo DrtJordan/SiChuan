@@ -34,8 +34,14 @@ public class PortraitController extends BaseController {
      * 用户明细
      */
     public void groupUserList() {
-        keepPara("code");
+        keepPara("code", "total_assets_from", "total_assets_to", "total_debt_from", "total_debt_to");
+
         String code = getPara("code");
+        String total_assets_from = getPara("total_assets_from");
+        String total_assets_to = getPara("total_assets_to");
+        String total_debt_from = getPara("total_debt_from");
+        String total_debt_to = getPara("total_debt_to");
+
         if (StringUtils.isNotBlank(code)) {
             String[] codes = code.substring(0, code.length() - 1).split(",");
             List<Map<String, Object>> tagList = new ArrayList<Map<String, Object>>();
@@ -44,6 +50,11 @@ public class PortraitController extends BaseController {
             }
             setAttr("tagList", tagList);
         }
+        setAttr("total_assets_from", total_assets_from);
+        setAttr("total_assets_to", total_assets_to);
+        setAttr("total_debt_from", total_debt_from);
+        setAttr("total_debt_to", total_debt_to);
+
     }
 
     /**

@@ -37,29 +37,36 @@
 							<div class="form-group col-sm-6">
 								<label class="col-sm-3 control-label">资产总额：</label>
 								<div class="col-sm-9">
-									<div class="row">
-										<div class="col-sm-5">
-											<#if assets_from??>
-											<label>${assets_from}</label></#if>
-										</div>
-										<label class="col-sm-1 control-label" style="padding-left: 0px; margin: 0px -10px 0px -20px">到</label>
-										<div class="col-sm-5">
-											<#if assets_to??><label>${assets_to}</label></#if>
-										</div>
+									<div class="input-group">
+										<#if total_assets_from??>
+											<input type="text" readonly name="total_assets_from" class="form-control" value="${total_assets_from}">
+										</#if>
+											<span class="input-group-btn">
+												<button class="btn btn-default" type="button"
+														style="border-left: 0px;box-shadow:none;border-right: 0px; border-color: #cbd5dd;"
+												>到</button>
+											</span>
+										<#if total_assets_to??>
+											<input type="text" readonly name="total_assets_to" class="form-control" value="${total_assets_to}">
+										</#if>
 									</div>
 								</div>
 							</div>
 							<div class="form-group col-sm-6">
 								<label class="col-sm-3 control-label">负债总额：</label>
 								<div class="col-sm-9">
-									<div class="row">
-										<div class="col-sm-5">
-											<#if debt_from??><label>${debt_from}</label></#if>
-										</div>
-										<label class="col-sm-1 control-label" style="padding-left: 0px; margin: 0px -10px 0px 0px">到</label>
-										<div class="col-sm-5">
-											<#if debt_to??><label>${debt_to}</label></#if>
-										</div>
+									<div class="input-group">
+										<#if total_debt_from??>
+											<input type="text" readonly name="total_debt_from" class="form-control" value="${total_debt_from}">
+										</#if>
+											<span class="input-group-btn">
+												<button class="btn btn-default" type="button"
+														style="border-left: 0px;box-shadow:none;border-right: 0px; border-color: #cbd5dd;"
+												>到</button>
+											</span>
+										<#if total_debt_to??>
+											<input type="text" readonly name="total_debt_to" class="form-control" value="${total_debt_to}">
+										</#if>
 									</div>
 								</div>
 							</div>
@@ -79,6 +86,11 @@
 						<div class="col-sm-1" style="padding: 10px">
 							<form action="${root}/portrait/groupUserList" method="post">
 								<input type="hidden" name="code" id="code" value="${code}">
+								<input type="hidden" name="total_assets_from" class="form-control" value="${total_assets_from}">
+								<input type="hidden" name="total_assets_to" class="form-control" value="${total_assets_to}">
+								<input type="hidden" name="total_debt_from" class="form-control" value="${total_debt_from}">
+								<input type="hidden" name="total_debt_to" class="form-control" value="${total_debt_to}">
+
 								<input type="submit" style="min-width: 30px !important" class="btn btn-s-md btn-sm btn-primary btn-rounded pull-right"
 									value="用户明细"
 								/>

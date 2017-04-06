@@ -59,12 +59,12 @@
 			<label class="col-lg-3 control-label">资产总额</label>
 			<div class="col-lg-9">
 				<div class="input-group">
-					<input type="text" name="total_assets_from" class="form-control">
+					<input type="text" name="total_assets_from" class="form-control" <#if total_assets_from??> value="${total_assets_from}" </#if>>
 					<span class="input-group-btn"> <label class="btn btn-default"
 							style="box-shadow: none; border-left: 0px; border-right: 0px; border-color: #cbd5dd;"
 						>到</label>
 					</span>
-					<input type="text" name="total_assets_to" class="form-control">
+					<input type="text" name="total_assets_to" class="form-control" <#if total_assets_to??> value="${total_assets_to}" </#if>>
 				</div>
 			</div>
 		</div>
@@ -72,12 +72,12 @@
 			<label class="col-lg-3 control-label">负债总额</label>
 			<div class="col-sm-9">
 				<div class="input-group">
-					<input type="text" name="total_debt_from" class="form-control">
+					<input type="text" name="total_debt_from" class="form-control" <#if total_debt_from??> value="${total_debt_from}"</#if> >
 					<span class="input-group-btn"> <label class="btn btn-default"
 							style="box-shadow: none; border-left: 0px; border-right: 0px; border-color: #cbd5dd;"
 					>到</label>
 					</span>
-					<input type="text" name="total_debt_to" class="form-control">
+					<input type="text" name="total_debt_to" class="form-control" <#if total_debt_to??> value="${total_debt_to}"</#if> >
 				</div>
 			</div>
 		</div>
@@ -122,10 +122,7 @@
 </@layout>
 <script>
 	$(document).ready(function() {
-		var code=$("#code").val();
-		if (code != null && code != '') {
-			query();
-		}
+		query();
 	});
 
 	function query() {
