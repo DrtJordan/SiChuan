@@ -133,13 +133,13 @@
 					if (this.value != null && this.value != '') {
 						if (this.name == 'total_assets_from'
 								|| this.name == 'total_debt_from') {
-							var c = " and trim(cast(" + this.name.replace("_from", "")
-									+ " as string))>=" + this.value + "";
+							var c = " and cast((trim(cast(" + this.name.replace("_from", "")
+									+ " as string))) as decimal(17,2))>=" + this.value + "";
 							str = str + c;
 						} else if (this.name == 'total_assets_to'
 								|| this.name == 'total_debt_to') {
-							var c = " and trim(cast(" + this.name.replace("_to", "")
-									+ " as string))<=" + this.value + "";
+							var c = " and cast((trim(cast(" + this.name.replace("_to", "")
+									+ " as string))) as decimal(17,2))<=" + this.value + "";
 							str = str + c;
 						} else if (this.name == 'code') {
 							codes = this.value.split(",");

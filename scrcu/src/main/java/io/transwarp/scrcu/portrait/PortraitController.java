@@ -28,70 +28,8 @@ public class PortraitController extends BaseController {
 
     Logger log = Logger.getLogger(getClass());
     Res res = I18n.use("i18n", "zh_CN");
-    public static Map<String, Map<String, Object>> allTagMap = new HashMap<String, Map<String, Object>>();
-
-    /**
-     * 用户明细
-     */
-    public void groupUserList() {
-        keepPara("code", "total_assets_from", "total_assets_to", "total_debt_from", "total_debt_to");
-
-        String code = getPara("code");
-        String total_assets_from = getPara("total_assets_from");
-        String total_assets_to = getPara("total_assets_to");
-        String total_debt_from = getPara("total_debt_from");
-        String total_debt_to = getPara("total_debt_to");
-
-        if (StringUtils.isNotBlank(code)) {
-            String[] codes = code.substring(0, code.length() - 1).split(",");
-            List<Map<String, Object>> tagList = new ArrayList<Map<String, Object>>();
-            for (String c : codes) {
-                tagList.add(allTagMap.get(c));
-            }
-            setAttr("tagList", tagList);
-        }
-        setAttr("total_assets_from", total_assets_from);
-        setAttr("total_assets_to", total_assets_to);
-        setAttr("total_debt_from", total_debt_from);
-        setAttr("total_debt_to", total_debt_to);
-
-    }
-
-    /**
-     * 根据条件检索用户
-     */
-    public void userSearch() {
-        if (BaseUtils.isAjax(getRequest())) {
-            StringBuffer condition = new StringBuffer();
-            // 条件
-            String query = getRequest().getParameter("data");
-            if (StringUtils.isNotBlank(query)) {
-                condition.append(" and " + query);
-            }
-            condition.append(" limit 1000");
-            // 执行查询
-            List<List<String>> data = InceptorUtil
-                    .query(SqlKit.propSQL(SQLConfig.users) + getLevelCondition() + condition, 20, false);
-
-            for (List<String> list : data) {
-                list.add("<a class='btn btn-rounded btn-sm btn-icon btn-primary' href='/portrait/userPortrait?userid="
-                        + list.get(0) + "'><i class='fa fa-user'></i></a>");
-            }
-            // 返回结果
-            JSONObject result = new JSONObject();
-            result.put("data", data);
-            renderJson(result);
-        }
-    }
-
-    /**
-     * 获取用户等级
-     *
-     * @return
-     */
-    public String getLevelCondition() {
-        return " where inn_org_lvl_cd >= " + getSessionAttr("banklevel");
-    }
+    public static Map<String, Map<String, Object>> allUserTagMap = new HashMap<String, Map<String, Object>>();
+    public static Map<String, Map<String, Object>> allTagMap = new HashMap<>();
 
     /**
      * 用户画像标签首页
@@ -122,7 +60,7 @@ public class PortraitController extends BaseController {
             final Map<String, List<Map<String, Object>>> tagMap = new HashMap<String, List<Map<String, Object>>>();
             for (Map<String, Object> map : tagList) {
                 String key = ((String) map.get("topic")).toLowerCase();
-                allTagMap.put((String) map.get("label_only"), map);
+                allUserTagMap.put((String) map.get("label_only"), map);
                 if (tagMap.get(key) == null) {
                     List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
                     tagMap.put(key, list);
@@ -382,6 +320,70 @@ public class PortraitController extends BaseController {
     }
 
     /**
+     * 用户明细
+     */
+    public void groupUserList() {
+        keepPara("code", "total_assets_from", "total_assets_to", "total_debt_from", "total_debt_to");
+
+        String code = getPara("code");
+        String total_assets_from = getPara("total_assets_from");
+        String total_assets_to = getPara("total_assets_to");
+        String total_debt_from = getPara("total_debt_from");
+        String total_debt_to = getPara("total_debt_to");
+
+        if (StringUtils.isNotBlank(code)) {
+            String[] codes = code.substring(0, code.length() - 1).split(",");
+            List<Map<String, Object>> tagList = new ArrayList<Map<String, Object>>();
+            for (String c : codes) {
+                tagList.add(allUserTagMap.get(c));
+            }
+            setAttr("tagList", tagList);
+        }
+        setAttr("total_assets_from", total_assets_from);
+        setAttr("total_assets_to", total_assets_to);
+        setAttr("total_debt_from", total_debt_from);
+        setAttr("total_debt_to", total_debt_to);
+
+    }
+
+    /**
+     * 根据条件检索用户
+     */
+    public void userSearch() {
+        if (BaseUtils.isAjax(getRequest())) {
+            StringBuffer condition = new StringBuffer();
+            // 条件
+            String query = getRequest().getParameter("data");
+            if (StringUtils.isNotBlank(query)) {
+                condition.append(" and " + query);
+            }
+            condition.append(" limit 1000");
+            // 执行查询
+            List<List<String>> data = InceptorUtil
+                    .query(SqlKit.propSQL(SQLConfig.users) + getLevelCondition() + condition, 20, false);
+
+            for (List<String> list : data) {
+                list.add("<a class='btn btn-rounded btn-sm btn-icon btn-primary' href='/portrait/userPortrait?userid="
+                        + list.get(0) + "'><i class='fa fa-user'></i></a>");
+            }
+            // 返回结果
+            JSONObject result = new JSONObject();
+            result.put("data", data);
+            renderJson(result);
+        }
+    }
+
+    /**
+     * 获取用户等级
+     *
+     * @return
+     */
+    public String getLevelCondition() {
+        return " where inn_org_lvl_cd >= " + getSessionAttr("banklevel");
+    }
+
+
+    /**
      * 获取标签墙列表
      */
     @RequiresPermissions("/portrait/tags")
@@ -392,6 +394,7 @@ public class PortraitController extends BaseController {
             final Map<String, List<Map<String, Object>>> tagMap = new TreeMap<String, List<Map<String, Object>>>();
             for (Map<String, Object> map : allTagList) {
                 String key = map.get("topic_desc").toString();
+                allTagMap.put((String) map.get("label_only"), map);
                 if (key != null) {
                     if (tagMap.get(key) == null) {
                         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
@@ -455,8 +458,8 @@ public class PortraitController extends BaseController {
             if (StringUtils.isNotBlank(code)) {
                 codes = code.substring(0, code.length() - 1).split(",");
                 for (String c : codes) {
-                    if (allTagMap.get(c) != null) {
-                        tagList.add(allTagMap.get(c));
+                    if (allUserTagMap.get(c) != null) {
+                        tagList.add(allUserTagMap.get(c));
                     }else {
                         for (Map<String, Object> map : allTagList){
                             if (map.get("label_only").equals(c)){
@@ -497,6 +500,11 @@ public class PortraitController extends BaseController {
             result.put("val", new BigDecimal(val * 100).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
             // #################是否具有标签占比######################
             // 总数
+            if (keys.size() != 0){
+                for (int i = 0; i < keys.size(); i++){
+                    values.add("0");
+                }
+            }
             for (Map map : tagList) {
                 if (map.get("topic").equals("job")) {
                     keys.add(map.get("label_desc").toString().split("（")[0]);
@@ -562,23 +570,23 @@ public class PortraitController extends BaseController {
             String total_debt_from = getPara("total_debt_from");
             String total_debt_to = getPara("total_debt_to");
             if (StringUtils.isNotBlank(total_assets_from) && NumberUtils.isNumber(total_assets_from)) {
-                condition.append(" and total_assets > " + total_assets_from);
+                condition.append(" and cast((trim(cast(total_assets as string))) AS decimal(17,2)) >= " + total_assets_from);
             }
             if (StringUtils.isNotBlank(total_assets_to) && NumberUtils.isNumber(total_assets_from)) {
-                condition.append(" and total_assets < " + total_assets_to);
+                condition.append(" and cast((trim(cast(total_assets as string))) AS decimal(17,2)) <= " + total_assets_to);
             }
             if (StringUtils.isNotBlank(total_debt_from) && NumberUtils.isNumber(total_assets_from)) {
-                condition.append(" and debt > " + total_debt_from);
+                condition.append(" and cast((trim(cast(total_debt as string))) AS decimal(17,2)) >= " + total_debt_from);
             }
             if (StringUtils.isNotBlank(total_debt_to) && NumberUtils.isNumber(total_assets_from)) {
-                condition.append(" and debt < " + total_debt_to);
+                condition.append(" and cast((trim(cast(total_debt as string))) AS decimal(17,2)) <= " + total_debt_to);
             }
             keepPara("code", "total_assets_from", "total_assets_to", "total_debt_from", "total_debt_to");
             if (StringUtils.isNotBlank(code)) {
                 String[] codes = code.substring(0, code.length() - 1).split(",");
                 List<Map<String, Object>> tagList = new ArrayList<Map<String, Object>>();
                 for (String c : codes) {
-                    tagList.add(allTagMap.get(c));
+                    tagList.add(allUserTagMap.get(c));
                     condition.append(" and " + c + " = 1");
                 }
                 List<List<Map<String, Object>>> groupList = CacheKit.get("inceptor", "groupList");
