@@ -228,6 +228,12 @@
 		<sql id="sql">select stat_date, os, vv, pv, bro_vol_ratio,uv, uv_ratio, ip_num from bdhbs.th_log_web_usr_terminal_detail_orc_day where SQL_CONDITION cnt_type='1'</sql>
 	</sqlGroup>
 
+	<sqlGroup name="portal_terminal_os_day_chart">
+		<sql id="name">操作系统占比</sql>
+		<sql id="header">操作系统,访问次数VV</sql>
+		<sql id="sql">select os, sum(vv) as vv from bdhbs.th_log_web_usr_terminal_detail_orc_day where SQL_CONDITION cnt_type='1' group by os</sql>
+	</sqlGroup>
+
 	<!-- 终端操作系统按月汇总 -->
 	<sqlGroup name="portal_terminal_os_month">
 		<sql id="name">操作系统占比按月汇总</sql>
@@ -235,18 +241,36 @@
 		<sql id="sql">select stat_date, os, vv, pv, bro_vol_ratio,uv, uv_ratio, ip_num from bdhbs.th_log_web_usr_terminal_detail_os_orc_sum_day where SQL_CONDITION cnt_type='2'</sql>
 	</sqlGroup>
 
+	<sqlGroup name="portal_terminal_os_month_chart">
+		<sql id="name">操作系统占比按月汇总</sql>
+		<sql id="header">操作系统,访问次数VV</sql>
+		<sql id="sql">select os, sum(vv) as vv from bdhbs.th_log_web_usr_terminal_detail_os_orc_sum_day where SQL_CONDITION cnt_type='2' group by os</sql>
+	</sqlGroup>
+
 	<!-- 终端浏览器按天汇总 -->
-	<sqlGroup name="portal_terminal_browserDiv_day">
+	<sqlGroup name="portal_terminal_browser_day">
 		<sql id="name">浏览器占比</sql>
 		<sql id="header">日期,浏览器,访问次数VV,浏览量,浏览量占比,访客数UV,UV占比,IP数</sql>
 		<sql id="sql">select stat_date, browser, vv, pv, bro_vol_ratio,uv, uv_ratio, ip_num from bdhbs.th_log_web_usr_terminal_detail_orc_day where SQL_CONDITION cnt_type='2'</sql>
 	</sqlGroup>
 
+	<sqlGroup name="portal_terminal_browser_day_chart">
+		<sql id="name">浏览器占比</sql>
+		<sql id="header">浏览器,访问次数VV</sql>
+		<sql id="sql">select browser, sum(vv) as vv from bdhbs.th_log_web_usr_terminal_detail_orc_day where SQL_CONDITION cnt_type='2' group by browser</sql>
+	</sqlGroup>
+
 	<!-- 终端浏览器按月汇总 -->
-	<sqlGroup name="portal_terminal_browserDiv_month">
+	<sqlGroup name="portal_terminal_browser_month">
 		<sql id="name">浏览器占比</sql>
 		<sql id="header">日期,浏览器,访问次数VV,浏览量,浏览量占比,访客数UV,UV占比,IP数</sql>
 		<sql id="sql">select stat_date, browser, vv, pv, bro_vol_ratio,uv, uv_ratio, ip_num from bdhbs.th_log_web_usr_terminal_detail_browser_orc_sum_day where SQL_CONDITION cnt_type='2'</sql>
+	</sqlGroup>
+
+	<sqlGroup name="portal_terminal_browser_month_chart">
+		<sql id="name">浏览器占比</sql>
+		<sql id="header">浏览器,访问次数VV</sql>
+		<sql id="sql">select browser, sum(vv) as vv from bdhbs.th_log_web_usr_terminal_detail_orc_day where SQL_CONDITION cnt_type='2' group by browser</sql>
 	</sqlGroup>
 	<!-- 终端类型end -->
 
@@ -377,23 +401,36 @@
 	<sqlGroup name="portal_sourceAnalysis_searchEngine_day">
 		<sql id="name">搜索引擎分析按天汇总</sql>
 		<sql id="header">日期,搜素引擎,访问次数,浏览量(PV),访客数(UV),IP数,浏览占比,新访客数</sql>
-		<sql id="sql">select stat_date, search_engine, vv, pv, uv, ip_num, bro_vol_ratio, new_vis_num from bdhbs.th_log_web_usr_search_engine_orc_day where SQL_CONDITION cnt_type='99'</sql>
+		<sql id="sql">select stat_date, search_engine, vv, pv, uv, ip_num, bro_vol_ratio, new_vis_num from bdhbs.th_log_web_usr_search_engine_orc_day where SQL_CONDITION cnt_type='99' and search_engine != '其他'</sql>
 	</sqlGroup>
 
 	<sqlGroup name="portal_sourceAnalysis_searchEngine_month">
 		<sql id="name">搜索引擎分析按月汇总</sql>
 		<sql id="header">日期,搜素引擎,访问次数,浏览量(PV),访客数(UV),IP数,浏览占比,新访客数</sql>
-		<sql id="sql">select stat_date, search_engine, vv, pv, uv, ip_num, bro_vol_ratio, new_vis_num from bdhbs.th_log_web_usr_search_engine_orc_sum_day where SQL_CONDITION cnt_type='2'</sql>
+		<sql id="sql">select stat_date, search_engine, vv, pv, uv, ip_num, bro_vol_ratio, new_vis_num from bdhbs.th_log_web_usr_search_engine_orc_sum_day where SQL_CONDITION cnt_type='2' and search_engine != '其他'</sql>
 	</sqlGroup>
+
+	<sqlGroup name="portal_sourceAnalysis_searchEngine_day_chart">
+		<sql id="name">搜索引擎分析按天汇总</sql>
+		<sql id="header">搜素引擎,访问次数</sql>
+		<sql id="sql">select search_engine, sum(vv) as vv from bdhbs.th_log_web_usr_search_engine_orc_day where SQL_CONDITION cnt_type='99' and search_engine != '其他' group by search_engine</sql>
+	</sqlGroup>
+
+	<sqlGroup name="portal_sourceAnalysis_searchEngine_month_chart">
+		<sql id="name">搜索引擎分析按月汇总</sql>
+		<sql id="header">搜素引擎,访问次数</sql>
+		<sql id="sql">select search_engine, sum(vv) as vv from bdhbs.th_log_web_usr_search_engine_orc_sum_day where SQL_CONDITION cnt_type='2' and search_engine != '其他' group by search_engine</sql>
+	</sqlGroup>
+
 	<!--搜索引擎分析end -->
 
-	<!--搜索引擎分析start -->
+	<!--业务分析start -->
 	<sqlGroup name="business_analysis">
 		<sql id="name">业务分析</sql>
 		<sql id="header">日期,UV,登录用户数,交易户数,交易笔数,动账交易户数,动账交易笔数,交易转化率,交易金额,户均交易额,笔均交易额</sql>
 		<sql id="sql">select 1,2,3,4,5,6,7,8,9,10,11 from hb_result_biz_data_analy</sql>
 	</sqlGroup>
-	<!--搜索引擎分析end -->
+	<!--业务分析end -->
 
 	<!--事件统计 start -->
 	<!-- 事件总表 start -->

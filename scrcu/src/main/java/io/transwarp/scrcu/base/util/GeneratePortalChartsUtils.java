@@ -163,16 +163,16 @@ public class GeneratePortalChartsUtils {
     }
 
     /**
-     * 生成终端的饼图数据
+     * 生成搜索引擎的饼图数据
      *
      * @param searchEngineData 终端数据
      * @return 终端饼图数据
      */
-    public static String genTerminalCharts(List<List<String>> searchEngineData) {
+    public static String genSearchEngineCharts(List<List<String>> searchEngineData) {
 
         List<Object> dataList = new ArrayList<Object>();
         for (List<String> list : searchEngineData) {
-            Data d = new Data(list.get(1), list.get(2));
+            Data d = new Data(list.get(0), list.get(1));
             dataList.add(d);
         }
 

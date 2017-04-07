@@ -102,6 +102,8 @@ public class UserAnalysisController extends BaseController {
             //定义终端操作系统以及浏览器的集合用来接收数据
             List<List<String>> terminalOsData = new ArrayList<>();
             List<List<String>> terminalBrowserData = new ArrayList<>();
+            List<List<String>> terminalOsChart = new ArrayList<>();
+            List<List<String>> terminalBrowserChart = new ArrayList<>();
 
             // 得到查询条件
             String condition = InceptorUtil.getQueryCondition(getRequest());
@@ -113,30 +115,34 @@ public class UserAnalysisController extends BaseController {
                     terminalOsData = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.portal_terminal_os_day, condition),
                             false);
                     terminalBrowserData = InceptorUtil
-                            .queryCache(SqlKit.propSQL(SQLConfig.portal_terminal_browserDiv_day, condition), false);
+                            .queryCache(SqlKit.propSQL(SQLConfig.portal_terminal_browser_day, condition), false);
+                    terminalOsChart = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_terminal_os_day_chart, condition));
+                    terminalBrowserChart = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_terminal_browser_day_chart, condition));
                 }
 
                 if (dateType.equals("month")) {
                     // 执行查询
                     terminalOsData = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.portal_terminal_os_month, condition),
                             false);
-                    terminalBrowserData = InceptorUtil
-                            .queryCache(SqlKit.propSQL(SQLConfig.portal_terminal_browserDiv_month, condition), false);
+                    terminalBrowserData = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.portal_terminal_browser_month, condition), false);
+
+                    terminalOsChart = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_terminal_os_month_chart, condition));
+                    terminalBrowserChart = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_terminal_browser_month_chart, condition));
                 }
             }
 
             // 返回结果
             List<Object> osChartList = new ArrayList<Object>();
             List<Object> browserChartList = new ArrayList<Object>();
-            for (List<String> list : terminalOsData) {
-                Data d = new Data(list.get(1), InceptorUtil.getDouble(list.get(2)));
-                if (!list.get(1).equals("999")){
+            for (List<String> list : terminalOsChart) {
+                Data d = new Data(list.get(0), InceptorUtil.getDouble(list.get(1)));
+                if (!list.get(1).equals("999")) {
                     osChartList.add(d);
                 }
             }
-            for (List<String> list : terminalBrowserData) {
-                Data d = new Data(list.get(1), InceptorUtil.getDouble(list.get(2)));
-                if (!list.get(1).equals("999")){
+            for (List<String> list : terminalBrowserChart) {
+                Data d = new Data(list.get(0), InceptorUtil.getDouble(list.get(1)));
+                if (!list.get(1).equals("999")) {
                     browserChartList.add(d);
                 }
             }
@@ -241,30 +247,30 @@ public class UserAnalysisController extends BaseController {
                 if (dateType.equals("week")) {
                     // 执行查询
                     dataLoss = InceptorUtil
-                            .queryCache(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_userLoss_query_week, condition),false);
+                            .queryCache(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_userLoss_query_week, condition), false);
                 }
 
                 if (dateType.equals("month")) {
                     // 执行查询
                     dataLoss = InceptorUtil
-                            .queryCache(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_userLoss_query_month, condition),false);
+                            .queryCache(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_userLoss_query_month, condition), false);
                 }
 
                 if (dateType.equals("quarter")) {
                     // 执行查询
                     dataLoss = InceptorUtil
-                            .queryCache(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_userLoss_query_quarter, condition),false);
+                            .queryCache(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_userLoss_query_quarter, condition), false);
                 }
 
                 if (dateType.equals("year")) {
                     // 执行查询
                     dataLoss = InceptorUtil
-                            .queryCache(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_userLoss_query_year, condition),false);
+                            .queryCache(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_userLoss_query_year, condition), false);
                 }
             }
 
             //返回会员流失生成的折线图图表数据
-            result.put("chartOption", genMemberRunOffCharts(dateType, ChartType.LINE,  dataLoss));
+            result.put("chartOption", genMemberRunOffCharts(dateType, ChartType.LINE, dataLoss));
 
             result.put("dataLoss", dataLoss);
             renderJson(result);
@@ -297,25 +303,25 @@ public class UserAnalysisController extends BaseController {
                 if (dateType.equals("week")) {
                     // 执行查询
                     dataUserOnly = InceptorUtil
-                            .queryCache(SqlKit.propSQL(SQLConfig.portal_userAnalysis_userOnly_week, condition),false);
+                            .queryCache(SqlKit.propSQL(SQLConfig.portal_userAnalysis_userOnly_week, condition), false);
                 }
 
                 if (dateType.equals("month")) {
                     // 执行查询
                     dataUserOnly = InceptorUtil
-                            .queryCache(SqlKit.propSQL(SQLConfig.portal_userAnalysis_userOnly_month, condition),false);
+                            .queryCache(SqlKit.propSQL(SQLConfig.portal_userAnalysis_userOnly_month, condition), false);
                 }
 
                 if (dateType.equals("quarter")) {
                     // 执行查询
                     dataUserOnly = InceptorUtil
-                            .queryCache(SqlKit.propSQL(SQLConfig.portal_userAnalysis_userOnly_quarter, condition),false);
+                            .queryCache(SqlKit.propSQL(SQLConfig.portal_userAnalysis_userOnly_quarter, condition), false);
                 }
 
                 if (dateType.equals("year")) {
                     // 执行查询
                     dataUserOnly = InceptorUtil
-                            .queryCache(SqlKit.propSQL(SQLConfig.portal_userAnalysis_userOnly_year, condition),false);
+                            .queryCache(SqlKit.propSQL(SQLConfig.portal_userAnalysis_userOnly_year, condition), false);
                 }
             }
 

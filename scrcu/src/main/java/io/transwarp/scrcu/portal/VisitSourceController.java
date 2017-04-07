@@ -14,7 +14,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import java.util.ArrayList;
 import java.util.List;
 
-import static io.transwarp.scrcu.base.util.GeneratePortalChartsUtils.genTerminalCharts;
+import static io.transwarp.scrcu.base.util.GeneratePortalChartsUtils.genSearchEngineCharts;
 
 @RequiresAuthentication
 public class VisitSourceController extends BaseController {
@@ -30,6 +30,7 @@ public class VisitSourceController extends BaseController {
 
 			//定义集合接收搜索引擎数据
 			List<List<String>> searchEngineData = new ArrayList<>();
+			List<List<String>> searchEngineChart = new ArrayList<>();
 			//接收返回的结果数据
 			JSONObject result = new JSONObject();
 
@@ -43,17 +44,21 @@ public class VisitSourceController extends BaseController {
 					// 执行查询
 					searchEngineData = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.portal_sourceAnalysis_searchEngine_day, condition),
 							false);
+					searchEngineChart = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.portal_sourceAnalysis_searchEngine_day_chart, condition),
+							false);
 				}
 
 				if (dateType.equals("month")) {
 					// 执行查询
 					searchEngineData = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.portal_sourceAnalysis_searchEngine_month, condition),
 							false);
+					searchEngineChart = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.portal_sourceAnalysis_searchEngine_month_chart, condition),
+							false);
 				}
 			}
 
 			//生成饼图数据并返回
-			result.put("chartOption", genTerminalCharts(searchEngineData));
+			result.put("chartOption", genSearchEngineCharts(searchEngineChart));
 
 			result.put("data", searchEngineData);
 			renderJson(result);
