@@ -289,7 +289,7 @@ public class ChartUtils {
         if (chartType.equals(ChartType.LINE)) {
             //设置值域的选择范围以及样式
             DataZoom dataZoom = new DataZoom();
-            dataZoom.setStart(0);
+            //设置数据缩放结束比例
             dataZoom.setEnd(30);
             dataZoom.y(226);
             dataZoom.show(true);

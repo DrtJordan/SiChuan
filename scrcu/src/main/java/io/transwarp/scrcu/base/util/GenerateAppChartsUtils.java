@@ -3,7 +3,6 @@ package io.transwarp.scrcu.base.util;
 import com.jfinal.i18n.I18n;
 import com.jfinal.i18n.Res;
 import io.transwarp.echarts.data.Data;
-import io.transwarp.scrcu.base.util.ChartUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -198,48 +197,28 @@ public class GenerateAppChartsUtils {
         // 返回结果
         List<Object> xAxisList = new ArrayList<>();
         //定义时长对应的集合用来接收对应的数据
-        List<Object> fourToTenSecondsList = new ArrayList<Object>();
-        List<Object> threeToTenMinList = new ArrayList<Object>();
-        List<Object> thirtyMinList = new ArrayList<Object>();
-        List<Object> elevenToThirtySecondsList = new ArrayList<Object>();
-        List<Object> tenToThirtyMinList = new ArrayList<Object>();
-        List<Object> oneToThreeMinList = new ArrayList<Object>();
-        List<Object> thirtyFirstToSixtySecList = new ArrayList<Object>();
-        List<Object> oneToThreeSecList = new ArrayList<Object>();
+        List<Object> fourToTenSecondsList = new ArrayList<>();
+        List<Object> threeToTenMinList = new ArrayList<>();
+        List<Object> thirtyMinList = new ArrayList<>();
+        List<Object> elevenToThirtySecondsList = new ArrayList<>();
+        List<Object> tenToThirtyMinList = new ArrayList<>();
+        List<Object> oneToThreeMinList = new ArrayList<>();
+        List<Object> thirtyFirstToSixtySecList = new ArrayList<>();
+        List<Object> oneToThreeSecList = new ArrayList<>();
 
         //图例名称
         Object[] nameList = new Object[]{"1-3秒", "4-10秒", "11-30秒", "31-60秒", "1-3分", "3-10分", "10-30分", "30分以上"};
 
-        for (List<String> list : data) {
+        for (int i = 0; i < data.size(); i++) {
+
+            List<String> list = data.get(i);
 
             if (!xAxisList.contains(list.get(0))) {
                 xAxisList.add(list.get(0));
                 int max = max(fourToTenSecondsList.size(), threeToTenMinList.size(), thirtyMinList.size(), elevenToThirtySecondsList.size(),
                         tenToThirtyMinList.size(), oneToThreeMinList.size(), thirtyFirstToSixtySecList.size(), oneToThreeSecList.size());
-                if (fourToTenSecondsList.size() < max) {
-                    fourToTenSecondsList.add(0);
-                }
-                if (threeToTenMinList.size() < max) {
-                    threeToTenMinList.add(0);
-                }
-                if (thirtyMinList.size() < max) {
-                    thirtyMinList.add(0);
-                }
-                if (elevenToThirtySecondsList.size() < max) {
-                    elevenToThirtySecondsList.add(0);
-                }
-                if (tenToThirtyMinList.size() < max) {
-                    tenToThirtyMinList.add(0);
-                }
-                if (oneToThreeMinList.size() < max) {
-                    oneToThreeMinList.add(0);
-                }
-                if (thirtyFirstToSixtySecList.size() < max) {
-                    thirtyFirstToSixtySecList.add(0);
-                }
-                if (oneToThreeSecList.size() < max) {
-                    oneToThreeSecList.add(0);
-                }
+                addChartData(max, oneToThreeSecList, fourToTenSecondsList, elevenToThirtySecondsList,
+                        thirtyFirstToSixtySecList, oneToThreeMinList, threeToTenMinList, tenToThirtyMinList, thirtyMinList);
             }
 
             if (list.get(1).equals("1-3秒")) {
@@ -267,6 +246,13 @@ public class GenerateAppChartsUtils {
                 thirtyMinList.add(list.get(2));
             }
 
+            if (i == data.size() - 1) {
+                int max = max(fourToTenSecondsList.size(), threeToTenMinList.size(), thirtyMinList.size(), elevenToThirtySecondsList.size(),
+                        tenToThirtyMinList.size(), oneToThreeMinList.size(), thirtyFirstToSixtySecList.size(), oneToThreeSecList.size());
+                addChartData(max, oneToThreeSecList, fourToTenSecondsList, elevenToThirtySecondsList,
+                        thirtyFirstToSixtySecList, oneToThreeMinList, threeToTenMinList, tenToThirtyMinList, thirtyMinList);
+            }
+
         }
         //生成APP使用时长的折线图数据并返回,此处传入list数据的顺序必须按照nameList中的顺序传入，否则会造成数据对应错误
         return ChartUtils.genAppMultiLineCharts(dateType, chartType, xAxisList, nameList, oneToThreeSecList, fourToTenSecondsList, elevenToThirtySecondsList
@@ -278,46 +264,32 @@ public class GenerateAppChartsUtils {
      *
      * @param dateType  日期类型：day,week,month,quarter,year
      * @param chartType 图表类型： LINE--折线图, BAR--柱状图
-     * @param data  数据
+     * @param data      数据
      * @return 图表数据
      */
     @SuppressWarnings("unchecked")
     public static String genAppUseRateCharts(String dateType, ChartType chartType, List<List<String>> data) {
 
         // 返回结果
-        List<Object> xAxisList = new ArrayList<Object>();
+        List<Object> xAxisList = new ArrayList<>();
         //定义时长对应的集合用来接收对应的数据
-        List<Object> oneToTwqTimes = new ArrayList<Object>();
-        List<Object> threeToFiveTimes = new ArrayList<Object>();
-        List<Object> sixToNineTimes = new ArrayList<Object>();
-        List<Object> tenToNineteenTimes = new ArrayList<Object>();
-        List<Object> twentyToFourtyNineTimes = new ArrayList<Object>();
-        List<Object> fiftyOverTimes = new ArrayList<Object>();
+        List<Object> oneToTwqTimes = new ArrayList<>();
+        List<Object> threeToFiveTimes = new ArrayList<>();
+        List<Object> sixToNineTimes = new ArrayList<>();
+        List<Object> tenToNineteenTimes = new ArrayList<>();
+        List<Object> twentyToFourtyNineTimes = new ArrayList<>();
+        List<Object> fiftyOverTimes = new ArrayList<>();
         //定义图例的name名称
         Object[] nameList = new Object[]{"1-2次", "3-5次", "6-9次", "10-19次", "20-49次", "50次及以上"};
 
-        for (List<String> list : data) {
+        for (int i = 0; i < data.size(); i++) {
+
+            List<String> list = data.get(i);
+
             if (!xAxisList.contains(list.get(0))) {
                 xAxisList.add(list.get(0));
                 int max = max(oneToTwqTimes.size(), threeToFiveTimes.size(), sixToNineTimes.size(), tenToNineteenTimes.size(), twentyToFourtyNineTimes.size(), fiftyOverTimes.size());
-                if (oneToTwqTimes.size() < max) {
-                    oneToTwqTimes.add(0);
-                }
-                if (threeToFiveTimes.size() < max) {
-                    threeToFiveTimes.add(0);
-                }
-                if (sixToNineTimes.size() < max) {
-                    sixToNineTimes.add(0);
-                }
-                if (tenToNineteenTimes.size() < max) {
-                    tenToNineteenTimes.add(0);
-                }
-                if (twentyToFourtyNineTimes.size() < max) {
-                    twentyToFourtyNineTimes.add(0);
-                }
-                if (fiftyOverTimes.size() < max) {
-                    fiftyOverTimes.add(0);
-                }
+                addChartData(max, oneToTwqTimes, threeToFiveTimes, sixToNineTimes, tenToNineteenTimes, twentyToFourtyNineTimes, fiftyOverTimes);
             }
             if (list.get(1).equals("1-2次")) {
                 oneToTwqTimes.add(list.get(2));
@@ -337,6 +309,11 @@ public class GenerateAppChartsUtils {
             if (list.get(1).equals("50次及以上")) {
                 fiftyOverTimes.add(list.get(2));
             }
+
+            if (i == data.size() - 1) {
+                int max = max(oneToTwqTimes.size(), threeToFiveTimes.size(), sixToNineTimes.size(), tenToNineteenTimes.size(), twentyToFourtyNineTimes.size(), fiftyOverTimes.size());
+                addChartData(max, oneToTwqTimes, threeToFiveTimes, sixToNineTimes, tenToNineteenTimes, twentyToFourtyNineTimes, fiftyOverTimes);
+            }
         }
         //生成使用频率的折线图数据
         return ChartUtils.genAppMultiLineCharts(dateType, chartType, xAxisList, nameList,
@@ -348,7 +325,7 @@ public class GenerateAppChartsUtils {
      *
      * @param dateType  日期类型：day,week,month,quarter,year
      * @param chartType 图表类型： LINE--折线图, BAR--柱状图
-     * @param data  数据
+     * @param data      数据
      * @return 图表数据
      */
     @SuppressWarnings("unchecked")
@@ -356,33 +333,21 @@ public class GenerateAppChartsUtils {
         // 返回结果
         List<Object> xAxisList = new ArrayList<>();
         //定义时长对应的集合用来接收对应的数据
-        List<Object> oneToTwoPageList = new ArrayList<Object>();
-        List<Object> threeToFivePageList = new ArrayList<Object>();
-        List<Object> sixToNinePageList = new ArrayList<Object>();
-        List<Object> tenToTwNinePageList = new ArrayList<Object>();
-        List<Object> thirtyToMorePageList = new ArrayList<Object>();
+        List<Object> oneToTwoPageList = new ArrayList<>();
+        List<Object> threeToFivePageList = new ArrayList<>();
+        List<Object> sixToNinePageList = new ArrayList<>();
+        List<Object> tenToTwNinePageList = new ArrayList<>();
+        List<Object> thirtyToMorePageList = new ArrayList<>();
         Object[] nameList = new Object[]{"1-2页面", "3-5页面", "6-9页面", "10-29页面", "30个页面及以上"};
 
-        for (List<String> list : data) {
+        for (int i = 0; i < data.size(); i++) {
+
+            List<String> list = data.get(i);
 
             if (!xAxisList.contains(list.get(0))) {
                 xAxisList.add(list.get(0));
                 int max = max(oneToTwoPageList.size(), threeToFivePageList.size(), sixToNinePageList.size(), tenToTwNinePageList.size(), thirtyToMorePageList.size());
-                if (oneToTwoPageList.size() < max) {
-                    oneToTwoPageList.add(0);
-                }
-                if (threeToFivePageList.size() < max) {
-                    threeToFivePageList.add(0);
-                }
-                if (sixToNinePageList.size() < max) {
-                    sixToNinePageList.add(0);
-                }
-                if (tenToTwNinePageList.size() < max) {
-                    tenToTwNinePageList.add(0);
-                }
-                if (thirtyToMorePageList.size() < max) {
-                    thirtyToMorePageList.add(0);
-                }
+                addChartData(max, oneToTwoPageList, threeToFivePageList, sixToNinePageList, tenToTwNinePageList, thirtyToMorePageList);
             }
             if (list.get(1).equals("1-2页面")) {
                 oneToTwoPageList.add(list.get(2));
@@ -400,6 +365,11 @@ public class GenerateAppChartsUtils {
                 thirtyToMorePageList.add(list.get(2));
             }
 
+            if (i == data.size() - 1) {
+                int max = max(oneToTwoPageList.size(), threeToFivePageList.size(), sixToNinePageList.size(), tenToTwNinePageList.size(), thirtyToMorePageList.size());
+                addChartData(max, oneToTwoPageList, threeToFivePageList, sixToNinePageList, tenToTwNinePageList, thirtyToMorePageList);
+            }
+
         }
         return ChartUtils.genAppMultiLineCharts(dateType, chartType, xAxisList, nameList, oneToTwoPageList, threeToFivePageList,
                 sixToNinePageList, tenToTwNinePageList, thirtyToMorePageList);
@@ -410,11 +380,11 @@ public class GenerateAppChartsUtils {
      *
      * @param dateType  日期类型：day,week,month,quarter,year
      * @param chartType 图表类型： LINE--折线图, BAR--柱状图
-     * @param dataTime  数据
+     * @param data      数据
      * @return 折线图数据
      */
     @SuppressWarnings("unchecked")
-    public static String genAppIntervalCharts(String dateType, ChartType chartType, List<List<String>> dataTime) {
+    public static String genAppIntervalCharts(String dateType, ChartType chartType, List<List<String>> data) {
         // 返回结果
         List<Object> xAxisList = new ArrayList<>();
         //定义时长对应的集合用来接收对应的数据
@@ -428,64 +398,63 @@ public class GenerateAppChartsUtils {
 
         //定义图例的name名称
         Object[] nameList = new Object[]{"首次", "0-24h", "1-2天", "2-4天", "5-7天", "8-14天", "15-30天"};
-        for (List<String> list : dataTime) {
+        for (int i = 0; i < data.size(); i++) {
+
+            List<String> list = data.get(i);
+
             if (!xAxisList.contains(list.get(0))) {
                 xAxisList.add(list.get(0));
                 int max = max(firstList.size(), zeroToTwentyFourHours.size(), oneToTwoDays.size(), twoToFourDays.size(), fiveToSevenDay.size(), eightToFourteenDays.size(), fifteenToThirtyDays.size());
-                if (firstList.size() < max) {
-                    firstList.add(0);
-                }
-                if (zeroToTwentyFourHours.size() < max) {
-                    zeroToTwentyFourHours.add(0);
-                }
-                if (oneToTwoDays.size() < max) {
-                    oneToTwoDays.add(0);
-                }
-                if (twoToFourDays.size() < max) {
-                    twoToFourDays.add(0);
-                }
-                if (fiveToSevenDay.size() < max) {
-                    fiveToSevenDay.add(0);
-                }
-                if (eightToFourteenDays.size() < max) {
-                    eightToFourteenDays.add(0);
-                }
-                if (fifteenToThirtyDays.size() < max) {
-                    fifteenToThirtyDays.add(0);
-                }
-
+                addChartData(max, firstList, zeroToTwentyFourHours,
+                        oneToTwoDays, twoToFourDays, fiveToSevenDay, eightToFourteenDays, fifteenToThirtyDays);
             }
+
             if (list.get(1).contains("首次")) {
                 firstList.add(list.get(2));
-                continue;
             }
             if (list.get(1).contains("0-24h")) {
                 zeroToTwentyFourHours.add(list.get(2));
-                continue;
             }
             if (list.get(1).contains("1-2天")) {
                 oneToTwoDays.add(list.get(2));
-                continue;
             }
             if (list.get(1).contains("2-4天")) {
                 twoToFourDays.add(list.get(2));
-                continue;
             }
             if (list.get(1).contains("5-7天")) {
                 fiveToSevenDay.add(list.get(2));
-                continue;
             }
             if (list.get(1).contains("8-14天")) {
                 eightToFourteenDays.add(list.get(2));
-                continue;
             }
             if (list.get(1).contains("15-30天")) {
                 fifteenToThirtyDays.add(list.get(2));
+            }
+
+            if (i == data.size() - 1) {
+                int max = max(firstList.size(), zeroToTwentyFourHours.size(), oneToTwoDays.size(), twoToFourDays.size(), fiveToSevenDay.size(), eightToFourteenDays.size(), fifteenToThirtyDays.size());
+                addChartData(max, firstList, zeroToTwentyFourHours,
+                        oneToTwoDays, twoToFourDays, fiveToSevenDay, eightToFourteenDays, fifteenToThirtyDays);
             }
 
         }
 
         return ChartUtils.genAppMultiLineCharts(dateType, chartType, xAxisList, nameList, firstList, zeroToTwentyFourHours,
                 oneToTwoDays, twoToFourDays, fiveToSevenDay, eightToFourteenDays, fifteenToThirtyDays);
+    }
+
+    /**
+     * 增加Echarts数据
+     *
+     * @param max  集合size的最大值
+     * @param data 各集合数据
+     */
+    @SafeVarargs
+    private static void addChartData(int max, List<Object>... data) {
+        for (List<Object> dataList : data) {
+            if (dataList.size() < max) {
+                dataList.add(0);
+            }
+        }
     }
 }

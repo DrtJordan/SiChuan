@@ -54,9 +54,7 @@
 		<section class="panel panel-default">
 			<header class="panel-heading text-right bg-light ">
 				<ul class="nav nav-tabs">
-					<li class="active"><a href="#aa" data-toggle="tab" columns="0,1,2,3,4,5,6,7,8,9">默认</a></li>
-					<li><a href="#aa" data-toggle="tab" columns="0,1,2,3,4,5,6,7,8">流量指标</a></li>
-					<li><a href="#aa" data-toggle="tab" columns="0,1,12,13,14,15,16">质量指标</a></li>
+					<li class="active"><a href="#aa" data-toggle="tab">默认</a></li>
 				</ul>
 			</header>
 			<div class="panel-body" style="padding: 0px;">
@@ -80,57 +78,6 @@
 				</div>
 			</div>
 		</section>
-		<!--<div class="row">
-			<div class="col-md-6">
-				<section class="panel panel-default">
-					<header class="panel-heading">
-						<span class="label bg-danger pull-right m-t-xs"></span> 入口页面
-					</header>
-					<table id="table1" class="datatables table table-striped" data-ride="datatables">
-						<thead>
-							<tr>
-								<th class="hidden">日期</th>
-								<th class="displayTitle">页面</th>
-								<th class="w-5">访问次数</th>
-							</tr>
-						</thead>
-						<tbody>
-						</tbody>
-						<tfoot>
-							<tr>
-								<td colspan="2" class="text-center">
-									<a href="/portal/visitSource/entryPage">查看更多</a>
-								</td>
-							</tr>
-						</tfoot>
-					</table>
-				</section>
-			</div>
-			<div class="col-md-6">
-				<section class="panel panel-default">
-					<header class="panel-heading">
-						<span class="label bg-success pull-right m-t-xs"></span> 访问页面
-					</header>
-					<table  class="datatables table table-striped" data-ride="datatables"id="table2">
-						<thead>
-							<tr>
-								<th>页面</th>
-								<th class="w-4">浏览量</th>
-							</tr>
-						</thead>
-						<tbody>
-						</tbody>
-						<tfoot>
-							<tr>
-								<td colspan="2" class="text-center">
-									<a href="/portal/siteAnalysis/pageRank">查看更多</a>
-								</td>
-							</tr>
-						</tfoot>
-					</table>
-				</section>
-			</div>
-		</div>-->
 
 	</section>
 </section>
@@ -179,36 +126,6 @@
 							bFilter : false,
 							bLengthChange : false
 						});
-						/*$('[href="#aa"]').click(function() {
-							var columns = $(this).attr("columns").split(",");
-							for (var i = 0; i < 24; i++) {
-								var column = table.column(i);
-								column.visible(false);
-							}
-							for (var i = 0; i < columns.length; i++) {
-								var index = columns[i];
-								var column = table.column(index);
-								column.visible(true);
-							}
-						});
-						tableQuery({
-							"aaData" : data.landingPage,
-							"id" : "#table1",
-							bPaginate : false,
-							bInfo : false,
-							bFilter : false,
-							"fixedOrder" : false,
-							bLengthChange : false
-						});
-						tableQuery({
-							"aaData" : data.visitPage,
-							"id" : "#table2",
-							bPaginate : false,
-							bInfo : false,
-							bFilter : false,
-							"fixedOrder" : false,
-							bLengthChange : false
-						});*/
 					}
 				};
 				commonAjax(ajaxOption);
