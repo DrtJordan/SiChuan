@@ -99,13 +99,17 @@ public enum SQLConfig {
 
     //终端类型 操作系统按天汇总
     portal_terminal_os_day,
+    portal_terminal_os_day_chart,
     //终端类型 浏览器按天汇总
-    portal_terminal_browserDiv_day,
+    portal_terminal_browser_day,
+    portal_terminal_browser_day_chart,
 
     //终端类型 操作系统按月汇总
     portal_terminal_os_month,
+    portal_terminal_os_month_chart,
     //终端类型 浏览器按月汇总
-    portal_terminal_browserDiv_month,
+    portal_terminal_browser_month,
+    portal_terminal_browser_month_chart,
 
     // 用户统计 流失分析按天汇总
     portal_siteAnalysis_userLoss_query_day,
@@ -138,6 +142,9 @@ public enum SQLConfig {
     portal_sourceAnalysis_searchEngine_day,
     //来源统计 搜索引擎分析 按月汇总
     portal_sourceAnalysis_searchEngine_month,
+
+    portal_sourceAnalysis_searchEngine_day_chart,
+    portal_sourceAnalysis_searchEngine_month_chart,
 
     //来源统计 来源分析按天汇总
     portal_sourceAnalysis_source_day,
