@@ -25,7 +25,7 @@
     }
 
     .card-body {
-        height: 260px;
+        height: 290px;
         padding: 24px;
         position: relative;
         background-color: #ffffff;
@@ -60,10 +60,10 @@
                                 </div>
                                 <div class="card-body style-default-bright" style="display: block;">
                                     <#list contents as content>
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-6 checkbox i-checks">
                                             <label>
                                                 <input onclick="check()" type="checkbox" id="${content}" value="${content}" name="${secAuth.secauth_name}" <#if secAuth.content_name?? && secAuth.content_name?contains(content)>checked="checked"</#if>/>
-                                                <span>${content}</span>
+                                                <i></i>${content}
                                             </label>
                                         </div>
                                     </#list>

@@ -74,7 +74,6 @@ public class UsersController extends BaseController {
 
     }
 
-    @Before(UsersValidator.class)
     @RequiresPermissions("/system/users/save")
     public void save() {
         Users users = getModel(Users.class);
@@ -89,7 +88,6 @@ public class UsersController extends BaseController {
         redirect("/system/users");
     }
 
-    @Before(UsersValidator.class)
     @RequiresPermissions("/system/users/update")
     public void update() {
         Users users = getModel(Users.class);
