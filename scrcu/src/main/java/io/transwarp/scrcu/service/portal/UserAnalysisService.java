@@ -1,4 +1,4 @@
-package io.transwarp.scrcu.service;
+package io.transwarp.scrcu.service.portal;
 
 import com.alibaba.fastjson.JSONObject;
 import com.jfinal.i18n.I18n;

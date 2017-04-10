@@ -5,7 +5,7 @@ import com.jfinal.core.ActionKey;
 import io.transwarp.scrcu.base.controller.BaseController;
 import io.transwarp.scrcu.base.inceptor.InceptorUtil;
 import io.transwarp.scrcu.base.util.BaseUtils;
-import io.transwarp.scrcu.service.UserAnalysisService;
+import io.transwarp.scrcu.service.portal.UserAnalysisService;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 
@@ -99,7 +99,6 @@ public class UserAnalysisController extends BaseController {
     /**
      * 唯一用户分析
      */
-
     @RequiresPermissions("/portal/userAnalysis/userOnly")
     public void userOnly() {
         if (BaseUtils.isAjax(getRequest())) {

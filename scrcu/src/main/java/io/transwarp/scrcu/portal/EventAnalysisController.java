@@ -5,94 +5,65 @@ import com.jfinal.core.ActionKey;
 import io.transwarp.scrcu.base.controller.BaseController;
 import io.transwarp.scrcu.base.inceptor.InceptorUtil;
 import io.transwarp.scrcu.base.util.BaseUtils;
-import io.transwarp.scrcu.base.util.SQLConfig;
-import io.transwarp.scrcu.sqlinxml.SqlKit;
+import io.transwarp.scrcu.service.portal.EventAnalysisService;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * Created by admin on 2017/1/10.
+ * Web统计事件分析控制层
+ *
+ * @author hang_xiao
  */
 @RequiresAuthentication
 public class EventAnalysisController extends BaseController {
 
     @ActionKey("/portal/eventAnalysis")
-    public void index(){}
+    public void index() {
+    }
 
     /**
      * 事件列表
      */
     @RequiresPermissions("/portal/eventAnalysis/list")
-    public void list(){
+    public void list() {
         if (BaseUtils.isAjax(getRequest())) {
 
-            List<List<String>> eventData = new ArrayList<>();
             //获取查询条件
             String condition = InceptorUtil.getQueryCondition(getRequest());
             String dateType = getPara("dateType");
 
-            if (dateType != null) {
-                if (dateType.equals("day")) {
-                    // 执行查询
-                    eventData = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_eventAnalysis_list_day, condition), false);
-                }
-                if (dateType.equals("week")) {
-                    // 执行查询
-                    eventData = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_eventAnalysis_list_week, condition), false);
-                }
-                if (dateType.equals("month")) {
-                    // 执行查询
-                    eventData = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_eventAnalysis_list_month, condition), false);
-                }
-                if (dateType.equals("quarter")) {
-                    // 执行查询
-                    eventData = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_eventAnalysis_list_quarter, condition), false);
-                }
-                if (dateType.equals("year")) {
-                    // 执行查询
-                    eventData = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_eventAnalysis_list_year, condition), false);
-                }
-            }
-
-            // 返回结果
-            JSONObject result = new JSONObject();
-            result.put("eventData", eventData);
+            //事件列表Json数据
+            JSONObject result = EventAnalysisService.eventList(dateType, condition);
             renderJson(result);
         }
     }
 
+    /**
+     * 事件详情
+     */
     @RequiresPermissions("/portal/eventAnalysis/detail")
-    public void detail(){
+    public void detail() {
         if (BaseUtils.isAjax(getRequest())) {
 
             String condition = InceptorUtil.getQueryCondition(getRequest());
 
-            // 执行查询
-            List<List<String>> detailData = InceptorUtil
-                    .query(SqlKit.propSQL(SQLConfig.portal_eventAnalysis_detail_day, condition));
-
-            // 返回结果
-            JSONObject result = new JSONObject();
-            result.put("detailData", detailData);
+            //事件详情Json数据
+            JSONObject result = EventAnalysisService.eventDetail(condition);
             renderJson(result);
         }
     }
 
+    /**
+     * 事件趋势
+     */
     @RequiresPermissions("/portal/eventAnalysis/tendency")
-    public void tendency(){
+    public void tendency() {
         if (BaseUtils.isAjax(getRequest())) {
 
             String condition = InceptorUtil.getQueryCondition(getRequest());
-            // 执行查询
-            List<List<String>> tendencyData = InceptorUtil
-                    .query(SqlKit.propSQL(SQLConfig.portal_eventAnalysis_tendency_day, condition));
 
-            // 返回结果
-            JSONObject result = new JSONObject();
-            result.put("tendencyData", tendencyData);
+            //事件趋势Json数据
+            JSONObject result = EventAnalysisService.eventTendency(condition);
             renderJson(result);
         }
     }
