@@ -73,7 +73,8 @@ public class UserAnalysisController extends BaseController {
             JSONObject result = new JSONObject();
             List<Object> dataList = new ArrayList<Object>();
             for (List<String> list : areaData) {
-                String name = list.get(0).replace("甘孜州", "甘孜藏族自治州").replace("阿坝州", "阿坝藏族羌族自治州").replace("凉山州", "凉山彝族自治州");
+                //修改过长自治州名称，更换成简称。
+                String name = list.get(0).replace(res.get("portrait.ganZiZhou"), res.get("portrait.ganZiZhouAll")).replace(res.get("portrait.aBaZhou"), res.get("portrait.aBaZhouAll")).replace(res.get("portrait.liangShanZhou"), res.get("portrait.liangShanZhou"));
                 //获取访客数量
                 Data uvValue = new Data(name, list.get(1));
                 dataList.add(uvValue);
@@ -323,7 +324,7 @@ public class UserAnalysisController extends BaseController {
             List<Object> guestCntList = new ArrayList<>();
             List<Object> loginCntList = new ArrayList<>();
             List<Object> ipCntList = new ArrayList<>();
-            Object[] nameList = new Object[]{"访客数", "登陆用户数", "IP数"};
+            Object[] nameList = new Object[]{res.get("portal.visitorUser"), res.get("portal.LoginUser"), res.get("portal.IP")};
 
             for (List<String> list : dataUserOnly) {
 

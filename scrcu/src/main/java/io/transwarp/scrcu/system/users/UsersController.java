@@ -1,6 +1,8 @@
 package io.transwarp.scrcu.system.users;
 
 import com.jfinal.aop.Before;
+import com.jfinal.i18n.I18n;
+import com.jfinal.i18n.Res;
 import io.transwarp.scrcu.base.controller.BaseController;
 import io.transwarp.scrcu.base.interceptor.CommonInterceptor;
 import io.transwarp.scrcu.system.role.SysRole;
@@ -15,6 +17,9 @@ import java.util.Map;
 @Before(CommonInterceptor.class)
 @RequiresAuthentication
 public class UsersController extends BaseController {
+
+    Res res = I18n.use("i18n", "zh_CN");
+
     @RequiresPermissions("/system/users")
     public void index() {
         setAttr("message", "hello word");
@@ -26,21 +31,21 @@ public class UsersController extends BaseController {
         List<SysRole> roleList = SysRole.dao.list();
         setAttr("roleList", roleList);
         Map<String, Integer> levels = new HashMap<>();
-        levels.put("省", 10);
-        levels.put("省联社", 11);
-        levels.put("省联社部门", 12);
-        levels.put("省联社二级部门", 13);
-        levels.put("市", 20);
-        levels.put("市办事处(市级联社)", 21);
-        levels.put("市办事处(市级联社)部门", 22);
-        levels.put("市办事处二级部门", 23);
-        levels.put("县", 30);
-        levels.put("县联社", 31);
-        levels.put("县联社部门", 32);
-        levels.put("县联社二级部门", 33);
-        levels.put("中心社", 41);
-        levels.put("营业网点 ", 51);
-        levels.put("营业网点部门 ", 52);
+        levels.put(res.get("system.province"), 10);
+        levels.put(res.get("system.provinceAssociation.Society"), 11);
+        levels.put(res.get("system.provinceAssociation.SocietyDepartment"), 12);
+        levels.put(res.get("system.provinceAssociation.SocietyTwoLevelsOfDepartments"), 13);
+        levels.put(res.get("system.city"), 20);
+        levels.put(res.get("system.cityOfficeCityCascadeSociety"), 21);
+        levels.put(res.get("system.cityOfficeCityCascadeSocietyDepartment"), 22);
+        levels.put(res.get("system.cityOfficeTwoLevelsOfDepartments"), 23);
+        levels.put(res.get("system.county"), 30);
+        levels.put(res.get("system.countyFederationOfCommunes"), 31);
+        levels.put(res.get("system.countyFederationOfCommunesDepartment"), 32);
+        levels.put(res.get("system.countyFederationOfCommunesTwoLevelsOfDepartments"), 33);
+        levels.put(res.get("system.centerSociety"), 41);
+        levels.put(res.get("system.businessMeshPoint"), 51);
+        levels.put(res.get("system.businessMeshPointDepartment"), 52);
         setAttr("levels", levels);
     }
 
@@ -50,21 +55,21 @@ public class UsersController extends BaseController {
         List<SysRole> roleList = SysRole.dao.list();
         setAttr("roleList", roleList);
         Map<String, Integer> levels = new HashMap<>();
-        levels.put("省", 10);
-        levels.put("省联社", 11);
-        levels.put("省联社部门", 12);
-        levels.put("省联社二级部门", 13);
-        levels.put("市", 20);
-        levels.put("市办事处(市级联社)", 21);
-        levels.put("市办事处(市级联社)部门", 22);
-        levels.put("市办事处二级部门", 23);
-        levels.put("县", 30);
-        levels.put("县联社", 31);
-        levels.put("县联社部门", 32);
-        levels.put("县联社二级部门", 33);
-        levels.put("中心社", 41);
-        levels.put("营业网点 ", 51);
-        levels.put("营业网点部门 ", 52);
+        levels.put(res.get("system.province"), 10);
+        levels.put(res.get("system.provinceAssociation.Society"), 11);
+        levels.put(res.get("system.provinceAssociation.SocietyDepartment"), 12);
+        levels.put(res.get("system.provinceAssociation.SocietyTwoLevelsOfDepartments"), 13);
+        levels.put(res.get("system.city"), 20);
+        levels.put(res.get("system.cityOfficeCityCascadeSociety"), 21);
+        levels.put(res.get("system.cityOfficeCityCascadeSocietyDepartment"), 22);
+        levels.put(res.get("system.cityOfficeTwoLevelsOfDepartments"), 23);
+        levels.put(res.get("system.county"), 30);
+        levels.put(res.get("system.countyFederationOfCommunes"), 31);
+        levels.put(res.get("system.countyFederationOfCommunesDepartment"), 32);
+        levels.put(res.get("system.countyFederationOfCommunesTwoLevelsOfDepartments"), 33);
+        levels.put(res.get("system.centerSociety"), 41);
+        levels.put(res.get("system.businessMeshPoint"), 51);
+        levels.put(res.get("system.businessMeshPointDepartment"), 52);
         setAttr("levels", levels);
 
     }
@@ -108,7 +113,6 @@ public class UsersController extends BaseController {
 
     @RequiresPermissions("/system/users/online")
     public void online() {
-
         redirect("/system/users");
     }
 

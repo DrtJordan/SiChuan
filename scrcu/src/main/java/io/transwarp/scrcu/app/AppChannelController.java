@@ -59,7 +59,7 @@ public class AppChannelController extends BaseController {
             List<Object> startUserList = new ArrayList<>();
             List<Object> sumCntList = new ArrayList<>();
             List<Object> startCntList = new ArrayList<>();
-            Object[] nameList = new Object[]{"新增用户", "启动用户", "累计用户", "启动次数"};
+            Object[] nameList = new Object[]{res.get("app.newAddUser"), res.get("app.startUser"), res.get("app.accumulativeUser"), res.get("app.startTimes")};
             for (List<String> list : data) {
                 if (!xDataList.contains(list.get(0))) {
                     xDataList.add(list.get(0));
@@ -99,7 +99,7 @@ public class AppChannelController extends BaseController {
             List<Object> newUserList = new ArrayList<>();
             List<Object> startUserList = new ArrayList<>();
             List<Object> startCntList = new ArrayList<>();
-            Object[] nameList = new Object[]{"新增用户", "启动用户", "启动次数"};
+            Object[] nameList = new Object[]{res.get("app.newAddUser"), res.get("app.startUser"), res.get("app.startTimes")};
             for (List<String> list : dataChannel) {
                 if (!xDataList.contains(list.get(0))) {
                     xDataList.add(list.get(0));

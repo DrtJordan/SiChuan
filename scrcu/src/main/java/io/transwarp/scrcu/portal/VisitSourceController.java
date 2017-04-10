@@ -18,9 +18,6 @@ import static io.transwarp.scrcu.base.util.GeneratePortalChartsUtils.genTerminal
 
 @RequiresAuthentication
 public class VisitSourceController extends BaseController {
-
-	Res res = I18n.use("i18n", "zh_CN");
-
 	/**
 	 * web统计 搜索引擎
 	 */

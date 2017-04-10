@@ -433,8 +433,8 @@ public class AppBehaviorController extends BaseController {
             // 返回结果
             List<Object> dataList = new ArrayList<Object>();
             for (List<String> list : dataCharts) {
-
-                String name = list.get(0).replace("甘孜州", "甘孜藏族自治州").replace("阿坝州", "阿坝藏族羌族自治州").replace("凉山州", "凉山彝族自治州");
+                //修改过长自治州名称，更换成简称。
+                String name = list.get(0).replace(res.get("portrait.ganZiZhou"), res.get("portrait.ganZiZhouAll")).replace(res.get("portrait.aBaZhou"), res.get("portrait.aBaZhouAll")).replace(res.get("portrait.liangShanZhou"), res.get("portrait.liangShanZhou"));
                 //获取新增用户数
                 Data newUserCount = new Data(name, list.get(1));
                 dataList.add(newUserCount);

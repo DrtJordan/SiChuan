@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.jfinal.i18n.I18n;
+import com.jfinal.i18n.Res;
 import com.jfinal.kit.JsonKit;
 
 import io.transwarp.scrcu.base.controller.BaseController;
@@ -15,6 +17,8 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 
 @RequiresAuthentication
 public class NavController extends BaseController {
+
+	Res res = I18n.use("i18n", "zh_CN");
 
 	public void index() {
 	}
@@ -81,7 +85,7 @@ public class NavController extends BaseController {
 		} else {
 			Map<String, Object> r = new HashMap<String, Object>();
 			r.put("success", false);
-			r.put("msg", "删除失败");
+			r.put("msg", res.get("system.deleteFail"));
 			renderJavascript(JsonKit.toJson(r));
 			return;
 		}
