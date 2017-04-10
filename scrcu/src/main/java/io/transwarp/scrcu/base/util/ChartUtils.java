@@ -343,23 +343,18 @@ public class ChartUtils {
      * @return
      */
     public static String genMapChart(String name, List<Object> dataList, Integer maxValue) {
-        Map map = new Map("Map");
-        for (int i = 0; i < dataList.size(); i++) {
-            Data ts = (Data) dataList.get(i);
-            Data data = new Data(ts.getName());
-            data.value(ts.getValue());
-            map.data(data);
-        }
+
         EnhancedOption option = new EnhancedOption();
         option.setBackgroundColor("#E0EAEC");
         Grid grid = new Grid();
-        grid.x("40").x2("10").y("30").y2("30");
+        grid.x("30").x2("5").y("20").y2("30");
         grid.borderWidth(0);
         option.setGrid(grid);
         option.grid(grid);
         Legend legend = new Legend();
         legend.x("right").data(name);
         option.legend(legend);
+
         //设置地图数据值范围展示及其显示位置
         DataRange dr = new DataRange();
         dr.calculable(true);
@@ -370,38 +365,28 @@ public class ChartUtils {
         dr.y("bottom");
         dr.text("高, 低");
         option.dataRange(dr);
+
+        //设置工具箱提示文字
         Toolbox tb = new Toolbox();
         tb.show(true);
         option.toolbox(tb);
+
+        Map map = new Map("Map");
+        for (Object aDataList : dataList) {
+            Data ts = (Data) aDataList;
+            Data data = new Data(ts.getName());
+            data.value(ts.getValue());
+            map.data(data);
+        }
         map.itemStyle().normal().label().show(true);
         map.itemStyle().emphasis().label().show(true);
-        map.setMapType("四川");
+        map.setMapType("china");
         map.setName(name);
+
         option.series(map);
         return GsonUtil.format(option);
 
     }
-
-  /*  public static void main(String[] args) {
-        // List<Object> xAxisListMoney = new ArrayList<Object>();
-        // xAxisListMoney.add("历史1");
-        // xAxisListMoney.add("历史2");
-        // xAxisListMoney.add("历史3");
-        // xAxisListMoney.add("历史4");
-        // xAxisListMoney.add("历史5");
-        // List<Object> xAxisListMoney1 = new ArrayList<Object>();
-        // xAxisListMoney1.add("物理1");
-        // xAxisListMoney1.add("物理2");
-        // xAxisListMoney1.add("物理3");
-        // xAxisListMoney1.add("物理4");
-        // xAxisListMoney1.add("物理5");
-        // getForce("张三",xAxisListMoney,xAxisListMoney1);
-        List<String> dataList = new ArrayList<String>();
-        dataList.add("李四");
-        dataList.add("王五");
-        genTree("张三", dataList);
-
-    }*/
 
     /**
      * 生成人际关系图表
@@ -655,4 +640,25 @@ public class ChartUtils {
         option.series(bar);
         return GsonUtil.format(option);
     }
+
+    /*  public static void main(String[] args) {
+        // List<Object> xAxisListMoney = new ArrayList<Object>();
+        // xAxisListMoney.add("历史1");
+        // xAxisListMoney.add("历史2");
+        // xAxisListMoney.add("历史3");
+        // xAxisListMoney.add("历史4");
+        // xAxisListMoney.add("历史5");
+        // List<Object> xAxisListMoney1 = new ArrayList<Object>();
+        // xAxisListMoney1.add("物理1");
+        // xAxisListMoney1.add("物理2");
+        // xAxisListMoney1.add("物理3");
+        // xAxisListMoney1.add("物理4");
+        // xAxisListMoney1.add("物理5");
+        // getForce("张三",xAxisListMoney,xAxisListMoney1);
+        List<String> dataList = new ArrayList<String>();
+        dataList.add("李四");
+        dataList.add("王五");
+        genTree("张三", dataList);
+
+    }*/
 }

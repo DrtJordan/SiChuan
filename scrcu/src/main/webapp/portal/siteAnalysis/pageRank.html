@@ -38,24 +38,7 @@
                         </tbody>
                     </table>
                 </div>
-               <!-- <div class="tab-pane fade" id="user_data">
-                    <table id="table2" class="datatables table table-striped " data-ride="datatables">
-                        <thead>
-                        <tr>
-                            <th class="displayTitle">网址</th>
-                            <th class="w-2">排名</th>
-                            <th class="w-3">浏览量</th>
-                            <th class="w-4">访问次数</th>
-                            <th class="w-6">平均停留时长</th>
-                            <th class="w-5">贡献浏览量</th>
-                            <th class="w-4">跳出率</th>
-                            <th class="w-4">退出率</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>-->
+
             </div>
         </div>
     </div>
@@ -91,17 +74,7 @@
                 "searchable": false
             }]
         });
-/*
-        tableQuery({
-            "aaData": data.userData,
-            "sDom": "<'row'<'col-sm-6'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
-            "id": "#table2",
-            "order" : [ [ 2, 'asc' ] ],
-            "aoColumnDefs": [{
-                "targets": [1, 2, 3, 4, 5, 6, 7], // 目标列位置，下标从0开始
-                "searchable": false
-            }]
-        });*/
+
         csvExport("", dateType);
     }
 </script>
