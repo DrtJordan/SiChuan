@@ -1,0 +1,372 @@
+<#include "/common/_layout.html"/> <@layout>
+<style>
+    .min-height{
+        min-height: 280px;
+    }
+</style>
+<div class="top">
+    <ul class="breadcrumb">
+        <li><a><i class="fa fa-home"></i> 用户账单</a></li>
+        <li><span id="user_id"></span>&nbsp;账单</li>
+    </ul>
+</div>
+<section id="content">
+    <div id="billInfo">
+        <div class="panel panel-default table-responsive clear">
+            <header class=" panel-heading text-right bg-light clear" style="background-color: #fff !important">
+                <ul class="nav nav-tabs pull-left clear">
+                    <li class="active "><a href="#this"><i class="icon-users text-primary"></i>&nbsp;<span class="text-primary">账单</span></a></li>
+                </ul>
+            </header>
+            <div style="min-height: 155px">
+                <div class="col-sm-6" style="margin-top: 15px">
+                    <div class="panel panel-default table-responsive">
+                        <header class="panel-heading clear">存款理财&nbsp;/&nbsp;投资</header>
+                        <div class="panel-body" style="padding: 0px">
+                            <div hidden id="touZiDiv" style="height: 240px;"></div>
+                            <ul id="touziUl" class="list-group no-radius">
+                                <li class="list-group-item"><span id="touZiTotal" class="pull-right"></span> <span class="label bg-primary">1</span>
+                                    &nbsp;投资总金额</li>
+                                <li class="list-group-item"><span id="touZiCount" class="pull-right"></span> <span
+                                        class="label bg-success">2</span> &nbsp;投资总笔数</li>
+                                <li class="list-group-item year"><span id="touZiBalance" class="pull-right"></span> <span
+                                        class="label bg-danger">3</span> &nbsp;截止本年度投资余额</li>
+                                <li class="list-group-item year"><span id="touZiHigh" class="pull-right"></span> <span class="label bg-info">4</span>
+                                    &nbsp;本年度投资最高一笔金额</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6" style="margin-top: 15px">
+                    <div class="panel panel-default table-responsive">
+                        <header class="panel-heading clear">存款理财&nbsp;/&nbsp;存款</header>
+                        <div class="panel-body" style="padding: 0px">
+                            <div hidden id="cunKuanDiv" style="height: 240px;"></div>
+                            <ul id="cunKuanUl" class="list-group no-radius">
+                                <li class="list-group-item"><span id="cunKuanTotal" class="pull-right"></span> <span class="label bg-primary">1</span>
+                                    &nbsp;存款总金额</li>
+                                <li class="list-group-item"><span id="cunKuanCount" class="pull-right"></span> <span
+                                        class="label bg-success">2</span> &nbsp;存款总笔数</li>
+                                <li class="list-group-item year"><span id="cunKuanBalance" class="pull-right"></span> <span
+                                        class="label bg-danger">3</span> &nbsp;截止本年度存款余额</li>
+                                <li class="list-group-item year"><span id="cunKuanHigh" class="pull-right"></span> <span class="label bg-info">4</span>
+                                    &nbsp;本年度存款最高一笔金额</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="min-height: 155px">
+                <div class="col-sm-6">
+                    <div class="panel panel-default table-responsive">
+                        <header class="panel-heading clear"> 生活服务&nbsp;/&nbsp;充值</header>
+                        <div class="panel-body" style="padding: 0px">
+                            <div hidden id="chongZhiDiv" style="height: 240px;"></div>
+                            <ul id="chongZhiUl" class="list-group no-radius">
+                                <li class="list-group-item"><span id="chongZhiTotal" class="pull-right"></span> <span class="label bg-primary">1</span>
+                                    &nbsp;手机充值总金额</li>
+                                <li class="list-group-item"><span id="chongZhiCount" class="pull-right"></span> <span class="label bg-info">2</span>
+                                    &nbsp;手机充值总笔数</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="panel panel-default table-responsive">
+                        <header class="panel-heading clear"> 生活服务&nbsp;/&nbsp;缴费</header>
+                        <div class="panel-body" style="padding: 0px">
+                            <div hidden id="jiaoFeiDiv" style="height: 240px;"></div>
+                            <ul id="jiaoFeiUl" class="list-group no-radius">
+                                <li class="list-group-item"><span id="jiaoFeiTotal" class="pull-right"></span> <span class="label bg-primary">1</span>
+                                    &nbsp;缴费总金额</li>
+                                <li class="list-group-item"><span id="jiaoFeiCount" class="pull-right"></span> <span class="label bg-info">2</span>
+                                    &nbsp;缴费总笔数</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="minHeight"  class="min-height">
+                <div class="col-sm-6">
+                    <div class="panel panel-default table-responsive">
+                        <header class="panel-heading clear"> 转账&nbsp;/&nbsp;转出</header>
+                        <div class="panel-body" style="padding: 0px">
+                            <div hidden id="zhuanChuDiv" style="height: 240px;"></div>
+                            <ul id="zhuanChuUl" class="list-group no-radius">
+                                <li class="list-group-item"><span id="zhuanChuTotal" class="pull-right"></span> <span class="label bg-primary">1</span>
+                                    &nbsp;转出总金额</li>
+                                <li class="list-group-item"><span id="zhuanChuCount" class="pull-right"></span> <span
+                                        class="label bg-success">2</span> &nbsp;转出总笔数</li>
+                                <li class="list-group-item year"><span id="zhuanChuHigh" class="pull-right"></span> <span class="label bg-info">3</span>
+                                    &nbsp;本年度转出最高一笔金额</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="panel panel-default table-responsive">
+                        <header class="panel-heading clear"> 转账&nbsp;/&nbsp;转入</header>
+                        <div class="panel-body" style="padding: 0px">
+                            <div hidden id="zhuanRuDiv" style="height: 240px;"></div>
+                            <ul id="zhuanRuUl" class="list-group no-radius">
+                                <li class="list-group-item"><span id="zhuanRuTotal" class="pull-right"></span> <span class="label bg-primary">1</span>
+                                    &nbsp;收到总金额</li>
+                                <li class="list-group-item"><span id="zhuanRuCount" class="pull-right"></span> <span class="label bg-info">2</span>
+                                    &nbsp;收到总笔数</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="min-height: 155px">
+                <div id="FKD" class="col-sm-4">
+                    <div class="panel panel-default table-responsive">
+                        <header class="panel-heading clear"> 贷款&nbsp;/&nbsp;贷款放款</header>
+                        <div class="panel-body" style="padding: 0px">
+                            <div hidden id="fangKuanDiv" style="height: 240px;"></div>
+                            <ul id="fangKuanUl" class="list-group no-radius">
+                                <li class="list-group-item"><span id="fangKuanTotal" class="pull-right"></span> <span class="label bg-primary">1</span>
+                                    &nbsp;贷款放款总金额</li>
+                                <li class="list-group-item"><span id="fangKuanCount" class="pull-right"></span> <span
+                                        class="label bg-success">2</span> &nbsp;贷款放款总笔数</li>
+                                <li class="list-group-item year"><span id="fangKuanBalance" class="pull-right"></span> <span
+                                        class="label bg-danger">3</span> &nbsp;截止本年度贷款余额</li>
+                                <li class="list-group-item year"><span id="fangKuanHigh" class="pull-right"></span> <span class="label bg-info">4</span>
+                                    &nbsp;本年度贷款放款最高一笔金额</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div id="HKD" class="col-sm-4">
+                    <div class="panel panel-default table-responsive">
+                        <header class="panel-heading clear"> 贷款&nbsp;/&nbsp;贷款还款</header>
+                        <div class="panel-body" style="padding: 0px">
+                            <div hidden id="huanKuanDiv" style="height: 240px;"></div>
+                            <ul id="huanKuanUl" class="list-group no-radius">
+                                <li class="list-group-item"><span id="huanKuanTotal" class="pull-right"></span> <span class="label bg-primary">1</span>
+                                    &nbsp;贷款还款总金额</li>
+                                <li class="list-group-item"><span id="huanKuanCount" class="pull-right"></span> <span class="label bg-info">2</span>
+                                    &nbsp;贷款还款总笔数</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 year">
+                    <div class="panel panel-default table-responsive">
+                        <header class="panel-heading clear"> 贷款&nbsp;/&nbsp;申请贷款</header>
+                        <div class="panel-body" style="padding: 0px">
+                            <div hidden id="shenQingDiv" style="height: 240px;"></div>
+                            <ul id="shenQingUl" class="list-group no-radius">
+                                <li class="list-group-item year"><span id="shenQingTotal" class="pull-right"></span> <span class="label bg-primary">1</span>
+                                    &nbsp;本年申请贷款总金额</li>
+                                <li class="list-group-item year"><span id="shenQingCount" class="pull-right"></span> <span class="label bg-info">2</span>
+                                    &nbsp;本年申请贷款总笔数</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--<div class="panel panel-default table-responsive clear">
+            <header class=" panel-heading text-right bg-light clear" style="background-color: #fff !important">
+                <ul class="nav nav-tabs pull-left clear">
+                    <li class="active "><a href="#this"><i class="icon-users text-primary"></i>&nbsp;<span class="text-primary">生活服务</span></a></li>
+                </ul>
+            </header>
+            <div class="col-sm-6" style="margin-top: 15px">
+                <div class="panel panel-default table-responsive">
+                    <header class="panel-heading clear"> 充值</header>
+                    <div class="panel-body" style="padding: 0px">
+                        <div hidden id="chongZhiDiv" style="height: 240px;"></div>
+                        <ul id="chongZhiUl" class="list-group no-radius">
+                            <li class="list-group-item"><span id="chongZhiTotal" class="pull-right"></span> <span class="label bg-primary">1</span>
+                                &nbsp;手机充值总金额</li>
+                            <li class="list-group-item"><span id="chongZhiCount" class="pull-right"></span> <span class="label bg-info">2</span>
+                                &nbsp;手机充值总笔数</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6" style="margin-top: 15px">
+                <div class="panel panel-default table-responsive">
+                    <header class="panel-heading clear"> 缴费</header>
+                    <div class="panel-body" style="padding: 0px">
+                        <div hidden id="jiaoFeiDiv" style="height: 240px;"></div>
+                        <ul id="jiaoFeiUl" class="list-group no-radius">
+                            <li class="list-group-item"><span id="jiaoFeiTotal" class="pull-right"></span> <span class="label bg-primary">1</span>
+                                    &nbsp;缴费总金额</li>
+                            <li class="list-group-item"><span id="jiaoFeiCount" class="pull-right"></span> <span class="label bg-info">2</span>
+                                    &nbsp;缴费总笔数</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default table-responsive clear">
+            <header class=" panel-heading text-right clear" style="background-color: #fff !important">
+                <ul class="nav nav-tabs pull-left clear">
+                    <li class="active"><a href="#"><i class="fa fa-tags text-primary"></i>&nbsp;<span class="text-primary">转账</span></a></li>
+                </ul>
+            </header>
+            <div class="col-sm-6" style="margin-top: 15px">
+                <div class="panel panel-default table-responsive">
+                    <header class="panel-heading clear"> 转出</header>
+                    <div class="panel-body" style="padding: 0px">
+                        <div hidden id="zhuanChuDiv" style="height: 240px;"></div>
+                        <ul id="zhuanChuUl" class="list-group no-radius">
+                            <li class="list-group-item"><span id="zhuanChuTotal" class="pull-right"></span> <span class="label bg-primary">1</span>
+                                    &nbsp;转出总金额</li>
+                            <li class="list-group-item"><span id="zhuanChuCount" class="pull-right"></span> <span
+                                    class="label bg-success">2</span> &nbsp;转出总笔数</li>
+                            <li class="list-group-item year"><span id="zhuanChuHigh" class="pull-right"></span> <span class="label bg-info">3</span>
+                                    &nbsp;本年度转出最高一笔金额</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6" style="margin-top: 15px">
+                <div class="panel panel-default table-responsive">
+                    <header class="panel-heading clear"> 转入</header>
+                    <div class="panel-body" style="padding: 0px">
+                        <div hidden id="zhuanRuDiv" style="height: 240px;"></div>
+                        <ul id="zhuanRuUl" class="list-group no-radius">
+                            <li class="list-group-item"><span id="zhuanRuTotal" class="pull-right"></span> <span class="label bg-primary">1</span>
+                                &nbsp;收到总金额</li>
+                            <li class="list-group-item"><span id="zhuanRuCount" class="pull-right"></span> <span class="label bg-info">2</span>
+                                &nbsp;收到总笔数</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default table-responsive clear">
+            <header class=" panel-heading text-right bg-light clear" style="background-color: #fff !important">
+                <ul class="nav nav-tabs pull-left clear">
+                    <li class="active"><a href="#this"><i class="fa fa-exchange text-primary"></i>&nbsp;<span class="text-primary">贷款</span></a></li>
+                </ul>
+            </header>
+            <div id="FKD" class="col-sm-4" style="margin-top: 15px">
+                <div class="panel panel-default table-responsive">
+                    <header class="panel-heading clear"> 贷款放款</header>
+                    <div class="panel-body" style="padding: 0px">
+                        <div hidden id="fangKuanDiv" style="height: 240px;"></div>
+                        <ul id="fangKuanUl" class="list-group no-radius">
+                            <li class="list-group-item"><span id="fangKuanTotal" class="pull-right"></span> <span class="label bg-primary">1</span>
+                                    &nbsp;贷款放款总金额</li>
+                            <li class="list-group-item"><span id="fangKuanCount" class="pull-right"></span> <span
+                                    class="label bg-success">2</span> &nbsp;贷款放款总笔数</li>
+                            <li class="list-group-item year"><span id="fangKuanBalance" class="pull-right"></span> <span
+                                    class="label bg-danger">3</span> &nbsp;截止本年度贷款余额</li>
+                            <li class="list-group-item year"><span id="fangKuanHigh" class="pull-right"></span> <span class="label bg-info">4</span>
+                                    &nbsp;本年度贷款放款最高一笔金额</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div id="HKD" class="col-sm-4" style="margin-top: 15px">
+                <div class="panel panel-default table-responsive">
+                    <header class="panel-heading clear"> 贷款还款</header>
+                    <div class="panel-body" style="padding: 0px">
+                        <div hidden id="huanKuanDiv" style="height: 240px;"></div>
+                        <ul id="huanKuanUl" class="list-group no-radius">
+                            <li class="list-group-item"><span id="huanKuanTotal" class="pull-right"></span> <span class="label bg-primary">1</span>
+                                &nbsp;贷款还款总金额</li>
+                            <li class="list-group-item"><span id="huanKuanCount" class="pull-right"></span> <span class="label bg-info">2</span>
+                                &nbsp;贷款还款总笔数</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 year" style="margin-top: 15px">
+                <div class="panel panel-default table-responsive">
+                    <header class="panel-heading clear"> 申请贷款</header>
+                    <div class="panel-body" style="padding: 0px">
+                        <div hidden id="ShenqingDiv" style="height: 240px;"></div>
+                        <ul id="ShenqingUl" class="list-group no-radius">
+                            <li class="list-group-item year"><span id="ShenqingTotal" class="pull-right"></span> <span class="label bg-primary">1</span>
+                                &nbsp;本年申请贷款总金额</li>
+                            <li class="list-group-item year"><span id="ShenqingCount" class="pull-right"></span> <span class="label bg-info">2</span>
+                                &nbsp;本年申请贷款总笔数</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+
+    </div>
+</section>
+</@layout>
+<script>
+    $(document).ready(function() {
+        var ajaxOption = {
+            url : window.location.href,
+            success : function(data) {
+                if (data.dateType != "year"){
+                    $(".year").hide();
+                    $("#minHeight").removeClass("min-height");
+                    $("#HKD").removeClass("col-sm-4").addClass("col-sm-6");
+                    $("#FKD").removeClass("col-sm-4").addClass("col-sm-6");
+                }
+                $("#user_id").html(data.userBills["user_id"]);
+                //投资
+                var touZi = echarts.init(document.getElementById('touZiDiv'), 'macarons');
+                $("#touZiTotal").html(data.touZiTotal);
+                $("#touZiCount").html(data.touZiCount);
+                $("#touZiBalance").html(data.touZiBalance);
+                $("#touZiHigh").html(data.touZiHigh);
+
+                //存款
+                var cunKuan = echarts.init(document.getElementById('cunKuanDiv'), 'macarons');
+                $("#cunKuanTotal").html(data.cunKuanTotal);
+                $("#cunKuanCount").html(data.cunKuanCount);
+                $("#cunKuanBalance").html(data.cunKuanBalance);
+                $("#cunKuanHigh").html(data.cunKuanHigh);
+
+                //充值
+                var chongZhi = echarts.init(document.getElementById('chongZhiDiv'), 'macarons');
+                $("#chongZhiTotal").html(data.chongZhiTotal);
+                $("#chongZhiCount").html(data.chongZhiCount);
+
+                //缴费
+                var jiaoFei = echarts.init(document.getElementById('jiaoFeiDiv'), 'macarons');
+                $("#jiaoFeiTotal").html(data.jiaoFeiTotal);
+                $("#jiaoFeiCount").html(data.jiaoFeiCount);
+
+                //转出
+                var zhuanChu = echarts.init(document.getElementById('zhuanChuDiv'), 'macarons');
+                $("#zhuanChuTotal").html(data.zhuanChuTotal);
+                $("#zhuanChuCount").html(data.zhuanChuCount);
+                $("#zhuanChuHigh").html(data.zhuanChuHigh);
+
+                //转入
+                var zhuanRu = echarts.init(document.getElementById('zhuanRuDiv'), 'macarons');
+                $("#zhuanRuTotal").html(data.zhuanRuTotal);
+                $("#zhuanRuCount").html(data.zhuanRuCount);
+
+                //贷款放款
+                var fangKuan = echarts.init(document.getElementById('fangKuanDiv'), 'macarons');
+                $("#fangKuanTotal").html(data.fangKuanTotal);
+                $("#fangKuanCount").html(data.fangKuanCount);
+                $("#fangKuanBalance").html(data.daiKuanBalance);
+                $("#fangKuanHigh").html(data.fangKuanHigh);
+
+                //贷款还款
+                var huanKuan = echarts.init(document.getElementById('huanKuanDiv'), 'macarons');
+                $("#huanKuanTotal").html(data.huanKuanTotal);
+                $("#huanKuanCount").html(data.huanKuanCount);
+
+                //申请贷款
+                var shenQing = echarts.init(document.getElementById('shenQingDiv'), 'macarons');
+                $("#shenQingTotal").html(data.shenQingTotal);
+                $("#shenQingCount").html(data.shenQingCount);
+            }
+        };
+        commonAjax(ajaxOption);
+    });
+</script>

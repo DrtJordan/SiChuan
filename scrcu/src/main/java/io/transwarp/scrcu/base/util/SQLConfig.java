@@ -681,6 +681,21 @@ public enum SQLConfig {
     //用户活跃等级
     active_level_day,
 
+    //用户账单
+    portrait_userBills_month,
+    portrait_userBills_quarter,
+    portrait_userBills_years,
+
+    //个人账单
+    user_bills_month,
+    user_bills_quarter,
+    user_bills_years,
+
+    //年度统计余额，最高金额等
+    high_money_years,
+    first_tran_years,
+    tran_balance_years,
+
     // 画像 家庭关系
     portrait_family,
     // 画像 转账关系

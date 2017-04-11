@@ -308,16 +308,73 @@
 		<sql id="sql">insert into bddim.tmp_terminal (label_only, terminal_order, content_name, oper_time, oper_user) values SQL_CONDITION</sql>
 	</sqlGroup>
 
+	<!--用户活跃等级列表-->
 	<sqlGroup name="active_level_day">
 		<sql id="name">用户活跃等级</sql>
 		<sql id="header">用户ID</sql>
-		<sql id="sql">SELECT user_id, dz_grade, task_grade, search_grade, manager_day_grade, favorite_grade, add_friend_grade, cert_grade, login_grade, zaixian_time_grade, comment_grade, all_grade, usr_active_rank FROM bdapp.tp_usr_all_day_grade_orc_int_day SQL_CONDITION limit 1000</sql>
+		<sql id="sql">select user_id, dz_grade, task_grade, search_grade, manager_day_grade, favorite_grade, add_friend_grade, cert_grade, login_grade, zaixian_time_grade, comment_grade, all_grade, usr_active_rank FROM bdapp.tp_usr_all_day_grade_orc_int_day SQL_CONDITION limit 1000</sql>
 	</sqlGroup>
 
+	<!--账单·········start-->
+	<!--用户账单按月统计列表-->
+	<sqlGroup name="portrait_userBills_month">
+		<sql id="name">用户账单按月统计列表</sql>
+		<sql id="header"></sql>
+		<sql id="sql">select user_id, zhuan_chu_amt, zhuan_ru_amt, tou_zi_amt, cun_kuan_amt, shen_daik_amt from bdapp.tp_usr_bill_month_quarter_year_sum_orc_day where stat_prd_cd = '1' SQL_CONDITION limit 1000</sql>
+	</sqlGroup>
+	<!--用户账单按季统计列表-->
+	<sqlGroup name="portrait_userBills_quarter">
+		<sql id="name">用户账单按季统计列表</sql>
+		<sql id="header"></sql>
+		<sql id="sql">select user_id, zhuan_chu_amt, zhuan_ru_amt, tou_zi_amt, cun_kuan_amt, shen_daik_amt from bdapp.tp_usr_bill_month_quarter_year_sum_orc_day where stat_prd_cd = '2' SQL_CONDITION limit 1000</sql>
+	</sqlGroup>
+	<!--用户账单按年统计列表-->
+	<sqlGroup name="portrait_userBills_years">
+		<sql id="name">用户账单按年统计列表</sql>
+		<sql id="header"></sql>
+		<sql id="sql">select user_id, zhuan_chu_amt, zhuan_ru_amt, tou_zi_amt, cun_kuan_amt, shen_daik_amt from bdapp.tp_usr_bill_month_quarter_year_sum_orc_day where stat_prd_cd = '3' SQL_CONDITION limit 1000</sql>
+	</sqlGroup>
 
+	<!--按月统计个人账单-->
+	<sqlGroup name="user_bills_month">
+		<sql id="name">按月统计个人账单</sql>
+		<sql id="header"></sql>
+		<sql id="sql">select user_id, zhuan_chu_amt, zhuan_ru_amt, tou_zi_amt, cun_kuan_amt, shen_daik_amt, daik_f_amt, daik_h_amt, shouj_chong_amt, jiao_f_amt, zhuan_chu_cnt, zhuan_ru_cnt, tou_zi_cnt, cun_kuan_cnt, shen_daik_cnt, daik_f_cnt, daik_h_cnt, shouj_chong_cnt, jiao_f_cnt, tianj_you_cnt, deng_lu_cnt, data_dt, trans_year, trans_quarter, trans_month from bdapp.tp_usr_bill_month_quarter_year_sum_orc_day where stat_prd_cd = '1'</sql>
+	</sqlGroup>
 
+	<!--按季统计个人账单-->
+	<sqlGroup name="user_bills_quarter">
+		<sql id="name">按季统计个人账单</sql>
+		<sql id="header"></sql>
+		<sql id="sql">select user_id, zhuan_chu_amt, zhuan_ru_amt, tou_zi_amt, cun_kuan_amt, shen_daik_amt, daik_f_amt, daik_h_amt, shouj_chong_amt, jiao_f_amt, zhuan_chu_cnt, zhuan_ru_cnt, tou_zi_cnt, cun_kuan_cnt, shen_daik_cnt, daik_f_cnt, daik_h_cnt, shouj_chong_cnt, jiao_f_cnt, tianj_you_cnt, deng_lu_cnt, data_dt, trans_year, trans_quarter, trans_month from bdapp.tp_usr_bill_month_quarter_year_sum_orc_day where stat_prd_cd = '2'</sql>
+	</sqlGroup>
 
+	<!--按年统计个人账单-->
+	<sqlGroup name="user_bills_years">
+		<sql id="name">按年统计个人账单</sql>
+		<sql id="header"></sql>
+		<sql id="sql">select user_id, zhuan_chu_amt, zhuan_ru_amt, tou_zi_amt, cun_kuan_amt, shen_daik_amt, daik_f_amt, daik_h_amt, shouj_chong_amt, jiao_f_amt, zhuan_chu_cnt, zhuan_ru_cnt, tou_zi_cnt, cun_kuan_cnt, shen_daik_cnt, daik_f_cnt, daik_h_cnt, shouj_chong_cnt, jiao_f_cnt, tianj_you_cnt, deng_lu_cnt, data_dt, trans_year, trans_quarter, trans_month from bdapp.tp_usr_bill_month_quarter_year_sum_orc_day where stat_prd_cd = '3'</sql>
+	</sqlGroup>
 
+	<sqlGroup name="high_money_years">
+		<sql id="name">本年度转出最高一笔金额</sql>
+		<sql id="header"></sql>
+		<sql id="sql">select user_id, zhuan_chu_amt, tou_zi_amt, cun_kuan_amt, shen_daik_amt, daik_f_amt, daik_h_amt, shouj_chong_amt, jiao_f_amt, zhuan_chu_time, tou_zi_time, cun_kuan_time, shen_daik_time, daik_f_time, daik_h_time, shouj_chong_time, jiao_f_time, trans_year, data_dt from bdapp.tp_usr_bill_first_highest_remain_orc_day where trans_descr_code = '1'</sql>
+	</sqlGroup>
+
+	<sqlGroup name="first_tran_years">
+		<sql id="name">第一次交易</sql>
+		<sql id="header"></sql>
+		<sql id="sql">select user_id, zhuan_chu_amt, tou_zi_amt, cun_kuan_amt, shen_daik_amt, daik_f_amt, daik_h_amt, shouj_chong_amt, jiao_f_amt, zhuan_chu_time, tou_zi_time, cun_kuan_time, shen_daik_time, daik_f_time, daik_h_time, shouj_chong_time, jiao_f_time, deng_lu_time, tianj_you_time, trans_year, data_dt from bdapp.tp_usr_bill_first_highest_remain_orc_day where trans_descr_code = '2'</sql>
+	</sqlGroup>
+
+	<sqlGroup name="tran_balance_years">
+		<sql id="name">截止本年度交易余额</sql>
+		<sql id="header"></sql>
+		<sql id="sql">select user_id, daik_ye_amt, touzi_ye_amt, cunk_ye_amt, trans_year, data_dt from bdapp.tp_usr_bill_first_highest_remain_orc_day where trans_descr_code = '3'</sql>
+	</sqlGroup>
+
+	<!--账单·········end-->
 
 
 	<!-- 转账关系 条件userid和时间 -->

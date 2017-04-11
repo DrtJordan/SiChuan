@@ -32,6 +32,13 @@ public class PortraitController extends BaseController {
     public static Map<String, Map<String, Object>> allTagMap = new HashMap<>();
 
     /**
+     * 获取用户等级
+     */
+    public String getLevelCondition() {
+        return " where inn_org_lvl_cd >= " + getSessionAttr("banklevel");
+    }
+
+    /**
      * 用户画像标签首页
      */
     @SuppressWarnings("unchecked")
@@ -267,70 +274,6 @@ public class PortraitController extends BaseController {
     }
 
     /**
-     * 用户明细
-     */
-    public void groupUserList() {
-        keepPara("code", "total_assets_from", "total_assets_to", "total_debt_from", "total_debt_to");
-
-        String code = getPara("code");
-        String total_assets_from = getPara("total_assets_from");
-        String total_assets_to = getPara("total_assets_to");
-        String total_debt_from = getPara("total_debt_from");
-        String total_debt_to = getPara("total_debt_to");
-
-        if (StringUtils.isNotBlank(code)) {
-            String[] codes = code.substring(0, code.length() - 1).split(",");
-            List<Map<String, Object>> tagList = new ArrayList<Map<String, Object>>();
-            for (String c : codes) {
-                tagList.add(allUserTagMap.get(c));
-            }
-            setAttr("tagList", tagList);
-        }
-        setAttr("total_assets_from", total_assets_from);
-        setAttr("total_assets_to", total_assets_to);
-        setAttr("total_debt_from", total_debt_from);
-        setAttr("total_debt_to", total_debt_to);
-
-    }
-
-    /**
-     * 根据条件检索用户
-     */
-    public void userSearch() {
-        if (BaseUtils.isAjax(getRequest())) {
-            StringBuffer condition = new StringBuffer();
-            // 条件
-            String query = getRequest().getParameter("data");
-            if (StringUtils.isNotBlank(query)) {
-                condition.append(" and " + query);
-            }
-            condition.append(" limit 1000");
-            // 执行查询
-            List<List<String>> data = InceptorUtil
-                    .query(SqlKit.propSQL(SQLConfig.users) + getLevelCondition() + condition, 20, false);
-
-            for (List<String> list : data) {
-                list.add("<a class='btn btn-rounded btn-sm btn-icon btn-primary' href='/portrait/userPortrait?userid="
-                        + list.get(0) + "'><i class='fa fa-user'></i></a>");
-            }
-            // 返回结果
-            JSONObject result = new JSONObject();
-            result.put("data", data);
-            renderJson(result);
-        }
-    }
-
-    /**
-     * 获取用户等级
-     *
-     * @return
-     */
-    public String getLevelCondition() {
-        return " where inn_org_lvl_cd >= " + getSessionAttr("banklevel");
-    }
-
-
-    /**
      * 获取标签墙列表
      */
     @RequiresPermissions("/portrait/tags")
@@ -366,28 +309,6 @@ public class PortraitController extends BaseController {
             }
             renderJson("tagMap", m);
         }
-    }
-
-    /**
-     * 获取检索标签的列表
-     */
-    @RequiresPermissions("/portrait/groupTagList")
-    public void groupTagList() {
-        List<List<Tag>> groupList = CacheKit.get("inceptor", "groupList");
-        if (groupList == null) {
-            groupList = new ArrayList<List<Tag>>();
-            CacheKit.put("inceptor", "groupList", groupList);
-        }
-        /* 标签检索列表历史去重
-        for (int i = 0; i < groupList.size() - 1; i++) {
-            for (int j = groupList.size() - 1; j > i; j--) {
-                if (groupList.get(j).equals(groupList.get(i))) {
-                    groupList.remove(j);
-                }
-            }
-        }
-        */
-        setAttr("groupList", groupList);
     }
 
     /**
@@ -543,13 +464,83 @@ public class PortraitController extends BaseController {
     }
 
     /**
+     * 获取检索标签的列表
+     */
+    @RequiresPermissions("/portrait/groupTagList")
+    public void groupTagList() {
+        List<List<Tag>> groupList = CacheKit.get("inceptor", "groupList");
+        if (groupList == null) {
+            groupList = new ArrayList<List<Tag>>();
+            CacheKit.put("inceptor", "groupList", groupList);
+        }
+        /* 标签检索列表历史去重
+        for (int i = 0; i < groupList.size() - 1; i++) {
+            for (int j = groupList.size() - 1; j > i; j--) {
+                if (groupList.get(j).equals(groupList.get(i))) {
+                    groupList.remove(j);
+                }
+            }
+        }
+        */
+        setAttr("groupList", groupList);
+    }
+
+    /**
+     * 个人画像列表
+     */
+    public void groupUserList() {
+        keepPara("code", "total_assets_from", "total_assets_to", "total_debt_from", "total_debt_to");
+
+        String code = getPara("code");
+        String total_assets_from = getPara("total_assets_from");
+        String total_assets_to = getPara("total_assets_to");
+        String total_debt_from = getPara("total_debt_from");
+        String total_debt_to = getPara("total_debt_to");
+
+        if (StringUtils.isNotBlank(code)) {
+            String[] codes = code.substring(0, code.length() - 1).split(",");
+            List<Map<String, Object>> tagList = new ArrayList<Map<String, Object>>();
+            for (String c : codes) {
+                tagList.add(allUserTagMap.get(c));
+            }
+            setAttr("tagList", tagList);
+        }
+        setAttr("total_assets_from", total_assets_from);
+        setAttr("total_assets_to", total_assets_to);
+        setAttr("total_debt_from", total_debt_from);
+        setAttr("total_debt_to", total_debt_to);
+
+    }
+
+    /**
+     * 根据条件检索用户
+     */
+    public void userSearch() {
+        if (BaseUtils.isAjax(getRequest())) {
+            StringBuffer condition = new StringBuffer();
+            // 条件
+            String query = getRequest().getParameter("data");
+            if (StringUtils.isNotBlank(query)) {
+                condition.append(" and " + query);
+            }
+            condition.append(" limit 1000");
+            // 执行查询
+            List<List<String>> data = InceptorUtil
+                    .query(SqlKit.propSQL(SQLConfig.users) + getLevelCondition() + condition, 20, false);
+
+            for (List<String> list : data) {
+                list.add("<a class='btn btn-rounded btn-sm btn-icon btn-primary' href='/portrait/userPortrait?userId="
+                        + list.get(0) + "'><i class='fa fa-user'></i></a>");
+            }
+            // 返回结果
+            JSONObject result = new JSONObject();
+            result.put("data", data);
+            renderJson(result);
+        }
+    }
+
+    /**
      * 返回检索标签结果的简单描述
-     *
-     * @param tags
-     * @param codes
-     * @param have
-     * @param count
-     * @return
      */
     public String genString(List<Map<String, Object>> tags, String[] codes, int have, int count) {
 
@@ -646,14 +637,14 @@ public class PortraitController extends BaseController {
     @RequiresPermissions("/portrait/userPortrait")
     public void userPortrait() {
         JSONObject result = new JSONObject();
-        String userid = getPara("userid");
+        String userId = getPara("userId");
         Map<String, Object> user = null;
-        if (StringUtils.isBlank(userid)) {
+        if (StringUtils.isBlank(userId)) {
             redirect("/portrait/groupUserList");
         } else {
             List<Map<String, Object>> userLable = InceptorUtil
                     .mapQuery(SqlKit.propSQL(SQLConfig.portal_userLabel.toString()) + getLevelCondition()
-                            + " and  user_id ='" + userid + "'", false);
+                            + " and  user_id ='" + userId + "'", false);
             if (userLable != null && userLable.size() > 0) {
                 user = userLable.get(0);
             } else {
@@ -663,9 +654,9 @@ public class PortraitController extends BaseController {
         if (user != null && BaseUtils.isAjax(getRequest())) {
             result.put("userTags", user);
             // 调用交易偏好
-            tradepreference(userid, result);
+            tradepreference(userId, result);
             // 调用人际关系
-            relation(userid, result);
+            relation(userId, result);
             renderJson(result);
 
         }
@@ -675,10 +666,10 @@ public class PortraitController extends BaseController {
     /**
      * 交易偏好方法
      */
-    public void tradepreference(String userid, JSONObject result) {
+    public void tradepreference(String userId, JSONObject result) {
         // 查询交易历史表,获取本月交易次数/交易金额总和
         List<Map<String, Object>> data = InceptorUtil.mapQuery(
-                SqlKit.propSQL(SQLConfig.portrait_trading.toString()) + " where user_id= '" + userid + "'", true);
+                SqlKit.propSQL(SQLConfig.portrait_trading.toString()) + " where user_id= '" + userId + "'", true);
         List<Object> xAxisListCount = new ArrayList<Object>();
         List<Object> xAxisList = new ArrayList<Object>();
         // 雷达图计算各类型次数占比
@@ -751,10 +742,10 @@ public class PortraitController extends BaseController {
     /**
      * 人际关系
      */
-    public void relation(String userid, JSONObject result) {
+    public void relation(String userId, JSONObject result) {
         // 查询人员支出
         List<Map<String, Object>> dataPay = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.portrait_relation.toString())
-                + " where user_id= '" + userid + "' or receive_id= '" + userid + "'", true);
+                + " where user_id= '" + userId + "' or receive_id= '" + userId + "'", true);
         // 查询人员收入
         List<Object> pay = new ArrayList<Object>();
         List<Object> receive = new ArrayList<Object>();
@@ -762,10 +753,10 @@ public class PortraitController extends BaseController {
         if (dataPay != null) {
             for (int i = 0; i < dataPay.size(); i++) {
                 Map para = dataPay.get(i);
-                if (userid.equals(para.get("user_id").toString())) {
+                if (userId.equals(para.get("user_id").toString())) {
                     pay.add(para.get("receive_name"));
                     name = para.get("pay_name").toString();
-                } else if (userid.equals(para.get("receive_id").toString())) {
+                } else if (userId.equals(para.get("receive_id").toString())) {
                     receive.add(para.get("pay_name"));
                 }
             }
@@ -773,7 +764,7 @@ public class PortraitController extends BaseController {
         result.put("relation", ChartUtils.getForce(name, pay, receive));
         // 类别信息
         List<Map<String, Object>> datatransfer = InceptorUtil.mapQuery(
-                SqlKit.propSQL(SQLConfig.portrait_relation_group.toString()) + " where user_id= '" + userid + "'",
+                SqlKit.propSQL(SQLConfig.portrait_relation_group.toString()) + " where user_id= '" + userId + "'",
                 true);
         if (datatransfer != null) {
             for (int i = 0; i < datatransfer.size(); i++) {
@@ -785,4 +776,137 @@ public class PortraitController extends BaseController {
         }
     }
 
+    /**
+     * 用户账单列表
+     */
+    public void userBillList(){
+        if (BaseUtils.isAjax(getRequest())) {
+            // 得到时间查询条件
+            StringBuffer condition = new StringBuffer();
+            // 条件
+            String dateType = getPara("dateType");
+            String param = getPara("param");
+            if (StringUtils.isNotBlank(param)) {
+                condition.append(" and user_id = " + "'" + param + "' ");
+            }
+            List<List<String>> userBillData = new ArrayList<>();
+            // 执行查询
+            if (dateType != null){
+                if (dateType.equals("month")) {
+                    userBillData = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portrait_userBills_month, condition.toString()), false);
+                }
+                if (dateType.equals("quarter")) {
+                    userBillData = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portrait_userBills_quarter, condition.toString()), false);
+                }
+                if (dateType.equals("year")) {
+                    userBillData = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portrait_userBills_years, condition.toString()), false);
+                }
+            }
+
+            for (List<String> list : userBillData) {
+                list.add("<a class='btn btn-rounded btn-sm btn-icon btn-primary' href='/portrait/userBill?dateType="+ dateType +"&userId="
+                        + list.get(0) + "'><i class='fa fa-money'></i></a>");
+            }
+            JSONObject listResult = new JSONObject();
+            listResult.put("userBillData", userBillData);
+            renderJson(listResult);
+        }
+    }
+
+    /**
+     * 账单查询
+     */
+    @RequiresPermissions("/portrait/userBill")
+    public void userBill(){
+        JSONObject result = new JSONObject();
+        String userId = getPara("userId");
+        String dateType = getPara("dateType");
+        Map<String, Object> bill = null;
+        List<Map<String, Object>> userBill = new ArrayList<>();
+        List<Map<String, Object>> highMoney = new ArrayList<>();
+        List<Map<String, Object>> firstTran = new ArrayList<>();
+        List<Map<String, Object>> tranBalance = new ArrayList<>();
+        if (StringUtils.isBlank(userId)) {
+            redirect("/portrait/userBillList");
+        } else {
+            if (dateType != null){
+                if (dateType.equals("month")) {
+                    userBill = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.user_bills_month.toString()) + " and  user_id ='" + userId + "'", false);
+                }
+                if (dateType.equals("quarter")) {
+                    userBill = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.user_bills_quarter.toString()) + " and  user_id ='" + userId + "'", false);
+                }
+                if (dateType.equals("year")) {
+                    userBill = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.user_bills_years.toString()) + " and  user_id ='" + userId + "'", false);
+                    highMoney = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.high_money_years.toString()) + " and  user_id ='" + userId + "'", false);
+                    firstTran = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.first_tran_years.toString()) + " and  user_id ='" + userId + "'", false);
+                    tranBalance = InceptorUtil.mapQuery(SqlKit.propSQL(SQLConfig.tran_balance_years.toString()) + " and  user_id ='" + userId + "'", false);
+                }
+            }
+            if (userBill != null && userBill.size() > 0) {
+                bill = userBill.get(0);
+            } else {
+                redirect("/portrait/userBillList");
+            }
+        }
+
+        if (bill != null && BaseUtils.isAjax(getRequest())) {
+            result.put("dateType", dateType);
+            //投资
+            result.put("touZiTotal", bill.get("tou_zi_amt"));
+            result.put("touZiCount", bill.get("tou_zi_cnt"));
+            //存款
+            result.put("cunKuanTotal", bill.get("cun_kuan_amt"));
+            result.put("cunKuanCount", bill.get("cun_kuan_cnt"));
+            //充值
+            result.put("chongZhiTotal", bill.get("shouj_chong_amt"));
+            result.put("chongZhiCount", bill.get("shouj_chong_cnt"));
+            //缴费
+            result.put("jiaoFeiTotal", bill.get("jiao_f_amt"));
+            result.put("jiaoFeiCount", bill.get("jiao_f_cnt"));
+            //转出
+            result.put("zhuanChuTotal", bill.get("zhuan_ru_amt"));
+            result.put("zhuanChuCount", bill.get("zhuan_ru_cnt"));
+            //转入
+            result.put("zhuanRuTotal", bill.get("zhuan_chu_amt"));
+            result.put("zhuanRuCount", bill.get("zhuan_chu_cnt"));
+            //贷款放款
+            result.put("fangKuanTotal", bill.get("daik_f_amt"));
+            result.put("fangKuanCount", bill.get("daik_f_cnt"));
+            //贷款还款
+            result.put("huanKuanTotal", bill.get("daik_h_amt"));
+            result.put("huanKuanCount", bill.get("daik_h_cnt"));
+
+            if (dateType.equals("year")){
+                //投资
+                result.put("touZiHigh", highMoney.get(0).get("tou_zi_amt"));
+                result.put("touZiTime", firstTran.get(0).get("tou_zi_time"));
+                //存款
+                result.put("cunKuanHigh", highMoney.get(0).get("cun_kuan_amt"));
+                result.put("cunKuanTime", firstTran.get(0).get("cun_kuan_time"));
+                //转出
+                result.put("zhuanChuHigh", highMoney.get(0).get("zhuan_chu_amt"));
+                //申请贷款
+                result.put("shenQingTotal", bill.get("shen_daik_amt"));
+                result.put("shenQingCount", bill.get("shen_daik_cnt"));
+                result.put("shenQingTime", firstTran.get(0).get("shen_daik_time"));
+                //贷款放款
+                result.put("fangKuanHigh", highMoney.get(0).get("daik_f_amt"));
+                result.put("fangKuanTime", firstTran.get(0).get("daik_f_time"));
+
+                if (tranBalance.size() != 0){
+                    result.put("daiKuanBalance", tranBalance.get(0).get("daik_ye_amt"));
+                    result.put("cunKuanBalance", tranBalance.get(0).get("cunk_ye_amt"));
+                    result.put("touZiBalance", tranBalance.get(0).get("touzi_ye_amt"));
+                }else {
+                    result.put("daiKuanBalance", "0");
+                    result.put("cunKuanBalance", "0");
+                    result.put("touZiBalance", "0");
+                }
+            }
+            result.put("userBills", bill);
+            renderJson(result);
+
+        }
+    }
 }
