@@ -7,10 +7,16 @@
     </ul>
 </div>
 <section id="content">
+    <#include "/common/_dateQuery.html"/>
+
     <div style="margin: -20px -30px 30px -30px; background: #E0EAEC; padding-top: 20px">
         <div id="provincediv" style="height: 400px; margin: 0px 30px 0px 30px;"></div>
     </div>
-    <#include "/common/_dateQuery.html"/>
+
+    <div class="clear">
+        <hr/>
+    </div>
+
     <div class="panel panel-default">
         <header class="panel-heading">
             <i class="fa-map-marker fa"></i>&nbsp;地域分布<span class="hidden-sm pull-right">
@@ -25,6 +31,7 @@
                 <thead>
                 <tr>
                     <th class="w-2">城市</th>
+                    <th class="w-4">日期</th>
                     <th class="w-2">访客</th>
                     <th class="w-3">UV占比</th>
                     <th class="w-2">PV</th>
@@ -72,8 +79,9 @@
         tableQuery({
             "aaData": data.areaData
         });
-        chart.setOption($.parseJSON(chartOption));
         csvExport("", dateType);
+
+        chart.setOption($.parseJSON(chartOption));
     }
 
 </script>

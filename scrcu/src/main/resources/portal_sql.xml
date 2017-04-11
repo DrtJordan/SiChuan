@@ -178,36 +178,36 @@
 	<!-- 地域分布  start -->
 	<sqlGroup name="portal_siteAnalysis_area_query_day">
 		<sql id="name">地域分布</sql>
-		<sql id="header">城市,访客,UV占比,PV,VV,IP数,新访客,新访客/访客数,平均访问深度,登录,登录/访客数</sql>
-		<sql id="sql">select city, uv, uv_ratio, pv, vv, ip_num, new_vis_num, new_vis_num_div_uv, aver_access_depth, log_usr_num, log_usr_num_div_uv from bdhbs.th_log_web_usr_area_orc_day where SQL_CONDITION cnt_type='99'
+		<sql id="header">城市,日期,访客,UV占比,PV,VV,IP数,新访客,新访客/访客数,平均访问深度,登录,登录/访客数</sql>
+		<sql id="sql">select city, stat_date, uv, uv_ratio, pv, vv, ip_num, new_vis_num, new_vis_num_div_uv, aver_access_depth, log_usr_num, log_usr_num_div_uv from bdhbs.th_log_web_usr_area_orc_day where SQL_CONDITION cnt_type='99'
 		</sql>
 	</sqlGroup>
 
 	<sqlGroup name="portal_siteAnalysis_area_query_month">
 		<sql id="name">地域分布按月汇总</sql>
-		<sql id="header">城市,访客,UV占比,PV,VV,IP数,新访客,新访客/访客数,平均访问深度,登录,登录/访客数</sql>
-		<sql id="sql">select city, uv, uv_ratio, pv, vv, ip_num, new_vis_num, new_vis_num_div_uv, aver_access_depth, log_usr_num, log_usr_num_div_uv from bdhbs.th_log_web_usr_area_orc_sum_day where SQL_CONDITION cnt_type='2'
+		<sql id="header">城市,日期,访客,UV占比,PV,VV,IP数,新访客,新访客/访客数,平均访问深度,登录,登录/访客数</sql>
+		<sql id="sql">select city, stat_date, uv, uv_ratio, pv, vv, ip_num, new_vis_num, new_vis_num_div_uv, aver_access_depth, log_usr_num, log_usr_num_div_uv from bdhbs.th_log_web_usr_area_orc_sum_day where SQL_CONDITION cnt_type='2'
 		</sql>
 	</sqlGroup>
 
 	<sqlGroup name="portal_siteAnalysis_area_query_quarter">
 		<sql id="name">地域分布按季汇总</sql>
-		<sql id="header">城市,访客,UV占比,PV,VV,IP数,新访客,新访客/访客数,平均访问深度,登录,登录/访客数</sql>
-		<sql id="sql">select city, uv, uv_ratio, pv, vv, ip_num, new_vis_num, new_vis_num_div_uv, aver_access_depth, log_usr_num, log_usr_num_div_uv from bdhbs.th_log_web_usr_area_orc_sum_day where SQL_CONDITION cnt_type='3'
+		<sql id="header">城市,日期,访客,UV占比,PV,VV,IP数,新访客,新访客/访客数,平均访问深度,登录,登录/访客数</sql>
+		<sql id="sql">select city, stat_date, uv, uv_ratio, pv, vv, ip_num, new_vis_num, new_vis_num_div_uv, aver_access_depth, log_usr_num, log_usr_num_div_uv from bdhbs.th_log_web_usr_area_orc_sum_day where SQL_CONDITION cnt_type='3'
 		</sql>
 	</sqlGroup>
 
 	<sqlGroup name="portal_siteAnalysis_area_query_year">
 		<sql id="name">地域分布按年汇总</sql>
-		<sql id="header">城市,访客,UV占比,PV,VV,IP数,新访客,新访客/访客数,平均访问深度,登录,登录/访客数</sql>
-		<sql id="sql">select city, uv, uv_ratio, pv, vv, ip_num, new_vis_num, new_vis_num_div_uv, aver_access_depth, log_usr_num, log_usr_num_div_uv from bdhbs.th_log_web_usr_area_orc_sum_day where SQL_CONDITION cnt_type='4'
+		<sql id="header">城市,日期,访客,UV占比,PV,VV,IP数,新访客,新访客/访客数,平均访问深度,登录,登录/访客数</sql>
+		<sql id="sql">select city, stat_date, uv, uv_ratio, pv, vv, ip_num, new_vis_num, new_vis_num_div_uv, aver_access_depth, log_usr_num, log_usr_num_div_uv from bdhbs.th_log_web_usr_area_orc_sum_day where SQL_CONDITION cnt_type='4'
 		</sql>
 	</sqlGroup>
 
 	<sqlGroup name="portal_siteAnalysis_max_uv">
 		<sql id="name">地域分布访客数最大值</sql>
 		<sql id="header"></sql>
-		<sql id="sql">select max(maxUv) from (select cast(sum(uv) as int) as maxUv from bdhbs.th_log_web_usr_area_orc_day where city != '四川' group by city)
+		<sql id="sql">select max(maxUv) from (select cast(sum(uv) as int) as maxUv from bdhbs.th_log_web_usr_area_orc_day where SQL_CONDITION city != '四川' group by city)
 		</sql>
 	</sqlGroup>
 	<!--地域分布  end -->

@@ -78,7 +78,7 @@ public class AppUserService {
             }
         }
         //定义图例名称
-        Object[] nameList = new Object[]{res.get("app.newAddUser")};
+        Object[] nameList = new Object[]{res.get("app.startUser")};
 
         //返回根据日期生成折线图的图表数据
         result.put("timeCharts", genUserTimeCharts(dateType, ChartType.LINE, dataTime, nameList));

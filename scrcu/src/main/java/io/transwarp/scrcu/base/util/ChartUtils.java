@@ -34,7 +34,7 @@ public class ChartUtils {
         WordCloud wordCloud = new WordCloud(name);
         wordCloud.size("80%", "80%");
         wordCloud.textRotation(0, 45, 90, -45);
-        wordCloud.textPadding(0);
+        wordCloud.textPadding(10);
         wordCloud.setData(dataList);
         option.series(wordCloud);
         return GsonUtil.format(option);
@@ -176,10 +176,10 @@ public class ChartUtils {
     /**
      * 生成首页中多条折线图型数据
      *
-     * @param xAxisList
-     * @param nameList
-     * @param dataList
-     * @return
+     * @param xAxisList x轴
+     * @param nameList  图例名称
+     * @param dataList  数据
+     * @return chart json
      */
     @SuppressWarnings("unchecked")
     public static String genMultiLineChart(List<Object> xAxisList, Object[] nameList, List<Object>... dataList) {
@@ -215,11 +215,11 @@ public class ChartUtils {
     /**
      * 生成app统计的折线图
      *
-     * @param dateType 日期类型：day,week,month,quarter,year
+     * @param dateType  日期类型：day,week,month,quarter,year
      * @param chartType 图表类型： LINE--折线图, BAR--柱状图
      * @param xAxisList X周数据
-     * @param nameList 图例名称
-     * @param dataList 数据列表
+     * @param nameList  图例名称
+     * @param dataList  数据列表
      * @return
      */
     @SuppressWarnings("unchecked")
@@ -380,7 +380,7 @@ public class ChartUtils {
         }
         map.itemStyle().normal().label().show(true);
         map.itemStyle().emphasis().label().show(true);
-        map.setMapType("china");
+        map.setMapType("四川");
         map.setName(name);
 
         option.series(map);
@@ -528,29 +528,11 @@ public class ChartUtils {
         return GsonUtil.format(option);
     }
 
-    public static String genTrends(List<Object> dataList) {
-        EnhancedOption option = new EnhancedOption();
-        option.tooltip().show(true);
-        WordCloud wordCloud = new WordCloud();
-        wordCloud.size("80%", "80%");
-        wordCloud.textRotation(0, 45, 90, -45);
-        wordCloud.textPadding(0);
-        wordCloud.autoSize().enable(true).minSize(14);
-        if (dataList != null) {
-            for (int i = 0; i < dataList.size(); i++) {
-                String teamp = dataList.get(i).toString();
-                WordCloudData data = new WordCloudData();
-                data.setName(teamp);
-                data.setValue(10000);
-                data.itemStyle(new ItemStyle().normal(createRandomItemStyle()));
-                wordCloud.data(data);
-            }
-        }
-        option.series(wordCloud);
-        return GsonUtil.format(option);
-
-    }
-
+    /**
+     * 生成随机颜色样式
+     *
+     * @return 颜色
+     */
     private static Normal createRandomItemStyle() {
         Normal normal = new Normal();
         normal.color("rgb(" + Math.round(Math.random() * 160) + "," + Math.round(Math.random() * 160) + ","
@@ -558,6 +540,13 @@ public class ChartUtils {
         return normal;
     }
 
+    /**
+     * 生成树状图
+     *
+     * @param name
+     * @param dataList
+     * @return
+     */
     public static String genTree(String name, List<String> dataList) {
         EnhancedOption option = new EnhancedOption();
         option.title().text("家庭关系");

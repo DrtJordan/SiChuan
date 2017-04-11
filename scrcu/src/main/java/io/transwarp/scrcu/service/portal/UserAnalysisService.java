@@ -64,20 +64,20 @@ public class UserAnalysisService {
         }
 
         //查询访客数最大值
-        List<List<String>> maxUv = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_max_uv));
+        List<List<String>> maxUv = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_max_uv, condition));
         // 返回结果
         JSONObject result = new JSONObject();
         List<Object> dataList = new ArrayList<>();
         for (List<String> list : areaData) {
             String name = list.get(0).replace(res.get("area.ganZiZhou"), res.get("area.ganZiZhouAll")).replace(res.get("area.aBaZhou"), res.get("area.aBaZhouAll")).replace(res.get("area.liangShanZhou"), res.get("area.liangShanZhouAll"));
             //获取访客数量
-            Data uvValue = new Data(name, list.get(1));
+            Data uvValue = new Data(name, list.get(2));
             dataList.add(uvValue);
         }
 
         //判断地域值域的最大值是否为0
         Integer maxValue = 0;
-        if (maxUv.size() != 0) {
+        if (maxUv.size() != 0 && maxUv.get(0).get(0) != null) {
             maxValue = Integer.valueOf(maxUv.get(0).get(0));
         }
         //生成四川省地域分布图

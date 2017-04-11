@@ -435,7 +435,7 @@ public class InceptorUtil {
     /**
      * 获取查询条件
      *
-     * @param request
+     * @param request 存放请求参数
      * @return
      */
     public static String getQueryCondition(HttpServletRequest request) {
@@ -443,11 +443,11 @@ public class InceptorUtil {
         String end_dt = request.getParameter("end_dt");
         StringBuffer sb = new StringBuffer();
         if (StringUtils.isNotBlank(end_dt) && StringUtils.isNotBlank(start_dt)) {
-            sb.append(" stat_date >= '" + start_dt + "' and stat_date < '" + end_dt + "' and ");
+            sb.append(" stat_date >= '" + start_dt + "' and stat_date <= '" + end_dt + "' and ");
         } else if (StringUtils.isNotBlank(end_dt) && StringUtils.isBlank(start_dt)) {
-            sb.append(" stat_date < '" + end_dt + "' and ");
+            sb.append(" stat_date <= '" + end_dt + "' and ");
         } else if (StringUtils.isNotBlank(start_dt)) {
-            sb.append(" stat_date >= '" + start_dt + "' and ");
+            sb.append(" stat_date = '" + start_dt + "' and ");
         }
         return sb.toString();
     }
@@ -455,7 +455,7 @@ public class InceptorUtil {
     /**
      * 获取导出表格的查询条件
      *
-     * @param queryType
+     * @param queryType 查询条件以及对应类型
      * @return
      */
     public static String getCsvCondition(String queryType) {

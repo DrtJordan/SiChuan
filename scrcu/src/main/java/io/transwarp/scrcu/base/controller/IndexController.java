@@ -160,17 +160,6 @@ public class IndexController extends BaseController {
                 result.put("sum_4", 0);
             }
 
-            /*// 入口页面
-            List<List<String>> landingPage = InceptorUtil.query(
-                    SqlKit.propSQL(SQLConfig.portal_siteAnalysis_entryPage_query_day, condition2) + " limit 5",
-                    5);
-            // 返回结果
-            result.put("landingPage", landingPage);
-            // 页面
-            List<List<String>> visitPage = InceptorUtil
-                    .query(SqlKit.propSQL(SQLConfig.portal_pageRank_day, condition2) + " limit 5", 5);
-            // 返回结果
-            result.put("visitPage", visitPage);*/
             renderJson(result);
         }
     }
@@ -283,8 +272,8 @@ public class IndexController extends BaseController {
         //根据类型生成表格的头部信息
         List<String> headerList = SqlKit.propHeader(type);
         // 执行查询
-        List<List<String>> data_time = InceptorUtil.query(sql);
+        List<List<String>> data = InceptorUtil.query(sql);
         // 导出CSV
-        render(CsvRender.me(headerList, data_time).fileName(getCsvFileName(SqlKit.propName(type))));
+        render(CsvRender.me(headerList, data).fileName(getCsvFileName(SqlKit.propName(type))));
     }
 }
