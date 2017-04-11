@@ -37,48 +37,51 @@ public class UserAnalysisService {
 
         // 执行查询
         List<List<String>> areaData = new ArrayList<>();
+        List<List<String>> areaChart = new ArrayList<>();
         if (dateType != null) {
             if (dateType.equals("day")) {
                 // 执行查询
                 areaData = InceptorUtil
                         .queryCache(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_area_query_day, condition), false);
+                areaChart = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.portal_area_day_chart, condition), false);
             }
 
             if (dateType.equals("month")) {
                 // 执行查询
                 areaData = InceptorUtil
                         .queryCache(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_area_query_month, condition), false);
+                areaChart = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.portal_area_month_chart, condition), false);
             }
 
             if (dateType.equals("quarter")) {
                 // 执行查询
                 areaData = InceptorUtil
                         .queryCache(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_area_query_quarter, condition), false);
+                areaChart = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.portal_area_quarter_chart, condition), false);
             }
 
             if (dateType.equals("year")) {
                 // 执行查询
                 areaData = InceptorUtil
                         .queryCache(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_area_query_year, condition), false);
+                areaChart = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.portal_area_year_chart, condition), false);
             }
         }
 
-        //查询访客数最大值
-        List<List<String>> maxUv = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_max_uv, condition));
         // 返回结果
         JSONObject result = new JSONObject();
         List<Object> dataList = new ArrayList<>();
-        for (List<String> list : areaData) {
+        for (List<String> list : areaChart) {
             String name = list.get(0).replace(res.get("area.ganZiZhou"), res.get("area.ganZiZhouAll")).replace(res.get("area.aBaZhou"), res.get("area.aBaZhouAll")).replace(res.get("area.liangShanZhou"), res.get("area.liangShanZhouAll"));
             //获取访客数量
-            Data uvValue = new Data(name, list.get(2));
+            Data uvValue = new Data(name, list.get(1));
             dataList.add(uvValue);
         }
 
         //判断地域值域的最大值是否为0
         Integer maxValue = 0;
-        if (maxUv.size() != 0 && maxUv.get(0).get(0) != null) {
-            maxValue = Integer.valueOf(maxUv.get(0).get(0));
+        if (areaChart.size() != 0) {
+            maxValue = Integer.valueOf(areaChart.get(0).get(1));
         }
         //生成四川省地域分布图
         String areaMap = ChartUtils.genMapChart(res.get("portal.visitor"), dataList, maxValue);

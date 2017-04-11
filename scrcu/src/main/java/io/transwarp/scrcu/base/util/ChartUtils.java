@@ -380,9 +380,13 @@ public class ChartUtils {
         }
         map.itemStyle().normal().label().show(true);
         map.itemStyle().emphasis().label().show(true);
-        map.setMapType("四川");
+        map.setMapType("china");
+        map.setSelectedMode(SelectedMode.single);
         map.setName(name);
 
+        option.tooltip().formatter("点击进入该省");
+        option.title().text("全国34个省市自治区").x(X.left).y(Y.top);
+        option.title().subtext("china （点击切换）");
         option.series(map);
         return GsonUtil.format(option);
 

@@ -97,6 +97,11 @@ public enum SQLConfig {
     //地域分布 按年汇总
     portal_siteAnalysis_area_query_year,
 
+    portal_area_day_chart,
+    portal_area_month_chart,
+    portal_area_quarter_chart,
+    portal_area_year_chart,
+
     //终端类型 操作系统按天汇总
     portal_terminal_os_day,
     portal_terminal_os_day_chart,
