@@ -380,13 +380,14 @@ public class AppBehaviorService {
      * @param condition 查询条件
      * @return area json
      */
-    public static JSONObject area(String dateType, String condition) {
+    public static JSONObject area(String dateType, String mapType, String condition) {
 
         List<List<String>> dataCharts = new ArrayList<>();
         List<List<String>> dataArea = new ArrayList<>();
         List<List<String>> dataAreaPhone = new ArrayList<>();
         List<List<String>> dataAreaChannel = new ArrayList<>();
         List<List<String>> dataAreaOs = new ArrayList<>();
+        List<List<String>> cityNames = new ArrayList<>();
         JSONObject result = new JSONObject();
 
         if (dateType != null) {
@@ -427,6 +428,12 @@ public class AppBehaviorService {
             }
         }
 
+        if (mapType == null || mapType.equals("china")) {
+            cityNames = InceptorUtil.query(SqlKit.propSQL(SQLConfig.province_name_all));
+        } else {
+            cityNames = InceptorUtil.query(SqlKit.propSQL(SQLConfig.city_name_all));
+        }
+
         // 返回结果
         List<Object> dataList = new ArrayList<>();
         for (List<String> list : dataCharts) {
@@ -442,12 +449,13 @@ public class AppBehaviorService {
             maxValue = Integer.valueOf(dataCharts.get(0).get(1));
         }
         //生成手机移动地域分布数据图
-        String areaMap = ChartUtils.genMapChart(res.get("app.newAddUser"), dataList, maxValue);
+        String areaMap = ChartUtils.genMapChart(res.get("app.newAddUser"), mapType, dataList, maxValue);
         result.put("chartOption", areaMap);
         result.put("data", dataArea);
         result.put("dataAreaChannel", dataAreaChannel);
         result.put("dataAreaPhone", dataAreaPhone);
         result.put("dataAreaOs", dataAreaOs);
+        result.put("cityNames", cityNames);
 
         return result;
     }

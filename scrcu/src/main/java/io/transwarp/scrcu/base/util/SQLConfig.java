@@ -1,6 +1,11 @@
 package io.transwarp.scrcu.base.util;
 
 public enum SQLConfig {
+
+    //获取中国所有省、直辖市、自治区
+    province_name_all,
+    //四川省所有市
+    city_name_all,
     // 图
     portal_chart,
     // 概览
@@ -8,8 +13,7 @@ public enum SQLConfig {
     // 门户网站分析 页面排行
     //实时
     portal_siteAnalysis_real,
-    // 用户统计，地域分布 访客数最大值
-    portal_siteAnalysis_max_uv,
+
     // 门户 事件统计 事件明细
     portal_eventAnalysis_detail_day,
     // 门户 事件统计 事件趋势
@@ -524,8 +528,6 @@ public enum SQLConfig {
     app_area_month_chart,
     app_area_quarter_chart,
     app_area_year_chart,
-    // app地域分布访客数最大值
-    app_area_max_uv,
 
     // 移动 渠道启动次数按天汇总
     app_startCount_channel_day,

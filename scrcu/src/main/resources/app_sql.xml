@@ -2107,7 +2107,7 @@
         <sql id="name">地域分布按天汇总地图数据</sql>
         <sql id="header">城市,访客</sql>
         <sql id="sql">select city_id, sum(new_usr_cnt) as new_usr_cnt from
-            bdhbs.th_log_app_usr_area_orc_day where SQL_CONDITION city_id!='未知' AND cnt_type='99'
+            bdhbs.th_log_app_usr_area_orc_day where SQL_CONDITION city_id!='未知' and city_id!='中国' AND cnt_type='99'
             group by city_id order by new_usr_cnt desc
         </sql>
     </sqlGroup>
@@ -2116,7 +2116,7 @@
         <sql id="name">地域分布按周汇总地图数据</sql>
         <sql id="header">城市,访客</sql>
         <sql id="sql">select city_id, sum(new_usr_cnt) as new_usr_cnt from
-            bdhbs.th_log_app_usr_area_chl_orc_sum_day where SQL_CONDITION city_id!='未知' AND city_id !=
+            bdhbs.th_log_app_usr_area_chl_orc_sum_day where SQL_CONDITION city_id!='未知' and city_id!='中国' AND city_id !=
             '999' AND cnt_type='1' group by city_id order by new_usr_cnt desc
         </sql>
     </sqlGroup>
@@ -2125,7 +2125,7 @@
         <sql id="name">地域分布按月汇总地图数据</sql>
         <sql id="header">城市,访客</sql>
         <sql id="sql">select city_id, sum(new_usr_cnt) as new_usr_cnt from
-            bdhbs.th_log_app_usr_area_chl_orc_sum_day where SQL_CONDITION and city_id!='未知' AND city_id !=
+            bdhbs.th_log_app_usr_area_chl_orc_sum_day where SQL_CONDITION and city_id!='未知' and city_id!='中国' AND city_id !=
             '999' AND cnt_type='2' group by city_id order by new_usr_cnt desc
         </sql>
     </sqlGroup>
@@ -2134,7 +2134,7 @@
         <sql id="name">地域分布按季汇总地图数据</sql>
         <sql id="header">城市,访客</sql>
         <sql id="sql">select city_id, sum(new_usr_cnt) as new_usr_cnt from
-            bdhbs.th_log_app_usr_area_chl_orc_sum_day where SQL_CONDITION city_id!='未知' AND city_id !=
+            bdhbs.th_log_app_usr_area_chl_orc_sum_day where SQL_CONDITION city_id!='未知' and city_id!='中国' AND city_id !=
             '999' AND cnt_type='3' group by city_id order by new_usr_cnt desc
         </sql>
     </sqlGroup>
@@ -2143,18 +2143,10 @@
         <sql id="name">地域分布按年汇总地图数据</sql>
         <sql id="header">城市,访客</sql>
         <sql id="sql">select city_id, sum(new_usr_cnt) as new_usr_cnt from
-            bdhbs.th_log_app_usr_area_chl_orc_sum_day where SQL_CONDITION city_id!='四川' and city_id!='未知' AND city_id !=
+            bdhbs.th_log_app_usr_area_chl_orc_sum_day where SQL_CONDITION city_id!='中国' and city_id!='未知' AND city_id !=
             '999' AND cnt_type='4' group by city_id order by new_usr_cnt desc
         </sql>
     </sqlGroup>
-
-    <!--<sqlGroup name="app_area_day_max_uv">
-        <sql id="name">APP用户地域分布新增用户数最大值</sql>
-        <sql id="header">新增用户数</sql>
-        <sql id="sql">select max(new_usr_cnt) from (select sum(new_usr_cnt) as new_usr_cnt from
-            bdhbs.th_log_app_usr_area_orc_day where city_id != '四川' and city_id != '未知' and cnt_type='99' group by city_id)
-        </sql>
-    </sqlGroup>-->
 
     <!-- 会员页面start -->
     <!--app会员页面按天汇总-->

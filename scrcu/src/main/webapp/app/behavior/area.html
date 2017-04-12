@@ -105,34 +105,30 @@
 <script>
 	function dataTableExchange(data, dateType) {
 
-	    var chart = echarts.init(document.getElementById('provinceDiv'), 'macarons');
-		var chartOption = data.chartOption;
-        var option = $.parseJSON(chartOption);
-
         tableQuery({
 			"aaData": data.data,
 			"id": "#table1",
 			"order": [[2, "desc"]],
 			"sDom": "<'row'<'col-sm-6'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
 			initComplete: function () {
+
 				var api = this.api();
 				var column = api.column(1);
 				var select = $('<div id="select" class="col-sm-6"><div class="dataTables_filter"><label><i class="fa fa-search">&nbsp;城市&nbsp;</i><select name="optValue" style="width: 120px"><option value="">--请选择--</option></select></label></div></div>')
 						.appendTo($("#table1_wrapper div:first"))
 						.on('change', function () {
 							var selectValues = new Array();
-							var val = $.fn.dataTable.util.escapeRegex(
-									$("#table1_wrapper div:first div#select select").val()
-							);
-							column
-									.search(val ? '^' + val + '$' : '', true, false)
-									.draw();
+							var val = $.fn.dataTable.util.escapeRegex($("#table1_wrapper div:first div#select select").val());
+							column.search(val ? '^' + val + '$' : '', true, false).draw();
 							selectValues.push("city_id:" + val);
 							csvExport(selectValues, dateType);
 						});
-				column.data().unique().sort().each(function (d, j) {
-					$(" #table1_wrapper div#select select").append('<option value="' + d + '">' + d + '</option>')
-				});
+
+				//加载城市或者省份名称
+                for(var g = 0; g< data.cityNames.length; g++){
+                    $("#table1_wrapper div#select select").append('<option value="' + data.cityNames[g][0] + '">' + data.cityNames[g][0] + '</option>');
+                }
+
 			}
 		});
 
@@ -145,16 +141,48 @@
 				var api = this.api();
 				var selectValues = new Array();
 				api.columns().indexes().flatten().each(function (i) {
-					var filterName = "城市";
-					var name = "city_id";
-					if (i == 1 || i == 3) {
-						if (i == 3) {
+                    var column = api.column( i );
+                    var filterName = "城市";
+                    var name = "city_id";
+                    if (i == 1 || i == 3) {
+                        if (i == 3) {
                             filterName = "版本";
-							name = "app_version";
+                            name = "app_version";
+                        }
+
+                        var value = "#table2_wrapper div:first div#select" + i + " select";
+                        var selectValue = "#table2_wrapper div#select" + i + " select";
+
+                        var select = $('<div id="select' + i + '" class="col-sm-4"><div class="dataTables_filter"><label><i class="fa fa-search">&nbsp;' + filterName + '&nbsp;</i><select name="optValue" style="width: 120px"><option value="">--请选择--</option></select></label></div></div>')
+                            .appendTo($("#table2_wrapper div:first"))
+                            .on('change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(value).val()
+                                );
+
+                                for (var n = 0; n < selectValues.length; n++) {
+                                    if (selectValues[n].includes(name)) {
+                                        selectValues.splice(n, 1);
+                                    }
+                                }
+                                selectValues.push(name + ':' + val);
+                                column.search(val ? '^' + val + '$' : '', true, false).draw();
+                                csvExport(selectValues, dateType);
+                            });
+
+						if (i == 3) {
+                            column.data().unique().sort().each(function (d, j) {
+                                $(selectValue).append('<option value="' + d + '">' + d + '</option>')
+                            });
 						}
-						var column = api.column(i);
-						conditionSearch(i, filterName, name, 2, selectValues, column, dateType);
-					}
+						if (i ==1) {
+                            //加载城市或者省份名称
+                            for(var g = 0; g< data.cityNames.length; g++){
+                                $(selectValue).append('<option value="' + data.cityNames[g][0] + '">' + data.cityNames[g][0] + '</option>');
+                            }
+						}
+                    }
+
 				});
 			}
 		});
@@ -168,6 +196,7 @@
 				var api = this.api();
 				var selectValues = new Array();
 				api.columns().indexes().flatten().each(function (i) {
+                    var column = api.column( i );
 					var filterName = "城市";
                     var name = "city_id";
 					if (i == 1 || i == 3) {
@@ -175,9 +204,39 @@
                             filterName = "渠道";
                             name = "07";
 						}
-						var column = api.column(i);
-						conditionSearch(i, filterName, name, 3, selectValues, column, dateType);
-					}
+                        var value = "#table3_wrapper div:first div#select" + i + " select";
+                        var selectValue = "#table3_wrapper div#select" + i + " select";
+
+                        var select = $('<div id="select' + i + '" class="col-sm-4"><div class="dataTables_filter"><label><i class="fa fa-search">&nbsp;' + filterName + '&nbsp;</i><select name="optValue" style="width: 120px"><option value="">--请选择--</option></select></label></div></div>')
+                            .appendTo($("#table3_wrapper div:first"))
+                            .on('change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(value).val()
+                                );
+
+                                for (var n = 0; n < selectValues.length; n++) {
+                                    if (selectValues[n].includes(name)) {
+                                        selectValues.splice(n, 1);
+                                    }
+                                }
+                                selectValues.push(name + ':' + val);
+                                column.search(val ? '^' + val + '$' : '', true, false).draw();
+                                csvExport(selectValues, dateType);
+                            });
+
+                        if (i == 3) {
+                            column.data().unique().sort().each(function (d, j) {
+                                $(selectValue).append('<option value="' + d + '">' + d + '</option>')
+                            });
+                        }
+                        if (i ==1) {
+                            //加载城市或者省份名称
+                            for(var g = 0; g< data.cityNames.length; g++){
+                                $(selectValue).append('<option value="' + data.cityNames[g][0] + '">' + data.cityNames[g][0] + '</option>');
+                            }
+                        }
+                    }
+
 				});
 			}
 		});
@@ -185,12 +244,63 @@
 		tableQuery({
 			"aaData" : data.dataAreaOs,
 			"id" : "#table4",
-            "order": [[2, "desc"]]
-		});
-		csvExport("", dateType);
+            "order": [[2, "desc"]],
+            "sDom": "<'row'<'col-sm-4'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
+            initComplete: function () {
+                var api = this.api();
+                var selectValues = new Array();
+                api.columns().indexes().flatten().each(function (i) {
+                    var column = api.column( i );
+                    var filterName = "城市";
+                    var name = "city_id";
+                    if (i == 1 || i == 3) {
+                        if (i == 3) {
+                            filterName = "os";
+                            name = "term_os";
+                        }
 
+                        var value = "#table4_wrapper div:first div#select" + i + " select";
+                        var selectValue = "#table4_wrapper div#select" + i + " select";
+
+                        var select = $('<div id="select' + i + '" class="col-sm-4"><div class="dataTables_filter"><label><i class="fa fa-search">&nbsp;' + filterName + '&nbsp;</i><select name="optValue" style="width: 120px"><option value="">--请选择--</option></select></label></div></div>')
+                            .appendTo($("#table4_wrapper div:first"))
+                            .on('change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(value).val()
+                                );
+
+                                for (var n = 0; n < selectValues.length; n++) {
+                                    if (selectValues[n].includes(name)) {
+                                        selectValues.splice(n, 1);
+                                    }
+                                }
+                                selectValues.push(name + ':' + val);
+                                column.search(val ? '^' + val + '$' : '', true, false).draw();
+                                csvExport(selectValues, dateType);
+                            });
+
+                        if (i == 3) {
+                            column.data().unique().sort().each(function (d, j) {
+                                $(selectValue).append('<option value="' + d + '">' + d + '</option>')
+                            });
+                        }
+                        if (i ==1) {
+                            //加载城市或者省份名称
+                            for(var g = 0; g< data.cityNames.length; g++){
+                                $(selectValue).append('<option value="' + data.cityNames[g][0] + '">' + data.cityNames[g][0] + '</option>');
+                            }
+                        }
+                    }
+
+                });
+            }
+
+		});
+
+		//初始化Echarts显示图表的容器
+        var chart = echarts.init(document.getElementById('provinceDiv'), 'macarons');
+        var option = $.parseJSON(data.chartOption);
 		var ecConfig = echarts.config;
-        var curIndx = 0;
         var mapType = [
             'china',
             // 23个省
@@ -207,35 +317,45 @@
             '香港', '澳门'
         ];
         chart.on(ecConfig.EVENT.MAP_SELECTED, function (param){
-            var len = mapType.length;
-            var mt = mapType[curIndx % len];
-            if (mt == 'china') {
-                // 全国选择时指定到选中的省份
-                var selected = param.selected;
-                for (var i in selected) {
-                    if (selected[i]) {
-                        mt = i;
-                        while (len--) {
-                            if (mapType[len] == mt) {
-                                curIndx = len;
-                            }
-                        }
-                        break;
-                    }
+
+            var mt = mapType[0];
+			// 全国选择时指定到选中的省份
+			var selected = param.selected;
+			for (var i in selected) {
+				if (selected[i]) {
+					for (var j = 0; j < mapType.length; j++) {
+						if (i == mapType[j]){
+							mt = i;
+							break;
+						}else {
+                            mt = "china";
+						}
+					}
+					break;
+				}
+			}
+
+            var startDate = $("#start_dt").val();
+            var endDate = $("#end_dt").val();
+            if (dateType == "week" || dateType == "quarter") {
+				startDate = $("#start_dt2").val();
+                endDate = $("#end_dt2").val();
+			}
+            var ajaxOption = {
+                url: window.location.href + "?start_dt=" + startDate + "&end_dt="
+                + endDate + "&dateType=" + dateType + "&mapType=" + mt,
+                success: function (data) {
+                    dataTableExchange(data, dateType);
                 }
-                option.tooltip.formatter = '点击返回全国<br/>{b}';
-            }
-            else {
-                curIndx = 0;
-                mt = 'china';
-                option.tooltip.formatter = '点击进入该省<br/>{b}';
-            }
-            option.series[0].mapType = mt;
-            option.title.subtext = mt + ' （点击切换）';
-            chart.setOption(option, true);
+            };
+            commonAjax(ajaxOption);
+
         });
 
-		chart.setOption(option);
+		chart.setOption(option, true);
+
+        //初始化导出表格的请求链接
+        csvExport("", dateType);
 	}
 
 </script>

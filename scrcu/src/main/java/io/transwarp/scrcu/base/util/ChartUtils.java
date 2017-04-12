@@ -342,15 +342,11 @@ public class ChartUtils {
      * @param maxValue 最大值
      * @return
      */
-    public static String genMapChart(String name, List<Object> dataList, Integer maxValue) {
+    public static String genMapChart(String name, String mapType, List<Object> dataList, Integer maxValue) {
 
         EnhancedOption option = new EnhancedOption();
         option.setBackgroundColor("#E0EAEC");
-        Grid grid = new Grid();
-        grid.x("30").x2("5").y("20").y2("30");
-        grid.borderWidth(0);
-        option.setGrid(grid);
-        option.grid(grid);
+
         Legend legend = new Legend();
         legend.x("right").data(name);
         option.legend(legend);
@@ -380,13 +376,12 @@ public class ChartUtils {
         }
         map.itemStyle().normal().label().show(true);
         map.itemStyle().emphasis().label().show(true);
-        map.setMapType("china");
+        map.setMapType(mapType);
         map.setSelectedMode(SelectedMode.single);
         map.setName(name);
 
-        option.tooltip().formatter("点击进入该省");
         option.title().text("全国34个省市自治区").x(X.left).y(Y.top);
-        option.title().subtext("china （点击切换）");
+        option.title().subtext("（点击切换）");
         option.series(map);
         return GsonUtil.format(option);
 

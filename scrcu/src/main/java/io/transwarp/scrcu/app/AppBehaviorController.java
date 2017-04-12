@@ -99,9 +99,10 @@ public class AppBehaviorController extends BaseController {
 
             // 得到查询条件
             String dateType = getPara("dateType");
+            String mapType = getPara("mapType");
             String condition = InceptorUtil.getQueryCondition(getRequest());
 
-            JSONObject result = AppBehaviorService.area(dateType, condition);
+            JSONObject result = AppBehaviorService.area(dateType, mapType, condition);
             renderJson(result);
         }
     }

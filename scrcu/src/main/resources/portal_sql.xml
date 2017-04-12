@@ -207,7 +207,7 @@
 	<sqlGroup name="portal_area_day_chart">
 		<sql id="name">地域分布按天汇总地图数据</sql>
 		<sql id="header">城市,访客</sql>
-		<sql id="sql">select city, cast(sum(uv) as int) as uv from bdhbs.th_log_web_usr_area_orc_day where SQL_CONDITION city!='未知' AND cnt_type='99'
+		<sql id="sql">select city, cast(sum(uv) as int) as uv from bdhbs.th_log_web_usr_area_orc_day where SQL_CONDITION city!='未知' and city!='中国' AND cnt_type='99'
 			group by city order by uv desc
 		</sql>
 	</sqlGroup>
@@ -215,7 +215,7 @@
 	<sqlGroup name="portal_area_month_chart">
 		<sql id="name">地域分布按月汇总地图数据</sql>
 		<sql id="header">城市,访客</sql>
-		<sql id="sql">select city, cast(sum(uv) as int) as uv from bdhbs.th_log_web_usr_area_orc_sum_day where SQL_CONDITION and city!='未知' AND city !=
+		<sql id="sql">select city, cast(sum(uv) as int) as uv from bdhbs.th_log_web_usr_area_orc_sum_day where SQL_CONDITION and city!='未知' and city!='中国' AND city !=
 			'999' AND cnt_type='2' group by city order by uv desc
 		</sql>
 	</sqlGroup>
@@ -223,7 +223,7 @@
 	<sqlGroup name="portal_area_quarter_chart">
 		<sql id="name">地域分布按季汇总地图数据</sql>
 		<sql id="header">城市,访客</sql>
-		<sql id="sql">select city, cast(sum(uv) as int) as uv from bdhbs.th_log_web_usr_area_orc_sum_day where SQL_CONDITION and city!='未知' AND city !=
+		<sql id="sql">select city, cast(sum(uv) as int) as uv from bdhbs.th_log_web_usr_area_orc_sum_day where SQL_CONDITION and city!='未知' and city!='中国' AND city !=
 			'999' AND cnt_type='3' group by city order by uv desc
 		</sql>
 	</sqlGroup>
@@ -231,19 +231,22 @@
 	<sqlGroup name="portal_area_year_chart">
 		<sql id="name">地域分布按年汇总地图数据</sql>
 		<sql id="header">城市,访客</sql>
-		<sql id="sql">select city, cast(sum(uv) as int) as uv from bdhbs.th_log_web_usr_area_orc_sum_day where SQL_CONDITION and city!='未知' AND city !=
+		<sql id="sql">select city, cast(sum(uv) as int) as uv from bdhbs.th_log_web_usr_area_orc_sum_day where SQL_CONDITION and city!='未知' and city!='中国' AND city !=
 			'999' AND cnt_type='4' group by city order by uv desc
 		</sql>
 	</sqlGroup>
 
-	<!--<sqlGroup name="portal_siteAnalysis_max_uv">-->
-		<!--<sql id="name">地域分布访客数最大值</sql>-->
-		<!--<sql id="header"></sql>-->
-		<!--<sql id="sql">select max(maxUv) from (select cast(sum(uv) as int) as maxUv from bdhbs.th_log_web_usr_area_orc_day where SQL_CONDITION city != '四川' group by city)-->
-		<!--</sql>-->
-	<!--</sqlGroup>-->
-	<!--地域分布  end -->
-	
+	<sqlGroup name="province_name_all">
+		<sql id="name">省份</sql>
+		<sql id="header"></sql>
+		<sql id="sql">select city_name from bddim.td_china_city_all where city_type = '1'</sql>
+	</sqlGroup>
+	<sqlGroup name="city_name_all">
+		<sql id="name">四川省城市</sql>
+		<sql id="header"></sql>
+		<sql id="sql">select city_name from bddim.td_china_city_all where city_type = '0'</sql>
+	</sqlGroup>
+
 	<!-- 用户等级 start -->
 	<sqlGroup name="portal_userAnalysis_userLevel">
 		<sql id="name">用户等级</sql>

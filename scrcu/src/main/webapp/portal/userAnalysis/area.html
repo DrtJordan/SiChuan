@@ -25,7 +25,7 @@
         </header>
 
         <div class="table-responsive">
-            <table id="table" class="table_select_row datatables table table-striped m-b-none"
+            <table id="table1" class="table_select_row datatables table table-striped m-b-none"
                    style="border-top: 0px"
                    data-ride="datatables">
                 <thead>
@@ -72,18 +72,37 @@
      */
     function dataTableExchange(data, dateType) {
 
-        var chart = echarts.init(
-            document.getElementById('provincediv'), 'macarons');
-        var chartOption = data.chartOption;
-        var option = $.parseJSON(chartOption);
-
         tableQuery({
-            "aaData": data.areaData
-        });
-        csvExport("", dateType);
+            "aaData": data.areaData,
+            "id": "#table1",
+            "order": [[2, "desc"]],
+            "sDom": "<'row'<'col-sm-6'l>r>t<'row'<'col-sm-4'i><'col-sm-8'p>>",
+            initComplete: function () {
 
+                var api = this.api();
+                var column = api.column(1);
+                var select = $('<div id="select" class="col-sm-6"><div class="dataTables_filter"><label><i class="fa fa-search">&nbsp;城市&nbsp;</i><select name="optValue" style="width: 120px"><option value="">--请选择--</option></select></label></div></div>')
+                    .appendTo($("#table1_wrapper div:first"))
+                    .on('change', function () {
+                        var selectValues = new Array();
+                        var val = $.fn.dataTable.util.escapeRegex($("#table1_wrapper div:first div#select select").val());
+                        column.search(val ? '^' + val + '$' : '', true, false).draw();
+                        selectValues.push("city:" + val);
+                        csvExport(selectValues, dateType);
+                    });
+
+                //加载城市或者省份名称
+                for(var g = 0; g< data.cityNames.length; g++){
+                    $("#table1_wrapper div#select select").append('<option value="' + data.cityNames[g][0] + '">' + data.cityNames[g][0] + '</option>');
+                }
+
+            }
+        });
+
+        //初始化Echarts显示图表的容器
+        var chart = echarts.init(document.getElementById('provincediv'), 'macarons');
+        var option = $.parseJSON(data.chartOption);
         var ecConfig = echarts.config;
-        var curIndx = 0;
         var mapType = [
             'china',
             // 23个省
@@ -100,35 +119,45 @@
             '香港', '澳门'
         ];
         chart.on(ecConfig.EVENT.MAP_SELECTED, function (param){
-            var len = mapType.length;
-            var mt = mapType[curIndx % len];
-            if (mt == 'china') {
-                // 全国选择时指定到选中的省份
-                var selected = param.selected;
-                for (var i in selected) {
-                    if (selected[i]) {
-                        mt = i;
-                        while (len--) {
-                            if (mapType[len] == mt) {
-                                curIndx = len;
-                            }
+
+            var mt = mapType[0];
+            // 全国选择时指定到选中的省份
+            var selected = param.selected;
+            for (var i in selected) {
+                if (selected[i]) {
+                    for (var j = 0; j < mapType.length; j++) {
+                        if (i == mapType[j]){
+                            mt = i;
+                            break;
+                        }else {
+                            mt = "china";
                         }
-                        break;
                     }
+                    break;
                 }
-                option.tooltip.formatter = '点击返回全国<br/>{b}';
             }
-            else {
-                curIndx = 0;
-                mt = 'china';
-                option.tooltip.formatter = '点击进入该省<br/>{b}';
+
+            var startDate = $("#start_dt").val();
+            var endDate = $("#end_dt").val();
+            if (dateType == "quarter") {
+                startDate = $("#start_dt2").val();
+                endDate = $("#end_dt2").val();
             }
-            option.series[0].mapType = mt;
-            option.title.subtext = mt + ' （点击切换）';
-            chart.setOption(option, true);
+            var ajaxOption = {
+                url: window.location.href + "?start_dt=" + startDate + "&end_dt="
+                + endDate + "&dateType=" + dateType + "&mapType=" + mt,
+                success: function (data) {
+                    dataTableExchange(data, dateType);
+                }
+            };
+            commonAjax(ajaxOption);
+
         });
 
-        chart.setOption(option);
+        chart.setOption(option, true);
+
+        //初始化导出表格的请求链接
+        csvExport("", dateType);
     }
 
 </script>

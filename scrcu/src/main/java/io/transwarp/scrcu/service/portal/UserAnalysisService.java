@@ -33,38 +33,49 @@ public class UserAnalysisService {
      * @param condition 查询条件
      * @return area json
      */
-    public static JSONObject area(String dateType, String condition) {
+    public static JSONObject area(String dateType, String mapType, String condition) {
 
         // 执行查询
         List<List<String>> areaData = new ArrayList<>();
         List<List<String>> areaChart = new ArrayList<>();
+        List<List<String>> cityNames = new ArrayList<>();
+
+        if (mapType == null || mapType.equals("china")) {
+            condition = condition + " city_outer = '1' and ";
+            cityNames = InceptorUtil.query(SqlKit.propSQL(SQLConfig.province_name_all));
+        } else {
+            condition = condition + " city_outer = '0' and ";
+            cityNames = InceptorUtil.query(SqlKit.propSQL(SQLConfig.city_name_all));
+        }
+
         if (dateType != null) {
             if (dateType.equals("day")) {
                 // 执行查询
                 areaData = InceptorUtil
                         .queryCache(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_area_query_day, condition), false);
-                areaChart = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.portal_area_day_chart, condition), false);
+                areaChart = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_area_day_chart, condition));
+
             }
 
             if (dateType.equals("month")) {
                 // 执行查询
                 areaData = InceptorUtil
                         .queryCache(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_area_query_month, condition), false);
-                areaChart = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.portal_area_month_chart, condition), false);
+                areaChart = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_area_month_chart, condition));
             }
 
             if (dateType.equals("quarter")) {
                 // 执行查询
                 areaData = InceptorUtil
                         .queryCache(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_area_query_quarter, condition), false);
-                areaChart = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.portal_area_quarter_chart, condition), false);
+                areaChart = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_area_quarter_chart, condition));
             }
 
             if (dateType.equals("year")) {
                 // 执行查询
                 areaData = InceptorUtil
                         .queryCache(SqlKit.propSQL(SQLConfig.portal_siteAnalysis_area_query_year, condition), false);
-                areaChart = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.portal_area_year_chart, condition), false);
+                areaChart = InceptorUtil.query(SqlKit.propSQL(SQLConfig.portal_area_year_chart, condition));
             }
         }
 
@@ -84,9 +95,10 @@ public class UserAnalysisService {
             maxValue = Integer.valueOf(areaChart.get(0).get(1));
         }
         //生成四川省地域分布图
-        String areaMap = ChartUtils.genMapChart(res.get("portal.visitor"), dataList, maxValue);
+        String areaMap = ChartUtils.genMapChart(res.get("portal.visitor"), mapType, dataList, maxValue);
         result.put("chartOption", areaMap);
         result.put("areaData", areaData);
+        result.put("cityNames", cityNames);
 
         return result;
     }

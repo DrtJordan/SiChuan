@@ -30,9 +30,10 @@ public class UserAnalysisController extends BaseController {
             // 得到查询条件
             String condition = InceptorUtil.getQueryCondition(getRequest());
             String dateType = getPara("dateType");
+            String mapType = getPara("mapType");
 
             //获取地域分布的json数据
-            JSONObject result = UserAnalysisService.area(dateType, condition);
+            JSONObject result = UserAnalysisService.area(dateType, mapType, condition);
 
             renderJson(result);
 
