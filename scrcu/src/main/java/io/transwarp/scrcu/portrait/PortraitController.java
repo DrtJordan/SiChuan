@@ -761,7 +761,7 @@ public class PortraitController extends BaseController {
                 }
             }
         }
-        result.put("relation", ChartUtils.getForce(name, pay, receive));
+        result.put("relation", ChartUtils.getForce(name, receive, pay));
         // 类别信息
         List<Map<String, Object>> datatransfer = InceptorUtil.mapQuery(
                 SqlKit.propSQL(SQLConfig.portrait_relation_group.toString()) + " where user_id= '" + userId + "'",

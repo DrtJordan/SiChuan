@@ -9,7 +9,7 @@
 <section id="content">
     <!-- 引入日期查询  -->
     <#include "/common/_dateQuery.html"/>
-
+    <div hidden id="gradeChartDiv" style="height: 220px"></div>
     <div class="panel panel-default table-responsive clear">
         <header class="panel-heading">
             <i class="icon-list padder-xs"></i>用户活跃等级列表
@@ -88,6 +88,14 @@
      * @param dateType 日期类型：day,week,month,quarter,year
      */
     function dataTableExchange(data, dateType) {
+
+        $("#gradeChartDiv").hide();
+        if (data.chartOption != null){
+            $("#gradeChartDiv").show();
+            var gradeChart = echarts.init(document.getElementById('gradeChartDiv'), 'macarons');
+            gradeChart.setOption($.parseJSON(data.chartOption));
+        }
+
         tableQuery({
             "aaData": data.activeLevelData,
             "id": "#table1",

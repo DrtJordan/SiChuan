@@ -1,9 +1,12 @@
 package io.transwarp.scrcu.tag;
 
 import com.alibaba.fastjson.JSONObject;
+import com.jfinal.i18n.I18n;
+import com.jfinal.i18n.Res;
 import io.transwarp.scrcu.base.controller.BaseController;
 import io.transwarp.scrcu.base.inceptor.InceptorUtil;
 import io.transwarp.scrcu.base.util.BaseUtils;
+import io.transwarp.scrcu.base.util.ChartUtils;
 import io.transwarp.scrcu.base.util.ConditionUtil;
 import io.transwarp.scrcu.base.util.SQLConfig;
 import io.transwarp.scrcu.sqlinxml.SqlKit;
@@ -21,6 +24,8 @@ import java.util.Map;
  */
 @RequiresAuthentication
 public class TagController extends BaseController {
+
+    Res res = I18n.use("i18n", "zh_CN");
 
     //调用SQL，循环执行插入语句。
     public void rangToRangCommon(Object config) {
@@ -558,6 +563,9 @@ public class TagController extends BaseController {
     @RequiresPermissions("/tag/activeLevel")
     public void activeLevel(){
         if (BaseUtils.isAjax(getRequest())) {
+            List<String> nameList = new ArrayList<>();
+            List<Integer> valueList = new ArrayList<>();
+            String[] names = new String[]{"动账积分", "任务积分", "查询积分", "管理积分", "收藏积分", "添加好友积分", "用户认证积分", "登录积分", "在线积分", "评论积分"};
             // 得到时间查询条件
             String condition = InceptorUtil.getDateCondition(getRequest());
             String param = getPara("param");
@@ -567,6 +575,15 @@ public class TagController extends BaseController {
             // 执行查询
             List<List<String>> activeLevelData = InceptorUtil.query(SqlKit.propSQL(SQLConfig.active_level_day, condition));
             JSONObject listResult = new JSONObject();
+            if (param != null && !param.isEmpty() && activeLevelData.size() != 0){
+                for (int i = 0; i < names.length; i++){
+                    nameList.add(names[i]);
+                    valueList.add(Integer.valueOf(activeLevelData.get(0).get(i + 1)));
+                }
+                listResult.put("chartOption", ChartUtils.genRadar(activeLevelData.get(0).get(0) + res.get("portrait.grade"), nameList, valueList));
+            }else {
+                listResult.put("chartOption", null);
+            }
             listResult.put("activeLevelData", activeLevelData);
             renderJson(listResult);
         }

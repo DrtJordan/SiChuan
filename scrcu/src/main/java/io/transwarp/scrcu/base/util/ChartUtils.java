@@ -425,6 +425,14 @@ public class ChartUtils {
                 force.nodes(node);
             }
 
+            for (Object object : dataList) {
+                Link link = new Link();
+                link.setSource(object);
+                link.setTarget(name);
+                link.setWeight(1);
+                force.links(link);
+            }
+
             for (Object object : dataList1) {
                 Node node = new Node();
                 node.setCategory(2);
@@ -438,14 +446,6 @@ public class ChartUtils {
                 link.setSource(name);
                 link.setTarget(object);
                 link.setWeight(3);
-                force.links(link);
-            }
-
-            for (Object object : dataList) {
-                Link link = new Link();
-                link.setSource(object);
-                link.setTarget(name);
-                link.setWeight(1);
                 force.links(link);
             }
         }
@@ -509,9 +509,7 @@ public class ChartUtils {
         option.calculable(true);
         Polar polar = new Polar();
         int count = 0;
-        for (int i : value)
-
-        {
+        for (int i : value) {
             count = count / 4 * 3;
             if (i > count) {
                 count = i;
