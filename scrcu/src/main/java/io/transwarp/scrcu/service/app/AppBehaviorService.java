@@ -390,6 +390,14 @@ public class AppBehaviorService {
         List<List<String>> cityNames = new ArrayList<>();
         JSONObject result = new JSONObject();
 
+        if (mapType == null || mapType.equals("china")) {
+            condition = condition + " city_outer = '1' and ";
+            cityNames = InceptorUtil.query(SqlKit.propSQL(SQLConfig.province_name_all));
+        } else {
+            condition = condition + " city_outer = '0' and ";
+            cityNames = InceptorUtil.query(SqlKit.propSQL(SQLConfig.city_name_all));
+        }
+
         if (dateType != null) {
             if (dateType.equals("day")) {
                 dataCharts = InceptorUtil.queryCache(SqlKit.propSQL(SQLConfig.app_area_day_chart, condition), false);
@@ -426,12 +434,6 @@ public class AppBehaviorService {
                 dataAreaChannel = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_chanel_year, condition));
                 dataAreaOs = InceptorUtil.query(SqlKit.propSQL(SQLConfig.app_area_os_year, condition));
             }
-        }
-
-        if (mapType == null || mapType.equals("china")) {
-            cityNames = InceptorUtil.query(SqlKit.propSQL(SQLConfig.province_name_all));
-        } else {
-            cityNames = InceptorUtil.query(SqlKit.propSQL(SQLConfig.city_name_all));
         }
 
         // 返回结果

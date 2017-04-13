@@ -137,10 +137,6 @@
 
             var startDate = $("#start_dt").val();
             var endDate = $("#end_dt").val();
-            if (dateType == "quarter") {
-                startDate = $("#start_dt2").val();
-                endDate = $("#end_dt2").val();
-            }
             var ajaxOption = {
                 url: window.location.href + "?start_dt=" + startDate + "&end_dt="
                 + endDate + "&dateType=" + dateType + "&mapType=" + mt,

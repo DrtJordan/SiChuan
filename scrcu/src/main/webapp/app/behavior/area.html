@@ -335,9 +335,9 @@
 
             var startDate = $("#start_dt").val();
             var endDate = $("#end_dt").val();
-            if (dateType == "week" || dateType == "quarter") {
-				startDate = $("#start_dt2").val();
-                endDate = $("#end_dt2").val();
+            if (dateType == "week") {
+				startDate = $("#start_dt2").val().replace("W", "");
+                endDate = $("#end_dt2").val().replace("W", "");
 			}
             var ajaxOption = {
                 url: window.location.href + "?start_dt=" + startDate + "&end_dt="

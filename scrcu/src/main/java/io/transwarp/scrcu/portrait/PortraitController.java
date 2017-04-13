@@ -26,7 +26,6 @@ import java.util.*;
 @RequiresAuthentication
 public class PortraitController extends BaseController {
 
-    Logger log = Logger.getLogger(getClass());
     Res res = I18n.use("i18n", "zh_CN");
     public static Map<String, Map<String, Object>> allUserTagMap = new HashMap<String, Map<String, Object>>();
     public static Map<String, Map<String, Object>> allTagMap = new HashMap<>();
@@ -41,7 +40,6 @@ public class PortraitController extends BaseController {
     /**
      * 用户画像标签首页
      */
-    @SuppressWarnings("unchecked")
     public void home() {
 
         if (BaseUtils.isAjax(getRequest())) {
@@ -248,6 +246,7 @@ public class PortraitController extends BaseController {
             }
             result.put("keyWord", ChartUtils.genWordCloud(res.get("portrait.keyWord"), keyWordList));
 
+            // 标签比例
             Map<String, List<Map<String, Object>>> rateMap = new HashMap<String, List<Map<String, Object>>>();
             List<String> types = new ArrayList<String>();
             types.add("inn_org_zone_cd");
@@ -396,8 +395,6 @@ public class PortraitController extends BaseController {
             result.put("pie", tags.size());
             if (tags != null && !tags.isEmpty()) {
                 result.put("word", genString(tags, codes, have, allcount));
-
-                // 群体主要标签start
                 // 标签比例
                 Map<String, List<Map<String, Object>>> tagMap = new HashMap<String, List<Map<String, Object>>>();
                 List<String> types = new ArrayList<String>();
@@ -479,7 +476,7 @@ public class PortraitController extends BaseController {
             groupList = new ArrayList<List<Tag>>();
             CacheKit.put("inceptor", "groupList", groupList);
         }
-        /* 标签检索列表历史去重
+        //标签检索列表历史去重
         for (int i = 0; i < groupList.size() - 1; i++) {
             for (int j = groupList.size() - 1; j > i; j--) {
                 if (groupList.get(j).equals(groupList.get(i))) {
@@ -487,7 +484,6 @@ public class PortraitController extends BaseController {
                 }
             }
         }
-        */
         setAttr("groupList", groupList);
     }
 
