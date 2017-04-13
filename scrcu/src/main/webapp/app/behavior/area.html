@@ -304,7 +304,7 @@
         var mapType = [
             'china',
             // 23个省
-            '广东', '青海', '四川', '海南', '陕西',
+            '四川', '广东', '青海', '海南', '陕西',
             '甘肃', '云南', '湖南', '湖北', '黑龙江',
             '贵州', '山东', '江西', '河南', '河北',
             '山西', '安徽', '福建', '浙江', '江苏',
@@ -323,14 +323,11 @@
 			var selected = param.selected;
 			for (var i in selected) {
 				if (selected[i]) {
-                    //此处剔除香港、澳门、台湾的详细地图
-					for (var j = 0; j < mapType.length - 3; j++) {
-						if (i == mapType[j]){
-							mt = i;
-							break;
-						}else {
-                            mt = "china";
-						}
+                    //此处只显示四川的的详细地图
+					if (i == '四川') {
+					    mt = i;
+					} else {
+					    mt = "china";
 					}
 					break;
 				}
