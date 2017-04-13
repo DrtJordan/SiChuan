@@ -312,7 +312,7 @@
 	<sqlGroup name="active_level_day">
 		<sql id="name">用户活跃等级</sql>
 		<sql id="header">用户ID</sql>
-		<sql id="sql">select user_id, dz_grade, task_grade, search_grade, manager_day_grade, favorite_grade, add_friend_grade, cert_grade, login_grade, zaixian_time_grade, comment_grade, all_grade, usr_active_rank FROM bdapp.tp_usr_all_day_grade_orc_int_day SQL_CONDITION limit 1000</sql>
+		<sql id="sql">select user_id, dz_grade, task_grade, search_grade, manager_day_grade, favorite_grade, add_friend_grade, cert_grade, login_grade, zaixian_time_grade, comment_grade, all_grade, usr_active_rank FROM bdapp.tp_usr_all_day_grade_orc_int_day SQL_CONDITION order by all_grade desc limit 1000</sql>
 	</sqlGroup>
 
 	<!--账单·········start-->

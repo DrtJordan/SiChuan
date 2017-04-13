@@ -98,7 +98,11 @@ public class PortraitController extends BaseController {
             List<Object> colonyList = new ArrayList<Object>();
             if (colony != null) {
                 for (Map<String, Object> m : colony) {
-                    Data data = new Data(m.get("label_desc").toString(), m.get("total"));
+                    String[][] cNames = new String[][]{m.get("label_desc").toString().split("-")};
+                    Data data = new Data();
+                    //名称过长换行显示
+                    data.setName(cNames[0][0] + "\n▪\n" + cNames[0][1]);
+                    data.setValue(m.get("total"));
                     colonyList.add(data);
                 }
             }
@@ -110,12 +114,14 @@ public class PortraitController extends BaseController {
             List<Integer> regYearList = new ArrayList<Integer>();
             if (regYears != null) {
                 for (Map<String, Object> m : regYears) {
+                    /* //名称过长换行显示
                     String[][] s = new String[][]{m.get("label_desc").toString().split("（")};
                     if (s[0].length > 1) {
                         keyList.add(s[0][0] + "\n" + "（" + s[0][1]);
                     } else {
                         keyList.add(s[0][0]);
-                    }
+                    }*/
+                    keyList.add(m.get("label_desc").toString());
                     regYearList.add(InceptorUtil.getInt("total", m));
                 }
             }
