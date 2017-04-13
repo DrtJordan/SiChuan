@@ -368,12 +368,18 @@ public class ChartUtils {
         option.toolbox(tb);
 
         Map map = new Map("Map");
-        for (Object aDataList : dataList) {
-            Data ts = (Data) aDataList;
-            Data data = new Data(ts.getName());
-            data.value(ts.getValue());
+        if (dataList.size() > 0) {
+            for (Object aDataList : dataList) {
+                Data ts = (Data) aDataList;
+                Data data = new Data(ts.getName());
+                data.value(ts.getValue());
+                map.data(data);
+            }
+        } else {
+            Data data = new Data();
             map.data(data);
         }
+
         map.itemStyle().normal().label().show(true);
         map.itemStyle().emphasis().label().show(true);
         map.setMapType(mapType);

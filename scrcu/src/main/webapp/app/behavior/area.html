@@ -286,7 +286,7 @@
                         }
                         if (i ==1) {
                             //加载城市或者省份名称
-                            for(var g = 0; g< data.cityNames.length; g++){
+                            for(var g = 0; g < data.cityNames.length; g++){
                                 $(selectValue).append('<option value="' + data.cityNames[g][0] + '">' + data.cityNames[g][0] + '</option>');
                             }
                         }
@@ -353,7 +353,7 @@
 
         });
 
-		chart.setOption(option, true);
+		chart.setOption(option);
 
         //初始化导出表格的请求链接
         csvExport("", dateType);

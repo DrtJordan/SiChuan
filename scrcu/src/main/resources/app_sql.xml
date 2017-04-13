@@ -2125,7 +2125,7 @@
         <sql id="name">地域分布按月汇总地图数据</sql>
         <sql id="header">城市,访客</sql>
         <sql id="sql">select city_id, sum(new_usr_cnt) as new_usr_cnt from
-            bdhbs.th_log_app_usr_area_chl_orc_sum_day where SQL_CONDITION and city_id!='未知' and city_id!='中国' AND city_id !=
+            bdhbs.th_log_app_usr_area_chl_orc_sum_day where SQL_CONDITION city_id!='未知' and city_id!='中国' AND city_id !=
             '999' AND cnt_type='2' group by city_id order by new_usr_cnt desc
         </sql>
     </sqlGroup>
